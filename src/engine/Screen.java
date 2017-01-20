@@ -1,0 +1,54 @@
+package engine;
+
+import java.awt.Graphics;
+
+public class Screen {
+	private GameObject gameObject;
+	private Screen nextScreen;
+	private boolean moveScreen;
+	
+	public Screen(GameObject gameObject) {
+		this.gameObject = gameObject;
+		this.moveScreen = false;
+	}
+	
+	protected void setNextScreen(Screen nextScreen) {
+		this.nextScreen = nextScreen;
+	}
+	
+	protected Screen getNextScreen() {
+		return this.nextScreen;
+	}
+	
+	protected void moveScreen() {
+		moveScreen = true;
+	}
+	
+	protected boolean shouldMoveScreen() {
+		return moveScreen;
+	}
+	
+	protected GameObject getGameObject() {
+		return gameObject;
+	}
+	
+	protected int getScreenWidth() {
+		return (int) getGameObject().getWidth();
+	}
+	
+	protected int getScreenHeight() {
+		return (int) getGameObject().getHeight();
+	}
+	
+	public void update() {
+		
+	}
+	
+	public void draw(Graphics context) {
+		
+	}
+	
+	public void dispose() {
+		
+	}
+}

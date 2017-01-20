@@ -1,0 +1,215 @@
+package engine;
+
+import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.DisplayMode;
+import java.awt.Graphics;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
+
+import javax.swing.JFrame;
+
+import screens.TitleScreen;
+
+/**
+ * This is the initial game engine class which handles the running of the game
+ * @author bobbydilley
+ *
+ */
+public class Engine extends Canvas implements Runnable {
+	private static final long serialVersionUID = 1L;
+	private JFrame frame;
+	private int width = 800;
+	private int height = 600;
+	private boolean fullScreen;
+	private String name = "Game";
+	private boolean running = false;
+	private int tickCount = 0;
+	private GameObject gameObject = new GameObject(width, height);
+	private Screen screen = new TitleScreen(gameObject);
+	private int opac = 255;
+	private boolean changing = false;
+	
+	/**
+	 * The Initial engine constructor which will start the engine
+	 */
+	public Engine(String name, boolean fullScreen) {
+		this.fullScreen = fullScreen;
+		this.name = name;
+		
+		// Make sure the window is not movable
+		setMinimumSize(new Dimension(width, height));
+		setMaximumSize(new Dimension(width, height));
+		setPreferredSize(new Dimension(width, height));
+
+		// Create the JFrame
+		frame = new JFrame(name);
+
+		// Set the close operation and layout
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new BorderLayout());
+
+		// Add our canvas to the JFrame
+		frame.add(this, BorderLayout.CENTER);
+
+		// Sets the frame so the sizes are above / at the correct size
+		frame.pack();
+
+		// Stop the frame being resized
+		frame.setResizable(false);
+		
+		// Centre the frame on your computer
+		frame.setLocationRelativeTo(null);
+
+		// Test to see if we can support full screen mode
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsDevice device = env.getDefaultScreenDevice();
+		
+		// If full screen is set, jump into full screen mode now
+		if(device.isDisplayChangeSupported() && fullScreen) {
+			device.setDisplayMode(new DisplayMode(width, height, 32, DisplayMode.REFRESH_RATE_UNKNOWN));
+			device.setFullScreenWindow(frame); 
+		}
+		
+		// Show the frame
+		frame.setVisible(true);
+	}
+
+	/**
+	 * This will start the thread running the engine
+	 */
+	public void start() {
+		running = true;
+		new Thread(this).start();
+	}
+
+	/**
+	 * This will stop the thread running the engine
+	 */
+	public void stop() {
+		running = false;
+	}
+
+	/**
+	 * This is called when the thread has started
+	 */
+	public void run() {
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		long lastTime = System.nanoTime();
+		double nsPerTick = 1000000000/60D;
+		
+		int ticks = 0;
+		int frames = 0;
+		
+		long lastTimer = System.currentTimeMillis();
+		double delta = 0;
+		
+		while(running) {
+			long now = System.nanoTime();
+			delta += (now - lastTime) / nsPerTick;
+			lastTime = now;
+			
+			// Set to true to limit to 60fps for testing
+			boolean shouldRender = true;
+			
+			while(delta >= 1) {
+				ticks++;
+				tick();
+				delta -= 1;
+				shouldRender = true;
+			}
+			
+			// Limit rendering
+			try {
+				Thread.sleep(2);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(shouldRender) {
+				frames++;
+				render();
+			}
+			
+			
+			if(System.currentTimeMillis() - lastTimer >= 1000) {
+				lastTimer += 1000;
+				System.out.println("Ticks: " + ticks + ", Frames: " + frames);
+				frames = 0;
+				ticks = 0;
+			}
+			
+		}
+	}
+	
+	/**
+	 * This is called every time a tick update event fires
+	 */
+	public void tick() {
+		tickCount++;
+		
+		if(screen.shouldMoveScreen()) {
+			changing = true;
+		}
+		
+		if(changing && opac >= 255) {
+			Screen nextScreen = screen.getNextScreen();
+			screen.dispose();
+			screen = nextScreen;
+			changing = false;
+			System.out.println("Screen Moved");
+		}
+		
+		screen.update();
+	}
+	
+	/**
+	 * This is called every time a render update event fires
+	 */
+	public void render() {
+		BufferStrategy bs = getBufferStrategy();
+		if(bs == null) {
+			createBufferStrategy(3);
+			return;
+		}
+		
+		Graphics g = bs.getDrawGraphics();
+		
+		g.setColor(Color.GREEN);
+		g.fillRect(0, 0, getWidth(), getHeight());
+
+		screen.draw(g);
+		
+		// This is a layer over the top which is used to fade between scenes
+		g.setColor(new Color(0, 0, 0, Math.max(Math.min(opac, 255), 0)));
+		
+		// Sorts the fading of the scenes
+		if(opac > 0 && !changing) {
+			opac-=2;
+		}
+		
+		if(opac < 255 && changing) {
+			opac+=2;
+		}
+		
+		// Adds the rectangle over the top
+		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		// Remove and dispose of them
+		g.dispose();
+		bs.show();
+				
+	}
+}
