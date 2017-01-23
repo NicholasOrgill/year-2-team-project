@@ -18,12 +18,20 @@ public class CheckedSprite extends Sprite {
 
 	@Override
 	public void update() {
+		if(getX() == -size) {
+			setX(-1);
+		}
+		
+		if(getY() == -size) {
+			setY(-1);
+		}
+		
 		setX(getX() - 1);
 		setY(getY() - 1);
 	}
 	@Override
 	public void draw(Graphics context) {
-		Random random = new Random();
+
 		
 		boolean flip = false;
 		for(int i = getY() ; i < length * size; i+= (size)) {
@@ -32,13 +40,13 @@ public class CheckedSprite extends Sprite {
 				if(flip) {
 					context.setColor(new Color(255, 255, 0, trans));
 					context.fillRect(j, i, size, size);
-					context.setColor(new Color(100, 100, 0, trans));
-					context.fillRect(j - size, i, size, size);
+					//context.setColor(new Color(100, 100, 0, trans));
+					//context.fillRect(j - size, i, size, size);
 				} else {
 					context.setColor(new Color(255, 255, 0, trans));
 					context.fillRect(j + size, i, size, size);
-					context.setColor(new Color(100, 100, 0, trans));
-					context.fillRect(j, i, size, size);
+					//context.setColor(new Color(100, 100, 0, trans));
+					//context.fillRect(j, i, size, size);
 				}
 				
 			}
