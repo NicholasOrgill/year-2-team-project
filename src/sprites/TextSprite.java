@@ -73,7 +73,7 @@ public class TextSprite extends Sprite {
 
 	@Override
 	public void update() {
-
+		
 	}
 
 	@Override
@@ -98,6 +98,9 @@ public class TextSprite extends Sprite {
 		// Work out the bounds of the text
 		TextLayout optTL = new TextLayout(text, finalFont, textGraphics.getFontRenderContext());
 		Rectangle2D bounds = optTL.getBounds();
+		
+		setWidth((int) bounds.getWidth());
+		setHeight((int) bounds.getHeight());
 	
 		// Set the colour of the text
 		textGraphics.setColor(color);

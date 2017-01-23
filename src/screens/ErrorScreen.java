@@ -20,7 +20,7 @@ public class ErrorScreen extends Screen {
 	public void update() {
 		counter++;
 		textSprite.setScreenSize(getScreenWidth(), getScreenHeight());
-		textSprite.setText("COUNT " + counter);
+		textSprite.setText("COUNTT " + counter);
 	}
 
 	@Override

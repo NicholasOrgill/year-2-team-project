@@ -9,20 +9,21 @@ import sprites.TextSprite;
 public class TitleScreen extends Screen {
 	private TextSprite textSprite;
 
-	int counter = 0;
+	int counter = 100;
 
 	public TitleScreen(GameObject gameObject) {
 		super(gameObject);
-		textSprite = new TextSprite(0, 0, "DOMINIC WILSON", 0.1);
-		setNextScreen(new ErrorScreen(gameObject));
+		textSprite = new TextSprite(0, 0, "WAIT " + counter);
+		setNextScreen(new CautionScreen(gameObject));
 	}
 
 	@Override
 	public void update() {
+		textSprite.setText("WAIT " + counter);
 		textSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		textSprite.update();
-		counter++;
-		if (counter > 1000) {
+		counter--;
+		if (counter <= 0) {
 			moveScreen();
 		}
 	}
