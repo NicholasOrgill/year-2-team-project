@@ -14,13 +14,14 @@ public class ErrorScreen extends Screen {
 	public ErrorScreen(GameObject gameObject) {
 		super(gameObject);
 		textSprite = new TextSprite(0, 0, "HELLO");
+		setNextScreen(new ExampleScreen(gameObject));
 	}
 
 	@Override
 	public void update() {
 		counter++;
 		textSprite.setScreenSize(getScreenWidth(), getScreenHeight());
-		textSprite.setText("COUNTT " + counter);
+		textSprite.setText("COUNT " + counter);
 	}
 
 	@Override
