@@ -9,8 +9,8 @@ import java.awt.RenderingHints;
 import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
 
-import Utils.FontLoader;
 import engine.Sprite;
+import utils.FontLoader;
 
 public class TextSprite extends Sprite {
 	private Font font;
