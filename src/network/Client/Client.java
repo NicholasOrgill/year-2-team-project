@@ -4,49 +4,41 @@ import java.io.*;
 import java.net.*;
 
 public class Client {
-	Socket server;
-	DataOutputStream toServer;
-	DataInputStream fromServer;
-	BufferedReader fromUser;
-
-	public Client(String serverName) {
+	public static void main(String[] args){
+		if (args.length != 1){
+			System.err.println("Usage: java Client hostname");
+			System.exit(1);
+		}
+		
+		String hostname = args[0];
+		Socket server = null;
 		try {
-			server = new Socket(serverName, 4444);
-			toServer = new DataOutputStream(server.getOutputStream());
-			fromServer = new DataInputStream(server.getInputStream());
-			System.out.println("connected");
+			server = new Socket(hostname, 4444);
 		} catch (UnknownHostException e) {
-			System.err.println("Unknow host" + serverName);
-		} catch (Exception e) {
-			System.err.println("Could not get I/O for the connection" + serverName);
-			System.exit(-1);
+			System.err.println("Unkown host: ");
+		}catch (IOException e) {
+			System.err.println("Could not get IO for the connection " + e.getMessage());
+			System.exit(1);
 		}
-		fromUser = new BufferedReader(new InputStreamReader(System.in));
-	}
-
-	public void run() {
-		try {
-			String userInput ;
-			Receive receive = new Receive(server);
-			
-			receive.start();
-			
-			while ((userInput = fromUser.readLine()) != null) {
-			
-				toServer.writeUTF(userInput);
-				System.out.println("Sent" + userInput + "to Server");
-				
-
-				
+		
+		MessageQueue reveiveQueue = new MessageQueue();
+		MessageQueue sendQueue = new MessageQueue();
+		
+		(new ClientReceiver(server,reveiveQueue)).start();
+		
+		(new ClientSender(server,sendQueue)).start();
+		
+		(new Network(reveiveQueue,sendQueue)).start();
+		
+		try{
+			BufferedReader fromUser = new BufferedReader(new InputStreamReader(System.in));
+			String userInput;
+			while ((userInput = fromUser.readLine()) != null){
+				Message msg = new Message(userInput);
+				sendQueue.offer(msg);
 			}
-		} catch (IOException e) {
-
-		}
-	}
-
-	public static void main(String[] args) {
-		assert (args.length == 1);
-		Client c = new Client(args[0]);
-		c.run();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}	
 	}
 }
