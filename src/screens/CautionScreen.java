@@ -7,6 +7,7 @@ import engine.GameObject;
 import engine.Screen;
 import sprites.CenterTextSprite;
 import sprites.CheckedSprite;
+import sprites.TopBarSprite;
 import sprites.TriangleSprite;
 
 public class CautionScreen extends Screen {
@@ -17,6 +18,7 @@ public class CautionScreen extends Screen {
 	CenterTextSprite descText;
 	TriangleSprite triangle;
 	CheckedSprite checkedBackground;
+	TopBarSprite topBarSprite;
 
 	int counter = 0;
 	
@@ -28,6 +30,8 @@ public class CautionScreen extends Screen {
 		cautionText2.setFontSize(0.2);
 		cautionText.setColor(new Color(255, 0, 0, 200));
 		cautionText2.setColor(new Color(128, 0, 0, 200));
+		
+		topBarSprite = new TopBarSprite("Caution");
 		
 		checkedBackground = new CheckedSprite(0, 0);
 		
@@ -50,6 +54,9 @@ public class CautionScreen extends Screen {
 		cautionText2.setScreenSize(getScreenWidth(), getScreenHeight());
 		infoText.setScreenSize(getScreenWidth(), getScreenHeight());
 		descText.setScreenSize(getScreenWidth(), getScreenHeight());
+		topBarSprite.setScreenSize(getScreenWidth(), getScreenHeight());
+		
+		topBarSprite.update();
 		checkedBackground.update();
 
 		triangle.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -64,6 +71,13 @@ public class CautionScreen extends Screen {
 	@Override
 	public void draw(Graphics context) {
 		checkedBackground.draw(context);
+		
+		topBarSprite.draw(context);
+		
+		
+		context.setColor(Color.BLACK);
+		context.fillRect(0, (int)(getScreenHeight() * (1 - 0.1)), getScreenWidth(), (int)(getScreenHeight() * 0.1));
+		
 		cautionText2.draw(context);
 		cautionText.draw(context);
 		infoText.draw(context);

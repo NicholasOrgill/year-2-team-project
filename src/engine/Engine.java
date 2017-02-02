@@ -14,6 +14,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import screens.DevScreen;
 import screens.TitleScreen;
 
 /**
@@ -24,14 +25,14 @@ import screens.TitleScreen;
 public class Engine extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	private int width = 800;
-	private int height = 600;
+	private int width = 1920;
+	private int height = 1080;
 	private boolean fullScreen;
 	private String name = "Game";
 	private boolean running = false;
 	private int tickCount = 0;
 	private GameObject gameObject = new GameObject(width, height);
-	private Screen screen = new TitleScreen(gameObject);
+	private Screen screen = new DevScreen(gameObject);
 	private int opac = 255;
 	private boolean changing = false;
 	
@@ -100,7 +101,7 @@ public class Engine extends Canvas implements Runnable {
 	 */
 	public void run() {
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(500);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

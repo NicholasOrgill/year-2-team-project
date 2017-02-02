@@ -1,17 +1,19 @@
 package engine;
 
-import javafx.scene.canvas.Canvas;
-import javafx.stage.Stage;
-
+/**
+ * The game object is given around to all the different scenes
+ * @author bobbydilley
+ *
+ */
 public class GameObject {
 	private int width;
 	private int height;
-	
+
 	public GameObject(int width, int height) {
 		this.width = width;
 		this.height = height;
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}

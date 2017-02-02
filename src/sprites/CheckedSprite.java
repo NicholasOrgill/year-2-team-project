@@ -31,8 +31,6 @@ public class CheckedSprite extends Sprite {
 	}
 	@Override
 	public void draw(Graphics context) {
-
-		
 		boolean flip = false;
 		for(int i = getY() ; i < length * size; i+= (size)) {
 			flip = !flip;

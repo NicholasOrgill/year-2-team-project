@@ -1,7 +1,11 @@
 package engine;
 
 import java.awt.Graphics;
-
+/**
+ * The sprite class representing a sprite
+ * @author bobbydilley
+ *
+ */
 public class Sprite {
 
     private int x = 0;

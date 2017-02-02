@@ -1,7 +1,11 @@
 package engine;
 
 import java.awt.Graphics;
-
+/**
+ * The screen class which represents one viewable screen in the game
+ * @author bobbydilley
+ *
+ */
 public class Screen {
 	private GameObject gameObject;
 	private Screen nextScreen;

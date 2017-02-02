@@ -1,14 +1,18 @@
 package main;
 
 import engine.Engine;
-
+/**
+ * The main class of the game
+ * @author bobbydilley
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {
 		System.out.println("Launching Game...");
 		
 		// Control fullscreen
-		boolean fullScreen = false;
+		boolean fullScreen = true;
 		
 		
 		if(args.length > 0) {
@@ -17,7 +21,12 @@ public class Main {
 			}
 		}
 		
-		Engine engine = new Engine("Dance Game", fullScreen);
-		engine.start();
+		try {
+			Engine engine = new Engine("BeatNetwork", fullScreen);
+			engine.start();
+		} catch (Exception e) {
+			System.exit(-1);
+		}
+		
 	}
 }
