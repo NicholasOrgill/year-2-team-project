@@ -4,60 +4,98 @@ import java.awt.Graphics;
 
 import engine.GameObject;
 import engine.Screen;
-import sprites.BeatSprite;
 import sprites.BottomBarSprite;
+import sprites.DotSpriteBackground;
 import sprites.FancyCenterTextSprite;
 import sprites.MenuCenterTextSprite;
-import sprites.TextSprite;
 import sprites.TopBarSprite;
 import utils.ColorPack;
 
 public class TitleScreen extends Screen {
 	private TopBarSprite topBarSprite;
 	private BottomBarSprite bottomBarSprite;
-	
-	private MenuCenterTextSprite centerText;
+	private DotSpriteBackground dotBackground;
+
+	private MenuCenterTextSprite[] centerText;
 	private FancyCenterTextSprite titleText;
-	
+	int counter = 0;
+	int sel = 0;
+
 	public TitleScreen(GameObject gameObject) {
 		super(gameObject);
 		topBarSprite = new TopBarSprite("CAUTION");
 		bottomBarSprite = new BottomBarSprite("Press A to start");
-		titleText = new FancyCenterTextSprite((getScreenWidth() / 2), (int)(getScreenHeight() * 0.4), "BeatNetwork");
-		centerText = new MenuCenterTextSprite((getScreenWidth() / 2), (int)(getScreenHeight() * 0.7), "Start Game");
-		
+		titleText = new FancyCenterTextSprite((getScreenWidth() / 2), (int) (getScreenHeight() * 0.4), "BeatNetwork");
+		dotBackground = new DotSpriteBackground(10, 10, 20, 30);
+		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
+		String titles[] = { "Single Player", "Network Play", "Options", "Close" };
+		centerText = new MenuCenterTextSprite[titles.length];
+		for (int i = 0; i < centerText.length; i++) {
+			centerText[i] = new MenuCenterTextSprite((int) (getScreenWidth() / 2),
+					(int) (getScreenHeight() * (0.6 + (i * 0.07))), titles[i]);
+		}
+
+		centerText[0].select();
+		for (int i = 1; i < centerText.length; i++) {
+			centerText[i].deselect();
+		}
+
 	}
 
 	@Override
 	public void update() {
+		if (counter == 100) {
+			counter = 0;
+			sel++;
+			if (sel == 4) {
+				sel = 0;
+			}
+		}
+		counter++;
+
+		for (int i = 0; i < centerText.length; i++) {
+			if (i == sel) {
+				centerText[i].select();
+			} else {
+				centerText[i].deselect();
+			}
+
+		}
 		topBarSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		topBarSprite.update();
-		
+
 		bottomBarSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		bottomBarSprite.update();
-		
-		centerText.setScreenSize(getScreenWidth(), getScreenHeight());
-		centerText.update();
-		
+
+		for (int i = 0; i < centerText.length; i++) {
+			centerText[i].setScreenSize(getScreenWidth(), getScreenHeight());
+			centerText[i].update();
+		}
+
 		titleText.setScreenSize(getScreenWidth(), getScreenHeight());
 		titleText.update();
 	}
 
 	@Override
 	public void draw(Graphics context) {
+
+		dotBackground.draw(context);
+
 		// Draw in the background color
 		context.setColor(ColorPack.PRIMARY);
 		context.fillRect(0, 0, getScreenWidth(), getScreenHeight());
-		
+
 		// Draw the top and bottom
 		bottomBarSprite.draw(context);
 		topBarSprite.draw(context);
-		
+
 		// Draw the middle text
-		centerText.draw(context);
-		
+		for (int i = 0; i < centerText.length; i++) {
+			centerText[i].draw(context);
+		}
+
 		// Draw the title text
-		//titleText.draw(context);
+		// titleText.draw(context);
 	}
 
 }

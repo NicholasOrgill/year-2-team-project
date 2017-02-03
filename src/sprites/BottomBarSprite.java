@@ -19,7 +19,7 @@ public class BottomBarSprite extends Sprite {
 		textSpriteLeft = new FadeCenterTextSprite(0, 0, text);
 		textSpriteLeft.setColor(Color.WHITE.darker());
 		textSpriteLeft.setFontSize(0.023);
-		textSpriteLeft.setText("INSERT COIN");
+		textSpriteLeft.setText("PLEASE WAIT");
 	}
 
 	public void setText(String text) {
@@ -55,7 +55,7 @@ public class BottomBarSprite extends Sprite {
 		context.setColor(ColorPack.SECONDARY);
 		context.drawLine(0, (getScreenHeight()) - (int) (getScreenHeight() * height), getScreenWidth(), (getScreenHeight()) - (int) (getScreenHeight() * height));
 
-		textSprite.draw(context);
+		//textSprite.draw(context);
 		textSpriteLeft.draw(context);
 	}
 

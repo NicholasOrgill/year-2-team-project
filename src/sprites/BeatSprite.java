@@ -1,10 +1,12 @@
 package sprites;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.Random;
 
 import engine.Sprite;
 import utils.ColorPack;
@@ -13,7 +15,7 @@ public class BeatSprite extends Sprite {
 
 	public BeatSprite(int x, int y, int width, int height) {
 		super(x, y, width, height);
-
+		
 	}
 
 	@Override
@@ -39,7 +41,6 @@ public class BeatSprite extends Sprite {
 		graphics.setPaint(redtowhite);
 		graphics.fillOval(getX() - (getWidth() / 2), getY() - (getHeight() / 2), getWidth(), getHeight());
 
-		
 	}
 
 }

@@ -1,5 +1,6 @@
 package sprites;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,13 +12,40 @@ import utils.ColorPack;
 import utils.FontLoader;
 
 public class MenuCenterTextSprite extends TextSprite {
+	private boolean selected = true;
+
+	private int max = 140;
+	private int opac = max;
+	private int min = 100;
+	private double change = 4;
 
 	public MenuCenterTextSprite(int x, int y, String text) {
 		super(x, y, text);
 		setFontSize(0.04);
 		setFont(FontLoader.loadFontFromResource("Roboto-Bold.ttf"));
 	}
-	
+
+	@Override
+	public void update() {
+		if (selected) {
+			if (opac < max) {
+				opac += change;
+			}
+		} else {
+			if (opac > min) {
+				opac -= change;
+			}
+		}
+	}
+
+	public void deselect() {
+		selected = true;
+	}
+
+	public void select() {
+		selected = false;
+	}
+
 	@Override
 	public void draw(Graphics context) {
 		// Create the fontSize from the size of the screen
@@ -54,7 +82,10 @@ public class MenuCenterTextSprite extends TextSprite {
 		}
 			
 		// Set the colour of the text
-		textGraphics.setColor(getColor());
+		double amount = Math.sin(Math.toRadians(opac));
+
+		textGraphics.setColor(new Color((int) (ColorPack.WHITE.getRed() * amount), (int) (ColorPack.WHITE.getGreen() * amount), (int) (ColorPack.WHITE.getBlue() * amount), ColorPack.WHITE.getAlpha()));
+		
 				
 		// Draw the text out
 		textGraphics.drawString(getText(), getX() - (getWidth() / 2), (int) (getY() + bounds.getHeight()) - (getHeight() / 2));
