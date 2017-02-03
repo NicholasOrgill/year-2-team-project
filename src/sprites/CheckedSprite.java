@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.Random;
 
 import engine.Sprite;
+import utils.ColorPack;
 
 public class CheckedSprite extends Sprite {
 	int trans = 110;
@@ -36,15 +37,15 @@ public class CheckedSprite extends Sprite {
 			flip = !flip;
 			for(int j = getX() ; j < length * size ; j+= (size * 2)) {
 				if(flip) {
-					context.setColor(new Color(255, 255, 0, trans));
+					context.setColor(ColorPack.PRIMARY);
 					context.fillRect(j, i, size, size);
-					//context.setColor(new Color(100, 100, 0, trans));
-					//context.fillRect(j - size, i, size, size);
+					context.setColor(ColorPack.SECONDARY);
+					context.fillRect(j - size, i, size, size);
 				} else {
-					context.setColor(new Color(255, 255, 0, trans));
+					context.setColor(ColorPack.PRIMARY);
 					context.fillRect(j + size, i, size, size);
-					//context.setColor(new Color(100, 100, 0, trans));
-					//context.fillRect(j, i, size, size);
+					context.setColor(ColorPack.SECONDARY);
+					context.fillRect(j, i, size, size);
 				}
 				
 			}

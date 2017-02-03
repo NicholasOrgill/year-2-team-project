@@ -25,14 +25,14 @@ import screens.TitleScreen;
 public class Engine extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	private int width = 1920;
-	private int height = 1080;
+	private int width = 800;
+	private int height = 600;
 	private boolean fullScreen;
 	private String name = "Game";
 	private boolean running = false;
 	private int tickCount = 0;
 	private GameObject gameObject = new GameObject(width, height);
-	private Screen screen = new DevScreen(gameObject);
+	private Screen screen = new TitleScreen(gameObject);
 	private int opac = 255;
 	private boolean changing = false;
 	
@@ -132,12 +132,12 @@ public class Engine extends Canvas implements Runnable {
 			}
 			
 			// Limit rendering
-			try {
-				Thread.sleep(2);
+			/*try {
+				Thread.sleep(0);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 			
 			if(shouldRender) {
 				frames++;
