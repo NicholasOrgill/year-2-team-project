@@ -24,8 +24,9 @@ package songmanager;
 public class SongObject {
 
 	private String title, artist;
-	private int songLength, averageTempo, beatCount, noteCount;
-	private Note[] notes, beats;
+	private int songLength, averageTempo;
+	private Note[] notes;
+	private Beat[] beats;
 	
 	/**
 	 * Creates a new song object
@@ -33,18 +34,14 @@ public class SongObject {
 	 * @param artist
 	 * @param songLength Length of the song (ms)
 	 * @param averageTempo Beats per minute
-	 * @param beatCount Number of beats
-	 * @param noteCount Number of notes
 	 * @param notes Array of notes
 	 * @param beats Array of beats
 	 */
-	public SongObject(String title, String artist, int songLength, int averageTempo, int beatCount, int noteCount, Note[] notes, Note[] beats) {
+	public SongObject(String title, String artist, int songLength, int averageTempo, Note[] notes, Beat[] beats) {
 		this.title = title;
 		this.artist = artist;
 		this.songLength = songLength;
 		this.averageTempo = averageTempo;
-		this.beatCount = beatCount;
-		this.noteCount = noteCount;
 		this.notes = notes;
 		this.beats = beats;
 	}
@@ -78,20 +75,6 @@ public class SongObject {
 	}
 	
 	/**
-	 * Gets the number of beats in the song
-	 */
-	public int getBeatCount() {
-		return beatCount;
-	}
-	
-	/**
-	 * Gets the number of notes in the song
-	 */
-	public int getNoteCount() {
-		return noteCount;
-	}
-	
-	/**
 	 * Gets the array of all notes in the song
 	 */
 	public Note[] getNotes() {
@@ -101,7 +84,7 @@ public class SongObject {
 	/**
 	 * Gets the array of all beats in the song
 	 */
-	public Note[] getBeats() {
+	public Beat[] getBeats() {
 		return beats;
 	}
 }

@@ -20,7 +20,8 @@ public class EofRepacker {
 			
 			// Take necessary data from document
 			String title, artist;
-			int songLength, startBeat, averageTempo;
+			int songLength, startBeat, averageTempo, beatCount, noteCount;
+			Note[] notes, beats;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
