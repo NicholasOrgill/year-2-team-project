@@ -17,6 +17,7 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 	private Timer timer;
 	private int delay = 8; //milliseconds
 	private ArrayList<Integer> record; //record the key was pressed
+	private ArrayList<Integer> release; //record the key was released
 	private ArrayList<Integer> playKey; //store the keys for playing
 	private ArrayList<Integer> powerKey; //store the keys for powers/abilities
 	
@@ -26,6 +27,7 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 	 */
 	public InputHandler(){
 		record = new ArrayList<Integer>();
+		release = new ArrayList<Integer>();
 		playKey = new ArrayList<Integer>();
 		powerKey = new ArrayList<Integer>();
 
@@ -79,17 +81,41 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 			
 		}
 		
-		for(int i=0; i<powerKey.size(); i++){
-			if(e.getKeyCode() == powerKey.get(i)){
-				record.add(powerKey.get(i));
+		//remove the power key that is used
+		if(!powerKey.isEmpty()){
+			for(int i=0; i<powerKey.size(); i++){
+				if(e.getKeyCode() == powerKey.get(i)){
+					record.add(powerKey.get(i));
+					powerKey.remove(i);
+				}
 			}
 		}
-		
+
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		
+		//check whether the keys are pressed and add them to release arraylist
+		if(playKey.size()== 4){
+			if(e.getKeyCode() == playKey.get(0)){
+				release.add(-playKey.get(0));
+			}
+			if(e.getKeyCode() == playKey.get(1)){
+				release.add(-playKey.get(1));
+			}
+			if(e.getKeyCode() == playKey.get(2)){
+				release.add(-playKey.get(2));
+			}
+			if(e.getKeyCode() == playKey.get(3)){
+				release.add(-playKey.get(3));
+			}
+			
+			
+		}
+		
+		
 	}
 
 	@Override
@@ -106,7 +132,12 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 		if (!record.isEmpty()){
 			System.out.println(record.get(0));
 			record.remove(0);
-			
+		}
+		
+		//print out the element in release arraylist for testing
+		if (!release.isEmpty()){
+			System.out.println(release.get(0));
+			release.remove(0);
 		}
 		
 
@@ -208,4 +239,3 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 	}
 
 }
-
