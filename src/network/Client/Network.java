@@ -1,13 +1,13 @@
 package network.Client;
 
-public class Network extends Thread{
+public class Network{
 
-	private MessageQueue receiveQueue;
-	private MessageQueue sendQueue;
+	private MessageQueue sendQueue = new MessageQueue();;
+	private MessageQueue receiveQueue = new MessageQueue();;
 	
-	public Network(MessageQueue _receiveQueue, MessageQueue _sendQueue){
-		this.receiveQueue = _receiveQueue;
-		this.sendQueue = _sendQueue;
+	public Network(String hostname){
+		Client c = new Client(hostname, sendQueue, receiveQueue);
+		c.start();
 	}
 	
 	public void send(String _readline){
@@ -23,10 +23,4 @@ public class Network extends Thread{
 		return this.receiveQueue.take().getMessage();
 	}
 	
-	public void run(){
-		while (true){
-			if (this.receiveMessage())
-				System.out.println(this.receive());
-		}
-	}
 }
