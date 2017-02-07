@@ -9,13 +9,11 @@ import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import screens.DevScreen;
-import screens.TitleScreen;
+import screens.JUScreen;
+import screens.Overlay;
 
 /**
  * This is the initial game engine class which handles the running of the game
@@ -32,16 +30,18 @@ public class Engine extends Canvas implements Runnable {
 	private boolean running = false;
 	private int tickCount = 0;
 	private GameObject gameObject = new GameObject(width, height);
-	private Screen screen = new TitleScreen(gameObject);
+	private Screen screen = new JUScreen(gameObject);
 	private int opac = 255;
 	private boolean changing = false;
-	
+	private Overlay overlay = new Overlay(gameObject);
 	/**
 	 * The Initial engine constructor which will start the engine
 	 */
 	public Engine(String name, boolean fullScreen) {
+		
 		this.fullScreen = fullScreen;
 		this.name = name;
+		this.gameObject.setOverlay(overlay);
 		
 		// Make sure the window is not movable
 		setMinimumSize(new Dimension(width, height));
@@ -101,7 +101,7 @@ public class Engine extends Canvas implements Runnable {
 	 */
 	public void run() {
 		try {
-			Thread.sleep(500);
+			Thread.sleep(2000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -122,7 +122,7 @@ public class Engine extends Canvas implements Runnable {
 			lastTime = now;
 			
 			// Set to true to limit to 60fps for testing
-			boolean shouldRender = true;
+			boolean shouldRender = false;
 			
 			while(delta >= 1) {
 				ticks++;
@@ -173,6 +173,7 @@ public class Engine extends Canvas implements Runnable {
 			System.out.println("Screen Moved");
 		}
 		
+		overlay.update();
 		screen.update();
 	}
 	
@@ -193,6 +194,7 @@ public class Engine extends Canvas implements Runnable {
 
 		screen.draw(g);
 		
+		
 		// This is a layer over the top which is used to fade between scenes
 		g.setColor(new Color(0, 0, 0, Math.max(Math.min(opac, 255), 0)));
 		
@@ -207,6 +209,9 @@ public class Engine extends Canvas implements Runnable {
 		
 		// Adds the rectangle over the top
 		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		// Draw the overlay
+		overlay.draw(g);
 		
 		// Remove and dispose of them
 		g.dispose();

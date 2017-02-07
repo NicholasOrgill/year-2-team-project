@@ -13,8 +13,8 @@ public class ErrorScreen extends Screen {
 	int counter = 0;
 	public ErrorScreen(GameObject gameObject) {
 		super(gameObject);
-		textSprite = new TextSprite(0, 0, "HELLO");
-		setNextScreen(new ExampleScreen(gameObject));
+		textSprite = new TextSprite(0, 0, "GAME HALT SERVICE MENU");
+		setNextScreen(new Overlay(gameObject));
 	}
 
 	@Override

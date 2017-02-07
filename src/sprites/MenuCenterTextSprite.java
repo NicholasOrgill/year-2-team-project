@@ -72,8 +72,13 @@ public class MenuCenterTextSprite extends TextSprite {
 		setWidth((int) bounds.getWidth());
 		setHeight((int) bounds.getHeight());
 		
+		// Set the colour of the text
+		double amount = Math.sin(Math.toRadians(opac));
+				
 		// Draw outline
-		textGraphics.setColor(ColorPack.GREY);
+		textGraphics.setColor(new Color((int) (ColorPack.GREY.getRed() * amount), (int) (ColorPack.GREY.getGreen() * amount), (int) (ColorPack.GREY.getBlue() * amount), ColorPack.GREY.getAlpha()));
+		
+		
 		int out = 1;
 		for(int i = -out ; i <= out ; i++) {
 			for(int j = -out ; j <= out ; j++) {
@@ -81,10 +86,9 @@ public class MenuCenterTextSprite extends TextSprite {
 			}
 		}
 			
-		// Set the colour of the text
-		double amount = Math.sin(Math.toRadians(opac));
+		
 
-		textGraphics.setColor(new Color((int) (ColorPack.WHITE.getRed() * amount), (int) (ColorPack.WHITE.getGreen() * amount), (int) (ColorPack.WHITE.getBlue() * amount), ColorPack.WHITE.getAlpha()));
+		textGraphics.setColor(new Color((int) (ColorPack.WHITE.getRed() * amount), (int) (ColorPack.WHITE.getGreen() * amount), (int) (ColorPack.WHITE.getBlue() * amount),ColorPack.WHITE.getAlpha()));
 		
 				
 		// Draw the text out
