@@ -4,6 +4,10 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
+/**
+ * This class is to get messages from user
+ * @author Administrator
+ */
 public class ServerThread extends Thread{
 	private ArrayList<Player> players = new ArrayList<>();
 	private Socket clientSocket;
@@ -27,13 +31,14 @@ public class ServerThread extends Thread{
 			
 			String readLine;
 			
+			// for now just return any messages get from player
+			// will use ServerResolve to resolve messages later
 			while ( (readLine = fromClient.readUTF()) !=null ){
 				System.out.println("got message "+ readLine +" form " + myClient.getUid());
 				toClient.writeUTF("I got you message : "+ readLine);
 			}
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Player " + myClient.getUid() + " disconnected");
 		}
 	}

@@ -3,6 +3,10 @@ package network.Client;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * This class is to get messagges from server
+ * @author Weifeng
+ */
 public class ClientReceiver extends Thread {
 	private Socket server;
 	private MessageQueue receiveQueue;
@@ -19,7 +23,9 @@ public class ClientReceiver extends Thread {
 			fromServer = new DataInputStream(server.getInputStream());
 			while(true){
 				String readline = fromServer.readUTF();
-				if(readline != null){ 
+				if(readline != null){
+					
+					// if get messages, offer it to the messages queue
 					Message msg = new Message(readline);
 					receiveQueue.offer(msg);
 				}
