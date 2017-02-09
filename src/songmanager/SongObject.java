@@ -1,21 +1,5 @@
 package songmanager;
 
-/*
- * 	- title
-	- songLength
-	- startBeat
-	- averageTempo
-	- artistName
-	- ebeats (+count)
-	- - ebeat (+time, measure)
-	- notes (+count)
-	- - note (+time,string,sustain)
-	- chords (+count)
-	- - chord (+time,chordId)
-	- - - chordNote (+string)
-	- handShape (+chordId,endTime,startTime)
- */
-
 /**
  * Holds all the notes, beats and metadata for a song
  * @author Alex
