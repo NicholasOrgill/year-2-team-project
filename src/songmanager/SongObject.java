@@ -8,7 +8,7 @@ package songmanager;
 public class SongObject {
 
 	private String title, artist;
-	private int songLength, averageTempo;
+	private int songLength, averageTempo, startBeat;
 	private Note[] notes;
 	private Beat[] beats;
 	
@@ -18,14 +18,16 @@ public class SongObject {
 	 * @param artist
 	 * @param songLength Length of the song (ms)
 	 * @param averageTempo Beats per minute
+	 * @param startBeat The first beat of the song
 	 * @param notes Array of notes
 	 * @param beats Array of beats
 	 */
-	public SongObject(String title, String artist, int songLength, int averageTempo, Note[] notes, Beat[] beats) {
+	public SongObject(String title, String artist, int songLength, int averageTempo, int startBeat, Note[] notes, Beat[] beats) {
 		this.title = title;
 		this.artist = artist;
 		this.songLength = songLength;
 		this.averageTempo = averageTempo;
+		this.startBeat = startBeat;
 		this.notes = notes;
 		this.beats = beats;
 	}
@@ -56,6 +58,13 @@ public class SongObject {
 	 */
 	public int getAverageTempo() {
 		return averageTempo;
+	}
+	
+	/**
+	 * Gets the starting beat of the song
+	 */
+	public int getStartBeat() {
+		return startBeat;
 	}
 	
 	/**
