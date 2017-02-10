@@ -20,6 +20,8 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 	private ArrayList<Integer> release; //record the key was released
 	private ArrayList<Integer> playKey; //store the keys for playing
 	private ArrayList<Integer> powerKey; //store the keys for powers/abilities
+	private boolean[] playKeyStatus; //store the status of playing keys
+	private boolean[] powerKeyStatus; //store the status of power keys
 	
 	
 	/**
@@ -30,6 +32,16 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 		release = new ArrayList<Integer>();
 		playKey = new ArrayList<Integer>();
 		powerKey = new ArrayList<Integer>();
+		
+		playKeyStatus = new boolean[4];
+		for(int i=0; i<4; i++){
+			playKeyStatus[i] = false;
+		}
+		
+		powerKeyStatus = new boolean[3];
+		for(int i=0; i<3; i++){
+			powerKeyStatus[i] = true;
+		}
 
 		addKeyListener(this);
 		setFocusable(true);
@@ -67,15 +79,19 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 		if(playKey.size()== 4){
 			if(e.getKeyCode() == playKey.get(0)){
 				record.add(playKey.get(0));
+				playKeyStatus[0] = true;
 			}
 			if(e.getKeyCode() == playKey.get(1)){
 				record.add(playKey.get(1));
+				playKeyStatus[1] = true;
 			}
 			if(e.getKeyCode() == playKey.get(2)){
 				record.add(playKey.get(2));
+				playKeyStatus[2] = true;
 			}
 			if(e.getKeyCode() == playKey.get(3)){
 				record.add(playKey.get(3));
+				playKeyStatus[3] = true;
 			}
 			
 			
@@ -84,9 +100,9 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 		//remove the power key that is used
 		if(!powerKey.isEmpty()){
 			for(int i=0; i<powerKey.size(); i++){
-				if(e.getKeyCode() == powerKey.get(i)){
+				if(e.getKeyCode() == powerKey.get(i) && powerKeyStatus[i]){
 					record.add(powerKey.get(i));
-					powerKey.remove(i);
+					powerKeyStatus[i] = false;
 				}
 			}
 		}
@@ -97,19 +113,23 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		
-		//check whether the keys are pressed and add them to release arraylist
+		//check whether the keys are released and add them to release arraylist
 		if(playKey.size()== 4){
 			if(e.getKeyCode() == playKey.get(0)){
 				release.add(-playKey.get(0));
+				playKeyStatus[0] = false;
 			}
 			if(e.getKeyCode() == playKey.get(1)){
 				release.add(-playKey.get(1));
+				playKeyStatus[1] = false;
 			}
 			if(e.getKeyCode() == playKey.get(2)){
 				release.add(-playKey.get(2));
+				playKeyStatus[2] = false;
 			}
 			if(e.getKeyCode() == playKey.get(3)){
 				release.add(-playKey.get(3));
+				playKeyStatus[3] = false;
 			}
 			
 			
@@ -216,18 +236,28 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 		powerKey.clear();
 	}
 	
+	
 	/**
-	 * @param key the input power key to be removed
+	 * @param index the index of playing key to be removed
 	 */
-	public void removePowerKey(char key){
-		int i = (int) key;
-		if(i>=97 && i<=122){
-			i = i - 32;
-		}
-		if(powerKey.contains(i)){
-			powerKey.remove(powerKey.indexOf(i));
+	public void removePlayKey(int index){
+
+		if(index<playKey.size()){
+			playKey.remove(index);
 		}else
-			System.out.println("No such power key.");
+			System.out.println("Invalid index");
+		
+	}
+	
+	/**
+	 * @param index the index of power key to be removed
+	 */
+	public void removePowerKey(int index){
+
+		if(index<powerKey.size()){
+			powerKey.remove(index);
+		}else
+			System.out.println("Invalid index");
 		
 	}
 	
@@ -236,6 +266,28 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 	 */
 	public boolean emptyPowerKey(){
 		return powerKey.isEmpty();
+	}
+	
+	/**
+	 * @param i index of the playing key
+	 * @return true if the key is pressed, false if the key is released
+	 */
+	public boolean playKey_Status(int i){
+		return playKeyStatus[i];
+	}
+	
+	/**
+	 * @param i index of the power key
+	 * @return true if the power key can be used, false if the power key cannot be used
+	 */
+	public boolean powerKey_Status(int i){
+		return powerKeyStatus[i];
+	}
+	
+	public void resetPowerKeyStatus(){
+		for(int i=0; i<3; i++){
+			powerKeyStatus[i] = true;
+		}
 	}
 
 }

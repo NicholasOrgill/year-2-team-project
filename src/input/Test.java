@@ -36,11 +36,36 @@ public class Test {
 			}
 		}
 		
-		//remove the power key that is used
-		while(!inputHandler.emptyPowerKey()){
-			System.out.println("Used a power key: ");
+		//for testing
+		System.out.print("Command:");
+		input = in.next().charAt(0);
+		while(!(input=='0')){
+			switch(input){
+				//check the playing key status
+				case '1':
+					for(int i=0; i<4; i++){
+						System.out.print(inputHandler.playKey_Status(i) + " ");
+					}
+					break;
+				//check the power key status	
+				case '2':
+					for(int i=0; i<3; i++){
+						System.out.print(inputHandler.powerKey_Status(i) + " ");
+					}
+					break;
+				//reset the power keys status
+				case '3':
+					inputHandler.resetPowerKeyStatus();
+					break;
+				//remove all the stored keys
+				case '4':
+					inputHandler.removeAllKey();
+					break;
+					
+			}
+			
+			System.out.print("Command:");
 			input = in.next().charAt(0);
-			inputHandler.removePowerKey(input);
 		}
 		
 		
