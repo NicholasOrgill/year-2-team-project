@@ -8,31 +8,25 @@ import java.net.Socket;
  * @author Weifeng
  */
 public class ClientSender extends Thread {
-	private Socket server;
+	private PrintStream toServer;
 	private MessageQueue sendQueue;
 	
-	public ClientSender(Socket _server, MessageQueue _sendQueue){
-		this.server = _server;
+	public ClientSender(PrintStream _server, MessageQueue _sendQueue){
+		this.toServer = _server;
 		this.sendQueue = _sendQueue;
 	}
 	
 	
 	public void run(){
-		DataOutputStream toServer;
-		try{
-			toServer = new DataOutputStream(server.getOutputStream());
-			while (true){
-				Message sendMsg = sendQueue.take();
-				
-				//if there are messages in the queue
-				//send it to server
-				if (sendMsg != null){
-					
-					toServer.writeUTF(sendMsg.getMessage());
-				}
+		while (true){
+			Message sendMsg = sendQueue.take();
+			
+			//if there are messages in the queue
+			//send it to server
+			if (sendMsg != null){
+
+				toServer.println(sendMsg.getMessage());
 			}
-		}catch(IOException e){
-			System.err.println(e.getMessage());
 		}
 	}
 }

@@ -24,8 +24,13 @@ public class Client {
 	public void start(){
 		
 		Socket server = null;
+	    PrintStream toServer = null;
+	    BufferedReader fromServer = null;
+	    
 		try {
 			server = new Socket(this.hostname, 4444);
+			toServer = new PrintStream(server.getOutputStream());
+		    fromServer = new BufferedReader(new InputStreamReader(server.getInputStream()));
 		} catch (UnknownHostException e) {
 			System.err.println("Unkown host: ");
 		}catch (IOException e) {
@@ -35,11 +40,11 @@ public class Client {
 		
 		//start a new thread ClientSender 
 		//when get input from user, send messages to server
-		(new ClientSender(server,sendQueue)).start();
+		(new ClientSender(toServer,sendQueue)).start();
 		
 		//start a new thread ClientReceive
 		//when get messages from server save it in the blocking queue
-		(new ClientReceiver(server,receiveQueue)).start();
+		(new ClientReceiver(fromServer,receiveQueue)).start();
 	
 		
 	}

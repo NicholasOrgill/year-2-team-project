@@ -2,19 +2,25 @@ package network.Server;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.ArrayList;
 
 /**
  * This class will launch the server
  * @author Weifeng
  */
-public class Server {
+public class Server extends Thread{
+
+	private MessageQueue serverInput;
+	private String name;
 	
-	public static void main(String[] args){
+	public Server(MessageQueue _serverInput, String _name){
+		this.serverInput = _serverInput;
+		this.name = _name;
+	}
+	
+	public void run(){
 		ServerSocket serverSocket = null;
 		
 		//use array list to save player data
-		ArrayList<Player> players = new ArrayList<Player>();
 		
 		try {
 			serverSocket = new ServerSocket(4444);
@@ -29,13 +35,15 @@ public class Server {
 				
 				// when a player connected add this player to array list
 				// the user ID will simply be determined by how many player already connected
-				Player p = new Player(players.size(), ClientSocket);
-				players.add(p);
+				Player opponent = new Player(ClientSocket);
+				Player me = new Player(name);
+				System.out.println("Your opponent connected");
 				
 				//start a new Thread to solve messages from player
-				new ServerThread(p,players).start();
+				new ServerThread(serverInput,opponent,me).start();
 				
-			}
+			}	
+								
 		} catch (Exception e) {
 			System.err.println("IO error " + e.getMessage());
 		}

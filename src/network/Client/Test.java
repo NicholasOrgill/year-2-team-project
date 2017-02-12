@@ -13,7 +13,7 @@ public class Test {
 		Network n = new Network(hostname);
 		
 		//start receive test
-		(new ReceiveTest(n)).start();
+		(new ClientResolve(n)).start();
 				
 		//send ant input from user to server
 		try{

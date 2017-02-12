@@ -1,45 +1,48 @@
 package network.Server;
 
 import java.io.*;
-import java.net.*;
-import java.util.ArrayList;
 
 /**
  * This class is to get messages from user
  * @author Administrator
  */
 public class ServerThread extends Thread{
-	private ArrayList<Player> players = new ArrayList<>();
-	private Socket clientSocket;
-	private Player myClient;
+	private Player opponent;
+	private Player me;
+	private MessageQueue serverInput;
 	
-	public ServerThread(Player _myPlayer, ArrayList<Player> _players){
+	public ServerThread(MessageQueue _serverInput,Player _opponent,Player _me){
 		super("ServerThread");
-		this.myClient = _myPlayer;
-		this.players = _players;
-		this.clientSocket = _myPlayer.getSocket();
+		this.serverInput = _serverInput;
+		this.opponent = _opponent;
+		this.me = _me;
 	}
 	
 	public void run(){
 		
-		DataOutputStream toClient;
-		DataInputStream fromClient;
+		PrintStream toClient;
+		BufferedReader fromClient;
 	
 		try {
-			toClient = new DataOutputStream(clientSocket.getOutputStream());
-			fromClient = new DataInputStream(clientSocket.getInputStream());
+			toClient = new PrintStream(opponent.getSocket().getOutputStream());
+			fromClient = new BufferedReader(new InputStreamReader(opponent.getSocket().getInputStream()));
 			
 			String readLine;
+
+			OppoResolve solve = new OppoResolve(serverInput,opponent,me);
+			new SelfResolve(serverInput,opponent,me).start();
+			
 			
 			// for now just return any messages get from player
 			// will use ServerResolve to resolve messages later
-			while ( (readLine = fromClient.readUTF()) !=null ){
-				System.out.println("got message "+ readLine +" form " + myClient.getUid());
-				toClient.writeUTF("I got you message : "+ readLine);
+			while ( (readLine = fromClient.readLine()) !=null ){
+				System.out.println("got message "+ readLine +" form " + opponent.getName());
+				toClient.println("I got you message : "+ readLine);
+				solve.resolve(readLine);
 			}
 			
 		} catch (IOException e) {
-			System.out.println("Player " + myClient.getUid() + " disconnected");
+			System.out.println("Player " + opponent.getName() + " disconnected");
 		}
 	}
 	

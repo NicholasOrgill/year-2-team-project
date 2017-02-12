@@ -18,24 +18,20 @@ public class Network{
 		c.start();
 	}
 	
-	/**
-	 * send messages
-	 */
+	//send message
 	public void send(String _readline){
 		Message msg = new Message(_readline);
 		this.sendQueue.offer(msg);
 	}
 	
-	/**
-	 * check the receive queue is or not empty
-	 */
+	
+	//check the receive queue is or not empty
 	public boolean receiveMessage(){
-		return (!this.receiveQueue.isEmpty());
+		return this.receiveQueue.isEmpty();
 	}
 	
-	/**
-	 * @return the messages from server
-	 */
+	
+	//@return the messages from server
 	public String receive(){
 		return this.receiveQueue.take().getMessage();
 	}
