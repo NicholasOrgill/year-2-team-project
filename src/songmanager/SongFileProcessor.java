@@ -1,9 +1,15 @@
 package songmanager;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -164,6 +170,24 @@ public class SongFileProcessor {
 			// Create and return a SongObject
 			SongObject obj = new SongObject(title, artist, songLength, averageTempo, startBeat, notes, beats);
 			return obj;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * Creates an object which represents the contents of a song file.
+	 * @param songObj A song object for the song
+	 * @param audioPath The path to the audio file for the song
+	 * @param coverPath The path to the covert art of the song
+	 * @return
+	 */
+	public SongFile CreateSongFile(SongObject songObj, String audioPath, String coverPath) {
+		try {
+			BufferedImage coverArt = ImageIO.read(new FileInputStream(coverPath));
+			SongFile fileObj = new SongFile(coverArt, audioPath, songObj);
+			return fileObj;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
