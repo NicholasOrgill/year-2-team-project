@@ -12,7 +12,7 @@ public class Main {
 		System.out.println("Launching Game...");
 		
 		// Control fullscreen
-		boolean fullScreen = true;
+		boolean fullScreen = false;
 		
 		
 		if(args.length > 0) {

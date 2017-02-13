@@ -14,6 +14,7 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import input.InputHandler;
 import screens.JUScreen;
 import screens.Overlay;
 
@@ -37,6 +38,10 @@ public class Engine extends Canvas implements Runnable {
 	private boolean changing = false;
 	private Overlay overlay = new Overlay(gameObject);
 	private boolean setRender = false;
+	
+	private InputHandler inputHandler;
+	
+	
 	/**
 	 * The Initial engine constructor which will start the engine
 	 */
@@ -60,6 +65,14 @@ public class Engine extends Canvas implements Runnable {
 
 		// Add our canvas to the JFrame
 		frame.add(this, BorderLayout.CENTER);
+		
+		// Create the input handler
+		inputHandler = new InputHandler();
+		frame.addKeyListener(inputHandler);
+		inputHandler.storePlayKey('g');
+		
+		frame.setFocusable(true);
+		frame.setFocusTraversalKeysEnabled(false);
 
 		// Sets the frame so the sizes are above / at the correct size
 		frame.pack();
