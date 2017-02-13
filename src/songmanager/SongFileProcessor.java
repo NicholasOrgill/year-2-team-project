@@ -25,11 +25,11 @@ public class SongFileProcessor {
 	}
 
 	/**
-	 * Converts a SongObject into an XML file
+	 * Converts a SongObject into an XML file.
 	 * @param Obj SongObject
 	 * @param outputPath Path to write file to
 	 */
-	public void WriteSongObjectToXML(SongObject obj, String outputPath) {
+	public void writeSongObjectToXML(SongObject obj, String outputPath) {
 		try {
 			// Root element
 			Element songElement = new Element("song");
@@ -105,10 +105,10 @@ public class SongFileProcessor {
 	}
 	
 	/**
-	 * Reads a game-ready XML file and produces a SongObject
+	 * Reads a game-ready XML file and produces a SongObject.
 	 * @param inputPath
 	 */
-	public SongObject ReadSongObjectFromXML(String inputPath) {
+	public SongObject readSongObjectFromXML(String inputPath) {
 		try {
 			// Create document from file
 			SAXBuilder saxBuilder = new SAXBuilder();
@@ -183,7 +183,7 @@ public class SongFileProcessor {
 	 * @param coverPath The path to the covert art of the song
 	 * @return
 	 */
-	public SongFile CreateSongFile(SongObject songObj, String audioPath, String coverPath) {
+	public SongFile createSongFile(SongObject songObj, String audioPath, String coverPath) {
 		try {
 			BufferedImage coverArt = ImageIO.read(new FileInputStream(coverPath));
 			SongFile fileObj = new SongFile(coverArt, audioPath, songObj);
@@ -192,5 +192,22 @@ public class SongFileProcessor {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	/**
+	 * Writes a SongFile object into a file.
+	 * @param songObj A song object for the song
+	 */
+	public void writeSongFile(SongFile songObj) {
+		
+	}
+	
+	/**
+	 * Reads a song file into a SongFile object.
+	 * @param inputPath Path to the song file
+	 * @return A song file object representing the contents of the song file
+	 */
+	public SongFile readSongFile(String inputPath) {
+		return null;
 	}
 }
