@@ -71,6 +71,9 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 			case KeyEvent.VK_DOWN:
 				record.add(KeyEvent.VK_DOWN); //40
 				break;
+			case KeyEvent.VK_SPACE:
+				record.add(KeyEvent.VK_SPACE); //32
+				break;
 				
 			default:
 				;

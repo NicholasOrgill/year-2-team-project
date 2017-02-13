@@ -46,12 +46,14 @@ public class Test {
 					for(int i=0; i<4; i++){
 						System.out.print(inputHandler.playKey_Status(i) + " ");
 					}
+					System.out.println();
 					break;
 				//check the power key status	
 				case '2':
 					for(int i=0; i<3; i++){
 						System.out.print(inputHandler.powerKey_Status(i) + " ");
 					}
+					System.out.println();
 					break;
 				//reset the power keys status
 				case '3':
