@@ -6,8 +6,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -34,6 +36,7 @@ public class Engine extends Canvas implements Runnable {
 	private int opac = 255;
 	private boolean changing = false;
 	private Overlay overlay = new Overlay(gameObject);
+	private boolean setRender = false;
 	/**
 	 * The Initial engine constructor which will start the engine
 	 */
@@ -77,6 +80,7 @@ public class Engine extends Canvas implements Runnable {
 			device.setFullScreenWindow(frame); 
 		}
 		
+		
 		// Show the frame
 		frame.setVisible(true);
 	}
@@ -101,12 +105,13 @@ public class Engine extends Canvas implements Runnable {
 	 */
 	public void run() {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(200);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
+				
 		long lastTime = System.nanoTime();
 		double nsPerTick = 1000000000/60D;
 		
@@ -188,6 +193,14 @@ public class Engine extends Canvas implements Runnable {
 		}
 		
 		Graphics g = bs.getDrawGraphics();
+		
+		// Change Graphics
+		if(setRender) {
+			((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			((Graphics2D)g).setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+			((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		}
+		
 		
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());

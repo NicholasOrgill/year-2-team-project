@@ -1,21 +1,5 @@
 package songmanager;
 
-/*
- * 	- title
-	- songLength
-	- startBeat
-	- averageTempo
-	- artistName
-	- ebeats (+count)
-	- - ebeat (+time, measure)
-	- notes (+count)
-	- - note (+time,string,sustain)
-	- chords (+count)
-	- - chord (+time,chordId)
-	- - - chordNote (+string)
-	- handShape (+chordId,endTime,startTime)
- */
-
 /**
  * Holds all the notes, beats and metadata for a song
  * @author Alex
@@ -24,8 +8,9 @@ package songmanager;
 public class SongObject {
 
 	private String title, artist;
-	private int songLength, averageTempo, beatCount, noteCount;
-	private Note[] notes, beats;
+	private int songLength, averageTempo, startBeat;
+	private Note[] notes;
+	private Beat[] beats;
 	
 	/**
 	 * Creates a new song object
@@ -33,18 +18,16 @@ public class SongObject {
 	 * @param artist
 	 * @param songLength Length of the song (ms)
 	 * @param averageTempo Beats per minute
-	 * @param beatCount Number of beats
-	 * @param noteCount Number of notes
+	 * @param startBeat The first beat of the song
 	 * @param notes Array of notes
 	 * @param beats Array of beats
 	 */
-	public SongObject(String title, String artist, int songLength, int averageTempo, int beatCount, int noteCount, Note[] notes, Note[] beats) {
+	public SongObject(String title, String artist, int songLength, int averageTempo, int startBeat, Note[] notes, Beat[] beats) {
 		this.title = title;
 		this.artist = artist;
 		this.songLength = songLength;
 		this.averageTempo = averageTempo;
-		this.beatCount = beatCount;
-		this.noteCount = noteCount;
+		this.startBeat = startBeat;
 		this.notes = notes;
 		this.beats = beats;
 	}
@@ -78,17 +61,10 @@ public class SongObject {
 	}
 	
 	/**
-	 * Gets the number of beats in the song
+	 * Gets the starting beat of the song
 	 */
-	public int getBeatCount() {
-		return beatCount;
-	}
-	
-	/**
-	 * Gets the number of notes in the song
-	 */
-	public int getNoteCount() {
-		return noteCount;
+	public int getStartBeat() {
+		return startBeat;
 	}
 	
 	/**
@@ -101,7 +77,7 @@ public class SongObject {
 	/**
 	 * Gets the array of all beats in the song
 	 */
-	public Note[] getBeats() {
+	public Beat[] getBeats() {
 		return beats;
 	}
 }

@@ -6,8 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 import engine.Sprite;
+import utils.ImageLoader;
 
-public class ImageSprite extends Sprite {
+public class ImageGrad extends Sprite {
 	private Image image;
 	private boolean impress = false;
 	private float size = 1;
@@ -16,17 +17,22 @@ public class ImageSprite extends Sprite {
 	private boolean fadeOut = false;
 	private float famount = 0.8f;
 	
-	public ImageSprite(int x, int y, int width, int height) {
+	public ImageGrad(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
 
-	public ImageSprite(int x, int y, Image image) {
+	public ImageGrad(int x, int y, Image image) {
 		super(x, y, image.getWidth(null), image.getHeight(null));
 		this.image = image;
 	}
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+	
+	public ImageGrad() {
+		super(0, 0, 0, 0);
+		this.image = ImageLoader.loadImageFromResource("src/res/images/gradient.png");
 	}
 
 	@Override
@@ -89,9 +95,7 @@ public class ImageSprite extends Sprite {
 
 		((Graphics2D) context).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 
-		context.drawImage(image, getX() - (int) ((image.getWidth(null) * size) / 2),
-				getY() - (int) ((image.getHeight(null) * size) / 2), (int) (image.getWidth(null) * size),
-				(int) (image.getHeight(null) * size), null);
+		context.drawImage(image, 0, (int)(getScreenHeight() * 0.8), getScreenWidth(), (int)(getScreenHeight() * 0.2), null);
 		((Graphics2D) context).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 	}
 

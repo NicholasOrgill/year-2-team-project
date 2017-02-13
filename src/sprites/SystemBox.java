@@ -33,7 +33,7 @@ public class SystemBox extends Sprite {
 	@Override
 	public void draw(Graphics context) {
 		context.setColor(new Color(255, 255, 255, 200 - count));
-		context.fillRect((int)(getScreenWidth() * 0.05), (int)(getScreenHeight() * 0.05) + count, (int)(getScreenWidth() * 0.9), (int)(getScreenHeight() * 0.9));
+		context.fillRect((int)(getScreenWidth() * 0.05), (int)(getScreenHeight() * 0.05) + count, (int)(getScreenWidth() * 0.9), (int)(getScreenHeight() * 0.85));
 	}
 
 }

@@ -1,20 +1,3 @@
-<!---
-	Keep:
-	- title
-	- songLength
-	- startBeat
-	- averageTempo
-	- artistName
-	- ebeats (+count)
-	- - ebeat (+time, measure)
-	- notes (+count)
-	- - note (+time,string,sustain)
-	- chords (+count)
-	- - chord (+time,chordId)
-	- - - chordNote (+string)
-	- handShape (+chordId,endTime,startTime)
--->
-
 <?xml version='1.0' encoding='UTF-8'?>
 <song version="7">
 <!-- EOF v1.8RC10 (2-15-2016) -->

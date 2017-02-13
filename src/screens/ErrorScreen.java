@@ -1,19 +1,18 @@
 package screens;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import engine.GameObject;
 import engine.Screen;
-import sprites.TextSprite;
+import sprites.SystemText;
 
 public class ErrorScreen extends Screen {
 
-	TextSprite textSprite;
+	SystemText textSprite;
 	int counter = 0;
 	public ErrorScreen(GameObject gameObject) {
 		super(gameObject);
-		textSprite = new TextSprite(0, 0, "GAME HALT SERVICE MENU");
+		textSprite = new SystemText(10, 10, "GAME PROGRAM READY...");
 		setNextScreen(new Overlay(gameObject));
 	}
 
@@ -21,7 +20,7 @@ public class ErrorScreen extends Screen {
 	public void update() {
 		counter++;
 		textSprite.setScreenSize(getScreenWidth(), getScreenHeight());
-		textSprite.setText("COUNT " + counter);
+		//textSprite.setText("COUNT " + counter);
 	}
 
 	@Override
