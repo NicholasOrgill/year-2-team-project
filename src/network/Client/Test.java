@@ -9,8 +9,9 @@ public class Test {
 	public static void main(String[] args){
 		
 		String hostname = "localhost";
+		String name = "Client";
 		
-		Network n = new Network(hostname);
+		Network n = new Network(hostname,name);
 		
 		//start receive test
 		(new ClientResolve(n)).start();

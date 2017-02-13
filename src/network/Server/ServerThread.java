@@ -36,7 +36,7 @@ public class ServerThread extends Thread{
 			// for now just return any messages get from player
 			// will use ServerResolve to resolve messages later
 			while ( (readLine = fromClient.readLine()) !=null ){
-				System.out.println("got message "+ readLine +" form " + opponent.getName());
+				System.out.println("got message "+ readLine +" from " + opponent.getName());
 				toClient.println("I got you message : "+ readLine);
 				solve.resolve(readLine);
 			}
