@@ -20,12 +20,16 @@ public class DotSprite extends Sprite {
 	
 	
 	
-	public DotSprite(int x, int y, int width, int height) {
+	public DotSprite(int x, int y, int width, int height, boolean bottom, int scrwidth, int scrheight) {
 		super(x, y, width, height);
 		random = new Random();
 		
-		setX(random.nextInt(800));
-		setY(random.nextInt(600) + 600);
+		if(bottom) {
+			setY(random.nextInt(scrheight) + 600);
+		} else {
+			setY(random.nextInt(scrheight));
+		}
+		setX(random.nextInt(scrwidth));
 		setWidth(size);
 		setHeight(size);
 		
@@ -33,7 +37,6 @@ public class DotSprite extends Sprite {
 		color = new Color(255, 255, 255, trans);
 		
 		step = 1 + random.nextInt(4);
-		
 		
 	}
 

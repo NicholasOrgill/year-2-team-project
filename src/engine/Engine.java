@@ -15,8 +15,8 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 import input.InputHandler;
-import screens.JUScreen;
 import screens.Overlay;
+import screens.StartScreen;
 
 /**
  * This is the initial game engine class which handles the running of the game
@@ -33,7 +33,7 @@ public class Engine extends Canvas implements Runnable {
 	private boolean running = false;
 	private int tickCount = 0;
 	private GameObject gameObject = new GameObject(width, height);
-	private Screen screen = new JUScreen(gameObject);
+	private Screen screen = new StartScreen(gameObject);
 	private int opac = 255;
 	private boolean changing = false;
 	private Overlay overlay = new Overlay(gameObject);
@@ -66,13 +66,24 @@ public class Engine extends Canvas implements Runnable {
 		// Add our canvas to the JFrame
 		frame.add(this, BorderLayout.CENTER);
 		
-		// Create the input handler
-		inputHandler = new InputHandler();
-		frame.addKeyListener(inputHandler);
-		inputHandler.storePlayKey('g');
-		
+		// Make sure the frame is setup for input
 		frame.setFocusable(true);
 		frame.setFocusTraversalKeysEnabled(false);
+		
+		// Create the input handler
+		inputHandler = new InputHandler();
+		gameObject.setInputHandler(inputHandler);
+		
+		// Put some default keys in
+		inputHandler.storePlayKey('q');
+		inputHandler.storePlayKey('w');
+		inputHandler.storePlayKey('e');
+		inputHandler.storePlayKey('r');
+		
+		this.addKeyListener(inputHandler);
+				
+		inputHandler.setScreen(screen);		
+		
 
 		// Sets the frame so the sizes are above / at the correct size
 		frame.pack();
@@ -183,10 +194,12 @@ public class Engine extends Canvas implements Runnable {
 			changing = true;
 		}
 		
-		if(changing && opac >= 255) {
+		if(changing && opac >= 550) {
 			Screen nextScreen = screen.getNextScreen();
 			screen.dispose();
 			screen = nextScreen;
+			
+			// For effect have a little fake load time
 			changing = false;
 			System.out.println("Screen Moved");
 		}
@@ -218,6 +231,8 @@ public class Engine extends Canvas implements Runnable {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
+		
+				
 		screen.draw(g);
 		
 		
@@ -226,13 +241,15 @@ public class Engine extends Canvas implements Runnable {
 		
 		// Sorts the fading of the scenes
 		if(opac > 0 && !changing) {
-			opac-=2;
+			opac-=4;
 		}
 		
-		if(opac < 255 && changing) {
-			opac+=2;
+		if(opac < 550 && changing) {
+			opac+=17;
 		}
 		
+		
+				
 		// Adds the rectangle over the top
 		g.fillRect(0, 0, getWidth(), getHeight());
 		

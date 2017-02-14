@@ -30,7 +30,7 @@ public class TitleScreen extends Screen {
 		topBarSprite.makeTrans();
 		bottomBarSprite.makeTrans();
 		titleText = new FancyCenterTextSprite((getScreenWidth() / 2), (int) (getScreenHeight() * 0.4), "BeatNetwork");
-		dotBackground = new DotSpriteBackground(10, 10, 20, 30);
+		//dotBackground = new DotSpriteBackground(10, 10, 20, 30);
 		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
 		String titles[] = { "Single Player", "Network Play", "Options", "Close" };
 		centerText = new MenuCenterTextSprite[titles.length];
@@ -43,7 +43,7 @@ public class TitleScreen extends Screen {
 		for (int i = 1; i < centerText.length; i++) {
 			centerText[i].deselect();
 		}
-		setNextScreen(new NetworkWait(gameObject));
+		setNextScreen(new StartScreen(gameObject));
 
 	}
 

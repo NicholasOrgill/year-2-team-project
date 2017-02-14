@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 
 import engine.GameObject;
 import engine.Screen;
+import input.InputHandler;
 import sprites.DotSpriteBackground;
 import sprites.FancyCenterTextSprite;
 import sprites.ImageGrad;
@@ -39,6 +40,21 @@ public class JUScreen extends Screen {
 	int lineXPos = 0;
 	int lineOpac = 255;
 	
+	@Override
+	public void keyPressed(int key) {
+		System.out.println("on" + key);
+		if(key == InputHandler.PLAYKEY0) {
+			getGameObject().getOverlay().getMiddleBottom().setText(" ");
+			moveScreen();
+		}
+	}
+	
+	@Override
+	public void keyReleased(int key) {
+		System.out.println("off" + key);
+	} 
+	
+	
 	public JUScreen(GameObject gameObject) {
 		super(gameObject);
 		textSprite = new SystemText(10, 10, "HELLO");
@@ -50,7 +66,7 @@ public class JUScreen extends Screen {
 			e.printStackTrace();
 		}
 		
-		setNextScreen(new ErrorScreen(gameObject));
+		setNextScreen(new ModeSelect(gameObject));
 		
 		
 		box = new SystemBox();
@@ -59,7 +75,7 @@ public class JUScreen extends Screen {
 		imageGrad = new ImageGrad();
 		imageGrad.setOpacity(0);
 		
-		dotBackground = new DotSpriteBackground(10, 10, 20, 30);
+		dotBackground = new DotSpriteBackground(10, 10, 20, 30, true, getScreenWidth(), getScreenHeight());
 		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
 		
 		beatnetf = new ImageSprite(getScreenWidth() / 2, (int)(getScreenHeight() * 0.4), ImageLoader.loadImageFromResource("src/res/images/beatnet_full.png"));
@@ -150,11 +166,9 @@ public class JUScreen extends Screen {
 		title.update();
 		
 		count++;
-		if(count > 600) {
-			box.setScreenSize(getScreenWidth(), getScreenHeight());
-			box.update();
-			getGameObject().getOverlay().getMiddleBottom().setText("PLEASE WAIT");
-			//moveScreen();
+		if(count == 600) {
+			setNextScreen(new StartScreen(getGameObject()));
+			moveScreen();
 		}
 		
 		
@@ -201,9 +215,7 @@ public class JUScreen extends Screen {
 		}
 	
 		
-		if(count == 800) {
-			moveScreen();
-		}
+		
 		
 	}
 
@@ -235,11 +247,12 @@ public class JUScreen extends Screen {
 		be.draw(context);
 		b.draw(context);
 		
-		//title.draw(context);
+	
 		
 		// Draw the middle line
 		if(lineOpac > 1) {
 			context.setColor(new Color(255, 255, 255, lineOpac));
+			
 			int ypos = 286;
 			context.drawLine(0 + lineXPos, ypos, getScreenWidth() + lineXPos, ypos);
 			

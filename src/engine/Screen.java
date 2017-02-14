@@ -25,6 +25,7 @@ public class Screen {
 	}
 	
 	protected void moveScreen() {
+		gameObject.getInputHandler().setScreen(nextScreen);
 		moveScreen = true;
 	}
 	
