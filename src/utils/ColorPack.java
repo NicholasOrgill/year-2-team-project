@@ -21,6 +21,7 @@ public class ColorPack {
 	// JuBeat Colours
 	public static Color DARK = new Color(18, 21, 43, 255);
 	public static Color WHITE = new Color(255, 255, 255, 255);
+	public static Color FADEDWHITE = new Color(255, 255, 255, 128);
 	public static Color BLACK = new Color(5, 5, 11, 255);
 	
 	public static Color PRIMARY3 = new Color(0, 0, 0, 255);
