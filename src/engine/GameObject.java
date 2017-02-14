@@ -1,5 +1,7 @@
 package engine;
 
+import screens.Overlay;
+
 /**
  * The game object is given around to all the different scenes
  * @author bobbydilley
@@ -8,6 +10,7 @@ package engine;
 public class GameObject {
 	private int width;
 	private int height;
+	private Overlay overlay;
 
 	public GameObject(int width, int height) {
 		this.width = width;
@@ -28,5 +31,13 @@ public class GameObject {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	
+	public void setOverlay(Overlay overlay) {
+		this.overlay = overlay;
+	}
+	
+	public Overlay getOverlay() {
+		return this.overlay;
 	}
 }

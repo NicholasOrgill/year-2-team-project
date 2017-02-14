@@ -12,7 +12,7 @@ public class Main {
 		System.out.println("Launching Game...");
 		
 		// Control fullscreen
-		boolean fullScreen = true;
+		boolean fullScreen = false;
 		
 		
 		if(args.length > 0) {
@@ -22,7 +22,7 @@ public class Main {
 		}
 		
 		try {
-			Engine engine = new Engine("BeatNetwork", fullScreen);
+			Engine engine = new Engine("BeatNet", fullScreen);
 			engine.start();
 		} catch (Exception e) {
 			System.exit(-1);

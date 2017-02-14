@@ -10,20 +10,37 @@ public class BottomBarSprite extends Sprite {
 	private double height = 0.1;
 	private MenuCenterTextSprite textSprite;
 	private FadeCenterTextSprite textSpriteLeft;
+	private FadeCenterTextSprite textSpriteRight;
+	private boolean trans = false;
 	
-	public BottomBarSprite(String text) {
+	public BottomBarSprite() {
 		super(0, 0);
-		textSprite = new MenuCenterTextSprite(0, 0, text);
+		textSprite = new MenuCenterTextSprite(0, 0, " ");
 		textSprite.setColor(Color.WHITE);
 		
-		textSpriteLeft = new FadeCenterTextSprite(0, 0, text);
+		textSpriteLeft = new FadeCenterTextSprite(0, 0, " ");
 		textSpriteLeft.setColor(Color.WHITE.darker());
 		textSpriteLeft.setFontSize(0.023);
-		textSpriteLeft.setText("PLEASE WAIT");
+		
+		textSpriteRight = new FadeCenterTextSprite(0, 0, " ");
+		textSpriteRight.setColor(Color.WHITE.darker());
+		textSpriteRight.setFontSize(0.023);
 	}
 
 	public void setText(String text) {
 		this.textSprite.setText(text);
+	}
+	
+	public void setLeftText(String text) {
+		this.textSpriteLeft.setText(text);
+	}
+	
+	public void setRightText(String text) {
+		this.textSpriteRight.setText(text);
+	}
+	
+	public void makeTrans() {
+		trans = true;
 	}
 
 	@Override
@@ -37,6 +54,11 @@ public class BottomBarSprite extends Sprite {
 		textSpriteLeft.setX((int) (getScreenWidth() * 0.1));
 		textSpriteLeft.setY((int) ((getScreenHeight()) - (int) (getScreenHeight() * height) + (getScreenHeight() * height / 2)));
 		textSpriteLeft.update();
+		
+		textSpriteRight.setScreenSize(getScreenWidth(), getScreenHeight());
+		textSpriteRight.setX((int) (getScreenWidth() - (getScreenWidth() * 0.1)));
+		textSpriteRight.setY((int) ((getScreenHeight()) - (int) (getScreenHeight() * height) + (getScreenHeight() * height / 2)));
+		textSpriteRight.update();
 	}
 
 	public void setHeight(double height) {
@@ -49,14 +71,18 @@ public class BottomBarSprite extends Sprite {
 
 	@Override
 	public void draw(Graphics context) {
-		context.setColor(ColorPack.BLACK);
-		context.fillRect(0, (getScreenHeight()) - (int) (getScreenHeight() * height), getScreenWidth(), (int) (getScreenHeight() * height));
-		
-		context.setColor(ColorPack.SECONDARY);
-		context.drawLine(0, (getScreenHeight()) - (int) (getScreenHeight() * height), getScreenWidth(), (getScreenHeight()) - (int) (getScreenHeight() * height));
+		if(!trans) {
+			context.setColor(ColorPack.BLACK);
+			context.fillRect(0, (getScreenHeight()) - (int) (getScreenHeight() * height), getScreenWidth(), (int) (getScreenHeight() * height));
+			
+			context.setColor(ColorPack.SECONDARY);
+			context.drawLine(0, (getScreenHeight()) - (int) (getScreenHeight() * height), getScreenWidth(), (getScreenHeight()) - (int) (getScreenHeight() * height));
 
-		//textSprite.draw(context);
+		}
+		
+		textSprite.draw(context);
 		textSpriteLeft.draw(context);
+		textSpriteRight.draw(context);
 	}
 
 }

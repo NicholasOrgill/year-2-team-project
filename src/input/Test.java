@@ -11,7 +11,7 @@ public class Test {
 		JFrame frame = new JFrame();
 		InputHandler inputHandler = new InputHandler();
 		
-		frame.add(inputHandler);
+		//frame.add(inputHandler);
 		
 		frame.setSize(500, 600);
 		frame.setVisible(true);

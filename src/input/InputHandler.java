@@ -6,13 +6,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import engine.Screen;
 
 
 
-public class InputHandler extends JPanel implements KeyListener, ActionListener{
+
+public class InputHandler implements KeyListener, ActionListener{
 	
 	private Timer timer;
 	private int delay = 8; //milliseconds
@@ -22,18 +23,28 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 	private ArrayList<Integer> powerKey; //store the keys for powers/abilities
 	private boolean[] playKeyStatus; //store the status of playing keys
 	private boolean[] powerKeyStatus; //store the status of power keys
+	private Screen screen; // The screen to send the action to
+	
+	private static int PLAYKEY0 = 0;
+	private static int PLAYKEY1 = 1;
+	private static int PLAYKEY2 = 2;
+	private static int PLAYKEY3 = 3;
+	
+	private static int POWERKEY0 = 0;
+	private static int POWERKEY1 = 1;
+	private static int POWERKEY2 = 2;
 	
 	
 	/**
 	 * Initialise InputHandler
 	 */
 	public InputHandler(){
-		record = new ArrayList<Integer>();
-		release = new ArrayList<Integer>();
+		//record = new ArrayList<Integer>();
+		//release = new ArrayList<Integer>();
 		playKey = new ArrayList<Integer>();
 		powerKey = new ArrayList<Integer>();
 		
-		playKeyStatus = new boolean[4];
+		/*playKeyStatus = new boolean[4];
 		for(int i=0; i<4; i++){
 			playKeyStatus[i] = false;
 		}
@@ -41,13 +52,15 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 		powerKeyStatus = new boolean[3];
 		for(int i=0; i<3; i++){
 			powerKeyStatus[i] = true;
-		}
+		}*/
 
-		addKeyListener(this);
-		setFocusable(true);
-		setFocusTraversalKeysEnabled(false);
+		
 		timer = new Timer(delay, this); //repeat the action every 8 milliseconds
 		timer.start();
+	}
+	
+	public void setScreen(Screen screen) {
+		this.screen = screen;
 	}
 
 	
@@ -55,7 +68,7 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 	public void keyPressed(KeyEvent e) {
 		
 		//check whether the keys are pressed and add them to record arraylist
-		switch(e.getKeyCode()) {
+		/*switch(e.getKeyCode()) {
 			case KeyEvent.VK_ENTER:
 				record.add(KeyEvent.VK_ENTER); //10
 				break;
@@ -77,28 +90,32 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 				
 			default:
 				;
-		}
+		}*/
 		
-		if(playKey.size()== 4){
+		//if(playKey.size()== 4){
 			if(e.getKeyCode() == playKey.get(0)){
 				record.add(playKey.get(0));
 				playKeyStatus[0] = true;
+				screen.keyPressed(PLAYKEY0);
 			}
 			if(e.getKeyCode() == playKey.get(1)){
 				record.add(playKey.get(1));
 				playKeyStatus[1] = true;
+				screen.keyPressed(PLAYKEY1);
 			}
 			if(e.getKeyCode() == playKey.get(2)){
 				record.add(playKey.get(2));
 				playKeyStatus[2] = true;
+				screen.keyPressed(PLAYKEY2);
 			}
 			if(e.getKeyCode() == playKey.get(3)){
 				record.add(playKey.get(3));
 				playKeyStatus[3] = true;
+				screen.keyPressed(PLAYKEY3);
 			}
 			
 			
-		}
+		//}
 		
 		//remove the power key that is used
 		if(!powerKey.isEmpty()){
@@ -117,7 +134,7 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 	public void keyReleased(KeyEvent e) {
 		
 		//check whether the keys are released and add them to release arraylist
-		if(playKey.size()== 4){
+		//if(playKey.size()== 4){
 			if(e.getKeyCode() == playKey.get(0)){
 				release.add(-playKey.get(0));
 				playKeyStatus[0] = false;
@@ -136,7 +153,7 @@ public class InputHandler extends JPanel implements KeyListener, ActionListener{
 			}
 			
 			
-		}
+		//}
 		
 		
 	}

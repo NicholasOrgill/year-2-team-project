@@ -1,7 +1,7 @@
 package sprites;
 
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -11,15 +11,34 @@ import java.awt.geom.Rectangle2D;
 import utils.ColorPack;
 import utils.FontLoader;
 
-public class FancyCenterTextSprite extends TextSprite {
-
-	public FancyCenterTextSprite(int x, int y, String text) {
-		super(x, y, text);
-		setFont(FontLoader.loadFontFromResource("Roboto-Thin.ttf"));
-		setFontSize(0.1);
-		
-	}
+public class SystemTextCenterFade extends TextSprite {
+	int counter = 0;
+	double opac = 0;
+	String actualText = "";
 	
+	public SystemTextCenterFade(int x, int y, String text) {
+		super(x, y, text);
+		setFontSize(0.027);
+		setFont(FontLoader.loadFontFromResource("Opensans-regular.ttf"));
+		actualText = text;
+	}
+
+	@Override
+	public void update() {
+		if(counter == 179) {
+			counter = 0;
+			actualText = getText();
+		}
+		counter++;
+		
+		opac = Math.sin(Math.toRadians(counter));
+		
+		
+
+	}
+
+
+
 	@Override
 	public void draw(Graphics context) {
 		// Create the fontSize from the size of the screen
@@ -47,12 +66,22 @@ public class FancyCenterTextSprite extends TextSprite {
 		setHeight((int) bounds.getHeight());
 		
 			
-		// Set the colour of the text
-		textGraphics.setColor(ColorPack.WHITE);
+		// Draw outline
+		textGraphics.setColor(new Color(ColorPack.BLACK.getRed(), ColorPack.BLACK.getGreen(), ColorPack.BLACK.getBlue(), (int)(opac * 255)));
 		
-					
+		
+		int out = 1;
+		for(int i = -out ; i <= out ; i++) {
+			for(int j = -out ; j <= out ; j++) {
+				textGraphics.drawString(actualText, getX() + i - (getWidth() / 2), (int) (getY()  + j + bounds.getHeight()) - (getHeight() / 2));
+			}
+		}
+	
+		textGraphics.setColor(new Color(ColorPack.WHITE.getRed(), ColorPack.WHITE.getGreen(), ColorPack.WHITE.getBlue(), (int)(opac * 255)));
+				
 		// Draw the text out
-		textGraphics.drawString(getText(), getX() - (getWidth() / 2), (int) (getY() + bounds.getHeight()) - (getHeight() / 2));
+		textGraphics.drawString(actualText, getX() - (getWidth() / 2), (int) (getY() + bounds.getHeight()) - (getHeight() / 2));
+		
 		
 	}
 

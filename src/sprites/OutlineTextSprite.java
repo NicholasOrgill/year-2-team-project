@@ -1,7 +1,7 @@
 package sprites;
 
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -11,13 +11,12 @@ import java.awt.geom.Rectangle2D;
 import utils.ColorPack;
 import utils.FontLoader;
 
-public class FancyCenterTextSprite extends TextSprite {
+public class OutlineTextSprite extends TextSprite {
 
-	public FancyCenterTextSprite(int x, int y, String text) {
+	public OutlineTextSprite(int x, int y, String text) {
 		super(x, y, text);
-		setFont(FontLoader.loadFontFromResource("Roboto-Thin.ttf"));
-		setFontSize(0.1);
-		
+		setFontSize(0.04);
+		setFont(FontLoader.loadFontFromResource("Roboto-Bold.ttf"));
 	}
 	
 	@Override
@@ -46,13 +45,24 @@ public class FancyCenterTextSprite extends TextSprite {
 		setWidth((int) bounds.getWidth());
 		setHeight((int) bounds.getHeight());
 		
+		
+		
+		// Draw outline
+		textGraphics.setColor(ColorPack.GREY);
+		int out = 1;
+		for(int i = -out ; i <= out ; i++) {
+			for(int j = -out ; j <= out ; j++) {
+				textGraphics.drawString(getText(), getX() + i, (int) (getY()  + j + bounds.getHeight()) - (getHeight() / 2));
+			}
+		}
+		
 			
 		// Set the colour of the text
-		textGraphics.setColor(ColorPack.WHITE);
-		
-					
+		textGraphics.setColor(getColor());
+				
 		// Draw the text out
-		textGraphics.drawString(getText(), getX() - (getWidth() / 2), (int) (getY() + bounds.getHeight()) - (getHeight() / 2));
+		textGraphics.drawString(getText(), getX(), (int) (getY() + bounds.getHeight()) - (getHeight() / 2));
+		
 		
 	}
 
