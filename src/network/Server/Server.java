@@ -1,37 +1,51 @@
 package network.Server;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.*;
-import java.util.ArrayList;
 
-public class Server {
-	public static void main(String[] args){
+/**
+ * This class will launch the server
+ * @author Weifeng
+ */
+public class Server extends Thread{
+
+	private MessageQueue serverInput;
+	private String name;
+	
+	public Server(MessageQueue _serverInput, String _name){
+		this.serverInput = _serverInput;
+		this.name = _name;
+	}
+	
+	public void run(){
 		ServerSocket serverSocket = null;
-		ArrayList<Player> players = new ArrayList<Player>(); 
 		
+		//use array list to save player data
 		
-		try{
+		try {
 			serverSocket = new ServerSocket(4444);
-		}catch(IOException e){
+		} catch (IOException e) {
 			System.err.println("Could not listen on port 4444");
 			System.exit(-1);
 		}
 		
 		try {
-			while(true){
-				Socket clientSocket = serverSocket.accept();
-				Player p = new Player(clientSocket);
-				players.add(p);
-				ServerThread s = new ServerThread(players,p);
-				s.start();
-			}
-			
+			while (true){
+				Socket ClientSocket = serverSocket.accept();
+				
+				// when a player connected add this player to array list
+				// the user ID will simply be determined by how many player already connected
+				Player opponent = new Player(ClientSocket);
+				Player me = new Player(name);
+				System.out.println("Your opponent connected");
+				
+				//start a new Thread to solve messages from player
+				new ServerThread(serverInput,opponent,me).start();
+				
+			}	
+								
 		} catch (Exception e) {
-			try{
-				serverSocket.close();
-			}catch(IOException io){
-				System.err.println("Couldn't close server socket" + io.getMessage());
-			}
+			System.err.println("IO error " + e.getMessage());
 		}
 	}
 }

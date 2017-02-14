@@ -2,51 +2,50 @@ package network.Client;
 
 import java.io.*;
 import java.net.*;
-
+/**
+ * This class is to connect the server
+ * @author Weifeng 
+ */
 public class Client {
-	Socket server;
-	DataOutputStream toServer;
-	DataInputStream fromServer;
-	BufferedReader fromUser;
 
-	public Client(String serverName) {
+	MessageQueue sendQueue;
+	MessageQueue receiveQueue;
+	private String hostname;
+
+	public Client(String _hostname, MessageQueue _sendQueue, MessageQueue _receiveQueue){
+		this.hostname = _hostname;
+		this.sendQueue = _sendQueue;
+		this.receiveQueue = _receiveQueue;
+	}
+
+	/**
+	 * this method is tring to connect the server
+	 */
+	public void start(){
+		
+		Socket server = null;
+	    PrintStream toServer = null;
+	    BufferedReader fromServer = null;
+	    
 		try {
-			server = new Socket(serverName, 4444);
-			toServer = new DataOutputStream(server.getOutputStream());
-			fromServer = new DataInputStream(server.getInputStream());
-			System.out.println("connected");
+			server = new Socket(this.hostname, 4444);
+			toServer = new PrintStream(server.getOutputStream());
+		    fromServer = new BufferedReader(new InputStreamReader(server.getInputStream()));
 		} catch (UnknownHostException e) {
-			System.err.println("Unknow host" + serverName);
-		} catch (Exception e) {
-			System.err.println("Could not get I/O for the connection" + serverName);
-			System.exit(-1);
+			System.err.println("Unkown host: ");
+		}catch (IOException e) {
+			System.err.println("Could not get IO for the connection " + e.getMessage());
+			System.exit(1);
 		}
-		fromUser = new BufferedReader(new InputStreamReader(System.in));
-	}
-
-	public void run() {
-		try {
-			String userInput ;
-			Receive receive = new Receive(server);
-			
-			receive.start();
-			
-			while ((userInput = fromUser.readLine()) != null) {
-			
-				toServer.writeUTF(userInput);
-				System.out.println("Sent" + userInput + "to Server");
-				
-
-				
-			}
-		} catch (IOException e) {
-
-		}
-	}
-
-	public static void main(String[] args) {
-		assert (args.length == 1);
-		Client c = new Client(args[0]);
-		c.run();
+		
+		//start a new thread ClientSender 
+		//when get input from user, send messages to server
+		(new ClientSender(toServer,sendQueue)).start();
+		
+		//start a new thread ClientReceive
+		//when get messages from server save it in the blocking queue
+		(new ClientReceiver(fromServer,receiveQueue)).start();
+	
+		
 	}
 }
