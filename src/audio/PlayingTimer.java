@@ -23,18 +23,13 @@ public class PlayingTimer extends Thread {
 	private boolean isReset = false;
 	private long startTime;
 	private long pauseTime;
-
-	private JLabel labelRecordTime;
-	private JSlider slider;
 	private Clip audioClip;
 
 	public void setAudioClip(Clip audioClip) {
 		this.audioClip = audioClip;
 	}
 
-	PlayingTimer(JLabel labelRecordTime, JSlider slider) {
-		this.labelRecordTime = labelRecordTime;
-		this.slider = slider;
+	public PlayingTimer() {
 	}
 
 	public void run() {
@@ -47,9 +42,7 @@ public class PlayingTimer extends Thread {
 				Thread.sleep(100);
 				if (!isPause) {
 					if (audioClip != null && audioClip.isRunning()) {
-						labelRecordTime.setText(toTimeString());
 						int currentSecond = (int) audioClip.getMicrosecondPosition() / 1000000;
-						slider.setValue(currentSecond);
 					}
 				} else {
 					pauseTime += 100;
@@ -57,8 +50,6 @@ public class PlayingTimer extends Thread {
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 				if (isReset) {
-					slider.setValue(0);
-					labelRecordTime.setText("00:00:00");
 					isRunning = false;
 					break;
 				}

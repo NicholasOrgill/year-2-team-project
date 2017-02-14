@@ -104,7 +104,7 @@ public class AudioPlayer implements LineListener {
 	 * @throws UnsupportedAudioFileException
 	 * @throws LineUnavailableException
 	 */
-	void play() throws IOException {
+	public void play() throws IOException {
 
 		audioClip.start();
 
@@ -114,7 +114,7 @@ public class AudioPlayer implements LineListener {
 		while (!playCompleted) {
 			// wait for the playback completes
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 				if (isStopped) {

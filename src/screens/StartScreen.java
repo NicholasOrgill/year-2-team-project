@@ -17,7 +17,7 @@ public class StartScreen extends Screen {
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
 		if(key == InputHandler.PLAYKEY0) {
-			setNextScreen(new ModeSelect(getGameObject()));
+			setNextScreen(new TitleScreen(getGameObject()));
 			getGameObject().getOverlay().getMiddleBottom().setText(" ");
 			moveScreen();
 		}
