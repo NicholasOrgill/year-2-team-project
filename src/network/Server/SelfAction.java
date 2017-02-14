@@ -37,7 +37,7 @@ public class SelfAction {
 			setStart();
 		}else if (me.isReady() && !opponent.isReady()){
 			System.out.println("You are ready now, wait your oppoent...");
-			toOppo.print("Your opponent is ready, wait you...");
+			toOppo.println("Your opponent is ready, wait you...");
 		}else if (!me.isReady() && opponent.isReady()){
 			System.out.println("Your opponent is ready, wait you...");
 			toOppo.println("You are ready now, wait your oppoent...");

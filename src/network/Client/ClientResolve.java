@@ -15,19 +15,20 @@ public class ClientResolve extends Thread {
 	public void run(){
 		while (true){
 			String receive = network.receive();
-			if(receive.equals("LOAD:")){
-				network.setPlaying(true);
-				GamingThread gameThread = new GamingThread(network);
-				gameThread.start();
-			}else if(receive.equals("OVER:")){
-				network.setPlaying(false);
-			}else
-			resolve(network.receive());
+			resolve(receive);
 		}
 	}
 	
 	
 	private void resolve(String _readline){
-		System.out.println(_readline);
+		if(_readline.equals("LOAD:")){
+			network.setPlaying(true);
+			GamingThread gameThread = new GamingThread(network);
+			gameThread.start();
+		}else if(_readline.equals("OVER:")){
+			network.setPlaying(false);
+		}else{
+			System.out.println(_readline);
+		}
 	}
 }
