@@ -32,8 +32,8 @@ public class SystemTextCenterFade extends TextSprite {
 		}
 		counter++;
 
-		//opac = Math.sin(Math.toRadians(counter));
-		opac = 1;
+		opac = Math.sin(Math.toRadians(counter));
+		//opac = 1;
 	}
 
 	@Override

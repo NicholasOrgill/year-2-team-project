@@ -43,7 +43,7 @@ public class NetworkSelect extends Screen {
 		super(gameObject);
 		
 		
-		setNextScreen(new ErrorScreen(gameObject));
+		//setNextScreen(new ErrorScreen(gameObject));
 
 		box = new SystemBox();
 		box.setScreenSize(getScreenWidth(), getScreenHeight());

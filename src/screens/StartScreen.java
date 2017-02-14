@@ -14,7 +14,7 @@ public class StartScreen extends Screen {
 	
 	public StartScreen(GameObject gameObject) {
 		super(gameObject);
-		setNextScreen(new JUScreen(gameObject));
+		setNextScreen(new TitleScreen(gameObject));
 		
 		image = new ImageSprite(getScreenWidth() / 2, (int)(getScreenHeight() * 0.4), ImageLoader.loadImageFromResource("src/res/images/konami_logo.png"));
 		image.setScreenSize(getScreenWidth(), getScreenHeight());
