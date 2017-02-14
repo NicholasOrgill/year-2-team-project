@@ -44,7 +44,7 @@ public class ExampleScreen extends Screen {
 
 	@Override
 	public void update() {
-		// You should call setScreenSize and update on all screens
+		// You should call setScreenSize and update on all sprites
 		textSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		textSprite.update();
 
