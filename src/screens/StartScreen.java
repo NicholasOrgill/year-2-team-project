@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import engine.GameObject;
 import engine.Screen;
+import input.InputHandler;
 import sprites.ImageSprite;
 import utils.ColorPack;
 import utils.ImageLoader;
@@ -11,6 +12,21 @@ import utils.ImageLoader;
 public class StartScreen extends Screen {
 	int counter = 0;
 	private ImageSprite image;
+	
+	@Override
+	public void keyPressed(int key) {
+		System.out.println("on" + key);
+		if(key == InputHandler.PLAYKEY0) {
+			setNextScreen(new ModeSelect(getGameObject()));
+			getGameObject().getOverlay().getMiddleBottom().setText(" ");
+			moveScreen();
+		}
+	}
+	
+	@Override
+	public void keyReleased(int key) {
+		System.out.println("off" + key);
+	}
 	
 	public StartScreen(GameObject gameObject) {
 		super(gameObject);
