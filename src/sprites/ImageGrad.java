@@ -95,7 +95,7 @@ public class ImageGrad extends Sprite {
 
 		((Graphics2D) context).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 
-		context.drawImage(image, 0, (int)(getScreenHeight() * 0.8), getScreenWidth(), (int)(getScreenHeight() * 0.2), null);
+		context.drawImage(image, 0, (int)(getScreenHeight() * 0.7), getScreenWidth(), (int)(getScreenHeight() * 0.3), null);
 		((Graphics2D) context).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 	}
 

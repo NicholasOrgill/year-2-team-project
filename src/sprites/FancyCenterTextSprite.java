@@ -1,5 +1,6 @@
 package sprites;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -13,11 +14,25 @@ import utils.FontLoader;
 
 public class FancyCenterTextSprite extends TextSprite {
 
+	int count = 127;
+	boolean run = true;
+	
+	
 	public FancyCenterTextSprite(int x, int y, String text) {
 		super(x, y, text);
 		setFont(FontLoader.loadFontFromResource("Roboto-Thin.ttf"));
 		setFontSize(0.1);
 		
+	}
+	
+	@Override 
+	public void update() {
+		if(run) {
+			count-=(count/25);
+			if(count == 0) {
+				run = false;
+			}
+		}
 	}
 	
 	@Override
@@ -48,11 +63,11 @@ public class FancyCenterTextSprite extends TextSprite {
 		
 			
 		// Set the colour of the text
-		textGraphics.setColor(ColorPack.WHITE);
-		
+		//textGraphics.setColor(ColorPack.FADEDWHITE);
+		textGraphics.setColor(new Color(255, 255, 255, 127 - count));
 					
 		// Draw the text out
-		textGraphics.drawString(getText(), getX() - (getWidth() / 2), (int) (getY() + bounds.getHeight()) - (getHeight() / 2));
+		textGraphics.drawString(getText(), getX() - (getWidth()), (int) (getY() + bounds.getHeight()) - (getHeight() / 2));
 		
 	}
 

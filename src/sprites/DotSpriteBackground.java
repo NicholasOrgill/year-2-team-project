@@ -10,13 +10,14 @@ public class DotSpriteBackground extends Sprite {
 	int amount = 100;
 	private Random random;
 	
-	public DotSpriteBackground(int x, int y, int width, int height) {
+	public DotSpriteBackground(int x, int y, int width, int height, boolean bottom, int scrwidth, int scrheight) {
 		super(x, y, width, height);
 		dotSprite = new DotSprite[amount];
 		random = new Random();
 		
 		for (int i = 0; i < amount; i++) {
-			dotSprite[i] = new DotSprite(10, 20, 10, 10);
+			
+			dotSprite[i] = new DotSprite(10, 20, 10, 10, bottom, scrwidth, scrheight);
 			dotSprite[i].setScreenSize(getScreenWidth(), getScreenHeight());
 		}
 	}

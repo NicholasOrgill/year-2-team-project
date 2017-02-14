@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import engine.Sprite;
 
 public class SystemBox extends Sprite {
-	int count = 90;
+	int count = 170;
 	boolean run = true;
 	
 	
@@ -32,8 +32,8 @@ public class SystemBox extends Sprite {
 
 	@Override
 	public void draw(Graphics context) {
-		context.setColor(new Color(255, 255, 255, 200 - count));
-		context.fillRect((int)(getScreenWidth() * 0.05), (int)(getScreenHeight() * 0.05) + count, (int)(getScreenWidth() * 0.9), (int)(getScreenHeight() * 0.85));
+		context.setColor(new Color(255, 255, 255, 170 - count));
+		context.fillRect((int)(getScreenWidth() * 0.02), (int)(getScreenHeight() * 0.04), (int)(getScreenWidth() * 0.96), (int)(getScreenHeight() * 0.92));
 	}
 
 }
