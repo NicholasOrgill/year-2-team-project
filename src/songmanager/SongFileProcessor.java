@@ -138,7 +138,7 @@ public class SongFileProcessor {
 				int measure = beatElements.get(i).getAttribute("measure").getIntValue();
 				beats[i] = new Beat(time, measure);
 			}
-			
+
 			// Retrieve notes
 			Element notesElement = songElement.getChild("notes");
 			List<Element> noteElements = notesElement.getChildren();
@@ -159,7 +159,7 @@ public class SongFileProcessor {
 				
 				int[] buttons = new int[buttonsList.size()];
 				for (int j = 0; j < buttonsList.size(); j++) {
-					buttons[i] = buttonsList.get(i);
+					buttons[j] = buttonsList.get(j);
 				}
 				
 				notes[i] = new Note(time, sustain, buttons);

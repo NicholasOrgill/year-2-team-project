@@ -52,7 +52,7 @@ public class PlayScreen extends Screen {
 		if(count == 0) {
 			audio.playBack("src/songmanager/Tetris.wav");
 			reader = new SongFileProcessor();
-			reader.readSongObjectFromXML("src/songmanager/songfile.xml");
+			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
 			beat = song.getBeats();
 			note = song.getNotes();
 			
