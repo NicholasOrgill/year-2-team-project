@@ -84,7 +84,7 @@ public class PlayingTimer extends Thread {
 		return timeCounter;
 	}
 	
-	public long timeInMill() {
+	public long getTimeInMill() {
 		if (!isRunning) {
 			return 0;
 		}
