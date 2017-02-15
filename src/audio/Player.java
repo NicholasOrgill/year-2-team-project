@@ -18,16 +18,13 @@ public class Player {
 	private boolean isPlaying = false;
 	private boolean isPause = false;
 
-	private String audioFilePath;
-	private String lastOpenPath;
-
 	public Player() {
 	}
 
 	/**
 	 * Start playing back the sound.
 	 */
-	private void playBack() {
+	public void playBack(final String audioFilePath) {
 		timer = new PlayingTimer();
 		timer.start();
 		isPlaying = true;
@@ -39,7 +36,7 @@ public class Player {
 					player.load(audioFilePath);
 					timer.setAudioClip(player.getAudioClip());
 					player.play();
-
+					timer.run();
 				} catch (UnsupportedAudioFileException ex) {
 					System.out.println("The audio format is unsupported!");
 					resetControls();
@@ -59,8 +56,16 @@ public class Player {
 
 		playbackThread.start();
 	}
+	
+	public AudioPlayer getAudioPlayer() {
+		return player;
+	}
+	
+	public PlayingTimer getPlayingTimer() {
+		return timer;
+	}
 
-	private void stopPlaying() {
+	public void stopPlaying() {
 		isPause = false;
 		timer.reset();
 		timer.interrupt();
@@ -68,21 +73,21 @@ public class Player {
 		playbackThread.interrupt();
 	}
 
-	private void pausePlaying() {
+	public void pausePlaying() {
 		isPause = true;
 		player.pause();
 		timer.pauseTimer();
 		playbackThread.interrupt();
 	}
 
-	private void resumePlaying() {
+	public void resumePlaying() {
 		isPause = false;
 		player.resume();
 		timer.resumeTimer();
 		playbackThread.interrupt();
 	}
 
-	private void resetControls() {
+	public void resetControls() {
 		timer.reset();
 		timer.interrupt();
 		isPlaying = false;

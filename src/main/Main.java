@@ -25,6 +25,8 @@ public class Main {
 			Engine engine = new Engine("BeatNet", fullScreen);
 			engine.start();
 		} catch (Exception e) {
+			System.out.println("FATAL SYSTEM ERROR: -> ");
+			System.out.println(e.getMessage());
 			System.exit(-1);
 		}
 		

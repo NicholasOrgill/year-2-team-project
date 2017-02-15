@@ -23,9 +23,11 @@ public class Test {
 	 */
 	private void runTest() {
 		EofRepacker reader = new EofRepacker();
-		SongObject song = reader.GetSongObjectFromBassFile("C:/Users/Sam/git/e2/src/songmanager/PART REAL_BASS_RS2.xml");
+		
+		SongObject song = reader.GetSongObjectFromBassFile("src/songmanager/PART REAL_BASS_RS2.xml");
 		SimpleAI ai = new SimpleAI();
 		SongArray[] songArray = ai.recreateArray(song, 10);
+	
 		System.out.println(song.getBeats()[0].getTime());
 		System.out.println(songArray[9].getBeats()[0].getTime());
 	}

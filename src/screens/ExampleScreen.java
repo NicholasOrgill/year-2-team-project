@@ -38,7 +38,7 @@ public class ExampleScreen extends Screen {
 		textSprite = new SystemText(10, 10, "PRESS 'Q' TO START GAME");
 
 		// You can set the next screen whereever you like
-		setNextScreen(new StartScreen(gameObject));
+		setNextScreen(new PlayScreen(gameObject));
 
 	}
 
@@ -55,7 +55,7 @@ public class ExampleScreen extends Screen {
 		if (count == 600) {
 			// You can set the next screen right before moving, although may
 			// cause a few m/s of lag
-			setNextScreen(new StartScreen(getGameObject()));
+			setNextScreen(new PlayScreen(getGameObject()));
 
 			// Run this to actually move the screen
 			moveScreen();

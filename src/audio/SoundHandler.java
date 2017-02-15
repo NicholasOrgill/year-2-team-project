@@ -12,15 +12,18 @@ public class SoundHandler {
 	HashMap<String, AudioInputStream> effects;
 	
 	public SoundHandler() {
+		effects = new HashMap<String, AudioInputStream>();
 	}
 
 	public void fillEffects(String[] list) {
 		try {
+			System.out.println("HI");
 			for (String elem : list) {
-				AudioInputStream ais = AudioSystem.getAudioInputStream(new File("/src/utils/effects/" + elem));
+				AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/res/audio/" + elem));
 				effects.put(elem, ais);
 			}
 		} catch (Exception e) {
+			System.err.println("Terminal Exception");
 			e.printStackTrace();
 		}
 	}

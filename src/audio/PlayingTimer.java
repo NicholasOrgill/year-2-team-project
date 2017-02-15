@@ -43,6 +43,8 @@ public class PlayingTimer extends Thread {
 				if (!isPause) {
 					if (audioClip != null && audioClip.isRunning()) {
 						int currentSecond = (int) audioClip.getMicrosecondPosition() / 1000000;
+					} else {
+						isRunning = false;
 					}
 				} else {
 					pauseTime += 100;
@@ -78,7 +80,7 @@ public class PlayingTimer extends Thread {
 	 * 
 	 * @return the time counter
 	 */
-	private String toTimeString() {
+	public String toTimeString() {
 		long now = System.currentTimeMillis();
 		Date current = new Date(now - startTime - pauseTime);
 		dateFormater.setTimeZone(TimeZone.getTimeZone("GMT"));
