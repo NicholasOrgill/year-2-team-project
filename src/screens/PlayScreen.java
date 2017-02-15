@@ -9,6 +9,7 @@ import engine.Screen;
 import songmanager.Beat;
 import songmanager.EofRepacker;
 import songmanager.Note;
+import songmanager.SongFileProcessor;
 import songmanager.SongObject;
 import sprites.BarSprite;
 import sprites.NoteSprite;
@@ -21,7 +22,7 @@ import utils.ColorPack;
  *
  */
 public class PlayScreen extends Screen {
-	private EofRepacker reader;
+	private SongFileProcessor reader;
 	private SongObject song;
 	private Beat[] beat;
 	private Note[] note;
@@ -50,8 +51,8 @@ public class PlayScreen extends Screen {
 		
 		if(count == 0) {
 			audio.playBack("src/songmanager/Tetris.wav");
-			reader = new EofRepacker();
-			song = reader.GetSongObjectFromBassFile("src/songmanager/PART REAL_BASS_RS2.xml");
+			reader = new SongFileProcessor();
+			reader.readSongObjectFromXML("src/songmanager/songfile.xml");
 			beat = song.getBeats();
 			note = song.getNotes();
 			

@@ -211,7 +211,7 @@ public class SongFileProcessor {
 	
 	public static void main(String[] args) {
 		EofRepacker repacker = new EofRepacker();
-		SongObject obj = repacker.GetSongObjectFromBassFile("src/songmanager/PART REAL_BASS_RS2.xml");
+		SongObject obj = repacker.getSongObjectFromBassFile("src/songmanager/PART REAL_BASS_RS2.xml");
 		SongFileProcessor processor = new SongFileProcessor();
 		processor.writeSongObjectToXML(obj, "src/songmanager/songfile.xml");
 	}
