@@ -49,7 +49,7 @@ public class PlayScreen extends Screen {
 	public void update() {
 		
 		if(count == 0) {
-			//audio.playBack("src/res/audio/sound_effect_one.wav");
+			audio.playBack("src/songmanager/Tetris.wav");
 			reader = new EofRepacker();
 			song = reader.GetSongObjectFromBassFile("src/songmanager/PART REAL_BASS_RS2.xml");
 			beat = song.getBeats();
@@ -88,7 +88,9 @@ public class PlayScreen extends Screen {
 		playSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		playSprite.update();
 		
-		count++;
+		System.out.println(audio.getPlayingTimer().getTimeInMill());
+		count = (int) (audio.getPlayingTimer().getTimeInMill());
+		
 	}
 	
 	@Override
