@@ -3,9 +3,7 @@ package songmanager;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +95,7 @@ public class SongFileProcessor {
 			
 			// Output XML
 			XMLOutputter xmlOutput = new XMLOutputter();
-			xmlOutput.setFormat(Format.getCompactFormat());
+			xmlOutput.setFormat(Format.getPrettyFormat());
 			xmlOutput.output(doc, new FileWriter(outputPath));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -209,5 +207,12 @@ public class SongFileProcessor {
 	 */
 	public SongFile readSongFile(String inputPath) {
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		EofRepacker repacker = new EofRepacker();
+		SongObject obj = repacker.GetSongObjectFromBassFile("src/songmanager/PART REAL_BASS_RS2.xml");
+		SongFileProcessor processor = new SongFileProcessor();
+		processor.writeSongObjectToXML(obj, "src/songmanager/songfile.xml");
 	}
 }
