@@ -48,6 +48,8 @@ public class PlayScreen extends Screen {
 	@Override
 	public void update() {
 		
+		int lineY = (int)Math.round(getScreenHeight() * 0.8);
+		
 		if(count == 0) {
 			audio.playBack("src/songmanager/Tetris.wav");
 			reader = new SongFileProcessor();
@@ -58,18 +60,24 @@ public class PlayScreen extends Screen {
 			barSprite = new BarSprite[beat.length];
 			noteSprite = new NoteSprite[note.length];
 			
-			for(int i = 0 ; i < beat.length ; i++) {
+			/*for(int i = 0 ; i < beat.length ; i++) {
 				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + beat[i].getTime(), 0, 0);
 			}
 			
 			for(int i = 0 ; i < note.length ; i++) {
 				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + note[i].getTime(), 0, 0, note[i].getButtons(), note[i].getSustain());
-			}		
+			}*/
 			
+			for(int i = 0 ; i < beat.length ; i++) {
+				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), lineY - beat[i].getTime(), 0, 0);
+			}
 			
+			for(int i = 0 ; i < note.length ; i++) {
+				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note[i].getTime(), 0, 0, note[i].getButtons(), note[i].getSustain());
+			}
 		}
 		
-		for(int i = 0 ; i < beat.length ; i++) {
+		/*for(int i = 0 ; i < beat.length ; i++) {
 			barSprite[i].setY((count - song.getSongLength()) + beat[i].getTime());
 			barSprite[i].update();
 		}
@@ -78,6 +86,17 @@ public class PlayScreen extends Screen {
 			noteSprite[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSprite[i].update();
 			noteSprite[i].setY((count - song.getSongLength()) + note[i].getTime());
+		}*/
+		
+		for(int i = 0 ; i < beat.length ; i++) {
+			barSprite[i].setY(lineY - (beat[i].getTime() - count));
+			barSprite[i].update();
+		}
+		
+		for(int i = 0 ; i < note.length ; i++) {
+			noteSprite[i].setScreenSize(getScreenWidth(), getScreenHeight());
+			noteSprite[i].update();
+			noteSprite[i].setY(lineY - (note[i].getTime() - count));
 		}
 		
 		textSprite.setScreenSize(getScreenWidth(), getScreenHeight());
