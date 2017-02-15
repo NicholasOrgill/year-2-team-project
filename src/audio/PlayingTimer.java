@@ -40,21 +40,14 @@ public class PlayingTimer extends Thread {
 		while (isRunning) {
 			try {
 				Thread.sleep(100);
-				if (!isPause) {
-					if (audioClip != null && audioClip.isRunning()) {
-						int currentSecond = (int) audioClip.getMicrosecondPosition() / 1000000;
-					} else {
-						isRunning = false;
-					}
-				} else {
+				if (isPause) {
 					pauseTime += 100;
 				}
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
-				if (isReset) {
-					isRunning = false;
-					break;
-				}
+				startTime = System.currentTimeMillis();
+				isRunning = false;
+				break;
 			}
 		}
 	}
@@ -81,10 +74,23 @@ public class PlayingTimer extends Thread {
 	 * @return the time counter
 	 */
 	public String toTimeString() {
+		if (!isRunning) {
+			return "00:00:00";
+		}
 		long now = System.currentTimeMillis();
 		Date current = new Date(now - startTime - pauseTime);
 		dateFormater.setTimeZone(TimeZone.getTimeZone("GMT"));
 		String timeCounter = dateFormater.format(current);
 		return timeCounter;
+	}
+	
+	public long timeInMill() {
+		if (!isRunning) {
+			return 0;
+		}
+		long now = System.currentTimeMillis();
+		Date current = new Date(now - startTime - pauseTime);
+		long time = current.getTime();
+		return time;
 	}
 }

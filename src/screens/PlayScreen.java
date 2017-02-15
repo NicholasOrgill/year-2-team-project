@@ -33,10 +33,7 @@ public class PlayScreen extends Screen {
 	public PlayScreen(GameObject gameObject) {
 		super(gameObject);
 		textSprite = new SystemText(100, 100, "Game goes here");
-		playSprite = new PlaySprite(0, 0, 0, 0);
-		
-		
-		
+		playSprite = new PlaySprite(0, 0, 0, 0);		
 	}
 	
 	@Override
