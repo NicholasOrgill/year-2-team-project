@@ -36,7 +36,7 @@ public class Player {
 					player.load(audioFilePath);
 					timer.setAudioClip(player.getAudioClip());
 					player.play();
-					timer.run();
+					stopPlaying();
 				} catch (UnsupportedAudioFileException ex) {
 					System.out.println("The audio format is unsupported!");
 					resetControls();

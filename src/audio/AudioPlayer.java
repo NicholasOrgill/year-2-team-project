@@ -25,7 +25,7 @@ public class AudioPlayer implements LineListener {
 	/**
 	 * this flag indicates whether the playback completes or not.
 	 */
-	private boolean playCompleted;
+	public boolean playCompleted;
 
 	/**
 	 * this flag indicates whether the playback is stopped or not.
