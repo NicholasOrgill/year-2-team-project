@@ -4,221 +4,217 @@
   <artist>Some Russian Guy</artist>
   <songLength>86416</songLength>
   <averageTempo>149978</averageTempo>
-  <startBeat>1460</startBeat>
+  <startBeat>3068</startBeat>
   <beats>
-    <beat time="1460" measure="1" />
-    <beat time="1862" measure="-1" />
-    <beat time="2264" measure="-1" />
-    <beat time="2666" measure="-1" />
-    <beat time="3068" measure="2" />
+    <beat time="3068" measure="1" />
     <beat time="3470" measure="-1" />
     <beat time="3872" measure="-1" />
     <beat time="4274" measure="-1" />
-    <beat time="4676" measure="3" />
+    <beat time="4676" measure="2" />
     <beat time="5077" measure="-1" />
     <beat time="5479" measure="-1" />
     <beat time="5881" measure="-1" />
-    <beat time="6283" measure="4" />
+    <beat time="6283" measure="3" />
     <beat time="6685" measure="-1" />
     <beat time="7087" measure="-1" />
     <beat time="7489" measure="-1" />
-    <beat time="7891" measure="5" />
+    <beat time="7891" measure="4" />
     <beat time="8293" measure="-1" />
     <beat time="8695" measure="-1" />
     <beat time="9097" measure="-1" />
-    <beat time="9499" measure="6" />
+    <beat time="9499" measure="5" />
     <beat time="9901" measure="-1" />
     <beat time="10303" measure="-1" />
     <beat time="10705" measure="-1" />
-    <beat time="11107" measure="7" />
+    <beat time="11107" measure="6" />
     <beat time="11508" measure="-1" />
     <beat time="11910" measure="-1" />
     <beat time="12312" measure="-1" />
-    <beat time="12714" measure="8" />
+    <beat time="12714" measure="7" />
     <beat time="13116" measure="-1" />
     <beat time="13518" measure="-1" />
     <beat time="13920" measure="-1" />
-    <beat time="14322" measure="9" />
+    <beat time="14322" measure="8" />
     <beat time="14724" measure="-1" />
     <beat time="15126" measure="-1" />
     <beat time="15528" measure="-1" />
-    <beat time="15930" measure="10" />
+    <beat time="15930" measure="9" />
     <beat time="16332" measure="-1" />
     <beat time="16734" measure="-1" />
     <beat time="17136" measure="-1" />
-    <beat time="17538" measure="11" />
+    <beat time="17538" measure="10" />
     <beat time="17939" measure="-1" />
     <beat time="18341" measure="-1" />
     <beat time="18743" measure="-1" />
-    <beat time="19145" measure="12" />
+    <beat time="19145" measure="11" />
     <beat time="19547" measure="-1" />
     <beat time="19949" measure="-1" />
     <beat time="20351" measure="-1" />
-    <beat time="20753" measure="13" />
+    <beat time="20753" measure="12" />
     <beat time="21155" measure="-1" />
     <beat time="21557" measure="-1" />
     <beat time="21959" measure="-1" />
-    <beat time="22361" measure="14" />
+    <beat time="22361" measure="13" />
     <beat time="22763" measure="-1" />
     <beat time="23165" measure="-1" />
     <beat time="23567" measure="-1" />
-    <beat time="23969" measure="15" />
+    <beat time="23969" measure="14" />
     <beat time="24370" measure="-1" />
     <beat time="24772" measure="-1" />
     <beat time="25174" measure="-1" />
-    <beat time="25576" measure="16" />
+    <beat time="25576" measure="15" />
     <beat time="25978" measure="-1" />
     <beat time="26380" measure="-1" />
     <beat time="26782" measure="-1" />
-    <beat time="27184" measure="17" />
+    <beat time="27184" measure="16" />
     <beat time="27586" measure="-1" />
     <beat time="27988" measure="-1" />
     <beat time="28390" measure="-1" />
-    <beat time="28792" measure="18" />
+    <beat time="28792" measure="17" />
     <beat time="29194" measure="-1" />
     <beat time="29596" measure="-1" />
     <beat time="29998" measure="-1" />
-    <beat time="30400" measure="19" />
+    <beat time="30400" measure="18" />
     <beat time="30801" measure="-1" />
     <beat time="31203" measure="-1" />
     <beat time="31605" measure="-1" />
-    <beat time="32007" measure="20" />
+    <beat time="32007" measure="19" />
     <beat time="32409" measure="-1" />
     <beat time="32811" measure="-1" />
     <beat time="33213" measure="-1" />
-    <beat time="33615" measure="21" />
+    <beat time="33615" measure="20" />
     <beat time="34017" measure="-1" />
     <beat time="34419" measure="-1" />
     <beat time="34821" measure="-1" />
-    <beat time="35223" measure="22" />
+    <beat time="35223" measure="21" />
     <beat time="35625" measure="-1" />
     <beat time="36027" measure="-1" />
     <beat time="36429" measure="-1" />
-    <beat time="36831" measure="23" />
+    <beat time="36831" measure="22" />
     <beat time="37232" measure="-1" />
     <beat time="37634" measure="-1" />
     <beat time="38036" measure="-1" />
-    <beat time="38438" measure="24" />
+    <beat time="38438" measure="23" />
     <beat time="38840" measure="-1" />
     <beat time="39242" measure="-1" />
     <beat time="39644" measure="-1" />
-    <beat time="40046" measure="25" />
+    <beat time="40046" measure="24" />
     <beat time="40448" measure="-1" />
     <beat time="40850" measure="-1" />
     <beat time="41252" measure="-1" />
-    <beat time="41654" measure="26" />
+    <beat time="41654" measure="25" />
     <beat time="42056" measure="-1" />
     <beat time="42458" measure="-1" />
     <beat time="42860" measure="-1" />
-    <beat time="43262" measure="27" />
+    <beat time="43262" measure="26" />
     <beat time="43663" measure="-1" />
     <beat time="44065" measure="-1" />
     <beat time="44467" measure="-1" />
-    <beat time="44869" measure="28" />
+    <beat time="44869" measure="27" />
     <beat time="45271" measure="-1" />
     <beat time="45673" measure="-1" />
     <beat time="46075" measure="-1" />
-    <beat time="46477" measure="29" />
+    <beat time="46477" measure="28" />
     <beat time="46879" measure="-1" />
     <beat time="47281" measure="-1" />
     <beat time="47683" measure="-1" />
-    <beat time="48085" measure="30" />
+    <beat time="48085" measure="29" />
     <beat time="48487" measure="-1" />
     <beat time="48889" measure="-1" />
     <beat time="49291" measure="-1" />
-    <beat time="49693" measure="31" />
+    <beat time="49693" measure="30" />
     <beat time="50094" measure="-1" />
     <beat time="50496" measure="-1" />
     <beat time="50898" measure="-1" />
-    <beat time="51300" measure="32" />
+    <beat time="51300" measure="31" />
     <beat time="51702" measure="-1" />
     <beat time="52104" measure="-1" />
     <beat time="52506" measure="-1" />
-    <beat time="52908" measure="33" />
+    <beat time="52908" measure="32" />
     <beat time="53310" measure="-1" />
     <beat time="53712" measure="-1" />
     <beat time="54114" measure="-1" />
-    <beat time="54516" measure="34" />
+    <beat time="54516" measure="33" />
     <beat time="54918" measure="-1" />
     <beat time="55320" measure="-1" />
     <beat time="55722" measure="-1" />
-    <beat time="56124" measure="35" />
+    <beat time="56124" measure="34" />
     <beat time="56526" measure="-1" />
     <beat time="56927" measure="-1" />
     <beat time="57329" measure="-1" />
-    <beat time="57731" measure="36" />
+    <beat time="57731" measure="35" />
     <beat time="58133" measure="-1" />
     <beat time="58535" measure="-1" />
     <beat time="58937" measure="-1" />
-    <beat time="59339" measure="37" />
+    <beat time="59339" measure="36" />
     <beat time="59741" measure="-1" />
     <beat time="60143" measure="-1" />
     <beat time="60545" measure="-1" />
-    <beat time="60947" measure="38" />
+    <beat time="60947" measure="37" />
     <beat time="61349" measure="-1" />
     <beat time="61751" measure="-1" />
     <beat time="62153" measure="-1" />
-    <beat time="62555" measure="39" />
+    <beat time="62555" measure="38" />
     <beat time="62957" measure="-1" />
     <beat time="63358" measure="-1" />
     <beat time="63760" measure="-1" />
-    <beat time="64162" measure="40" />
+    <beat time="64162" measure="39" />
     <beat time="64564" measure="-1" />
     <beat time="64966" measure="-1" />
     <beat time="65368" measure="-1" />
-    <beat time="65770" measure="41" />
+    <beat time="65770" measure="40" />
     <beat time="66172" measure="-1" />
     <beat time="66574" measure="-1" />
     <beat time="66976" measure="-1" />
-    <beat time="67378" measure="42" />
+    <beat time="67378" measure="41" />
     <beat time="67780" measure="-1" />
     <beat time="68182" measure="-1" />
     <beat time="68584" measure="-1" />
-    <beat time="68986" measure="43" />
+    <beat time="68986" measure="42" />
     <beat time="69388" measure="-1" />
     <beat time="69789" measure="-1" />
     <beat time="70191" measure="-1" />
-    <beat time="70593" measure="44" />
+    <beat time="70593" measure="43" />
     <beat time="70995" measure="-1" />
     <beat time="71397" measure="-1" />
     <beat time="71799" measure="-1" />
-    <beat time="72201" measure="45" />
+    <beat time="72201" measure="44" />
     <beat time="72603" measure="-1" />
     <beat time="73005" measure="-1" />
     <beat time="73407" measure="-1" />
-    <beat time="73809" measure="46" />
+    <beat time="73809" measure="45" />
     <beat time="74211" measure="-1" />
     <beat time="74613" measure="-1" />
     <beat time="75015" measure="-1" />
-    <beat time="75417" measure="47" />
+    <beat time="75417" measure="46" />
     <beat time="75819" measure="-1" />
     <beat time="76220" measure="-1" />
     <beat time="76622" measure="-1" />
-    <beat time="77024" measure="48" />
+    <beat time="77024" measure="47" />
     <beat time="77426" measure="-1" />
     <beat time="77828" measure="-1" />
     <beat time="78230" measure="-1" />
-    <beat time="78632" measure="49" />
+    <beat time="78632" measure="48" />
     <beat time="79034" measure="-1" />
     <beat time="79436" measure="-1" />
     <beat time="79838" measure="-1" />
-    <beat time="80240" measure="50" />
+    <beat time="80240" measure="49" />
     <beat time="80642" measure="-1" />
     <beat time="81044" measure="-1" />
     <beat time="81446" measure="-1" />
-    <beat time="81848" measure="51" />
+    <beat time="81848" measure="50" />
     <beat time="82250" measure="-1" />
     <beat time="82651" measure="-1" />
     <beat time="83053" measure="-1" />
-    <beat time="83455" measure="52" />
+    <beat time="83455" measure="51" />
     <beat time="83857" measure="-1" />
     <beat time="84259" measure="-1" />
     <beat time="84661" measure="-1" />
-    <beat time="85063" measure="53" />
+    <beat time="85063" measure="52" />
     <beat time="85465" measure="-1" />
     <beat time="85867" measure="-1" />
     <beat time="86269" measure="-1" />
-    <beat time="86671" measure="54" />
+    <beat time="86671" measure="53" />
     <beat time="87073" measure="-1" />
   </beats>
   <notes>

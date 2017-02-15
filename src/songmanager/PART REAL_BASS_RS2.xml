@@ -8,7 +8,7 @@
   <centOffset>0</centOffset>
   <songLength>86.416</songLength>
   <lastConversionDateTime>1-22-17 21:40</lastConversionDateTime>
-  <startBeat>1.460</startBeat>
+  <startBeat>3.068</startBeat>
   <averageTempo>149.978</averageTempo>
   <tuning string0="0" string1="0" string2="0" string3="0" string4="0" string5="0" />
   <capo>0</capo>
@@ -23,7 +23,7 @@
     <phrase disparity="0" ignore="0" maxDifficulty="0" name="END" solo="0"/>
   </phrases>
   <phraseIterations count="2">
-    <phraseIteration time="1.460" phraseId="0"/>
+    <phraseIteration time="3.068" phraseId="0"/>
     <phraseIteration time="86.269" phraseId="1"/>
   </phraseIterations>
   <newLinkedDiffs count="0"/>
@@ -37,220 +37,216 @@
     <chordTemplate chordName="" displayName="" finger0="-1" finger1="-1" finger2="-1" finger3="-1" finger4="-1" finger5="-1" fret0="0" fret1="-1" fret2="0" fret3="-1" fret4="-1" fret5="-1"/>
   </chordTemplates>
   <fretHandMuteTemplates count="0"/>
-  <ebeats count="214">
-    <ebeat time="1.460" measure="1"/>
-    <ebeat time="1.862" measure="-1"/>
-    <ebeat time="2.264" measure="-1"/>
-    <ebeat time="2.666" measure="-1"/>
-    <ebeat time="3.068" measure="2"/>
+  <ebeats count="210">
+    <ebeat time="3.068" measure="1"/>
     <ebeat time="3.470" measure="-1"/>
     <ebeat time="3.872" measure="-1"/>
     <ebeat time="4.274" measure="-1"/>
-    <ebeat time="4.676" measure="3"/>
+    <ebeat time="4.676" measure="2"/>
     <ebeat time="5.077" measure="-1"/>
     <ebeat time="5.479" measure="-1"/>
     <ebeat time="5.881" measure="-1"/>
-    <ebeat time="6.283" measure="4"/>
+    <ebeat time="6.283" measure="3"/>
     <ebeat time="6.685" measure="-1"/>
     <ebeat time="7.087" measure="-1"/>
     <ebeat time="7.489" measure="-1"/>
-    <ebeat time="7.891" measure="5"/>
+    <ebeat time="7.891" measure="4"/>
     <ebeat time="8.293" measure="-1"/>
     <ebeat time="8.695" measure="-1"/>
     <ebeat time="9.097" measure="-1"/>
-    <ebeat time="9.499" measure="6"/>
+    <ebeat time="9.499" measure="5"/>
     <ebeat time="9.901" measure="-1"/>
     <ebeat time="10.303" measure="-1"/>
     <ebeat time="10.705" measure="-1"/>
-    <ebeat time="11.107" measure="7"/>
+    <ebeat time="11.107" measure="6"/>
     <ebeat time="11.508" measure="-1"/>
     <ebeat time="11.910" measure="-1"/>
     <ebeat time="12.312" measure="-1"/>
-    <ebeat time="12.714" measure="8"/>
+    <ebeat time="12.714" measure="7"/>
     <ebeat time="13.116" measure="-1"/>
     <ebeat time="13.518" measure="-1"/>
     <ebeat time="13.920" measure="-1"/>
-    <ebeat time="14.322" measure="9"/>
+    <ebeat time="14.322" measure="8"/>
     <ebeat time="14.724" measure="-1"/>
     <ebeat time="15.126" measure="-1"/>
     <ebeat time="15.528" measure="-1"/>
-    <ebeat time="15.930" measure="10"/>
+    <ebeat time="15.930" measure="9"/>
     <ebeat time="16.332" measure="-1"/>
     <ebeat time="16.734" measure="-1"/>
     <ebeat time="17.136" measure="-1"/>
-    <ebeat time="17.538" measure="11"/>
+    <ebeat time="17.538" measure="10"/>
     <ebeat time="17.939" measure="-1"/>
     <ebeat time="18.341" measure="-1"/>
     <ebeat time="18.743" measure="-1"/>
-    <ebeat time="19.145" measure="12"/>
+    <ebeat time="19.145" measure="11"/>
     <ebeat time="19.547" measure="-1"/>
     <ebeat time="19.949" measure="-1"/>
     <ebeat time="20.351" measure="-1"/>
-    <ebeat time="20.753" measure="13"/>
+    <ebeat time="20.753" measure="12"/>
     <ebeat time="21.155" measure="-1"/>
     <ebeat time="21.557" measure="-1"/>
     <ebeat time="21.959" measure="-1"/>
-    <ebeat time="22.361" measure="14"/>
+    <ebeat time="22.361" measure="13"/>
     <ebeat time="22.763" measure="-1"/>
     <ebeat time="23.165" measure="-1"/>
     <ebeat time="23.567" measure="-1"/>
-    <ebeat time="23.969" measure="15"/>
+    <ebeat time="23.969" measure="14"/>
     <ebeat time="24.370" measure="-1"/>
     <ebeat time="24.772" measure="-1"/>
     <ebeat time="25.174" measure="-1"/>
-    <ebeat time="25.576" measure="16"/>
+    <ebeat time="25.576" measure="15"/>
     <ebeat time="25.978" measure="-1"/>
     <ebeat time="26.380" measure="-1"/>
     <ebeat time="26.782" measure="-1"/>
-    <ebeat time="27.184" measure="17"/>
+    <ebeat time="27.184" measure="16"/>
     <ebeat time="27.586" measure="-1"/>
     <ebeat time="27.988" measure="-1"/>
     <ebeat time="28.390" measure="-1"/>
-    <ebeat time="28.792" measure="18"/>
+    <ebeat time="28.792" measure="17"/>
     <ebeat time="29.194" measure="-1"/>
     <ebeat time="29.596" measure="-1"/>
     <ebeat time="29.998" measure="-1"/>
-    <ebeat time="30.400" measure="19"/>
+    <ebeat time="30.400" measure="18"/>
     <ebeat time="30.801" measure="-1"/>
     <ebeat time="31.203" measure="-1"/>
     <ebeat time="31.605" measure="-1"/>
-    <ebeat time="32.007" measure="20"/>
+    <ebeat time="32.007" measure="19"/>
     <ebeat time="32.409" measure="-1"/>
     <ebeat time="32.811" measure="-1"/>
     <ebeat time="33.213" measure="-1"/>
-    <ebeat time="33.615" measure="21"/>
+    <ebeat time="33.615" measure="20"/>
     <ebeat time="34.017" measure="-1"/>
     <ebeat time="34.419" measure="-1"/>
     <ebeat time="34.821" measure="-1"/>
-    <ebeat time="35.223" measure="22"/>
+    <ebeat time="35.223" measure="21"/>
     <ebeat time="35.625" measure="-1"/>
     <ebeat time="36.027" measure="-1"/>
     <ebeat time="36.429" measure="-1"/>
-    <ebeat time="36.831" measure="23"/>
+    <ebeat time="36.831" measure="22"/>
     <ebeat time="37.232" measure="-1"/>
     <ebeat time="37.634" measure="-1"/>
     <ebeat time="38.036" measure="-1"/>
-    <ebeat time="38.438" measure="24"/>
+    <ebeat time="38.438" measure="23"/>
     <ebeat time="38.840" measure="-1"/>
     <ebeat time="39.242" measure="-1"/>
     <ebeat time="39.644" measure="-1"/>
-    <ebeat time="40.046" measure="25"/>
+    <ebeat time="40.046" measure="24"/>
     <ebeat time="40.448" measure="-1"/>
     <ebeat time="40.850" measure="-1"/>
     <ebeat time="41.252" measure="-1"/>
-    <ebeat time="41.654" measure="26"/>
+    <ebeat time="41.654" measure="25"/>
     <ebeat time="42.056" measure="-1"/>
     <ebeat time="42.458" measure="-1"/>
     <ebeat time="42.860" measure="-1"/>
-    <ebeat time="43.262" measure="27"/>
+    <ebeat time="43.262" measure="26"/>
     <ebeat time="43.663" measure="-1"/>
     <ebeat time="44.065" measure="-1"/>
     <ebeat time="44.467" measure="-1"/>
-    <ebeat time="44.869" measure="28"/>
+    <ebeat time="44.869" measure="27"/>
     <ebeat time="45.271" measure="-1"/>
     <ebeat time="45.673" measure="-1"/>
     <ebeat time="46.075" measure="-1"/>
-    <ebeat time="46.477" measure="29"/>
+    <ebeat time="46.477" measure="28"/>
     <ebeat time="46.879" measure="-1"/>
     <ebeat time="47.281" measure="-1"/>
     <ebeat time="47.683" measure="-1"/>
-    <ebeat time="48.085" measure="30"/>
+    <ebeat time="48.085" measure="29"/>
     <ebeat time="48.487" measure="-1"/>
     <ebeat time="48.889" measure="-1"/>
     <ebeat time="49.291" measure="-1"/>
-    <ebeat time="49.693" measure="31"/>
+    <ebeat time="49.693" measure="30"/>
     <ebeat time="50.094" measure="-1"/>
     <ebeat time="50.496" measure="-1"/>
     <ebeat time="50.898" measure="-1"/>
-    <ebeat time="51.300" measure="32"/>
+    <ebeat time="51.300" measure="31"/>
     <ebeat time="51.702" measure="-1"/>
     <ebeat time="52.104" measure="-1"/>
     <ebeat time="52.506" measure="-1"/>
-    <ebeat time="52.908" measure="33"/>
+    <ebeat time="52.908" measure="32"/>
     <ebeat time="53.310" measure="-1"/>
     <ebeat time="53.712" measure="-1"/>
     <ebeat time="54.114" measure="-1"/>
-    <ebeat time="54.516" measure="34"/>
+    <ebeat time="54.516" measure="33"/>
     <ebeat time="54.918" measure="-1"/>
     <ebeat time="55.320" measure="-1"/>
     <ebeat time="55.722" measure="-1"/>
-    <ebeat time="56.124" measure="35"/>
+    <ebeat time="56.124" measure="34"/>
     <ebeat time="56.526" measure="-1"/>
     <ebeat time="56.927" measure="-1"/>
     <ebeat time="57.329" measure="-1"/>
-    <ebeat time="57.731" measure="36"/>
+    <ebeat time="57.731" measure="35"/>
     <ebeat time="58.133" measure="-1"/>
     <ebeat time="58.535" measure="-1"/>
     <ebeat time="58.937" measure="-1"/>
-    <ebeat time="59.339" measure="37"/>
+    <ebeat time="59.339" measure="36"/>
     <ebeat time="59.741" measure="-1"/>
     <ebeat time="60.143" measure="-1"/>
     <ebeat time="60.545" measure="-1"/>
-    <ebeat time="60.947" measure="38"/>
+    <ebeat time="60.947" measure="37"/>
     <ebeat time="61.349" measure="-1"/>
     <ebeat time="61.751" measure="-1"/>
     <ebeat time="62.153" measure="-1"/>
-    <ebeat time="62.555" measure="39"/>
+    <ebeat time="62.555" measure="38"/>
     <ebeat time="62.957" measure="-1"/>
     <ebeat time="63.358" measure="-1"/>
     <ebeat time="63.760" measure="-1"/>
-    <ebeat time="64.162" measure="40"/>
+    <ebeat time="64.162" measure="39"/>
     <ebeat time="64.564" measure="-1"/>
     <ebeat time="64.966" measure="-1"/>
     <ebeat time="65.368" measure="-1"/>
-    <ebeat time="65.770" measure="41"/>
+    <ebeat time="65.770" measure="40"/>
     <ebeat time="66.172" measure="-1"/>
     <ebeat time="66.574" measure="-1"/>
     <ebeat time="66.976" measure="-1"/>
-    <ebeat time="67.378" measure="42"/>
+    <ebeat time="67.378" measure="41"/>
     <ebeat time="67.780" measure="-1"/>
     <ebeat time="68.182" measure="-1"/>
     <ebeat time="68.584" measure="-1"/>
-    <ebeat time="68.986" measure="43"/>
+    <ebeat time="68.986" measure="42"/>
     <ebeat time="69.388" measure="-1"/>
     <ebeat time="69.789" measure="-1"/>
     <ebeat time="70.191" measure="-1"/>
-    <ebeat time="70.593" measure="44"/>
+    <ebeat time="70.593" measure="43"/>
     <ebeat time="70.995" measure="-1"/>
     <ebeat time="71.397" measure="-1"/>
     <ebeat time="71.799" measure="-1"/>
-    <ebeat time="72.201" measure="45"/>
+    <ebeat time="72.201" measure="44"/>
     <ebeat time="72.603" measure="-1"/>
     <ebeat time="73.005" measure="-1"/>
     <ebeat time="73.407" measure="-1"/>
-    <ebeat time="73.809" measure="46"/>
+    <ebeat time="73.809" measure="45"/>
     <ebeat time="74.211" measure="-1"/>
     <ebeat time="74.613" measure="-1"/>
     <ebeat time="75.015" measure="-1"/>
-    <ebeat time="75.417" measure="47"/>
+    <ebeat time="75.417" measure="46"/>
     <ebeat time="75.819" measure="-1"/>
     <ebeat time="76.220" measure="-1"/>
     <ebeat time="76.622" measure="-1"/>
-    <ebeat time="77.024" measure="48"/>
+    <ebeat time="77.024" measure="47"/>
     <ebeat time="77.426" measure="-1"/>
     <ebeat time="77.828" measure="-1"/>
     <ebeat time="78.230" measure="-1"/>
-    <ebeat time="78.632" measure="49"/>
+    <ebeat time="78.632" measure="48"/>
     <ebeat time="79.034" measure="-1"/>
     <ebeat time="79.436" measure="-1"/>
     <ebeat time="79.838" measure="-1"/>
-    <ebeat time="80.240" measure="50"/>
+    <ebeat time="80.240" measure="49"/>
     <ebeat time="80.642" measure="-1"/>
     <ebeat time="81.044" measure="-1"/>
     <ebeat time="81.446" measure="-1"/>
-    <ebeat time="81.848" measure="51"/>
+    <ebeat time="81.848" measure="50"/>
     <ebeat time="82.250" measure="-1"/>
     <ebeat time="82.651" measure="-1"/>
     <ebeat time="83.053" measure="-1"/>
-    <ebeat time="83.455" measure="52"/>
+    <ebeat time="83.455" measure="51"/>
     <ebeat time="83.857" measure="-1"/>
     <ebeat time="84.259" measure="-1"/>
     <ebeat time="84.661" measure="-1"/>
-    <ebeat time="85.063" measure="53"/>
+    <ebeat time="85.063" measure="52"/>
     <ebeat time="85.465" measure="-1"/>
     <ebeat time="85.867" measure="-1"/>
     <ebeat time="86.269" measure="-1"/>
-    <ebeat time="86.671" measure="54"/>
+    <ebeat time="86.671" measure="53"/>
     <ebeat time="87.073" measure="-1"/>
   </ebeats>
   <sections count="2">

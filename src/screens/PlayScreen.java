@@ -7,7 +7,6 @@ import audio.SoundHandler;
 import engine.GameObject;
 import engine.Screen;
 import songmanager.Beat;
-import songmanager.EofRepacker;
 import songmanager.Note;
 import songmanager.SongFileProcessor;
 import songmanager.SongObject;
@@ -55,7 +54,6 @@ public class PlayScreen extends Screen {
 			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
 			beat = song.getBeats();
 			note = song.getNotes();
-			
 			
 			barSprite = new BarSprite[beat.length];
 			noteSprite = new NoteSprite[note.length];
