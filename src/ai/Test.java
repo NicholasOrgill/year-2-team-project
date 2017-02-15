@@ -1,6 +1,6 @@
 package ai;
 
-import songmanager.EofRepacker;
+import songmanager.SongFileProcessor;
 import songmanager.SongObject;
 
 /**
@@ -22,9 +22,9 @@ public class Test {
 	 * first beat at the original position and with level 9 AI
 	 */
 	private void runTest() {
-		EofRepacker reader = new EofRepacker();
+		SongFileProcessor reader = new SongFileProcessor();
 		
-		SongObject song = reader.GetSongObjectFromBassFile("src/songmanager/PART REAL_BASS_RS2.xml");
+		SongObject song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
 		SimpleAI ai = new SimpleAI();
 		SongArray[] songArray = ai.recreateArray(song, 10);
 	
