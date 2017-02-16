@@ -13,6 +13,8 @@ public class GameObject {
 	private int height;
 	private Overlay overlay;
 	private InputHandler inputHandler;
+	private int p1Score;
+	private int p2Score;
 	
 
 	public GameObject(int width, int height) {
@@ -50,5 +52,21 @@ public class GameObject {
 	
 	public Overlay getOverlay() {
 		return this.overlay;
+	}
+
+	public int getP1Score() {
+		return p1Score;
+	}
+
+	public void setP1Score(int score) {
+		this.p1Score = score;
+	}
+
+	public int getP2Score() {
+		return p2Score;
+	}
+
+	public void setP2Score(int p2Score) {
+		this.p2Score = p2Score;
 	}
 }
