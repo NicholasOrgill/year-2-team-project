@@ -20,12 +20,12 @@ public class EndScreen extends Screen {
 		super(gameObject);
 
 		// get the player's scores from the game object
-		// player1Score = gameObject.getPlayer1Score;
-		// player2Score = gameObject.getPlayer2Score;
+		player1Score = gameObject.getP1Score();
+		player2Score = gameObject.getP2Score();
 
 		gameFinished = new SystemTextCenter(getScreenWidth() / 2, 100, "Game Over");
-		player1Text = new SystemTextCenter(getScreenWidth() / 4, getScreenHeight() - 100, "Player 1 Score: " /* + player1Score */);
-		player2Text = new SystemTextCenter((getScreenWidth() / 4) * 3, getScreenHeight() - 100, "Player 2 Score: " /* + player2Score */);
+		player1Text = new SystemTextCenter(getScreenWidth() / 4, getScreenHeight() - 100, "Player 1 Score: "  + player1Score);
+		player2Text = new SystemTextCenter((getScreenWidth() / 4) * 3, getScreenHeight() - 100, "Player 2 Score: " + player2Score);
 
 	}
 
