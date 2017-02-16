@@ -61,7 +61,7 @@ public class ModeSelect extends Screen {
 		dotBackground = new DotSpriteBackground(10, 10, 20, 30, false, getScreenWidth(), getScreenHeight());
 		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
 		
-		title = new FancyCenterTextSprite((int)(getScreenWidth() * 0.94), (int)(getScreenHeight() * 0.85), "MODE SELECT");
+		title = new FancyCenterTextSprite((int)(getScreenWidth() * 0.94), (int)(getScreenHeight() * 0.85), "SELECT MODE");
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
 		
 	}

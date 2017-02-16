@@ -1,5 +1,6 @@
 package sprites;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import engine.Sprite;
@@ -17,6 +18,7 @@ public class NoteSprite extends Sprite {
 	int buttons[];
 	int length = 10;
 	boolean hit = false;
+	int ai = 0;
 	
 	public NoteSprite(int x, int y, int width, int height, int[] buttons, int length) {
 		super(x, y, width, height);
@@ -43,12 +45,19 @@ public class NoteSprite extends Sprite {
 	public void hit() {
 		hit = true;
 	}
+	
+	public void setAI() {
+		ai = 1;
+	}
 
 	@Override
 	public void draw(Graphics context) {
-		
-		context.setColor(ColorPack.WHITE);
+		if(ai == 1) {
+			context.setColor(new Color(255, 0, 0, 90));
+		} else {
 			
+		context.setColor(ColorPack.WHITE);
+		}
 		for(int i = 0 ; i < buttons.length ; i++) {
 			
 				context.fillRect(x + (gap / 2) + (buttons[i] * (size + gap)) - (int)(this_width / 2), getY() - (int)(length / 2), size, length);

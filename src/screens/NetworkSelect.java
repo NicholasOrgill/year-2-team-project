@@ -1,17 +1,19 @@
 package screens;
 
 import java.awt.Graphics;
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
+import network.Client.ClientResolve;
+import network.Client.Network;
 import sprites.DotSpriteBackground;
 import sprites.FancyCenterTextSprite;
 import sprites.ImageGrad;
 import sprites.SystemBox;
-import sprites.SystemText;
+import sprites.SystemTextCenterFade;
 import utils.ColorPack;
 
 public class NetworkSelect extends Screen {
@@ -20,9 +22,10 @@ public class NetworkSelect extends Screen {
 	private DotSpriteBackground dotBackground;
 	private ImageGrad imageGrad;
 	private FancyCenterTextSprite title;
-	
+	private SystemTextCenterFade centex;
 	private SystemBox box;
-
+	private boolean networkrun = true;
+	
 	int count = 0;
 
 
@@ -42,8 +45,9 @@ public class NetworkSelect extends Screen {
 	public NetworkSelect(GameObject gameObject) {
 		super(gameObject);
 		
+		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2, "Waiting for Network");
 		
-		//setNextScreen(new ErrorScreen(gameObject));
+		setNextScreen(new PlayScreen(gameObject));
 
 		box = new SystemBox();
 		box.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -54,8 +58,10 @@ public class NetworkSelect extends Screen {
 		dotBackground = new DotSpriteBackground(10, 10, 20, 30, false, getScreenWidth(), getScreenHeight());
 		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
 		
-		title = new FancyCenterTextSprite((int)(getScreenWidth() * 0.94), (int)(getScreenHeight() * 0.85), "INFORMATION");
+		title = new FancyCenterTextSprite((int)(getScreenWidth() * 0.94), (int)(getScreenHeight() * 0.85), "NETWORK");
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
+		
+		networkrun = false;
 		
 	}
 
@@ -70,6 +76,9 @@ public class NetworkSelect extends Screen {
 
 		imageGrad.setScreenSize(getScreenWidth(), getScreenHeight());
 		imageGrad.update();
+		
+		centex.setScreenSize(getScreenWidth(), getScreenHeight());
+		centex.update();
 
 
 		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -82,6 +91,39 @@ public class NetworkSelect extends Screen {
 		}
 		
 		
+		if(count == 300) {
+			centex.setText("Checking Network...");
+			String hostname = "localhost";
+			String name = "Client";
+			
+			
+			
+			if(networkrun) {
+				Network n = new Network(hostname,name);
+				
+				
+				//start receive test
+				(new ClientResolve(n)).start();
+						
+				//send ant input from user to server
+				try{
+					BufferedReader fromUser = new BufferedReader(new InputStreamReader(System.in));
+					String userInput;
+					n.send("NETCHECK");
+				}catch (Exception e) {
+					System.err.println(e.getMessage());
+				}	
+			}
+			
+		}
+		
+		if(count == 410) {
+			centex.setText("Network Check Fail.");
+		}
+		
+		if(count == 600) {
+			moveScreen();
+		}
 		count++;
 		
 
@@ -102,7 +144,15 @@ public class NetworkSelect extends Screen {
 		title.draw(context);
 		if(count > 80) {
 			box.draw(context);
+			
 		}
+		
+		if(count > 210) {
+			
+			centex.draw(context);
+		}
+		
+		
 
 	}
 

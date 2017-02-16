@@ -2,6 +2,8 @@ package screens;
 
 import java.awt.Graphics;
 
+import ai.SimpleAI;
+import ai.SongArray;
 import audio.Player;
 import audio.SoundHandler;
 import engine.GameObject;
@@ -13,7 +15,7 @@ import songmanager.SongObject;
 import sprites.BarSprite;
 import sprites.NoteSprite;
 import sprites.PlaySprite;
-import sprites.SystemText;
+import sprites.SystemTextCenter;
 import utils.ColorPack;
 /**
  * 
@@ -25,8 +27,9 @@ public class PlayScreen extends Screen {
 	private SongObject song;
 	private Beat[] beat;
 	private Note[] note;
+	private Note[] note2;
 	
-	private SystemText textSprite; // An example text sprite
+	private SystemTextCenter textSprite; // An example text sprite
 	private int count = 0; // A variable to count on the screen
 	
 	private Player audio = new Player();
@@ -37,11 +40,26 @@ public class PlayScreen extends Screen {
 	
 	private BarSprite[] barSprite;
 	private NoteSprite[] noteSprite;
+	private NoteSprite[] noteSprite2;
 	
+	SongArray[] songArray;
+	
+	@Override
+	public void keyPressed(int key) {
+		System.out.println("on" + key);
+		playSprite.push(key);
+
+	}
+	
+	@Override
+	public void keyReleased(int key) {
+		System.out.println("off" + key);
+		playSprite.unpush(key);
+	}
 	
 	public PlayScreen(GameObject gameObject) {
 		super(gameObject);
-		textSprite = new SystemText(100, 100, "Game goes here");
+		textSprite = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 100, "Game AI: Easy");
 		playSprite = new PlaySprite(0, 0, 0, 0);		
 	}
 	
@@ -57,8 +75,14 @@ public class PlayScreen extends Screen {
 			beat = song.getBeats();
 			note = song.getNotes();
 			
+			
+			SimpleAI ai = new SimpleAI();
+			songArray = ai.recreateArray(song, 10);
+			
+			note2 = songArray[6].getNotes();
 			barSprite = new BarSprite[beat.length];
 			noteSprite = new NoteSprite[note.length];
+			noteSprite2 = new NoteSprite[note2.length];
 			
 			/*for(int i = 0 ; i < beat.length ; i++) {
 				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + beat[i].getTime(), 0, 0);
@@ -74,6 +98,11 @@ public class PlayScreen extends Screen {
 			
 			for(int i = 0 ; i < note.length ; i++) {
 				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note[i].getTime(), 0, 0, note[i].getButtons(), note[i].getSustain());
+			}
+			
+
+			for(int i = 0 ; i < note2.length ; i++) {
+				noteSprite2[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note2[i].getTime(), 0, 0, note2[i].getButtons(), note2[i].getSustain());
 			}
 		}
 		
@@ -97,6 +126,14 @@ public class PlayScreen extends Screen {
 			noteSprite[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSprite[i].update();
 			noteSprite[i].setY(lineY - (note[i].getTime() - count));
+			
+			noteSprite2[i].setScreenSize(getScreenWidth(), getScreenHeight());
+			noteSprite2[i].update();
+			noteSprite2[i].setY(lineY - (note2[i].getTime() - count));
+			
+			if(noteSprite[i].getY() == lineY) {
+				textSprite.setText("HOLD: " + audio.getPlayingTimer().getTimeInMill());
+			}
 		}
 		
 		textSprite.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -108,6 +145,8 @@ public class PlayScreen extends Screen {
 		
 		System.out.println(audio.getPlayingTimer().getTimeInMill());
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
+		
+		
 		
 	}
 	
@@ -128,7 +167,10 @@ public class PlayScreen extends Screen {
 		}
 		
 		for(int i = 0 ; i < note.length ; i++) {
+			
 			noteSprite[i].draw(context);
+			noteSprite2[i].setAI();
+			noteSprite2[i].draw(context);
 		}
 
 	}

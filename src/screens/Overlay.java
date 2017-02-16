@@ -24,7 +24,7 @@ public class Overlay extends Screen {
 
 	@Override
 	public void draw(Graphics context) {
-		middleBottom.draw(context);
+		//middleBottom.draw(context);
 	}
 	
 	public SystemTextCenterFade getMiddleBottom() {
