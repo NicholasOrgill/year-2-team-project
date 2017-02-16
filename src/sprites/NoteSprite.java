@@ -25,6 +25,8 @@ public class NoteSprite extends Sprite {
 		this.buttons = buttons;
 		if(length != 0) {
 			this.length = length;
+		} else {
+			this.length = 10;
 		}
 		
 	}
@@ -60,7 +62,7 @@ public class NoteSprite extends Sprite {
 		}
 		for(int i = 0 ; i < buttons.length ; i++) {
 			
-				context.fillRect(x + (gap / 2) + (buttons[i] * (size + gap)) - (int)(this_width / 2), getY() - (int)(length / 2), size, length);
+				context.fillRect(x + (gap / 2) + (buttons[i] * (size + gap)) - (int)(this_width / 2), getY() - length - 5, size, length);
 		}
 		
 	}
