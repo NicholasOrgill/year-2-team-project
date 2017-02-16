@@ -4,11 +4,13 @@ import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import network.Server.MessageQueue;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
 import network.Client.ClientResolve;
 import network.Client.Network;
+import network.Server.Server;
 import sprites.DotSpriteBackground;
 import sprites.FancyCenterTextSprite;
 import sprites.ImageGrad;
@@ -25,6 +27,7 @@ public class NetworkSelect extends Screen {
 	private SystemTextCenterFade centex;
 	private SystemBox box;
 	private boolean networkrun = true;
+	private Server server = null;
 	
 	int count = 0;
 
@@ -63,6 +66,7 @@ public class NetworkSelect extends Screen {
 		
 		networkrun = false;
 		
+		
 	}
 
 	@Override
@@ -92,33 +96,21 @@ public class NetworkSelect extends Screen {
 		
 		
 		if(count == 300) {
-			centex.setText("Checking Network...");
-			String hostname = "localhost";
-			String name = "Client";
+			centex.setText("Establising Network...");
+			MessageQueue serverInput = new MessageQueue();
+			String name = "Admin";
 			
-			
-			
-			if(networkrun) {
-				Network n = new Network(hostname,name);
-				
-				
-				//start receive test
-				(new ClientResolve(n)).start();
-						
-				//send ant input from user to server
-				try{
-					BufferedReader fromUser = new BufferedReader(new InputStreamReader(System.in));
-					String userInput;
-					n.send("NETCHECK");
-				}catch (Exception e) {
-					System.err.println(e.getMessage());
-				}	
-			}
-			
+			server = new Server(serverInput, name);
+			server.start();
+			System.out.println(server.isAlive());
 		}
 		
 		if(count == 410) {
-			centex.setText("Network Check Fail.");
+			if (server != null && server.isAlive())
+				centex.setText("Network Established");
+			else{
+				centex.setText("Network Check Fail.");
+			}
 		}
 		
 		if(count == 600) {

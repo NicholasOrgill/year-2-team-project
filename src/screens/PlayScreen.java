@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import ai.SimpleAI;
 import ai.SongArray;
 import audio.Player;
-import audio.SoundHandler;
 import engine.GameObject;
 import engine.Screen;
 import songmanager.Beat;
@@ -29,6 +28,8 @@ public class PlayScreen extends Screen {
 	private Note[] note;
 	private Note[] note2;
 	int score = 0;
+	final int MAX_NOTE_SCORE = 200;
+	final int MAX_NOTE_RANGE = 100;
 	
 	private SystemTextCenter textSprite; // An example text sprite
 	private SystemTextCenter textScore; // An example text sprite
@@ -48,11 +49,13 @@ public class PlayScreen extends Screen {
 	public void keyPressed(int key) {
 		for(Note note1 : note) {
 			int time = note1.getTime();
-			if (time <= count + 100 && time >= count - 100 /*&& note1.getButtons().toString().indexOf(key) != -1*/) {
-				textSprite.setText("NOTE HIT! Score for note: " + (200 - Math.abs(time - count)));
-				System.out.println("NOTE HIT! Score for note: " + (200 - Math.abs(time - count)));
-				score += (200 - Math.abs(time - count));
+
+			if (time <= count + MAX_NOTE_RANGE && time >= count - MAX_NOTE_RANGE /*&& note1.getButtons().toString().indexOf(key) != -1*/) {
+				textSprite.setText("NOTE HIT! Score for note: " + (MAX_NOTE_SCORE - Math.abs(time - count)));
+				System.out.println("NOTE HIT! Score for note: " + (MAX_NOTE_SCORE - Math.abs(time - count)));
+				score += (MAX_NOTE_SCORE - Math.abs(time - count));
 				textScore.setText("Score: " + score);
+
 				break;
 			}
 		}
