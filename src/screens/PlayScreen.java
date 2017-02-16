@@ -34,9 +34,7 @@ public class PlayScreen extends Screen {
 	
 	private Player audio = new Player();
 	
-	private SoundHandler fx = new SoundHandler();
-	private String[] fxlist = {"sound_effect_one.wav"};
-	private PlaySprite playSprite;
+	private PlaySprite playSprite; 
 	
 	private BarSprite[] barSprite;
 	private NoteSprite[] noteSprite;
@@ -46,6 +44,11 @@ public class PlayScreen extends Screen {
 	
 	@Override
 	public void keyPressed(int key) {
+//		for(Note note1 : note) {
+//			if ((note1.getTime() <= count + 100 || note1.getTime() >= count + 100) && note1.getButtons().toString().indexOf(key) != -1) {
+//				System.out.println("plus 100");
+//			}
+//		}
 		System.out.println("on" + key);
 		playSprite.push(key);
 
