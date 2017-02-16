@@ -28,8 +28,10 @@ public class PlayScreen extends Screen {
 	private Beat[] beat;
 	private Note[] note;
 	private Note[] note2;
+	int score = 0;
 	
 	private SystemTextCenter textSprite; // An example text sprite
+	private SystemTextCenter textScore; // An example text sprite
 	private int count = 0; // A variable to count on the screen
 	
 	private Player audio = new Player();
@@ -47,7 +49,10 @@ public class PlayScreen extends Screen {
 		for(Note note1 : note) {
 			int time = note1.getTime();
 			if (time <= count + 100 && time >= count - 100 /*&& note1.getButtons().toString().indexOf(key) != -1*/) {
+				textSprite.setText("NOTE HIT! Score for note: " + (200 - Math.abs(time - count)));
 				System.out.println("NOTE HIT! Score for note: " + (200 - Math.abs(time - count)));
+				score += (200 - Math.abs(time - count));
+				textSprite.setText("Score: " + score);
 				break;
 			}
 		}
@@ -65,6 +70,8 @@ public class PlayScreen extends Screen {
 	public PlayScreen(GameObject gameObject) {
 		super(gameObject);
 		textSprite = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 100, "Game AI: Easy");
+		textScore = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 80, "SinglePlayer");
+		
 		playSprite = new PlaySprite(0, 0, 0, 0);		
 	}
 	
@@ -137,13 +144,17 @@ public class PlayScreen extends Screen {
 			noteSprite2[i].setY(lineY - (note2[i].getTime() - count));
 			
 			if(noteSprite[i].getY() == lineY) {
-				textSprite.setText("HOLD: " + audio.getPlayingTimer().getTimeInMill());
+				//textSprite.setText("HOLD: " + audio.getPlayingTimer().getTimeInMill());
 			}
 		}
 		
 		textSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		//textSprite.setText(audio.getPlayingTimer().toTimeString());
 		textSprite.update();
+		
+		textScore.setScreenSize(getScreenWidth(), getScreenHeight());
+		//textSprite.setText(audio.getPlayingTimer().toTimeString());
+		textScore.update();
 		
 		playSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		playSprite.update();
@@ -164,6 +175,7 @@ public class PlayScreen extends Screen {
 
 		// This is how you draw the sprites
 		textSprite.draw(context);
+		textScore.draw(context);
 		
 		playSprite.draw(context);
 		
