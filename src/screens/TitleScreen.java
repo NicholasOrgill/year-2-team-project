@@ -12,6 +12,7 @@ import sprites.DotSpriteBackground;
 import sprites.FancyCenterTextSprite;
 import sprites.ImageGrad;
 import sprites.ImageSprite;
+import sprites.MessageSprite;
 import sprites.SystemBox;
 import sprites.SystemText;
 import utils.ColorPack;
@@ -33,9 +34,13 @@ public class TitleScreen extends Screen {
 	private ImageGrad imageGrad;
 	private int mopac = 0;
 	
+	
+	private MessageSprite message;
+	private MessageSprite message2;
+	
 	private SystemBox box;
 	private FancyCenterTextSprite title;
-	int count = 0;
+	int count = -100;
 	
 	int lineXPos = 0;
 	int lineOpac = 255;
@@ -67,6 +72,10 @@ public class TitleScreen extends Screen {
 		}
 		
 		setNextScreen(new ModeSelect(gameObject));
+		
+		message = new MessageSprite(0, (int)(getScreenHeight() * 0.71), "PRESS 'Q' TO START THE GAME!");
+		message2 = new MessageSprite(0, (int)(getScreenHeight() * 0.79), "NETWORK PLAY AVAILABLE!");
+		message2.white();
 		
 		
 		box = new SystemBox();
@@ -165,8 +174,14 @@ public class TitleScreen extends Screen {
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
 		title.update();
 		
+		message.setScreenSize(getScreenWidth(), getScreenHeight());
+		message.update();
+		
+		message2.setScreenSize(getScreenWidth(), getScreenHeight());
+		message2.update();
+		
 		count++;
-		if(count == 600) {
+		if(count == 800) {
 			setNextScreen(new StartScreen(getGameObject()));
 			moveScreen();
 		}
@@ -212,6 +227,14 @@ public class TitleScreen extends Screen {
 			}
 			beatnetfi.impress();
 			imageGrad.fadeIn();
+		}
+		
+		if(count == 470) {
+			message.fadeIn();
+		}
+		
+		if(count == 480) {
+			message2.fadeIn();
 		}
 	
 		
@@ -265,7 +288,8 @@ public class TitleScreen extends Screen {
 			context.fillRect(0, 0, getScreenWidth(), getScreenHeight());
 		}
 		
-		
+		message.draw(context);
+		message2.draw(context);
 		
 		
 	}

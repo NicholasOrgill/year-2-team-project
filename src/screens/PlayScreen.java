@@ -52,7 +52,7 @@ public class PlayScreen extends Screen {
 				textSprite.setText("NOTE HIT! Score for note: " + (200 - Math.abs(time - count)));
 				System.out.println("NOTE HIT! Score for note: " + (200 - Math.abs(time - count)));
 				score += (200 - Math.abs(time - count));
-				textSprite.setText("Score: " + score);
+				textScore.setText("Score: " + score);
 				break;
 			}
 		}
