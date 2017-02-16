@@ -44,11 +44,13 @@ public class PlayScreen extends Screen {
 	
 	@Override
 	public void keyPressed(int key) {
-//		for(Note note1 : note) {
-//			if ((note1.getTime() <= count + 100 || note1.getTime() >= count + 100) && note1.getButtons().toString().indexOf(key) != -1) {
-//				System.out.println("plus 100");
-//			}
-//		}
+		for(Note note1 : note) {
+			int time = note1.getTime();
+			if (time <= count + 100 && time >= count - 100 /*&& note1.getButtons().toString().indexOf(key) != -1*/) {
+				System.out.println("NOTE HIT! Score for note: " + (200 - Math.abs(time - count)));
+				break;
+			}
+		}
 		System.out.println("on" + key);
 		playSprite.push(key);
 
