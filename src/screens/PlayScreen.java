@@ -84,40 +84,45 @@ public class PlayScreen extends Screen {
 		int lineY = (int)Math.round(getScreenHeight() * 0.8);
 		
 		if(count == 0) {
-			audio.playBack("src/songmanager/Tetris.wav");
-			reader = new SongFileProcessor();
-			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
-			beat = song.getBeats();
-			note = song.getNotes();
-			
-			
-			SimpleAI ai = new SimpleAI();
-			songArray = ai.recreateArray(song, 10);
-			
-			note2 = songArray[6].getNotes();
-			barSprite = new BarSprite[beat.length];
-			noteSprite = new NoteSprite[note.length];
-			noteSprite2 = new NoteSprite[note2.length];
-			
-			/*for(int i = 0 ; i < beat.length ; i++) {
-				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + beat[i].getTime(), 0, 0);
-			}
-			
-			for(int i = 0 ; i < note.length ; i++) {
-				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + note[i].getTime(), 0, 0, note[i].getButtons(), note[i].getSustain());
-			}*/
-			
-			for(int i = 0 ; i < beat.length ; i++) {
-				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), lineY - beat[i].getTime(), 0, 0);
-			}
-			
-			for(int i = 0 ; i < note.length ; i++) {
-				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note[i].getTime(), 0, 0, note[i].getButtons(), note[i].getSustain());
-			}
-			
-
-			for(int i = 0 ; i < note2.length ; i++) {
-				noteSprite2[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note2[i].getTime(), 0, 0, note2[i].getButtons(), note2[i].getSustain());
+			if (score != 0) {
+				setNextScreen(new EndScreen(getGameObject()));
+				moveScreen();
+			} else {
+				audio.playBack("src/songmanager/Tetris.wav");
+				reader = new SongFileProcessor();
+				song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
+				beat = song.getBeats();
+				note = song.getNotes();
+				
+				
+				SimpleAI ai = new SimpleAI();
+				songArray = ai.recreateArray(song, 10);
+				
+				note2 = songArray[6].getNotes();
+				barSprite = new BarSprite[beat.length];
+				noteSprite = new NoteSprite[note.length];
+				noteSprite2 = new NoteSprite[note2.length];
+				
+				/*for(int i = 0 ; i < beat.length ; i++) {
+					barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + beat[i].getTime(), 0, 0);
+				}
+				
+				for(int i = 0 ; i < note.length ; i++) {
+					noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + note[i].getTime(), 0, 0, note[i].getButtons(), note[i].getSustain());
+				}*/
+				
+				for(int i = 0 ; i < beat.length ; i++) {
+					barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), lineY - beat[i].getTime(), 0, 0);
+				}
+				
+				for(int i = 0 ; i < note.length ; i++) {
+					noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note[i].getTime(), 0, 0, note[i].getButtons(), note[i].getSustain());
+				}
+				
+	
+				for(int i = 0 ; i < note2.length ; i++) {
+					noteSprite2[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note2[i].getTime(), 0, 0, note2[i].getButtons(), note2[i].getSustain());
+				}
 			}
 		}
 		
@@ -187,7 +192,6 @@ public class PlayScreen extends Screen {
 		}
 		
 		for(int i = 0 ; i < note.length ; i++) {
-			
 			noteSprite[i].draw(context);
 			noteSprite2[i].setAI();
 			noteSprite2[i].draw(context);
