@@ -55,7 +55,6 @@ public class PlayScreen extends Screen {
 				System.out.println("NOTE HIT! Score for note: " + (MAX_NOTE_SCORE - Math.abs(time - count)));
 				score += (MAX_NOTE_SCORE - Math.abs(time - count));
 				textScore.setText("Score: " + score);
-
 				break;
 			}
 		}
@@ -84,6 +83,7 @@ public class PlayScreen extends Screen {
 		int lineY = (int)Math.round(getScreenHeight() * 0.8);
 		
 		if(count == 0 && score != 0) {
+			getGameObject().setP1Score(score);
 			setNextScreen(new EndScreen(getGameObject()));
 			moveScreen();
 		}
