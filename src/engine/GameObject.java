@@ -9,6 +9,12 @@ import screens.Overlay;
  *
  */
 public class GameObject {
+	
+	public final int PERFECT = 50;
+	public final int EXCELLENT = 100;
+	public final int GOOD = 150;
+	public final int OKAY = 200;
+	
 	private int width;
 	private int height;
 	private Overlay overlay;

@@ -1,6 +1,8 @@
 package screens;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import ai.SimpleAI;
 import ai.SongArray;
@@ -25,11 +27,12 @@ public class PlayScreen extends Screen {
 	private SongFileProcessor reader;
 	private SongObject song;
 	private Beat[] beat;
-	private Note[] note;
+	private Note[] notes;
+	private ArrayList<Note> Pnotes;
 	private Note[] note2;
 	int score = 0;
 	final int MAX_NOTE_SCORE = 200;
-	final int MAX_NOTE_RANGE = 100;
+	final int MAX_NOTE_RANGE = 200;
 	
 	private SystemTextCenter textSprite; // An example text sprite
 	private SystemTextCenter textScore; // An example text sprite
@@ -47,20 +50,33 @@ public class PlayScreen extends Screen {
 	
 	@Override
 	public void keyPressed(int key) {
-		for(Note note1 : note) {
-			int time = note1.getTime();
-
-			if (time <= count + MAX_NOTE_RANGE && time >= count - MAX_NOTE_RANGE /*&& note1.getButtons().toString().indexOf(key) != -1*/) {
-				textSprite.setText("NOTE HIT! Score for note: " + (MAX_NOTE_SCORE - Math.abs(time - count)));
-				System.out.println("NOTE HIT! Score for note: " + (MAX_NOTE_SCORE - Math.abs(time - count)));
-				score += (MAX_NOTE_SCORE - Math.abs(time - count));
-				textScore.setText("Score: " + score);
-				break;
+		Note note = Pnotes.get(0);
+		if (note.getButtons()[0] == key){
+			int time = note.getTime();
+			int diff = Math.abs(time - count);
+			if (diff <= getGameObject().PERFECT) {
+				System.out.println("Perfect!");
+				textSprite.setText("Perfect!");
+				score += 100;
+			} else if (diff <= getGameObject().EXCELLENT) {
+				System.out.println("Excellent!");
+				textSprite.setText("Excellent!");
+				score += 75;
+			} else if (diff <= getGameObject().GOOD) {
+				System.out.println("Good!");
+				textSprite.setText("Good!");
+				score += 50;
+			} else if (diff <= getGameObject().OKAY) {
+				System.out.println("Okay!");
+				textSprite.setText("Okay!");
+				score += 25;
+			} else {
+				System.out.println("Bad!");
 			}
+			textScore.setText("Score: " + score);
+			System.out.println("on" + key);
+			playSprite.push(key);
 		}
-		System.out.println("on" + key);
-		playSprite.push(key);
-
 	}
 	
 	@Override
@@ -92,15 +108,14 @@ public class PlayScreen extends Screen {
 			reader = new SongFileProcessor();
 			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
 			beat = song.getBeats();
-			note = song.getNotes();
-			
-			
+			notes = song.getNotes();
+			Pnotes = new ArrayList<Note>(Arrays.asList(notes));
 			SimpleAI ai = new SimpleAI();
 			songArray = ai.recreateArray(song, 10);
 			
 			note2 = songArray[6].getNotes();
 			barSprite = new BarSprite[beat.length];
-			noteSprite = new NoteSprite[note.length];
+			noteSprite = new NoteSprite[notes.length];
 			noteSprite2 = new NoteSprite[note2.length];
 			
 			/*for(int i = 0 ; i < beat.length ; i++) {
@@ -115,8 +130,8 @@ public class PlayScreen extends Screen {
 				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), lineY - beat[i].getTime(), 0, 0);
 			}
 			
-			for(int i = 0 ; i < note.length ; i++) {
-				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note[i].getTime(), 0, 0, note[i].getButtons(), note[i].getSustain());
+			for(int i = 0 ; i < notes.length ; i++) {
+				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - notes[i].getTime(), 0, 0, notes[i].getButtons(), notes[i].getSustain());
 			}
 			
 
@@ -125,6 +140,12 @@ public class PlayScreen extends Screen {
 			}
 		}
 		
+		if(!Pnotes.isEmpty()) {
+			Note tempNote = Pnotes.get(0);
+			int yPos = lineY - (tempNote.getTime() - count);
+			if(yPos > 600) 
+				Pnotes.remove(0);
+		}
 		
 		/*for(int i = 0 ; i < beat.length ; i++) {
 			barSprite[i].setY((count - song.getSongLength()) + beat[i].getTime());
@@ -142,10 +163,10 @@ public class PlayScreen extends Screen {
 			barSprite[i].update();
 		}
 		
-		for(int i = 0 ; i < note.length ; i++) {
+		for(int i = 0 ; i < notes.length ; i++) {
 			noteSprite[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSprite[i].update();
-			noteSprite[i].setY(lineY - (note[i].getTime() - count));
+			noteSprite[i].setY(lineY - (notes[i].getTime() - count));
 			
 			noteSprite2[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSprite2[i].update();
@@ -167,7 +188,7 @@ public class PlayScreen extends Screen {
 		playSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		playSprite.update();
 		
-		System.out.println(audio.getPlayingTimer().getTimeInMill());
+		//System.out.println(audio.getPlayingTimer().getTimeInMill());
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
 		
 		
@@ -187,11 +208,11 @@ public class PlayScreen extends Screen {
 		
 		playSprite.draw(context);
 		
-		for(int i = 0 ; i < beat.length ; i++) {
+		for(int i = 0; i < beat.length; i++) {
 			barSprite[i].draw(context);
 		}
 		
-		for(int i = 0 ; i < note.length ; i++) {
+		for(int i = 0; i < notes.length; i++) {
 			noteSprite[i].draw(context);
 			noteSprite2[i].setAI();
 			noteSprite2[i].draw(context);
