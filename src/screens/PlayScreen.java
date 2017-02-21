@@ -82,7 +82,7 @@ public class PlayScreen extends Screen {
 		
 		int lineY = (int)Math.round(getScreenHeight() * 0.8);
 		
-		if(count == 0 && score != 0) {
+		if(audio.getAudioPlayer().playCompleted) {
 			getGameObject().setP1Score(score);
 			setNextScreen(new EndScreen(getGameObject()));
 			moveScreen();
