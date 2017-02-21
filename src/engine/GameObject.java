@@ -15,11 +15,16 @@ public class GameObject {
 	private InputHandler inputHandler;
 	private int p1Score;
 	private int p2Score;
+	private boolean isServer = false;
 	
 
 	public GameObject(int width, int height) {
 		this.width = width;
 		this.height = height;
+	}
+	
+	public boolean isServer() {
+		return isServer;
 	}
 	
 	public InputHandler getInputHandler() {
