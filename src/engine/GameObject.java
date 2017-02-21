@@ -1,6 +1,7 @@
 package engine;
 
 import input.InputHandler;
+import network.Client.Network;
 import screens.Overlay;
 
 /**
@@ -22,6 +23,9 @@ public class GameObject {
 	private int p1Score;
 	private int p2Score;
 	private boolean isServer = false;
+	private String playerName = "E2";
+	private String hostname = "localhost";
+	private Network network;
 	
 
 	public GameObject(int width, int height) {
@@ -79,5 +83,29 @@ public class GameObject {
 
 	public void setP2Score(int p2Score) {
 		this.p2Score = p2Score;
+	}
+	
+	public void setName(String name){
+		this.playerName = name;
+	}
+	
+	public String getName(){
+		return playerName;
+	}
+	
+	public void setHostname(String hostname){
+		this.hostname = hostname;
+	}
+	
+	public String getHostname(){
+		return this.hostname;
+	}
+	
+	public void setNetwork(Network network){
+		this.network = network;
+	}
+	
+	public Network getNetwork(){
+		return this.network;
 	}
 }
