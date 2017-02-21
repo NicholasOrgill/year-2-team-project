@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 
@@ -164,6 +165,7 @@ public class SongFileProcessor {
 				
 				notes[i] = new Note(time, sustain, buttons);
 			}
+			notes = sortNotes(notes);
 			
 			// Create and return a SongObject
 			SongObject obj = new SongObject(title, artist, songLength, averageTempo, startBeat, notes, beats);
@@ -209,6 +211,28 @@ public class SongFileProcessor {
 		return null;
 	}
 	
+	/**
+	 * Sorts a Note array into time order.
+	 * @param notes Unsorted Note array
+	 * @return Sorted Note array
+	 */
+	private Note[] sortNotes(Note[] notes) {
+		// Add each element of array to a TreeMap
+		TreeMap<Integer, Note> notesMap = new TreeMap<Integer, Note>();
+		int noteArrayLength = notes.length;
+		for (int i = 0; i < noteArrayLength; i++) {
+			notesMap.put(notes[i].getTime(), notes[i]);
+		}
+		
+		// Extract from the TreeMap in order into a new array
+		Note[] newNotes = new Note[noteArrayLength];
+		Integer[] notesMapKeys = (Integer[])notesMap.keySet().toArray();
+		for (int i = 0; i < noteArrayLength; i++) {
+			newNotes[i] = notesMap.get(notesMapKeys[i]);
+		}
+		return newNotes;
+	}
+	
 	public static void main(String[] args) {
 		EofRepacker repacker = new EofRepacker();
 		SongObject obj = repacker.getSongObjectFromBassFile("src/songmanager/PART REAL_BASS_RS2.xml");
@@ -216,3 +240,12 @@ public class SongFileProcessor {
 		processor.writeSongObjectToXML(obj, "src/songmanager/songfile.xml");
 	}
 }
+
+
+
+
+
+
+
+
+
