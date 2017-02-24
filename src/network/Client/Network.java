@@ -9,6 +9,7 @@ public class Network{
 	private MessageQueue sendQueue = new MessageQueue();;
 	private MessageQueue receiveQueue = new MessageQueue();;
 	private boolean playing;
+	private boolean isConnected = false;
 	
 	/**
 	 * start connecting
@@ -20,7 +21,7 @@ public class Network{
 		c.start();
 		Message msg = new Message("NAME:" + name);
 		this.sendQueue.offer(msg);
-		
+		isConnected = true;
 	}
 	
 	//send message
@@ -63,4 +64,7 @@ public class Network{
 		this.playing = p;
 	}
 	
+	public boolean isConnected(){
+		return this.isConnected;
+	}
 }

@@ -8,7 +8,6 @@ import network.Server.MessageQueue;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
-import network.Client.ClientResolve;
 import network.Client.Network;
 import network.Server.Server;
 import sprites.DotSpriteBackground;
@@ -28,6 +27,7 @@ public class NetworkSelect extends Screen {
 	private SystemBox box;
 	private boolean networkrun = true;
 	private Server server = null;
+	private GameObject gObject;
 	
 	int count = 0;
 
@@ -47,6 +47,7 @@ public class NetworkSelect extends Screen {
 
 	public NetworkSelect(GameObject gameObject) {
 		super(gameObject);
+		gObject = gameObject;
 		
 		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2, "Waiting for Network");
 		
@@ -96,20 +97,28 @@ public class NetworkSelect extends Screen {
 		
 		
 		if(count == 300) {
-			centex.setText("Establising Network...");
-			MessageQueue serverInput = new MessageQueue();
-			String name = "Admin";
+			if (gObject.isServer()){
+				centex.setText("Establising Network...");
+				MessageQueue serverInput = new MessageQueue();
+				String name = "Admin";
+				
+				server = new Server(serverInput, name);
+				server.start();
+			}else{
+				centex.setText("Connecting Server...");
+				Network n = new Network(gObject.getHostname(), gObject.getName());
+				gObject.setNetwork(n);
+			}
 			
-			server = new Server(serverInput, name);
-			server.start();
-			System.out.println(server.isAlive());
 		}
 		
 		if(count == 410) {
 			if (server != null && server.isAlive())
 				centex.setText("Network Established");
-			else{
-				centex.setText("Network Check Fail.");
+			else if (gObject.getNetwork() != null && gObject.getNetwork().isConnected()){
+				centex.setText("Connected");
+			}else {
+				centex.setText("Network Check Fail.");				
 			}
 		}
 		
