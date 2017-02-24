@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
@@ -226,7 +227,8 @@ public class SongFileProcessor {
 		
 		// Extract from the TreeMap in order into a new array
 		Note[] newNotes = new Note[noteArrayLength];
-		Integer[] notesMapKeys = (Integer[])notesMap.keySet().toArray();
+		Integer[] notesMapKeysArray = new Integer[noteArrayLength];
+		Integer[] notesMapKeys = notesMap.keySet().toArray(notesMapKeysArray);
 		for (int i = 0; i < noteArrayLength; i++) {
 			newNotes[i] = notesMap.get(notesMapKeys[i]);
 		}
@@ -234,10 +236,15 @@ public class SongFileProcessor {
 	}
 	
 	public static void main(String[] args) {
+		/* Convert RS2 Bass to SongFile XML
 		EofRepacker repacker = new EofRepacker();
 		SongObject obj = repacker.getSongObjectFromBassFile("src/songmanager/PART REAL_BASS_RS2.xml");
 		SongFileProcessor processor = new SongFileProcessor();
 		processor.writeSongObjectToXML(obj, "src/songmanager/songfile.xml");
+		*/
+		
+		SongFileProcessor processor = new SongFileProcessor();
+		SongObject obj = processor.readSongObjectFromXML("src/songmanager/songfile.xml");
 	}
 }
 

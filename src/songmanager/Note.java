@@ -45,4 +45,8 @@ public class Note {
 	public int[] getButtons() {
 		return buttons;
 	}
+	
+	public String toString() {
+		return("Note at: " + time);
+	}
 }
