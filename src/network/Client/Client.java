@@ -2,14 +2,16 @@ package network.Client;
 
 import java.io.*;
 import java.net.*;
+
+import network.MessageQueue;
 /**
  * This class is to connect the server
  * @author Weifeng 
  */
 public class Client {
 
-	MessageQueue sendQueue;
-	MessageQueue receiveQueue;
+	private MessageQueue sendQueue;
+	private MessageQueue receiveQueue;
 	private String hostname;
 
 	public Client(String _hostname, MessageQueue _sendQueue, MessageQueue _receiveQueue){
@@ -35,7 +37,7 @@ public class Client {
 			System.err.println("Unkown host: ");
 		}catch (IOException e) {
 			System.err.println("Could not get IO for the connection " + e.getMessage());
-			System.exit(1);
+			return;
 		}
 		
 		//start a new thread ClientSender 

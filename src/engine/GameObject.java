@@ -2,6 +2,7 @@ package engine;
 
 import input.InputHandler;
 import network.Client.Network;
+import network.Server.Server;
 import screens.Overlay;
 
 /**
@@ -23,9 +24,13 @@ public class GameObject {
 	private int p1Score;
 	private int p2Score;
 	private boolean isServer = false;
-	private String playerName = "E2";
+	private boolean isConnected = false;
+	private boolean isReady = false;
+	private String p1Name = "E2";
+	private String p2Name;
 	private String hostname = "localhost";
 	private Network network;
+	private Server server;
 	
 
 	public GameObject(int width, int height) {
@@ -85,12 +90,20 @@ public class GameObject {
 		this.p2Score = p2Score;
 	}
 	
-	public void setName(String name){
-		this.playerName = name;
+	public void setP1Name(String p1Name){
+		this.p1Name = p1Name;
 	}
 	
-	public String getName(){
-		return playerName;
+	public String getP1Name(){
+		return p1Name;
+	}
+	
+	public void setP2Name(String p2Name){
+		this.p2Name = p2Name;
+	}
+	
+	public String getP2Name(){
+		return this.p2Name;
 	}
 	
 	public void setHostname(String hostname){
@@ -108,4 +121,29 @@ public class GameObject {
 	public Network getNetwork(){
 		return this.network;
 	}
+	
+	public void setServer(Server server){
+		this.server = server;
+	}
+	
+	public Server getServer(){
+		return this.server;
+	}
+	
+	public void setConnect(boolean isConnected){
+		this.isConnected = isConnected;
+	}
+	
+	public boolean isConnected(){
+		return this.isConnected;
+	}
+
+	public void setReady(boolean isReady){
+		this.isReady = isReady;
+	}
+	
+	public boolean isReady(){
+		return this.isReady;
+	}
+
 }

@@ -22,11 +22,7 @@ public class ClientResolve extends Thread {
 	
 	private void resolve(String _readline){
 		if(_readline.equals("LOAD:")){
-			network.setPlaying(true);
-			GamingThread gameThread = new GamingThread(network);
-			gameThread.start();
-		}else if(_readline.equals("OVER:")){
-			network.setPlaying(false);
+
 		}else{
 			System.out.println(_readline);
 		}

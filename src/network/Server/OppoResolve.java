@@ -1,12 +1,13 @@
 package network.Server;
 
+import engine.GameObject;
 
 public class OppoResolve {
 	
 	private OppoAction action;
 	
-	public OppoResolve(MessageQueue _serverInput,Player _opponent,Player _me){
-		this.action = new OppoAction(_serverInput,_opponent,_me);
+	public OppoResolve(GameObject _gameObject,Player _opponent,Player _me){
+		this.action = new OppoAction(_gameObject,_opponent,_me);
 	}
 	
 	
@@ -20,7 +21,7 @@ public class OppoResolve {
 			}else if (keyword.equals("READ:")){
 				action.setReady();
 			}else if (keyword.equals("POTS:")){
-				action.updatePoints(_readline.substring(5));
+				action.updateScore(_readline.substring(5));
 			}else if (keyword.equals("OVER:")){
 				action.gameOver();
 			}

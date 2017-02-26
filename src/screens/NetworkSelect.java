@@ -4,10 +4,10 @@ import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import network.Server.MessageQueue;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
+import network.MessageQueue;
 import network.Client.Network;
 import network.Server.Server;
 import sprites.DotSpriteBackground;
@@ -26,8 +26,6 @@ public class NetworkSelect extends Screen {
 	private SystemTextCenterFade centex;
 	private SystemBox box;
 	private boolean networkrun = true;
-	private Server server = null;
-	private GameObject gObject;
 	
 	int count = 0;
 
@@ -47,7 +45,6 @@ public class NetworkSelect extends Screen {
 
 	public NetworkSelect(GameObject gameObject) {
 		super(gameObject);
-		gObject = gameObject;
 		
 		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2, "Waiting for Network");
 		
@@ -97,25 +94,25 @@ public class NetworkSelect extends Screen {
 		
 		
 		if(count == 300) {
-			if (gObject.isServer()){
+			if (getGameObject().isServer()){
 				centex.setText("Establising Network...");
 				MessageQueue serverInput = new MessageQueue();
-				String name = "Admin";
 				
-				server = new Server(serverInput, name);
+				Server server = new Server(getGameObject(), serverInput, getGameObject().getP1Name());
+				getGameObject().setServer(server);
 				server.start();
 			}else{
 				centex.setText("Connecting Server...");
-				Network n = new Network(gObject.getHostname(), gObject.getName());
-				gObject.setNetwork(n);
+				Network n = new Network(getGameObject().getHostname(), getGameObject().getP1Name());
+				getGameObject().setNetwork(n);
 			}
 			
 		}
 		
 		if(count == 410) {
-			if (server != null && server.isAlive())
+			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive())
 				centex.setText("Network Established");
-			else if (gObject.getNetwork() != null && gObject.getNetwork().isConnected()){
+			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()){
 				centex.setText("Connected");
 			}else {
 				centex.setText("Network Check Fail.");				

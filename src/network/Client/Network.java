@@ -1,5 +1,8 @@
 package network.Client;
 
+import network.Message;
+import network.MessageQueue;
+
 /**
  * This class is for user connecting, sending and receiving
  * @author Weifeng
@@ -8,7 +11,6 @@ public class Network{
 
 	private MessageQueue sendQueue = new MessageQueue();;
 	private MessageQueue receiveQueue = new MessageQueue();;
-	private boolean playing;
 	private boolean isConnected = false;
 	
 	/**
@@ -54,17 +56,5 @@ public class Network{
 		return this.receiveQueue.take().getMessage();
 	}
 	
-	//check whether the game is playing or not
-	public boolean playing(){
-		return this.playing;
-	}
 	
-	//set the game playing status
-	public void setPlaying(boolean p){
-		this.playing = p;
-	}
-	
-	public boolean isConnected(){
-		return this.isConnected;
-	}
 }
