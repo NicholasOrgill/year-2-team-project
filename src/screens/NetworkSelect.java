@@ -102,7 +102,6 @@ public class NetworkSelect extends Screen {
 				Server server = new Server(getGameObject(), serverInput, getGameObject().getP1Name());
 				getGameObject().setServer(server);
 				server.start();
-				getGameObject().setServerInput(serverInput);
 			}else{
 				centex.setText("Connecting Server...");
 				Network n = new Network(getGameObject(), getGameObject().getHostname(), getGameObject().getP1Name());
@@ -115,7 +114,7 @@ public class NetworkSelect extends Screen {
 			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()){
 				centex.setText("Network Established");
 				Message msg = new Message("READ:");
-				getGameObject().getServerInput().offer(msg);
+				getGameObject().getServer().getServerInput().offer(msg);
 			}
 
 			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()){
@@ -126,8 +125,7 @@ public class NetworkSelect extends Screen {
 			}
 		}
 		
-		if(count >= 600 && getGameObject().isReady()){
-			
+		if(count >= 410 && getGameObject().isReady()){
 			moveScreen();
 		}
 		count++;

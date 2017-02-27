@@ -24,7 +24,7 @@ public class GameObject {
 	private InputHandler inputHandler;
 	private int p1Score;
 	private int p2Score;
-	private boolean isServer = false;
+	private boolean isServer = true;
 	private boolean isConnected = false;
 	private boolean isReady = false;
 	private String p1Name = "E2";
@@ -32,7 +32,6 @@ public class GameObject {
 	private String hostname = "localhost";
 	private Network network;
 	private Server server;
-	private MessageQueue serverInput;
 	
 
 	public GameObject(int width, int height) {
@@ -146,14 +145,6 @@ public class GameObject {
 	
 	public boolean isReady(){
 		return this.isReady;
-	}
-	
-	public void setServerInput(MessageQueue serverInput){
-		this.serverInput = serverInput;
-	}
-	
-	public MessageQueue getServerInput(){
-		return this.serverInput;
 	}
 
 }

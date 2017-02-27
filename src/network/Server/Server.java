@@ -53,4 +53,8 @@ public class Server extends Thread{
 			System.err.println("IO error " + e.getMessage());
 		}
 	}
+	
+	public MessageQueue getServerInput(){
+		return this.serverInput;
+	}
 }
