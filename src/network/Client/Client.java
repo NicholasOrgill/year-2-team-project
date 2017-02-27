@@ -3,6 +3,7 @@ package network.Client;
 import java.io.*;
 import java.net.*;
 
+import engine.GameObject;
 import network.MessageQueue;
 /**
  * This class is to connect the server
@@ -13,11 +14,13 @@ public class Client {
 	private MessageQueue sendQueue;
 	private MessageQueue receiveQueue;
 	private String hostname;
+	private GameObject gameObject;
 
-	public Client(String _hostname, MessageQueue _sendQueue, MessageQueue _receiveQueue){
+	public Client(GameObject gameObject, String _hostname, MessageQueue _sendQueue, MessageQueue _receiveQueue){
 		this.hostname = _hostname;
 		this.sendQueue = _sendQueue;
 		this.receiveQueue = _receiveQueue;
+		this.gameObject = gameObject;
 	}
 
 	/**
@@ -33,6 +36,7 @@ public class Client {
 			server = new Socket(this.hostname, 4444);
 			toServer = new PrintStream(server.getOutputStream());
 		    fromServer = new BufferedReader(new InputStreamReader(server.getInputStream()));
+		    gameObject.setConnect(true);
 		} catch (UnknownHostException e) {
 			System.err.println("Unkown host: ");
 		}catch (IOException e) {

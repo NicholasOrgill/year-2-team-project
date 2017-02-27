@@ -53,6 +53,7 @@ public class OppoAction {
 		System.out.println("Game Start");
 		toOppo.println("Game Start");
 		toOppo.println("LOAD:");//send key word to client to start game 
+		gameObject.setReady(true);
 
 	}
 	

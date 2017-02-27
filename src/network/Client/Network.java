@@ -1,5 +1,6 @@
 package network.Client;
 
+import engine.GameObject;
 import network.Message;
 import network.MessageQueue;
 
@@ -18,9 +19,10 @@ public class Network{
 	 * @param hostname of server
 	 * @param name of client
 	 */
-	public Network(String hostname, String name){
-		Client c = new Client(hostname, sendQueue, receiveQueue);
+	public Network(GameObject gameObject, String hostname, String name){
+		Client c = new Client(gameObject, hostname, sendQueue, receiveQueue);
 		c.start();
+		(new ClientResolve(gameObject,this)).start();
 		Message msg = new Message("NAME:" + name);
 		this.sendQueue.offer(msg);
 		isConnected = true;

@@ -51,14 +51,10 @@ public class InputHandler implements KeyListener {
 		if (e.getKeyCode() == playKey.get(3)) {
 			screen.keyPressed(PLAYKEY3);
 		}
-		if (e.getKeyCode() == powerKey.get(0)) {
-			screen.keyPressed(POWERKEY0);
-		}
-		if (e.getKeyCode() == powerKey.get(1)) {
-			screen.keyPressed(POWERKEY1);
-		}
-		if (e.getKeyCode() == powerKey.get(2)) {
-			screen.keyPressed(POWERKEY2);
+		if(!powerKey.isEmpty()){
+			if (e.getKeyCode() == powerKey.get(0)) {
+				screen.keyPressed(POWERKEY0);
+			}
 		}
 	}
 
@@ -76,14 +72,10 @@ public class InputHandler implements KeyListener {
 		if (e.getKeyCode() == playKey.get(3)) {
 			screen.keyReleased(PLAYKEY3);
 		}
-		if (e.getKeyCode() == powerKey.get(0)) {
-			screen.keyReleased(POWERKEY0);
-		}
-		if (e.getKeyCode() == powerKey.get(1)) {
-			screen.keyReleased(POWERKEY1);
-		}
-		if (e.getKeyCode() == powerKey.get(2)) {
-			screen.keyReleased(POWERKEY2);
+		if(!powerKey.isEmpty()){
+			if (e.getKeyCode() == powerKey.get(0)) {
+				screen.keyReleased(POWERKEY0);
+			}
 		}
 	}
 

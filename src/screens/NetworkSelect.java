@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
+import network.Message;
 import network.MessageQueue;
 import network.Client.Network;
 import network.Server.Server;
@@ -101,25 +102,32 @@ public class NetworkSelect extends Screen {
 				Server server = new Server(getGameObject(), serverInput, getGameObject().getP1Name());
 				getGameObject().setServer(server);
 				server.start();
+				getGameObject().setServerInput(serverInput);
 			}else{
 				centex.setText("Connecting Server...");
-				Network n = new Network(getGameObject().getHostname(), getGameObject().getP1Name());
+				Network n = new Network(getGameObject(), getGameObject().getHostname(), getGameObject().getP1Name());
 				getGameObject().setNetwork(n);
 			}
 			
 		}
 		
 		if(count == 410) {
-			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive())
+			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()){
 				centex.setText("Network Established");
+				Message msg = new Message("READ:");
+				getGameObject().getServerInput().offer(msg);
+			}
+
 			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()){
 				centex.setText("Connected");
+				getGameObject().getNetwork().sendReadyMsg();
 			}else {
 				centex.setText("Network Check Fail.");				
 			}
 		}
 		
-		if(count == 600) {
+		if(count >= 600 && getGameObject().isReady()){
+			
 			moveScreen();
 		}
 		count++;

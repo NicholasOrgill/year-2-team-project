@@ -1,6 +1,7 @@
 package engine;
 
 import input.InputHandler;
+import network.MessageQueue;
 import network.Client.Network;
 import network.Server.Server;
 import screens.Overlay;
@@ -31,6 +32,7 @@ public class GameObject {
 	private String hostname = "localhost";
 	private Network network;
 	private Server server;
+	private MessageQueue serverInput;
 	
 
 	public GameObject(int width, int height) {
@@ -144,6 +146,14 @@ public class GameObject {
 	
 	public boolean isReady(){
 		return this.isReady;
+	}
+	
+	public void setServerInput(MessageQueue serverInput){
+		this.serverInput = serverInput;
+	}
+	
+	public MessageQueue getServerInput(){
+		return this.serverInput;
 	}
 
 }
