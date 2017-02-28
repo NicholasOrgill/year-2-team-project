@@ -118,14 +118,6 @@ public class PlayScreen extends Screen {
 			noteSprite = new NoteSprite[notes.length];
 			noteSprite2 = new NoteSprite[note2.length];
 			
-			/*for(int i = 0 ; i < beat.length ; i++) {
-				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + beat[i].getTime(), 0, 0);
-			}
-			
-			for(int i = 0 ; i < note.length ; i++) {
-				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + note[i].getTime(), 0, 0, note[i].getButtons(), note[i].getSustain());
-			}*/
-			
 			for(int i = 0 ; i < beat.length ; i++) {
 				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), lineY - beat[i].getTime(), 0, 0);
 			}

@@ -69,7 +69,8 @@ public class EofRepacker {
 				int time = Math.round(noteElements.get(i).getAttribute("time").getFloatValue() * 1000);
 				int sustain = Math.round(noteElements.get(i).getAttribute("sustain").getFloatValue() * 1000);
 				int string = noteElements.get(i).getAttribute("string").getIntValue();
-				int[] buttons = {string};
+				boolean[] buttons = {false, false, false, false};
+				buttons[string] = true;
 				
 				Note note = new Note(time, sustain, buttons);
 				notes[i] = note;
@@ -84,9 +85,10 @@ public class EofRepacker {
 				int endTime = Math.round(handShapeElement.getAttribute("endTime").getFloatValue() * 1000);
 				int sustain = endTime - startTime;
 				
-				int[] buttons = new int[chordNoteElements.size()];
+				boolean[] buttons = {false, false, false, false};
 				for (int j = 0; j < chordNoteElements.size(); j++) {
-					buttons[j] = chordNoteElements.get(j).getAttribute("string").getIntValue();
+					int string = chordNoteElements.get(j).getAttribute("string").getIntValue();
+					buttons[string] = true;
 				}
 				
 				Note chord = new Note(startTime, sustain, buttons);

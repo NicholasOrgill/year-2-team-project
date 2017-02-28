@@ -75,16 +75,9 @@ public class SongFileProcessor {
 				noteElement.setAttribute(new Attribute("time", String.valueOf(notes[i].getTime())));
 				noteElement.setAttribute(new Attribute("sustain", String.valueOf(notes[i].getSustain())));
 				
-				int[] buttons = notes[i].getButtons();
+				boolean[] buttons = notes[i].getButtons();
 				for (int j = 0; j < 4; j++) {
-					boolean inList = false;
-					for (int k = 0; k < buttons.length; k++) {
-						if (buttons[k] == j) {
-							inList = true;
-						}
-					}
-					
-					if (inList) {
+					if (buttons[j]) {
 						noteElement.setAttribute(new Attribute("button" + j, "1"));
 					} else {
 						noteElement.setAttribute(new Attribute("button" + j, "0"));
@@ -159,9 +152,11 @@ public class SongFileProcessor {
 					}
 				}
 				
-				int[] buttons = new int[buttonsList.size()];
-				for (int j = 0; j < buttonsList.size(); j++) {
-					buttons[j] = buttonsList.get(j);
+				boolean[] buttons = {false, false, false, false};
+				for (int j = 0; j < 4; j++) {
+					if (buttonsList.get(j) == 1) {
+						buttons[j] = true;
+					}
 				}
 				
 				notes[i] = new Note(time, sustain, buttons);

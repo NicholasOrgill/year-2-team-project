@@ -8,7 +8,7 @@ package songmanager;
 public class Note {
 
 	private int time, sustain;
-	private int[] buttons;
+	private boolean[] buttons;
 	
 	/**
 	 * Create a note or chord
@@ -16,7 +16,7 @@ public class Note {
 	 * @param sustain Sustain length (ms)
 	 * @param buttons Note buttons
 	 */
-	public Note(int time, int sustain, int[] buttons) {
+	public Note(int time, int sustain, boolean[] buttons) {
 		this.time = time;
 		this.sustain = sustain;
 		this.buttons = buttons;
@@ -42,7 +42,7 @@ public class Note {
 	 * Returns the set of buttons which should be pressed for a note or chord
 	 * @return Array of buttons (values 0-3)
 	 */
-	public int[] getButtons() {
+	public boolean[] getButtons() {
 		return buttons;
 	}
 	
