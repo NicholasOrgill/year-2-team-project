@@ -62,7 +62,7 @@ public class OppoAction {
 		opponent.addScore(score);
 		System.out.println("Your score is " +me.getScore() + " Your oppo score is " + opponent.getScore());
 		toOppo.println("Your score is " +opponent.getScore() + " Your oppo score is " + me.getScore());
-		gameObject.setP2Score(score);
+		gameObject.setP2Score(opponent.getScore());
 	}
 	
 	public void gameOver(){

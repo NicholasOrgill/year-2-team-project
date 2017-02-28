@@ -20,7 +20,7 @@ public class OppoResolve {
 				action.setName(_readline.substring(5));
 			}else if (keyword.equals("READ:")){
 				action.setReady();
-			}else if (keyword.equals("POTS:")){
+			}else if (keyword.equals("SCOR:")){
 				action.updateScore(_readline.substring(5));
 			}else if (keyword.equals("OVER:")){
 				action.gameOver();

@@ -24,7 +24,7 @@ public class GameObject {
 	private InputHandler inputHandler;
 	private int p1Score;
 	private int p2Score;
-	private boolean isServer = true;
+	private boolean isServer = false;
 	private boolean isConnected = false;
 	private boolean isReady = false;
 	private String p1Name = "E2";

@@ -62,7 +62,7 @@ public class SelfAction {
 		me.addScore(score);
 		System.out.println("Your score is " +me.getScore() + " Your oppo score is " + opponent.getScore());
 		toOppo.println("Your score is " +opponent.getScore() + " Your oppo score is " + me.getScore());
-		gameObject.setP1Score(me.getScore());
+		toOppo.println("SCOR:"+me.getScore());
 	}
 	
 	

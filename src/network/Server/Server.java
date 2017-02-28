@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.*;
 
 import engine.GameObject;
+import network.Message;
 import network.MessageQueue;
 
 /**
@@ -54,7 +55,8 @@ public class Server extends Thread{
 		}
 	}
 	
-	public MessageQueue getServerInput(){
-		return this.serverInput;
+	public void inputMessage(String _msg){
+		Message msg = new Message(_msg);
+		serverInput.offer(msg);
 	}
 }

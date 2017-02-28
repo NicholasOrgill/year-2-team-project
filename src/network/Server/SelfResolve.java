@@ -30,7 +30,7 @@ public class SelfResolve extends Thread{
 				sact.setName(_readline.substring(5));
 			}else if (keyword.equals("READ:")){
 				sact.setReady();
-			}else if (keyword.equals("POTS:")){
+			}else if (keyword.equals("SCOR:")){
 				sact.updateScore(_readline.substring(5));
 			}else if (keyword.equals("OVER:")){
 				sact.gameOver();

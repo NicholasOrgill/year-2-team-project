@@ -113,8 +113,7 @@ public class NetworkSelect extends Screen {
 		if(count == 410) {
 			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()){
 				centex.setText("Network Established");
-				Message msg = new Message("READ:");
-				getGameObject().getServer().getServerInput().offer(msg);
+				getGameObject().getServer().inputMessage("READ:");
 			}
 
 			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()){
