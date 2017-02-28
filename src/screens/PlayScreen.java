@@ -31,6 +31,7 @@ public class PlayScreen extends Screen {
 	private ArrayList<Note> Pnotes;
 	private Note[] note2;
 	int score = 0;
+	boolean[] keys = {false, false, false, false};
 	final int MAX_NOTE_SCORE = 200;
 	final int MAX_NOTE_RANGE = 200;
 	
@@ -50,8 +51,21 @@ public class PlayScreen extends Screen {
 	
 	@Override
 	public void keyPressed(int key) {
+		keys[key] = true;
+		System.out.println("on" + key);
+		playSprite.push(key);
+	}
+	
+	@Override
+	public void keyReleased(int key) {
+		keys[key] = false;
+		System.out.println("off" + key);
+		playSprite.unpush(key);
+	}
+	
+	public void addScore() {
 		Note note = Pnotes.get(0);
-		if (note.getButtons()[0] == key){
+		if (Arrays.equals(note.getButtons(), keys)){
 			int time = note.getTime();
 			int diff = Math.abs(time - count);
 			if (diff <= getGameObject().PERFECT) {
@@ -74,22 +88,13 @@ public class PlayScreen extends Screen {
 				System.out.println("Bad!");
 			}
 			textScore.setText("Score: " + score);
-			System.out.println("on" + key);
-			playSprite.push(key);
 		}
-	}
-	
-	@Override
-	public void keyReleased(int key) {
-		System.out.println("off" + key);
-		playSprite.unpush(key);
 	}
 	
 	public PlayScreen(GameObject gameObject) {
 		super(gameObject);
 		textSprite = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 100, "Game AI: Easy");
 		textScore = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 80, "SinglePlayer");
-		
 		playSprite = new PlaySprite(0, 0, 0, 0);		
 	}
 	
@@ -118,6 +123,14 @@ public class PlayScreen extends Screen {
 			noteSprite = new NoteSprite[notes.length];
 			noteSprite2 = new NoteSprite[note2.length];
 			
+			/*for(int i = 0 ; i < beat.length ; i++) {
+				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + beat[i].getTime(), 0, 0);
+			}
+			
+			for(int i = 0 ; i < note.length ; i++) {
+				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + note[i].getTime(), 0, 0, note[i].getButtons(), note[i].getSustain());
+			}*/
+			
 			for(int i = 0 ; i < beat.length ; i++) {
 				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), lineY - beat[i].getTime(), 0, 0);
 			}
@@ -138,6 +151,7 @@ public class PlayScreen extends Screen {
 			if(yPos > 600) 
 				Pnotes.remove(0);
 		}
+		addScore();
 		
 		/*for(int i = 0 ; i < beat.length ; i++) {
 			barSprite[i].setY((count - song.getSongLength()) + beat[i].getTime());
@@ -182,6 +196,8 @@ public class PlayScreen extends Screen {
 		
 		//System.out.println(audio.getPlayingTimer().getTimeInMill());
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
+		
+		
 		
 		
 		

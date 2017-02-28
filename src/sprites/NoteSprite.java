@@ -15,12 +15,12 @@ public class NoteSprite extends Sprite {
 	int x = 0;
 	int v = 0;
 	int this_width = 0;
-	int buttons[];
+	boolean buttons[];
 	int length = 10;
 	boolean hit = false;
 	int ai = 0;
 	
-	public NoteSprite(int x, int y, int width, int height, int[] buttons, int length) {
+	public NoteSprite(int x, int y, int width, int height, boolean[] buttons, int length) {
 		super(x, y, width, height);
 		this.buttons = buttons;
 		if(length != 0) {
@@ -60,9 +60,9 @@ public class NoteSprite extends Sprite {
 			
 		context.setColor(ColorPack.WHITE);
 		}
-		for(int i = 0 ; i < buttons.length ; i++) {
+		for(int i = 0 ; i < 4 ; i++) {
 			
-				context.fillRect(x + (gap / 2) + (buttons[i] * (size + gap)) - (int)(this_width / 2), getY() - length - 5, size, length);
+				if (buttons[i]) context.fillRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), getY() - length - 5, size, length);
 		}
 		
 	}
