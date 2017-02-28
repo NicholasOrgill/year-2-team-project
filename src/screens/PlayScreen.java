@@ -62,32 +62,63 @@ public class PlayScreen extends Screen {
 		System.out.println("off" + key);
 		playSprite.unpush(key);
 	}
+	/**
+	 * Checks if one array is contained within another
+	 * @param a1 The current keys pressed
+	 * @param a2 The note's keys
+	 * @return if a1 is contained within a2
+	 */
+	public boolean noteArrayContained(boolean[] userKeys, boolean[] noteKeys) {
+		for(int i = 0; i < 4; i++) {
+			if (!userKeys[i] && noteKeys[i])
+				return false;
+		}
+		return true;
+	}
 	
-	public void addScore() {
-		Note note = Pnotes.get(0);
-		if (Arrays.equals(note.getButtons(), keys)){
+	public void addScoreHelper(Note note, boolean status) {
+		if (noteArrayContained(keys, note.getButtons())){
 			int time = note.getTime();
 			int diff = Math.abs(time - count);
 			if (diff <= getGameObject().PERFECT) {
 				System.out.println("Perfect!");
 				textSprite.setText("Perfect!");
 				score += 100;
+				note.setHeld(true);
 			} else if (diff <= getGameObject().EXCELLENT) {
 				System.out.println("Excellent!");
 				textSprite.setText("Excellent!");
 				score += 75;
+				note.setHeld(true);
 			} else if (diff <= getGameObject().GOOD) {
 				System.out.println("Good!");
 				textSprite.setText("Good!");
 				score += 50;
+				note.setHeld(true);
 			} else if (diff <= getGameObject().OKAY) {
 				System.out.println("Okay!");
 				textSprite.setText("Okay!");
 				score += 25;
+				note.setHeld(true);
 			} else {
 				System.out.println("Bad!");
 			}
 			textScore.setText("Score: " + score);
+			if(status) Pnotes.remove(0);
+		}
+	}
+	
+	public void addScore() {
+		Note note = Pnotes.get(0);
+		if(note.getSustain() > 0) {
+			if(note.isHeld()) {
+				score+=5;
+				System.out.println("Still held down!");
+			} else {
+				addScoreHelper(note, false);
+			}
+		} else {
+			addScoreHelper(note, true);
 		}
 	}
 	
@@ -151,7 +182,6 @@ public class PlayScreen extends Screen {
 			if(yPos > 600) 
 				Pnotes.remove(0);
 		}
-		addScore();
 		
 		/*for(int i = 0 ; i < beat.length ; i++) {
 			barSprite[i].setY((count - song.getSongLength()) + beat[i].getTime());
@@ -196,11 +226,7 @@ public class PlayScreen extends Screen {
 		
 		//System.out.println(audio.getPlayingTimer().getTimeInMill());
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
-		
-		
-		
-		
-		
+		if (!Pnotes.isEmpty()) addScore();
 	}
 	
 	@Override
