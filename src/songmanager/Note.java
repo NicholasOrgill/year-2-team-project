@@ -9,6 +9,7 @@ public class Note {
 
 	private int time, sustain;
 	private boolean[] buttons;
+	private boolean held = false;
 	
 	/**
 	 * Create a note or chord
@@ -44,6 +45,22 @@ public class Note {
 	 */
 	public boolean[] getButtons() {
 		return buttons;
+	}
+	
+	/**
+	 * Returns the hold state of a note
+	 * @return Whether the note is held or not
+	 */
+	public boolean isHeld() {
+		return held;
+	}
+	
+	/**
+	 * Sets the hold state of a note
+	 * @param state Whether a note is held or not
+	 */
+	public void setHeld(boolean state) {
+		held = state;
 	}
 	
 	public String toString() {
