@@ -29,7 +29,7 @@ public class GameObject {
 	private boolean isReady = false;
 	private String p1Name = "E2";
 	private String p2Name;
-	private String hostname = "localhost";
+	private String hostname = "10.20.210.251";
 	private Network network;
 	private Server server;
 	

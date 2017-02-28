@@ -34,8 +34,9 @@ public class ClientResolve extends Thread {
 			} else if (keyword.equals("SCOR:")) {
 				int score = Integer.parseInt(_readline.substring(5));
 				gameObject.setP2Score(score);
+			}else{
+				System.out.println(_readline);
 			}
-			
 		} else {
 			System.out.println(_readline);
 		}
