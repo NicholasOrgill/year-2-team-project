@@ -147,9 +147,7 @@ public class SongFileProcessor {
 				ArrayList<Integer> buttonsList = new ArrayList<Integer>();
 				for (int j = 0; j < 4; j++) {
 					int buttonActive = noteElements.get(i).getAttribute("button" + j).getIntValue();
-					if (buttonActive == 1) {
-						buttonsList.add(j);
-					}
+					buttonsList.add(buttonActive);
 				}
 				
 				boolean[] buttons = {false, false, false, false};
