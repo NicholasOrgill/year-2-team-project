@@ -1,5 +1,9 @@
 package songmanager;
 
+import java.util.ArrayList;
+
+import sprites.NoteSprite;
+
 /**
  * Represents a note, beat marker or chord.
  * @author Alex
@@ -9,6 +13,7 @@ public class Note {
 
 	private int time, sustain;
 	private boolean[] buttons;
+	private ArrayList<NoteSprite> graphicalNotes;
 	private boolean held = false;
 	
 	/**
@@ -21,6 +26,7 @@ public class Note {
 		this.time = time;
 		this.sustain = sustain;
 		this.buttons = buttons;
+		this.graphicalNotes = new ArrayList<NoteSprite>();
 	}
 	
 	/**
@@ -63,7 +69,15 @@ public class Note {
 		held = state;
 	}
 	
+	public ArrayList<NoteSprite> getGraphicalNotes() {
+		return graphicalNotes;
+	}
+
 	public String toString() {
 		return("Note at: " + time);
+	}
+
+	public void addNoteSprite(NoteSprite noteSprite) {
+		graphicalNotes.add(noteSprite);
 	}
 }

@@ -102,18 +102,23 @@ public class PlayScreen extends Screen {
 				note.setHeld(true);
 			} else {
 				System.out.println("Bad!");
+				textSprite.setText("Bad!");
 			}
 			textScore.setText("Score: " + score);
-			if(status) Pnotes.remove(0);
+			if(status) {
+				for (NoteSprite sprite : Pnotes.get(0).getGraphicalNotes()) {
+					sprite.remove();
+				}
+				Pnotes.remove(0);
+			}
 		}
 	}
 	
 	public void addScore() {
 		Note note = Pnotes.get(0);
 		if(note.getSustain() > 0) {
-			if(note.isHeld()) {
+			if(note.isHeld()){
 				score+=5;
-				System.out.println("Still held down!");
 			} else {
 				addScoreHelper(note, false);
 			}
@@ -168,6 +173,7 @@ public class PlayScreen extends Screen {
 			
 			for(int i = 0 ; i < notes.length ; i++) {
 				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - notes[i].getTime(), 0, 0, notes[i].getButtons(), notes[i].getSustain(), 0.5);
+				notes[i].addNoteSprite(noteSprite[i]);
 			}
 			
 
@@ -179,8 +185,12 @@ public class PlayScreen extends Screen {
 		if(!Pnotes.isEmpty()) {
 			Note tempNote = Pnotes.get(0);
 			int yPos = lineY - (tempNote.getTime() - count);
-			if(yPos > 600) 
+			if(yPos > 600) {
+				for (NoteSprite sprite : Pnotes.get(0).getGraphicalNotes()) {
+					sprite.remove();
+				}
 				Pnotes.remove(0);
+			}
 		}
 		
 		/*for(int i = 0 ; i < beat.length ; i++) {
@@ -247,7 +257,7 @@ public class PlayScreen extends Screen {
 		}
 		
 		for(int i = 0; i < notes.length; i++) {
-			noteSprite[i].draw(context);
+			if (!noteSprite[i].isRemoved()) noteSprite[i].draw(context);
 			noteSprite2[i].setAI();
 			noteSprite2[i].draw(context);
 		}

@@ -9,6 +9,7 @@ import utils.ColorPack;
 public class NoteSprite extends Sprite {
 	int count = 0;
 	
+
 	int amount = 4;
 	int gap = 20;
 	int size = 60;
@@ -20,6 +21,8 @@ public class NoteSprite extends Sprite {
 	boolean hit = false;
 	int ai = 0;
 	double position;
+	private boolean isRemoved = false;
+
 	
 	public NoteSprite(int x, int y, int width, int height, boolean[] buttons, int length, double position) {
 		super(x, y, width, height);
@@ -39,7 +42,6 @@ public class NoteSprite extends Sprite {
 			
 		}
 		
-		
 		this_width = (size + gap) * amount;
 		
 		count++;
@@ -52,6 +54,14 @@ public class NoteSprite extends Sprite {
 	public void setAI() {
 		ai = 1;
 	}
+	
+	public void remove() {
+		isRemoved = true;
+	}
+	
+	public boolean isRemoved() {
+		return isRemoved;
+	}
 
 	@Override
 	public void draw(Graphics context) {
@@ -63,7 +73,7 @@ public class NoteSprite extends Sprite {
 		}
 		for(int i = 0 ; i < buttons.length ; i++) {
 			
-				context.fillRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), getY() - length - 5, size, length);
+				if (buttons[i]) context.fillRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), getY() - length - 5, size, length);
 		}
 		
 	}
