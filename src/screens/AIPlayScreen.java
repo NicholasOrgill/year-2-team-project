@@ -1,6 +1,7 @@
 package screens;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import ai.SimpleAI;
 import ai.SongArray;
@@ -24,7 +25,9 @@ public class AIPlayScreen extends Screen {
 	private Beat[] beat;
 	private Note[] note;
 	private Note[] AINotes;
+	private ArrayList<Note> Pnotes;
 	int score = 0;
+	boolean[] keys = {false, false, false, false};
 	final int MAX_NOTE_SCORE = 200;
 	final int MAX_NOTE_RANGE = 100;
 	
@@ -51,27 +54,74 @@ public class AIPlayScreen extends Screen {
 	
 	@Override
 	public void keyPressed(int key) {
-		for(Note note1 : note) {
-			int time = note1.getTime();
-
-			if (time <= count + MAX_NOTE_RANGE && time >= count - MAX_NOTE_RANGE /*&& note1.getButtons().toString().indexOf(key) != -1*/) {
-				leftText.setText("NOTE HIT! Score for note: " + (MAX_NOTE_SCORE - Math.abs(time - count)));
-				System.out.println("NOTE HIT! Score for note: " + (MAX_NOTE_SCORE - Math.abs(time - count)));
-				score += (MAX_NOTE_SCORE - Math.abs(time - count));
-				leftScore.setText("Score: " + score);
-
-				break;
-			}
-		}
+		keys[key] = true;
 		System.out.println("on" + key);
 		playSpriteLeft.push(key);
-
 	}
 	
 	@Override
 	public void keyReleased(int key) {
 		System.out.println("off" + key);
 		playSpriteLeft.unpush(key);
+	}
+	/**
+	 * Checks if one array is contained within another
+	 * @param userKeys The current keys pressed
+	 * @param noteKeys The note's keys
+	 * @return if userKeys is contained within noteKeys
+	 */
+	public boolean noteArrayContained(boolean[] userKeys, boolean[] noteKeys) {
+		for(int i = 0; i < 4; i++) {
+			if (!userKeys[i] && noteKeys[i])
+				return false;
+		}
+		return true;
+	}
+	
+	public void addScoreHelper(Note note, boolean status) {
+		if (noteArrayContained(keys, note.getButtons())){
+			int time = note.getTime();
+			int diff = Math.abs(time - count);
+			if (diff <= getGameObject().PERFECT) {
+				System.out.println("Perfect!");
+				leftText.setText("Perfect!");
+				score += 100;
+				note.setHeld(true);
+			} else if (diff <= getGameObject().EXCELLENT) {
+				System.out.println("Excellent!");
+				leftText.setText("Excellent!");
+				score += 75;
+				note.setHeld(true);
+			} else if (diff <= getGameObject().GOOD) {
+				System.out.println("Good!");
+				leftText.setText("Good!");
+				score += 50;
+				note.setHeld(true);
+			} else if (diff <= getGameObject().OKAY) {
+				System.out.println("Okay!");
+				leftText.setText("Okay!");
+				score += 25;
+				note.setHeld(true);
+			} else {
+				System.out.println("Bad!");
+			}
+			leftScore.setText("Score: " + score);
+			if(status) Pnotes.remove(0);
+		}
+	}
+	
+	public void addScore() {
+		Note note = Pnotes.get(0);
+		if(note.getSustain() > 0) {
+			if(note.isHeld()) {
+				score+=5;
+				System.out.println("Still held down!");
+			} else {
+				addScoreHelper(note, false);
+			}
+		} else {
+			addScoreHelper(note, true);
+		}
 	}
 	
 	public AIPlayScreen(GameObject gameObject) {
