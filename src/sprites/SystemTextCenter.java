@@ -15,7 +15,7 @@ public class SystemTextCenter extends TextSprite {
 	public SystemTextCenter(int x, int y, String text) {
 		super(x, y, text);
 		setFontSize(0.027);
-		setFont(FontLoader.loadFontFromResource("Opensans-regular.ttf"));
+		setFont(FontLoader.loadFontFromResource("OpenSans-Regular.ttf"));
 	}
 
 	@Override

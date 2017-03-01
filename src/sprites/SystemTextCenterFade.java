@@ -20,7 +20,7 @@ public class SystemTextCenterFade extends TextSprite {
 	public SystemTextCenterFade(int x, int y, String text) {
 		super(x, y, text);
 		setFontSize(0.027);
-		setFont(FontLoader.loadFontFromResource("Opensans-regular.ttf"));
+		setFont(FontLoader.loadFontFromResource("OpenSans-Regular.ttf"));
 		actualText = text;
 	}
 
