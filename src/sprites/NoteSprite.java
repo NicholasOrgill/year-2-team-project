@@ -19,8 +19,9 @@ public class NoteSprite extends Sprite {
 	int length = 10;
 	boolean hit = false;
 	int ai = 0;
+	double position;
 	
-	public NoteSprite(int x, int y, int width, int height, boolean[] buttons, int length) {
+	public NoteSprite(int x, int y, int width, int height, boolean[] buttons, int length, double position) {
 		super(x, y, width, height);
 		this.buttons = buttons;
 		if(length != 0) {
@@ -28,13 +29,13 @@ public class NoteSprite extends Sprite {
 		} else {
 			this.length = 10;
 		}
-		
+		this.position = position;
 	}
 
 	@Override
 	public void update() {
 		if(count == 0) {
-			x = (int)(getScreenWidth() / 2);
+			x = (int)(getScreenWidth() * position);
 			
 		}
 		
@@ -60,9 +61,9 @@ public class NoteSprite extends Sprite {
 			
 		context.setColor(ColorPack.WHITE);
 		}
-		for(int i = 0 ; i < 4 ; i++) {
+		for(int i = 0 ; i < buttons.length ; i++) {
 			
-				if (buttons[i]) context.fillRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), getY() - length - 5, size, length);
+				context.fillRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), getY() - length - 5, size, length);
 		}
 		
 	}

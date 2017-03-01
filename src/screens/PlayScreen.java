@@ -126,7 +126,7 @@ public class PlayScreen extends Screen {
 		super(gameObject);
 		textSprite = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 100, "Game AI: Easy");
 		textScore = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 80, "SinglePlayer");
-		playSprite = new PlaySprite(0, 0, 0, 0);		
+		playSprite = new PlaySprite(0, 0, 0, 0, 0.5);		
 	}
 	
 	@Override
@@ -167,12 +167,12 @@ public class PlayScreen extends Screen {
 			}
 			
 			for(int i = 0 ; i < notes.length ; i++) {
-				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - notes[i].getTime(), 0, 0, notes[i].getButtons(), notes[i].getSustain());
+				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - notes[i].getTime(), 0, 0, notes[i].getButtons(), notes[i].getSustain(), 0.5);
 			}
 			
 
 			for(int i = 0 ; i < note2.length ; i++) {
-				noteSprite2[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note2[i].getTime(), 0, 0, note2[i].getButtons(), note2[i].getSustain());
+				noteSprite2[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note2[i].getTime(), 0, 0, note2[i].getButtons(), note2[i].getSustain(), 0.5);
 			}
 		}
 		

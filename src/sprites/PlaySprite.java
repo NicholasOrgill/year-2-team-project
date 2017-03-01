@@ -17,19 +17,21 @@ public class PlaySprite extends Sprite {
 	int y = 50;
 	int this_width = 0;
 	int[] push = new int[amount];
+	double position;
 	
 	
-	public PlaySprite(int x, int y, int width, int height) {
+	public PlaySprite(int x, int y, int width, int height, double d) {
 		super(x, y, width, height);
 		for(int i = 0 ; i < push.length ; i++) {
 			push[i] = 0;
 		}
+		this.position = d;
 	}
 
 	@Override
 	public void update() {
 		
-		x = (int)(getScreenWidth() / 2);
+		x = (int)(getScreenWidth() * position);
 		y = (int)(getScreenHeight() * 0.8);
 		this_width = (size + gap) * amount;
 		
