@@ -31,7 +31,7 @@ public class AIPlayScreen extends Screen {
 	boolean[] keys = { false, false, false, false };
 	final int MAX_NOTE_SCORE = 200;
 	final int MAX_NOTE_RANGE = 100;
-	private ArrayList<Note> AIPressedKey;
+	private ArrayList<Note> ANotes;
 
 	private SystemTextCenter textAILevel; // An example text sprite
 	private SystemTextCenter textGameMode; // An example text sprite
@@ -87,55 +87,56 @@ public class AIPlayScreen extends Screen {
 		return true;
 	}
 
-	public void addScoreHelper(Note note, boolean status) {
-		if (noteArrayContained(keys, note.getButtons())) {
+	public void addScoreHelper(Note note, boolean status, SystemTextCenter text, SystemTextCenter scoreText, boolean player, ArrayList<Note> notes) {
+		if (noteArrayContained(keys, note.getButtons()) || player == false) {
 			int time = note.getTime();
 			int diff = Math.abs(time - count);
 			if (diff <= getGameObject().PERFECT) {
 				System.out.println("Perfect!");
-				leftText.setText("Perfect!");
-				score += 100;
+				text.setText("Perfect!");
+				if(player) score += 100; else aiScore += 100;
 				note.setHeld(true);
 			} else if (diff <= getGameObject().EXCELLENT) {
 				System.out.println("Excellent!");
-				leftText.setText("Excellent!");
-				score += 75;
+				text.setText("Excellent!");
+				if(player) score += 75; else aiScore += 75;
 				note.setHeld(true);
 			} else if (diff <= getGameObject().GOOD) {
 				System.out.println("Good!");
-				leftText.setText("Good!");
-				score += 50;
+				text.setText("Good!");
+				if(player) score += 50; else aiScore += 50;
 				note.setHeld(true);
 			} else if (diff <= getGameObject().OKAY) {
 				System.out.println("Okay!");
-				leftText.setText("Okay!");
-				score += 25;
+				text.setText("Okay!");
+				if(player) score += 25; else aiScore += 25;
 				note.setHeld(true);
 			} else {
 				System.out.println("Bad!");
-				leftText.setText("Bad!");
+				text.setText("Bad!");
 			}
-			leftScore.setText("Score: " + score);
+			if(player) scoreText.setText("Score: " + score); else scoreText.setText("Score: " + aiScore); 
 			if (status) {
-				for (NoteSprite sprite : Pnotes.get(0).getGraphicalNotes()) {
+				for (NoteSprite sprite : notes.get(0).getGraphicalNotes()) {
 					sprite.remove();
 				}
-				Pnotes.remove(0);
+				notes.remove(0);
 			}
+			
 		}
 	}
 
-	public void addScore() {
-		Note note = Pnotes.get(0);
+	public void addScore(ArrayList<Note> p, SystemTextCenter text, SystemTextCenter scoreText, boolean player) {
+		Note note = p.get(0);
 		if (note.getSustain() > 0) {
 			if (note.isHeld()) {
-				score += 5;
+				if(player) score += 5; else aiScore += 5;
 				System.out.println("Still held down!");
 			} else {
-				addScoreHelper(note, false);
+				addScoreHelper(note, false, text, scoreText, player, p);
 			}
 		} else {
-			addScoreHelper(note, true);
+			addScoreHelper(note, true, text, scoreText, player, p);
 		}
 	}
 
@@ -181,7 +182,7 @@ public class AIPlayScreen extends Screen {
 			noteSpriteLeft = new NoteSprite[notes.length];
 			noteSpriteRight = new NoteSprite[notes.length];
 			noteSpriteAI = new NoteSprite[AINotes.length];
-			AIPressedKey = new ArrayList<Note>(Arrays.asList(notes));
+			ANotes = new ArrayList<Note>(Arrays.asList(notes));
 
 			/*
 			 * for(int i = 0 ; i < beat.length ; i++) { barSprite[i] = new
@@ -222,6 +223,19 @@ public class AIPlayScreen extends Screen {
 					sprite.remove();
 				}
 				Pnotes.remove(0);
+			}
+		}
+
+		if (!ANotes.isEmpty())
+
+		{
+			Note tempNote = ANotes.get(0);
+			int yPos = lineY - (tempNote.getTime() - count);
+			if (yPos > 600) {
+				for (NoteSprite sprite : ANotes.get(0).getGraphicalNotes()) {
+					sprite.remove();
+				}
+				ANotes.remove(0);
 			}
 		}
 
@@ -293,37 +307,37 @@ public class AIPlayScreen extends Screen {
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
 
 		if (!Pnotes.isEmpty()) {
-			addScore();
+			addScore(Pnotes, leftText, leftScore, true);
 		}
-//		if (!AIPressedKey.isEmpty()) {
-//			System.out.println(AIPressedKey.size());
-//			if (count > notes[0].getTime() && count > AIPressedKey.get(0).getTime()) {
-//				addAIScore(count, notes, AINotes);
-//			}
-//		}
+		
+		if (!ANotes.isEmpty()) {
+			if (count > ANotes.get(0).getTime()) {
+				addScore(ANotes, rightText, rightScore, false);
+			}
+		}
 
 	}
 
-	private void addAIScore(int count, Note[] notes, Note[] aiNotes) {
-		int i = getNoteNumber(AIPressedKey.get(0), notes);
-		if (notes[i].getSustain() > 0) {
-			addAIScoreHelper(notes, aiNotes, i, false);
-			int heldTime = aiNotes[i].getTime() + aiNotes[i].getSustain();
-			int trueHeldTime = notes[i].getTime() + notes[i].getSustain();
+/*	private void addAIScore(int count, Note[] notes, Note[] aiNotes) {
+		int time = getNoteNumber(ANotes.get(0), notes);
+		if (notes[time].getSustain() > 0) {
+			addAIScoreHelper(notes, aiNotes, time, false);
+			int heldTime = aiNotes[time].getTime() + aiNotes[time].getSustain();
+			int trueHeldTime = notes[time].getTime() + notes[time].getSustain();
 
 			if (heldTime > trueHeldTime) {
-				aiScore += (0.12 * (trueHeldTime - aiNotes[i].getTime()));
+				aiScore += (0.12 * (trueHeldTime - aiNotes[time].getTime()));
 			} else {
-				aiScore += (0.12 * (heldTime - notes[i].getTime()));
+				aiScore += (0.12 * (heldTime - notes[time].getTime()));
 			}
 
 		} else {
-			addAIScoreHelper(notes, aiNotes, i, true);
+			addAIScoreHelper(notes, aiNotes, time, true);
 		}
-		AIPressedKey.remove(0);
-	}
+		ANotes.remove(0);
+	}*/
 
-	private int getNoteNumber(Note note, Note[] notes) {
+/*	private int getNoteNumber(Note note, Note[] notes) {
 		for (int i = 0; i < notes.length; i++) {
 			if (note == notes[i]) {
 				return i;
@@ -331,9 +345,9 @@ public class AIPlayScreen extends Screen {
 			}
 		}
 		return -1;
-	}
+	}*/
 
-	private void addAIScoreHelper(Note[] notes, Note[] aiNotes, int i, boolean status) {
+/*	private void addAIScoreHelper(Note[] notes, Note[] aiNotes, int i, boolean status) {
 		int noteTime = notes[i].getTime();
 		int aiTime = aiNotes[i].getTime();
 
@@ -365,7 +379,7 @@ public class AIPlayScreen extends Screen {
 				sprite.remove();
 			}
 		}
-	}
+	}*/
 
 	@Override
 	public void draw(Graphics context) {
