@@ -2,8 +2,11 @@ package screens;
 
 import java.awt.Graphics;
 
+import audio.Player;
+import audio.SoundHandler;
 import engine.GameObject;
 import engine.Screen;
+import input.InputHandler;
 import sprites.DotSpriteBackground;
 import sprites.FancyCenterTextSprite;
 import sprites.ImageGrad;
@@ -24,9 +27,29 @@ public class SelectScreen extends Screen {
 	private SystemTextCenterShine numberText;
 	private SystemTextShine nameText;
 	private SystemTextShine byText;
+	private SoundHandler fx;
+	String[] fxlist = {"bang.wav", "move.wav"};
+	private int count = 0;
+	
+	private Player audio = new Player();
+	
+	public void keyPressed(int key) {
+		System.out.println("on" + key);
+		if(key == InputHandler.PLAYKEY0) {
+			fx.playEffect("bang.wav");
+			audio.stopPlaying();
+			moveScreen();
+		}
+	}
 	
 	public SelectScreen(GameObject gameObject) {
 		super(gameObject);
+		fx = new SoundHandler();
+		
+		fx.fillEffects(fxlist);
+		
+		setNextScreen(new PlayScreen(getGameObject()));
+		
 		nameText = new SystemTextShine(78, 430, "Tetris Theme Tune");
 		nameText.setFontSize(0.032);
 		
@@ -54,6 +77,9 @@ public class SelectScreen extends Screen {
 		
 		textSprite = new SystemTextKern(20, 30, "FIRST SONG");
 		
+		
+		
+		
 	}
 
 	@Override
@@ -75,6 +101,14 @@ public class SelectScreen extends Screen {
 
 		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
 		dotBackground.update();
+		
+		if(count == 50) {
+			fx.stopAll();
+			//fx.playEffect("move.wav");
+			audio.playBack("src/songmanager/Tetris.wav");
+			
+		}
+		count++;
 	}
 
 	@Override

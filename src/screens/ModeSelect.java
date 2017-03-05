@@ -32,7 +32,7 @@ public class ModeSelect extends Screen {
 	private SystemBox box;
 	
 	private SoundHandler fx;
-	String[] fxlist = {"move.wav", "bang.wav"};
+	String[] fxlist = {"move.wav", "bang.wav", "titlesongquiet.wav"};
 
 	int count = 0;
 	
@@ -122,6 +122,10 @@ public class ModeSelect extends Screen {
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
 		if (count > 40) {
 			title.update();
+		}
+		
+		if(count == 80) {
+			fx.playEffect("titlesongquiet.wav");
 		}
 
 		imageGrad.setScreenSize(getScreenWidth(), getScreenHeight());

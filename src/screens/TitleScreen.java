@@ -43,12 +43,12 @@ public class TitleScreen extends Screen {
 	
 	private SystemBox box;
 	private FancyCenterTextSprite title;
-	int count = -100;
+	int count = -300;
 	
 	int lineXPos = 0;
 	int lineOpac = 255;
 	private SoundHandler fx;
-	String[] fxlist = {"sound_effect_one.wav", "bang.wav"};
+	String[] fxlist = {"titleshort.wav", "bang.wav"};
 	
 	
 	@Override
@@ -146,8 +146,8 @@ public class TitleScreen extends Screen {
 	@Override
 	public void update() {
 
-		if(count == 0) {
-			fx.playEffect("sound_effect_one.wav");
+		if(count == -190) {
+			fx.playEffect("titleshort.wav");
 		}
 		
 		imageGrad.setScreenSize(getScreenWidth(), getScreenHeight());
