@@ -1,6 +1,7 @@
 package audio;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.sound.sampled.AudioInputStream;
@@ -10,9 +11,12 @@ import javax.sound.sampled.Clip;
 public class SoundHandler {
 
 	HashMap<String, AudioInputStream> effects;
+	ArrayList<Clip> clips;
 	
 	public SoundHandler() {
 		effects = new HashMap<String, AudioInputStream>();
+		clips = new ArrayList<Clip>();
+		
 	}
 
 	public void fillEffects(String[] list) {
@@ -33,10 +37,16 @@ public class SoundHandler {
 			Clip clip = AudioSystem.getClip();
 			clip.open(effects.get(effect));
 			clip.start();
-			Thread.sleep(clip.getMicrosecondLength() / 1000);
+			clips.add(clip);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void stopAll() {
+		for(Clip clip : clips) {
+			clip.stop();
+		}
 	}
 }
