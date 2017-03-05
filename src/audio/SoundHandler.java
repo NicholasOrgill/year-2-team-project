@@ -41,7 +41,6 @@ public class SoundHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 	
 	public void stopAll() {

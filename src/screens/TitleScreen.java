@@ -35,7 +35,7 @@ public class TitleScreen extends Screen {
 	private ImageSprite beatnetfi;
 	private ImageGrad imageGrad;
 	private int mopac = 0;
-	private SoundHandler fx;
+	
 	
 	
 	private MessageSprite message;
@@ -47,6 +47,9 @@ public class TitleScreen extends Screen {
 	
 	int lineXPos = 0;
 	int lineOpac = 255;
+	private SoundHandler fx;
+	String[] fxlist = {"sound_effect_one.wav", "bang.wav"};
+	
 	
 	@Override
 	public void keyPressed(int key) {
@@ -54,6 +57,7 @@ public class TitleScreen extends Screen {
 		if(key == InputHandler.PLAYKEY0) {
 			getGameObject().getOverlay().getMiddleBottom().setText(" ");
 			fx.stopAll();
+			fx.playEffect("bang.wav");
 			moveScreen();
 		}
 	}
@@ -68,6 +72,7 @@ public class TitleScreen extends Screen {
 		super(gameObject);
 		fx = new SoundHandler();
 		
+		fx.fillEffects(fxlist);
 		
 		textSprite = new SystemText(10, 10, "HELLO");
 		//textSprite.setText("K44:K:C:A:2012072391");
@@ -142,10 +147,6 @@ public class TitleScreen extends Screen {
 	public void update() {
 
 		if(count == 0) {
-			
-			
-			String[] fxlist = {"sound_effect_one.wav"};
-			fx.fillEffects(fxlist);
 			fx.playEffect("sound_effect_one.wav");
 		}
 		

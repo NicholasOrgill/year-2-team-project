@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
+import audio.SoundHandler;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
@@ -29,6 +30,9 @@ public class ModeSelect extends Screen {
 	private ModeBoxSprite currentBox = null;
 	private ModeBoxSprite nextBox = null;
 	private SystemBox box;
+	
+	private SoundHandler fx;
+	String[] fxlist = {"move.wav", "bang.wav"};
 
 	int count = 0;
 	
@@ -42,6 +46,7 @@ public class ModeSelect extends Screen {
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
 		if (key == InputHandler.PLAYKEY0) {
+			fx.playEffect("bang.wav");
 			moveScreen();
 		}
 		
@@ -51,6 +56,7 @@ public class ModeSelect extends Screen {
 			} else {
 				select++;
 			}
+			fx.playEffect("move.wav");
 		}
 		
 		if(key == InputHandler.PLAYKEY2) {
@@ -59,6 +65,7 @@ public class ModeSelect extends Screen {
 			} else {
 				select--;
 			}
+			fx.playEffect("move.wav");
 		}
 		
 	}
@@ -70,6 +77,9 @@ public class ModeSelect extends Screen {
 
 	public ModeSelect(GameObject gameObject) {
 		super(gameObject);
+		fx = new SoundHandler();
+		fx.fillEffects(fxlist);
+		
 		textSprite = new SystemText(10, 10, "HELLO");
 		singleModeText = new SystemTextCenterShine((int) (getScreenWidth() * 0.5), getScreenHeight() / 2,
 				"Single Player");
