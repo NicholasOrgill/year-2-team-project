@@ -11,11 +11,11 @@ import javax.sound.sampled.Clip;
 public class SoundHandler {
 
 	HashMap<String, AudioInputStream> effects;
-	ArrayList<Clip> clips;
+	static ArrayList<Clip> clips = new ArrayList<Clip>();
 	
 	public SoundHandler() {
 		effects = new HashMap<String, AudioInputStream>();
-		clips = new ArrayList<Clip>();
+		//clips = new ArrayList<Clip>();
 		
 	}
 
@@ -30,6 +30,7 @@ public class SoundHandler {
 			System.err.println("Terminal Exception");
 			e.printStackTrace();
 		}
+		
 	}
 
 	public void playEffect(String effect) {
@@ -38,12 +39,13 @@ public class SoundHandler {
 			clip.open(effects.get(effect));
 			clip.start();
 			clips.add(clip);
+			effects.put(effect, AudioSystem.getAudioInputStream(new File("src/res/audio/" + effect)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void stopAll() {
+	public static void stopAll() {
 		for(Clip clip : clips) {
 			clip.stop();
 		}
