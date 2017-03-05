@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
+import audio.Player;
+import audio.SoundHandler;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
@@ -33,6 +35,7 @@ public class TitleScreen extends Screen {
 	private ImageSprite beatnetfi;
 	private ImageGrad imageGrad;
 	private int mopac = 0;
+	private SoundHandler fx;
 	
 	
 	private MessageSprite message;
@@ -50,6 +53,7 @@ public class TitleScreen extends Screen {
 		System.out.println("on" + key);
 		if(key == InputHandler.PLAYKEY0) {
 			getGameObject().getOverlay().getMiddleBottom().setText(" ");
+			fx.stopAll();
 			moveScreen();
 		}
 	}
@@ -62,6 +66,9 @@ public class TitleScreen extends Screen {
 	
 	public TitleScreen(GameObject gameObject) {
 		super(gameObject);
+		fx = new SoundHandler();
+		
+		
 		textSprite = new SystemText(10, 10, "HELLO");
 		//textSprite.setText("K44:K:C:A:2012072391");
 		try {
@@ -134,6 +141,14 @@ public class TitleScreen extends Screen {
 	@Override
 	public void update() {
 
+		if(count == 0) {
+			
+			
+			String[] fxlist = {"sound_effect_one.wav"};
+			fx.fillEffects(fxlist);
+			fx.playEffect("sound_effect_one.wav");
+		}
+		
 		imageGrad.setScreenSize(getScreenWidth(), getScreenHeight());
 		imageGrad.update();
 		

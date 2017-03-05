@@ -261,6 +261,18 @@ public class PlayScreen extends Screen {
 			noteSprite2[i].setAI();
 			noteSprite2[i].draw(context);
 		}
-
+		
+		// Initial box for things to go in
+		context.setColor(ColorPack.DARK);
+		context.fillRect(10, 10, getScreenWidth() / 2 - 20, 70);
+		context.setColor(ColorPack.FADEDWHITE);
+		context.drawRect(10, 10, getScreenWidth() / 2 - 20, 70);
+		
+		
+		// Secondary box
+		context.setColor(ColorPack.DARK);
+		context.fillRect(10 + getScreenWidth() / 2 - 10, 10, getScreenWidth() / 2 - 20, 70);
+		context.setColor(ColorPack.FADEDWHITE);
+		context.drawRect(10 + getScreenWidth() / 2 - 10, 10, getScreenWidth() / 2 - 20, 70);
 	}
 }

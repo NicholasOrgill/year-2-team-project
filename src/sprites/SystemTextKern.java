@@ -13,12 +13,16 @@ import java.util.Map;
 import utils.ColorPack;
 import utils.FontLoader;
 
-public class SystemText extends TextSprite {
+public class SystemTextKern extends TextSprite {
 	
-	public SystemText(int x, int y, String text) {
+	public SystemTextKern(int x, int y, String text) {
 		super(x, y, text);
 		setFontSize(0.027);
 		setFont(FontLoader.loadFontFromResource("OpenSans-Regular.ttf"));
+		
+		Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
+		attributes.put(TextAttribute.TRACKING, 0.5);
+		setFont(getFont().deriveFont(attributes));
 		
 	}
 

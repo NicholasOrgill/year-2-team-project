@@ -29,4 +29,6 @@ public class ColorPack {
 	public static Color PRIMARY5 = new Color(0, 0, 0, 255);
 	public static Color PRIMARY6 = new Color(0, 0, 0, 255);
 	
+	public static Color WHITETRANS = new Color(252, 255, 255, 0);
+	
 }
