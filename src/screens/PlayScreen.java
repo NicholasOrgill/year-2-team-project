@@ -45,7 +45,7 @@ public class PlayScreen extends Screen {
 	
 	private BarSprite[] barSprite;
 	private NoteSprite[] noteSprite;
-	private NoteSprite[] noteSprite2;
+//	private NoteSprite[] noteSprite2;
 	
 	SongArray[] songArray;
 	
@@ -157,7 +157,7 @@ public class PlayScreen extends Screen {
 			note2 = songArray[6].getNotes();
 			barSprite = new BarSprite[beat.length];
 			noteSprite = new NoteSprite[notes.length];
-			noteSprite2 = new NoteSprite[note2.length];
+//			noteSprite2 = new NoteSprite[note2.length];
 			
 			/*for(int i = 0 ; i < beat.length ; i++) {
 				barSprite[i] = new BarSprite((int)(getScreenWidth() / 2), (count - song.getSongLength()) + beat[i].getTime(), 0, 0);
@@ -178,7 +178,7 @@ public class PlayScreen extends Screen {
 			
 
 			for(int i = 0 ; i < note2.length ; i++) {
-				noteSprite2[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note2[i].getTime(), 0, 0, note2[i].getButtons(), note2[i].getSustain(), 0.5);
+//				noteSprite2[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - note2[i].getTime(), 0, 0, note2[i].getButtons(), note2[i].getSustain(), 0.5);
 			}
 		}
 		
@@ -214,9 +214,9 @@ public class PlayScreen extends Screen {
 			noteSprite[i].update();
 			noteSprite[i].setY(lineY - (notes[i].getTime() - count));
 			
-			noteSprite2[i].setScreenSize(getScreenWidth(), getScreenHeight());
-			noteSprite2[i].update();
-			noteSprite2[i].setY(lineY - (note2[i].getTime() - count));
+//			noteSprite2[i].setScreenSize(getScreenWidth(), getScreenHeight());
+//			noteSprite2[i].update();
+//			noteSprite2[i].setY(lineY - (note2[i].getTime() - count));
 			
 			if(noteSprite[i].getY() == lineY) {
 				//textSprite.setText("HOLD: " + audio.getPlayingTimer().getTimeInMill());
@@ -258,8 +258,8 @@ public class PlayScreen extends Screen {
 		
 		for(int i = 0; i < notes.length; i++) {
 			if (!noteSprite[i].isRemoved()) noteSprite[i].draw(context);
-			noteSprite2[i].setAI();
-			noteSprite2[i].draw(context);
+//			noteSprite2[i].setAI();
+//			noteSprite2[i].draw(context);
 		}
 		
 		// Initial box for things to go in

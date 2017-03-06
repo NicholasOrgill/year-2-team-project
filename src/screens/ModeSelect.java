@@ -30,7 +30,6 @@ public class ModeSelect extends Screen {
 	private ModeBoxSprite currentBox = null;
 	private ModeBoxSprite nextBox = null;
 	private SystemBox box;
-	private GameObject gameObject;
 
 	private SoundHandler fx;
 	String[] fxlist = { "move.wav", "bang.wav", "titlesongquiet.wav" };
@@ -48,13 +47,12 @@ public class ModeSelect extends Screen {
 		if (key == InputHandler.PLAYKEY0) {
 			fx.playEffect("bang.wav");
 			if (select == 0) {
-				gameObject.setMode(new PlayScreen(gameObject));
+				getGameObject().setMode(new PlayScreen(getGameObject()));
 			} else if (select == 1) {
-				gameObject.setMode(new AIPlayScreen(gameObject));
+				getGameObject().setMode(new AIPlayScreen(getGameObject()));
 			} else if (select == 2) {
-				gameObject.setMode(new NetworkSelect(gameObject));
+				getGameObject().setMode(new NetworkSelect(getGameObject()));
 			}
-			setNextScreen(new SelectScreen(gameObject));
 			moveScreen();
 		}
 
@@ -85,7 +83,6 @@ public class ModeSelect extends Screen {
 
 	public ModeSelect(GameObject gameObject) {
 		super(gameObject);
-		this.gameObject = gameObject;
 		fx = new SoundHandler();
 		fx.fillEffects(fxlist);
 
@@ -100,7 +97,7 @@ public class ModeSelect extends Screen {
 			e.printStackTrace();
 		}
 
-		setNextScreen(new NetworkSelect(gameObject));
+		setNextScreen(new SelectScreen(gameObject));
 
 		boxSpriteSingle = new ModeBoxSprite((int) (getScreenWidth() * 0.2), getScreenHeight() / 2,
 				ModeBoxSprite.SINGLE);
