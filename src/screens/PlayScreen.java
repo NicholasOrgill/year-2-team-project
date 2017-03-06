@@ -85,21 +85,27 @@ public class PlayScreen extends Screen {
 				textSprite.setText("Perfect!");
 				score += 100;
 				note.setHeld(true);
+				sendScore(100);
+
 			} else if (diff <= getGameObject().EXCELLENT) {
 				System.out.println("Excellent!");
 				textSprite.setText("Excellent!");
 				score += 75;
 				note.setHeld(true);
+				sendScore(75);
+
 			} else if (diff <= getGameObject().GOOD) {
 				System.out.println("Good!");
 				textSprite.setText("Good!");
 				score += 50;
 				note.setHeld(true);
+				sendScore(50);
 			} else if (diff <= getGameObject().OKAY) {
 				System.out.println("Okay!");
 				textSprite.setText("Okay!");
 				score += 25;
 				note.setHeld(true);
+				sendScore(25);
 			} else {
 				System.out.println("Bad!");
 				textSprite.setText("Bad!");
@@ -274,5 +280,14 @@ public class PlayScreen extends Screen {
 		context.fillRect(10 + getScreenWidth() / 2 - 10, 10, getScreenWidth() / 2 - 20, 70);
 		context.setColor(ColorPack.FADEDWHITE);
 		context.drawRect(10 + getScreenWidth() / 2 - 10, 10, getScreenWidth() / 2 - 20, 70);
+	}
+	
+	public void sendScore(int _score){
+		
+		if (getGameObject().isServer()){
+			getGameObject().getServer().inputMessage("SCOR:"+_score);
+		}else{
+			getGameObject().getNetwork().send("SCOR:"+_score);
+		}
 	}
 }

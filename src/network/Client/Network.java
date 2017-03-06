@@ -1,5 +1,9 @@
 package network.Client;
 
+import engine.GameObject;
+import network.Message;
+import network.MessageQueue;
+
 /**
  * This class is for user connecting, sending and receiving
  * @author Weifeng
@@ -8,7 +12,6 @@ public class Network{
 
 	private MessageQueue sendQueue = new MessageQueue();;
 	private MessageQueue receiveQueue = new MessageQueue();;
-	private boolean playing;
 	private boolean isConnected = false;
 	
 	/**
@@ -16,9 +19,10 @@ public class Network{
 	 * @param hostname of server
 	 * @param name of client
 	 */
-	public Network(String hostname, String name){
-		Client c = new Client(hostname, sendQueue, receiveQueue);
+	public Network(GameObject gameObject, String hostname, String name){
+		Client c = new Client(gameObject, hostname, sendQueue, receiveQueue);
 		c.start();
+		(new ClientResolve(gameObject,this)).start();
 		Message msg = new Message("NAME:" + name);
 		this.sendQueue.offer(msg);
 		isConnected = true;
@@ -54,17 +58,5 @@ public class Network{
 		return this.receiveQueue.take().getMessage();
 	}
 	
-	//check whether the game is playing or not
-	public boolean playing(){
-		return this.playing;
-	}
 	
-	//set the game playing status
-	public void setPlaying(boolean p){
-		this.playing = p;
-	}
-	
-	public boolean isConnected(){
-		return this.isConnected;
-	}
 }

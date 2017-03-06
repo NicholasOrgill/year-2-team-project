@@ -3,6 +3,10 @@ package network.Server;
 import java.io.IOException;
 import java.net.*;
 
+import engine.GameObject;
+import network.Message;
+import network.MessageQueue;
+
 /**
  * This class will launch the server
  * @author Weifeng
@@ -11,8 +15,10 @@ public class Server extends Thread{
 
 	private MessageQueue serverInput;
 	private String name;
+	private GameObject gameObject;
 	
-	public Server(MessageQueue _serverInput, String _name){
+	public Server(GameObject _gameobject, MessageQueue _serverInput, String _name){
+		this.gameObject = _gameobject;
 		this.serverInput = _serverInput;
 		this.name = _name;
 	}
@@ -40,12 +46,17 @@ public class Server extends Thread{
 				System.out.println("Your opponent connected");
 				
 				//start a new Thread to solve messages from player
-				new ServerThread(serverInput,opponent,me).start();
+				new ServerThread(gameObject, serverInput,opponent,me).start();
 				
 			}	
 								
 		} catch (Exception e) {
 			System.err.println("IO error " + e.getMessage());
 		}
+	}
+	
+	public void inputMessage(String _msg){
+		Message msg = new Message(_msg);
+		serverInput.offer(msg);
 	}
 }

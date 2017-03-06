@@ -1,4 +1,5 @@
-package network.Client;
+package network;
+
 
 import java.util.concurrent.*;
 

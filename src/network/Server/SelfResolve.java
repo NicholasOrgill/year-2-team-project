@@ -1,16 +1,17 @@
 package network.Server;
 
+import engine.GameObject;
+import network.Message;
+import network.MessageQueue;
+
 public class SelfResolve extends Thread{
 	private MessageQueue serverInput;
-	private Player opponent;
-	private Player me;
 	private SelfAction sact;
+	private GameObject gameObject;
 	
-	public SelfResolve(MessageQueue _serverInput,Player _opponent,Player me){
+	public SelfResolve(GameObject _gameObject,MessageQueue _serverInput,Player _opponent,Player me){
 		this.serverInput = _serverInput;
-		this.opponent = _opponent;
-		this.me = me;
-		this.sact = new SelfAction(serverInput,opponent, me);
+		this.sact = new SelfAction(_gameObject, _opponent, me);
 	}
 
 	public void run(){
@@ -29,8 +30,8 @@ public class SelfResolve extends Thread{
 				sact.setName(_readline.substring(5));
 			}else if (keyword.equals("READ:")){
 				sact.setReady();
-			}else if (keyword.equals("POTS:")){
-				sact.updatePoints(_readline.substring(5));
+			}else if (keyword.equals("SCOR:")){
+				sact.updateScore(_readline.substring(5));
 			}else if (keyword.equals("OVER:")){
 				sact.gameOver();
 			}

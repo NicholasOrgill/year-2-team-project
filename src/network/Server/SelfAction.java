@@ -3,15 +3,17 @@ package network.Server;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import engine.GameObject;
+
 
 public class SelfAction {
-	private MessageQueue serverInput;
 	private Player me;
 	private Player opponent;
 	private PrintStream toOppo;
+	private GameObject gameObject;
 	
-	public SelfAction(MessageQueue _serverInput,Player _opponent, Player _me){
-		this.serverInput = _serverInput;
+	public SelfAction(GameObject _gameObject,Player _opponent, Player _me){
+		this.gameObject = _gameObject;
 		this.opponent = _opponent;//opponent is client player
 		this.me = _me;//me is server player
 		
@@ -24,13 +26,15 @@ public class SelfAction {
 	
 	public void setName(String _name){
 		me.setName(_name);
+		gameObject.setP1Name(_name);
 		System.out.println("your name is " + me.getName() + " Your opponent name is " + opponent.getName());
 		toOppo.println("Your name is " + opponent.getName() + " Your opponent name is " + me.getName());
+		toOppo.println("NAME:"+_name);
 	}
 	
 	public void setReady(){
 		me.setReady(true);
-		me.setPoints(0);
+		me.setScore(0);
 		if (me.isReady() && opponent.isReady()){
 			System.out.println("All players are ready, Loding Game...");
 			toOppo.println("All players are ready, Loding Game...");
@@ -49,14 +53,16 @@ public class SelfAction {
 		System.out.println("Game Start");
 		toOppo.println("Game Start");
 		toOppo.println("LOAD:");//send key word to client to start game
-		new GamingThread(serverInput,opponent,me).start();
+		gameObject.setReady(true);
+
 	}
 	
-	public void updatePoints(String _points){
-		int points = Integer.parseInt(_points);
-		me.addPoints(points);
-		System.out.println("Your points is " +me.getPoints() + " Your oppo points is " + opponent.getPoints());
-		toOppo.println("Your points is " +opponent.getPoints() + " Your oppo points is " + me.getPoints());
+	public void updateScore(String _score){
+		int score = Integer.parseInt(_score);
+		me.addScore(score);
+		System.out.println("Your score is " +me.getScore() + " Your oppo score is " + opponent.getScore());
+		toOppo.println("Your score is " +opponent.getScore() + " Your oppo score is " + me.getScore());
+		toOppo.println("SCOR:"+me.getScore());
 	}
 	
 	

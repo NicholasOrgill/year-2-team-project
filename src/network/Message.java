@@ -1,4 +1,5 @@
-package network.Client;
+package network;
+
 
 /**
  * This class is to solve messages

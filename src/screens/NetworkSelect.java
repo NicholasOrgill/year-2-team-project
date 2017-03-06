@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
+import network.MessageQueue;
 import network.Client.Network;
-import network.Server.MessageQueue;
 import network.Server.Server;
 import sprites.BannerSprite;
 import sprites.DotSpriteBackground;
@@ -26,15 +26,17 @@ public class NetworkSelect extends Screen {
 	private SystemTextCenterFade centex;
 	private SystemBox box;
 	private boolean networkrun = true;
-	private Server server = null;
-	private GameObject gObject;
+
+
+	
+	int count = 0;
+
 
 	private ImageSprite networkImage;
 	private ImageSprite networkImage2;
-
 	private BannerSprite bannerSprite;
 
-	int count = 0;
+
 
 	@Override
 	public void keyPressed(int key) {
@@ -51,7 +53,6 @@ public class NetworkSelect extends Screen {
 
 	public NetworkSelect(GameObject gameObject) {
 		super(gameObject);
-		gObject = gameObject;
 
 		bannerSprite = new BannerSprite(getScreenWidth() / 2, getScreenHeight() / 2 + 80);
 
@@ -66,6 +67,7 @@ public class NetworkSelect extends Screen {
 		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 90, "Waiting for Network");
 
 		setNextScreen(new SelectScreen(gameObject));
+
 
 		box = new SystemBox();
 		box.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -116,6 +118,7 @@ public class NetworkSelect extends Screen {
 
 		}
 
+
 		if (count == 180) {
 			networkImage.fadeIn();
 		}
@@ -123,33 +126,38 @@ public class NetworkSelect extends Screen {
 			networkImage2.fadeIn();
 		}
 
-		if (count == 300) {
-			if (gObject.isServer()) {
+				
+		if(count == 300) {
+			if (getGameObject().isServer()){
 				centex.setText("Establising Network...");
 				MessageQueue serverInput = new MessageQueue();
-				String name = "Admin";
-
-				server = new Server(serverInput, name);
+				
+				Server server = new Server(getGameObject(), serverInput, getGameObject().getP1Name());
+				getGameObject().setServer(server);
 				server.start();
 			} else {
 				centex.setText("Connecting Server...");
-				Network n = new Network(gObject.getHostname(), gObject.getName());
-				gObject.setNetwork(n);
+				Network n = new Network(getGameObject(), getGameObject().getHostname(), getGameObject().getP1Name());
+				getGameObject().setNetwork(n);
 			}
 
 		}
-
-		if (count == 410) {
-			if (server != null && server.isAlive())
+		
+		if(count == 410) {
+			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()){
 				centex.setText("Network Established");
-			else if (gObject.getNetwork() != null && gObject.getNetwork().isConnected()) {
+				getGameObject().getServer().inputMessage("READ:");
+			}
+
+			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()){
 				centex.setText("Connected");
-			} else {
-				centex.setText("Network Check Fail.");
+				getGameObject().getNetwork().sendReadyMsg();
+			}else {
+				centex.setText("Network Check Fail.");				
 			}
 		}
-
-		if (count == 600) {
+		
+		if(count >= 410 && getGameObject().isReady()){
 			moveScreen();
 		}
 		count++;
