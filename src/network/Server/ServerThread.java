@@ -47,6 +47,7 @@ public class ServerThread extends Thread{
 			}
 			
 		} catch (IOException e) {
+			gameObject.setNetworkError("Player " + opponent.getName() + " disconnected");
 			System.out.println("Player " + opponent.getName() + " disconnected");
 		}
 	}

@@ -33,6 +33,7 @@ public class GameObject {
 	private Network network;
 	private Screen mode;
 	private Server server;
+	private String networkError = "";
 
 	
 
@@ -157,5 +158,12 @@ public class GameObject {
 	public boolean isReady(){
 		return this.isReady;
 	}
-
+	
+	public void setNetworkError(String error){
+		this.networkError = error;
+	}
+	
+	public String getNetworkError(){
+		return networkError;
+	}
 }
