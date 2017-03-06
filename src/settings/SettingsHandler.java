@@ -122,11 +122,13 @@ public class SettingsHandler {
 	}
 	
 	public static void main(String[] args) {
+		/* Test the SettingsHandler
 		SettingsHandler h = new SettingsHandler();
 		System.out.println(h.readSetting("testSetting"));
 		h.changeSetting("testSetting", "32");
 		System.out.println(h.readSetting("testSetting"));
 		h.changeSetting("testSetting", "68");
 		System.out.println(h.readSetting("testSetting"));
+		*/
 	}
 }
