@@ -30,44 +30,52 @@ public class ModeSelect extends Screen {
 	private ModeBoxSprite currentBox = null;
 	private ModeBoxSprite nextBox = null;
 	private SystemBox box;
-	
+	private GameObject gameObject;
+
 	private SoundHandler fx;
-	String[] fxlist = {"move.wav", "bang.wav", "titlesongquiet.wav"};
+	String[] fxlist = { "move.wav", "bang.wav", "titlesongquiet.wav" };
 
 	int count = 0;
-	
+
 	int bx = 0;
 	int by = 0;
-	
+
 	int select = 0;
-	
 
 	@Override
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
 		if (key == InputHandler.PLAYKEY0) {
 			fx.playEffect("bang.wav");
+			if (select == 0) {
+				gameObject.setMode(new PlayScreen(gameObject));
+			} else if (select == 1) {
+				gameObject.setMode(new AIPlayScreen(gameObject));
+			} else if (select == 2) {
+				gameObject.setMode(new NetworkSelect(gameObject));
+			}
+			setNextScreen(new SelectScreen(gameObject));
 			moveScreen();
 		}
-		
-		if(key == InputHandler.PLAYKEY3) {
-			if(select == 2) {
+
+		if (key == InputHandler.PLAYKEY3) {
+			if (select == 2) {
 				select = 0;
 			} else {
 				select++;
 			}
 			fx.playEffect("move.wav");
 		}
-		
-		if(key == InputHandler.PLAYKEY2) {
-			if(select == 0) {
+
+		if (key == InputHandler.PLAYKEY2) {
+			if (select == 0) {
 				select = 2;
 			} else {
 				select--;
 			}
 			fx.playEffect("move.wav");
 		}
-		
+
 	}
 
 	@Override
@@ -77,9 +85,10 @@ public class ModeSelect extends Screen {
 
 	public ModeSelect(GameObject gameObject) {
 		super(gameObject);
+		this.gameObject = gameObject;
 		fx = new SoundHandler();
 		fx.fillEffects(fxlist);
-		
+
 		textSprite = new SystemText(10, 10, "HELLO");
 		singleModeText = new SystemTextCenterShine((int) (getScreenWidth() * 0.5), getScreenHeight() / 2,
 				"Single Player");
@@ -112,7 +121,7 @@ public class ModeSelect extends Screen {
 				"SELECT MODE");
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
 
-		currentBox = boxSpriteAI;
+		currentBox = boxSpriteSingle;
 		nextBox = currentBox;
 	}
 
@@ -123,8 +132,8 @@ public class ModeSelect extends Screen {
 		if (count > 40) {
 			title.update();
 		}
-		
-		if(count == 80) {
+
+		if (count == 80) {
 			fx.playEffect("titlesongquiet.wav");
 		}
 
@@ -155,45 +164,44 @@ public class ModeSelect extends Screen {
 			boxSpriteSingle.update();
 			boxSpriteNetwork.update();
 		}
-		
-		if(select == 0) {
+
+		if (select == 0) {
 			nextBox = boxSpriteSingle;
 			boxSpriteSingle.select();
 			boxSpriteAI.unselect();
 			boxSpriteNetwork.unselect();
 		}
-		
-		if(select == 1) {
+
+		if (select == 1) {
 			nextBox = boxSpriteAI;
 			boxSpriteSingle.unselect();
 			boxSpriteAI.select();
 			boxSpriteNetwork.unselect();
 		}
-		
-		if(select == 2) {
+
+		if (select == 2) {
 			nextBox = boxSpriteNetwork;
 			boxSpriteSingle.unselect();
 			boxSpriteAI.unselect();
 			boxSpriteNetwork.select();
-			
+
 		}
-		
 
 		count++;
-		
-		if(bx != nextBox.getX()) {
-			if(bx < nextBox.getX()) {
-				bx+=1 + Math.abs(bx - nextBox.getX()) / 3;
+
+		if (bx != nextBox.getX()) {
+			if (bx < nextBox.getX()) {
+				bx += 1 + Math.abs(bx - nextBox.getX()) / 3;
 			} else {
-				bx-=1 + Math.abs(bx - nextBox.getX()) / 3;
+				bx -= 1 + Math.abs(bx - nextBox.getX()) / 3;
 			}
 		}
-		
-		if(by != nextBox.getY()) {
-			if(by < nextBox.getY()) {
-				by+=1 + Math.abs(by - nextBox.getY()) / 3;
+
+		if (by != nextBox.getY()) {
+			if (by < nextBox.getY()) {
+				by += 1 + Math.abs(by - nextBox.getY()) / 3;
 			} else {
-				by-=1 + Math.abs(by - nextBox.getY()) / 3;
+				by -= 1 + Math.abs(by - nextBox.getY()) / 3;
 			}
 		}
 
@@ -222,11 +230,9 @@ public class ModeSelect extends Screen {
 		}
 
 		context.setColor(ColorPack.WHITE);
-		
-		context.drawRect(bx - (currentBox.getWidth() / 2),
-				by - (currentBox.getHeight() / 2), currentBox.getWidth(),
+
+		context.drawRect(bx - (currentBox.getWidth() / 2), by - (currentBox.getHeight() / 2), currentBox.getWidth(),
 				currentBox.getHeight());
-	
 
 	}
 

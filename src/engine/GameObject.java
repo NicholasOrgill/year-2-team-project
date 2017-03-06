@@ -26,6 +26,7 @@ public class GameObject {
 	private String playerName = "E2";
 	private String hostname = "localhost";
 	private Network network;
+	private Screen mode;
 	
 
 	public GameObject(int width, int height) {
@@ -107,5 +108,13 @@ public class GameObject {
 	
 	public Network getNetwork(){
 		return this.network;
+	}
+
+	public Screen getMode() {
+		return mode;
+	}
+
+	public void setMode(Screen mode) {
+		this.mode = mode;
 	}
 }

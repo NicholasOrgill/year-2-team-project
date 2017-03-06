@@ -31,6 +31,8 @@ public class SelectScreen extends Screen {
 	String[] fxlist = {"bang.wav", "move.wav"};
 	private int count = 0;
 	
+	private GameObject gameObject;
+	
 	private Player audio = new Player();
 	
 	public void keyPressed(int key) {
@@ -38,12 +40,14 @@ public class SelectScreen extends Screen {
 		if(key == InputHandler.PLAYKEY0) {
 			fx.playEffect("bang.wav");
 			audio.stopPlaying();
+			setNextScreen(gameObject.getMode());
 			moveScreen();
 		}
 	}
 	
 	public SelectScreen(GameObject gameObject) {
 		super(gameObject);
+		this.gameObject = gameObject;
 		fx = new SoundHandler();
 		
 		fx.fillEffects(fxlist);
