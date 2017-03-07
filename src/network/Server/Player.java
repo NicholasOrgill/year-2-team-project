@@ -6,11 +6,10 @@ import java.net.Socket;
  * @author Weifeng
  */
 public class Player {
-	private int points = 0;
+	private int score = 0;
 	
 	private String name;
 	
-	private boolean isEngaged;
 	private boolean isReady;
 	private boolean isStarted;
 	
@@ -29,25 +28,20 @@ public class Player {
 		this.name = _name;
 	}
 
-	//save the points of player
-	public void setPoints(int _points){
-		this.points = _points;
+	//save the score of player
+	public void setScore(int _score){
+		this.score = _score;
 	}
 	
-	public void addPoints(int _points){
-		this.points = this.points + _points;
+	public void addScore(int _score){
+		this.score = this.score + _score;
 	}
 	
 	//save the name of player
 	public void setName(String _name){
 		this.name = _name;
 	}
-	
-	//judge the player is or not have opponent already
-	public void setEngaed(boolean _isEngaged){
-		this.isEngaged = _isEngaged;
-	}
-	
+		
 	//save the ready state of player
 	public void setReady(boolean _isReady){
 		this.isReady = _isReady;
@@ -63,19 +57,14 @@ public class Player {
 		return this.socket;
 	}
 	
-	//@return the points of player
-	public int getPoints(){
-		return this.points;
+	//@return the score of player
+	public int getScore(){
+		return this.score;
 	}
 	
 	//@return the name 
 	public String getName(){
 		return this.name;
-	}
-	
-	//@return the player is or nor engaged
-	public boolean isEngaed(){
-		return this.isEngaged;
 	}
 	
 	//@return the ready state of player
@@ -87,4 +76,5 @@ public class Player {
 	public boolean isStarted(){
 		return this.isStarted;
 	}
+	
 }

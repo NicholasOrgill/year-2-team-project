@@ -3,14 +3,19 @@ package network.Server;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import engine.GameObject;
+import network.Message;
+import network.MessageQueue;
+
 public class ServerMain {
 	
 	public static void main(String[] args){
 		
 		MessageQueue serverInput = new MessageQueue();
 		String name = "Admin";
+		GameObject gameObject = new GameObject(800, 600);
 		
-		Server server = new Server(serverInput,name);
+		Server server = new Server(gameObject,serverInput,name);
 		server.start();
 		System.out.println("start");
 		

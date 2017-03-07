@@ -1,6 +1,8 @@
 package network.Client;
 
 import java.io.*;
+
+import engine.GameObject;
 /**
  * This class is just for test 
  * @author Administrator
@@ -11,12 +13,13 @@ public class Test {
 		String hostname = "localhost";
 		String name = "Client";
 		
-		Network n = new Network(hostname,name);
+		GameObject gameObject = new GameObject(800, 600);
+		Network n = new Network(gameObject,hostname,name);
 		
 		//start receive test
-		(new ClientResolve(n)).start();
+		(new ClientResolve(gameObject,n)).start();
 				
-		//send ant input from user to server
+		//send any input from user to server
 		try{
 			BufferedReader fromUser = new BufferedReader(new InputStreamReader(System.in));
 			String userInput;

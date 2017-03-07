@@ -2,6 +2,9 @@ package network.Server;
 
 import java.io.*;
 
+import engine.GameObject;
+import network.MessageQueue;
+
 /**
  * This class is to get messages from user
  * @author Administrator
@@ -10,9 +13,11 @@ public class ServerThread extends Thread{
 	private Player opponent;
 	private Player me;
 	private MessageQueue serverInput;
+	private GameObject gameObject;
 	
-	public ServerThread(MessageQueue _serverInput,Player _opponent,Player _me){
+	public ServerThread(GameObject _gameObject,MessageQueue _serverInput,Player _opponent,Player _me){
 		super("ServerThread");
+		this.gameObject = _gameObject;
 		this.serverInput = _serverInput;
 		this.opponent = _opponent;
 		this.me = _me;
@@ -29,8 +34,8 @@ public class ServerThread extends Thread{
 			
 			String readLine;
 
-			OppoResolve solve = new OppoResolve(serverInput,opponent,me);
-			new SelfResolve(serverInput,opponent,me).start();
+			OppoResolve solve = new OppoResolve(gameObject,opponent,me);
+			new SelfResolve(gameObject,serverInput,opponent,me).start();
 			
 			
 			// for now just return any messages get from player

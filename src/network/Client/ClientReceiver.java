@@ -1,7 +1,9 @@
 package network.Client;
 
 import java.io.*;
-import java.net.Socket;
+
+import network.Message;
+import network.MessageQueue;
 
 /**
  * This class is to get messages from server
