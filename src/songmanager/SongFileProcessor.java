@@ -1,12 +1,17 @@
 package songmanager;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
@@ -177,10 +182,10 @@ public class SongFileProcessor {
 	 * @param coverPath The path to the covert art of the song
 	 * @return
 	 */
-	public SongFile createSongFile(SongObject songObj, String audioPath, String coverPath) {
+	public SongFile createSongFile(String notesFilePath, String audioPath, String coverPath) {
 		try {
 			BufferedImage coverArt = ImageIO.read(new FileInputStream(coverPath));
-			SongFile fileObj = new SongFile(coverArt, audioPath, songObj);
+			SongFile fileObj = new SongFile(coverArt, audioPath, notesFilePath);
 			return fileObj;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -190,10 +195,55 @@ public class SongFileProcessor {
 	
 	/**
 	 * Writes a SongFile object into a file.
+	 * 
+	 * First byte: size of XML file.
+	 * Second byte: size of audio file.
+	 * Third byte: size of image file.
+	 * Rest: file contents.
 	 * @param songObj A song object for the song
 	 */
-	public void writeSongFile(SongFile songObj) {
-		
+	public void writeSongFile(SongFile songFileObj, String filePath) {
+		try {
+			// Read in xml file
+			String noteFilePath = "src/songmanager/tempnotefile";
+			writeSongObjectToXML(songFileObj.getSong(), noteFilePath);
+			File notesFile = new File(noteFilePath);
+			byte[] notesFileBytes = new byte[(int)notesFile.length()];
+			BufferedInputStream inStream = new BufferedInputStream(new FileInputStream(notesFile));
+			inStream.read(notesFileBytes);
+			inStream.close();
+			
+			// Read in audio file
+			File audioFile = new File(songFileObj.getAudioInputPath());
+			byte[] audioFileBytes = new byte[(int)audioFile.length()];
+			inStream = new BufferedInputStream(new FileInputStream(audioFile));
+			inStream.read(audioFileBytes);
+			inStream.close();
+			
+			// Read in image file
+			BufferedImage image = songFileObj.getCoverArt();
+			ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream();
+			ImageIO.write(image, "bmp", byteOutStream);
+			byte[] imageFileBytes = byteOutStream.toByteArray();
+			byteOutStream.close();
+			
+			// Write to binary file
+			BufferedOutputStream outStream = new BufferedOutputStream(new FileOutputStream(filePath));
+			byte[] notesSizeBytes = ByteBuffer.allocate(4).putInt(notesFileBytes.length).array();
+			byte[] audioSizeBytes = ByteBuffer.allocate(4).putInt(audioFileBytes.length).array();
+			byte[] imageSizeBytes = ByteBuffer.allocate(4).putInt(imageFileBytes.length).array();
+			outStream.write(notesSizeBytes, 0, 4);
+			outStream.write(audioSizeBytes, 4, 8);
+			outStream.write(imageSizeBytes, 8, 12);
+			outStream.write(notesFileBytes, 12, notesFileBytes.length);
+			int filePos = 12 + notesFileBytes.length;
+			outStream.write(audioFileBytes, filePos, audioFileBytes.length);
+			filePos += audioFileBytes.length;
+			outStream.write(imageFileBytes, filePos, imageFileBytes.length);
+			outStream.close();
+		} catch (IOException e) {
+			System.out.println("Error reading input files for writeSongFile: " + e);
+		}
 	}
 	
 	/**

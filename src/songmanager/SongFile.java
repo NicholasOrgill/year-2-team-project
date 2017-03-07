@@ -13,10 +13,12 @@ public class SongFile {
 	private String audioInputPath;
 	private SongObject song;
 	
-	public SongFile(BufferedImage coverArt, String audioInputPath, SongObject song) {
+	public SongFile(BufferedImage coverArt, String audioInputPath, String notesFilePath) {
 		this.coverArt = coverArt;
 		this.audioInputPath = audioInputPath;
-		this.song = song;
+		
+		SongFileProcessor processor = new SongFileProcessor();
+		this.song = processor.readSongObjectFromXML(notesFilePath);
 	}
 
 	/**
