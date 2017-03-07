@@ -3,13 +3,16 @@ package songmanager;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -196,16 +199,16 @@ public class SongFileProcessor {
 	/**
 	 * Writes a SongFile object into a file.
 	 * 
-	 * First byte: size of XML file.
-	 * Second byte: size of audio file.
-	 * Third byte: size of image file.
+	 * First 4 bytes: size of XML file.
+	 * Second 4 bytes: size of audio file.
+	 * Third 4 bytes: size of image file.
 	 * Rest: file contents.
 	 * @param songObj A song object for the song
 	 */
 	public void writeSongFile(SongFile songFileObj, String filePath) {
 		try {
 			// Read in xml file
-			String noteFilePath = "src/songmanager/tempnotefile";
+			String noteFilePath = "src/songmanager/tempnotefile.xml";
 			writeSongObjectToXML(songFileObj.getSong(), noteFilePath);
 			File notesFile = new File(noteFilePath);
 			byte[] notesFileBytes = new byte[(int)notesFile.length()];
@@ -252,6 +255,62 @@ public class SongFileProcessor {
 	 * @return A song file object representing the contents of the song file
 	 */
 	public SongFile readSongFile(String inputPath) {
+		try {
+			// Read in SongFile
+			BufferedInputStream inStream = new BufferedInputStream(new FileInputStream(inputPath));
+			
+			byte[] notesSizeBytes = new byte[4];
+			byte[] audioSizeBytes = new byte[4];
+			byte[] imageSizeBytes = new byte[4];
+			inStream.read(notesSizeBytes, 0, 4);
+			inStream.read(audioSizeBytes, 4, 8);
+			inStream.read(imageSizeBytes, 8, 12);
+			int notesSize = ByteBuffer.wrap(notesSizeBytes).getInt();
+			int audioSize = ByteBuffer.wrap(audioSizeBytes).getInt();
+			int imageSize = ByteBuffer.wrap(imageSizeBytes).getInt();
+			
+			byte[] notesFileBytes = new byte[notesSize];
+			byte[] audioFileBytes = new byte[audioSize];
+			byte[] imageFileBytes = new byte[imageSize];
+			inStream.read(notesFileBytes, 12, notesSize);
+			int filePos = 12 + notesSize;
+			inStream.read(audioFileBytes, filePos, audioSize);
+			filePos += audioSize;
+			inStream.read(imageFileBytes, filePos, imageSize);
+			inStream.close();
+			
+			// Get SongObject
+			String xmlPath = "src/songmanager/tempnotefile.xml";
+			BufferedOutputStream outStream = new BufferedOutputStream(new FileOutputStream(xmlPath));
+			outStream.write(notesFileBytes);
+			SongObject songObj = readSongObjectFromXML(xmlPath);
+			String songTitle = songObj.getTitle().replaceAll(" ", "").toLowerCase();
+			String newXmlName = "src/songmanager/" + songTitle + ".xml";
+			File xmlFile = new File(xmlPath);
+			File newFile = new File(newXmlName);
+			xmlFile.renameTo(newFile);
+			outStream.close();
+			
+			// Get audio file path
+			String audioPath = "src/songmanager/" + songTitle + ".wav";
+			outStream = new BufferedOutputStream(new FileOutputStream(audioPath));
+			outStream.write(audioFileBytes);
+			outStream.close();
+			
+			// Get cover art
+			ByteArrayInputStream byteInStream = new ByteArrayInputStream(imageFileBytes);
+			BufferedImage coverArt =  ImageIO.read(byteInStream);
+			
+			// Create and return SongFile object
+			return new SongFile(coverArt, audioPath, newXmlName);
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Song file not found: " + e);
+			System.exit(1);
+		} catch (IOException e) {
+			System.out.println("IO error in readSongFile: " + e);
+			System.exit(1);
+		}
 		return null;
 	}
 	
