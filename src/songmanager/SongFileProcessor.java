@@ -236,8 +236,10 @@ public class SongFileProcessor {
 		processor.writeSongObjectToXML(obj, "src/songmanager/songfile.xml");
 		*/
 		
+		/* Create a song object from the SongFile XML
 		SongFileProcessor processor = new SongFileProcessor();
 		SongObject obj = processor.readSongObjectFromXML("src/songmanager/songfile.xml");
+		*/
 	}
 }
 

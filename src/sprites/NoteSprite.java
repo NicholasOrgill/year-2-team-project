@@ -22,7 +22,8 @@ public class NoteSprite extends Sprite {
 	int ai = 0;
 	double position;
 	private boolean isRemoved = false;
-
+	private int opac = 255;
+	
 	
 	public NoteSprite(int x, int y, int width, int height, boolean[] buttons, int length, double position) {
 		super(x, y, width, height);
@@ -30,9 +31,13 @@ public class NoteSprite extends Sprite {
 		if(length != 0) {
 			this.length = length;
 		} else {
-			this.length = 10;
+			this.length = 60;
 		}
 		this.position = position;
+	}
+	
+	public int getLength() {
+		return length;
 	}
 
 	@Override
@@ -45,6 +50,10 @@ public class NoteSprite extends Sprite {
 		this_width = (size + gap) * amount;
 		
 		count++;
+		
+		if(isRemoved && opac > 0) {
+			opac-=1 + Math.abs(opac / 8);
+		}
 	}
 	
 	public void hit() {
@@ -69,7 +78,10 @@ public class NoteSprite extends Sprite {
 			context.setColor(new Color(255, 0, 0, 90));
 		} else {
 			
-		context.setColor(ColorPack.WHITE);
+		
+				context.setColor(new Color(ColorPack.WHITE.getRed(), ColorPack.WHITE.getGreen(), ColorPack.WHITE.getBlue(), opac));
+		
+		
 		}
 		for(int i = 0 ; i < buttons.length ; i++) {
 			
