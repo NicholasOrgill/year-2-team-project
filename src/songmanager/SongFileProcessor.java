@@ -227,7 +227,7 @@ public class SongFileProcessor {
 			// Read in image file
 			BufferedImage image = songFileObj.getCoverArt();
 			ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream();
-			ImageIO.write(image, "bmp", byteOutStream);
+			ImageIO.write(image, "png", byteOutStream);
 			byte[] imageFileBytes = byteOutStream.toByteArray();
 			byteOutStream.close();
 			
