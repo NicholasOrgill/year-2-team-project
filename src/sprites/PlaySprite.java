@@ -55,9 +55,9 @@ public class PlaySprite extends Sprite {
 		for(int i = 0 ; i < amount ; i++) {
 			
 			if(push[i]  == 1) {
-				context.drawRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), y + 5, size, 10);
+				context.drawRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), y + 5, size, 60);
 			} else {
-				context.drawRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), y, size, 10);
+				context.drawRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), y, size, 60);
 			}
 			
 			
