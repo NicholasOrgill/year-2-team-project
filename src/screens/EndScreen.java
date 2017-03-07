@@ -35,7 +35,7 @@ public class EndScreen extends Screen {
 	private int[] howWellBefore;
 	private int scoreOut = 0;
 	private boolean played = false;
-	private boolean won = true;
+	private boolean won;
 
 	private SystemTextCenterShine resultText;
 
@@ -57,6 +57,7 @@ public class EndScreen extends Screen {
 		player1Text.shine();
 		player2Text = new SystemTextScore(getScreenWidth() - 200, 270, "" + player2Score);
 
+		whoWon();
 		if (won) {
 			resultText = new SystemTextCenterShine((getScreenWidth() / 2) - 129, 170, "YOU WIN!");
 			resultText.shine();
@@ -95,6 +96,13 @@ public class EndScreen extends Screen {
 
 	}
 
+	public void whoWon(){
+		if (player1Score < player2Score)
+			this.won = false;
+		else 
+			this.won = true;
+	}
+	
 	@Override
 	public void update() {
 		if (scoreOut < player1Score) {
@@ -106,7 +114,7 @@ public class EndScreen extends Screen {
 			}
 		}
 		
-		player1Text.setText("" + scoreOut);
+		player1Text.setText("" + player1Score);
 		playerText.setScreenSize(getScreenWidth(), getScreenHeight());
 		playerText2.setScreenSize(getScreenWidth(), getScreenHeight());
 		player1Text.setScreenSize(getScreenWidth(), getScreenHeight());

@@ -125,6 +125,7 @@ public class NetworkPlayScreen extends Screen {
 		if(note.getSustain() > 0) {
 			if(note.isHeld()){
 				score+=5;
+				sendScore(5);
 			} else {
 				addScoreHelper(note, false);
 			}

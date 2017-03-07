@@ -66,8 +66,7 @@ public class NetworkSelect extends Screen {
 
 		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 90, "Waiting for Network");
 
-		setNextScreen(new NetworkPlayScreen(gameObject));
-
+		setNextScreen(new ModeSelect(gameObject));
 
 		box = new SystemBox();
 		box.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -131,7 +130,6 @@ public class NetworkSelect extends Screen {
 			if (getGameObject().isServer()){
 				centex.setText("Establising Network...");
 				MessageQueue serverInput = new MessageQueue();
-				
 				Server server = new Server(getGameObject(), serverInput, getGameObject().getP1Name());
 				getGameObject().setServer(server);
 				server.start();
@@ -145,15 +143,16 @@ public class NetworkSelect extends Screen {
 		
 		if(count == 410) {
 			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()){
+				setNextScreen(new NetworkPlayScreen(getGameObject()));
 				centex.setText("Network Established");
 				getGameObject().getServer().inputMessage("READ:");
 			}
-
 			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()){
-				centex.setText("Connected");
 				getGameObject().getNetwork().sendReadyMsg();
+				setNextScreen(new NetworkPlayScreen(getGameObject()));
+				centex.setText("Connected");
 			}else {
-				centex.setText("Network Check Fail.");				
+				centex.setText("Network Check Fail.");
 			}
 		}
 		
