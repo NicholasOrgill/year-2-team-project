@@ -45,7 +45,7 @@ public class SoundHandler {
 		}
 	}
 	
-	public static void stopAll() {
+	public void stopAll() {
 		for(Clip clip : clips) {
 			clip.stop();
 		}
