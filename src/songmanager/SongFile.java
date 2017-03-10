@@ -13,10 +13,10 @@ public class SongFile {
 	private String audioInputPath;
 	private SongObject song;
 	
-	public SongFile(BufferedImage coverArt, String audioInputPath, SongObject song) {
+	public SongFile(BufferedImage coverArt, String audioInputPath, SongObject songObj) {
 		this.coverArt = coverArt;
 		this.audioInputPath = audioInputPath;
-		this.song = song;
+		this.song = songObj;
 	}
 
 	/**

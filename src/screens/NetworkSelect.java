@@ -27,16 +27,11 @@ public class NetworkSelect extends Screen {
 	private SystemBox box;
 	private boolean networkrun = true;
 
-
-	
 	int count = 0;
-
 
 	private ImageSprite networkImage;
 	private ImageSprite networkImage2;
 	private BannerSprite bannerSprite;
-
-
 
 	@Override
 	public void keyPressed(int key) {
@@ -66,7 +61,7 @@ public class NetworkSelect extends Screen {
 
 		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 90, "Waiting for Network");
 
-		setNextScreen(new ModeSelect(gameObject));
+		setNextScreen(new SelectScreen(gameObject));
 
 		box = new SystemBox();
 		box.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -114,20 +109,18 @@ public class NetworkSelect extends Screen {
 
 		if (count > 180) {
 			box.update();
-
 		}
-
 
 		if (count == 180) {
 			networkImage.fadeIn();
 		}
+		
 		if (count == 190) {
 			networkImage2.fadeIn();
 		}
 
-				
-		if(count == 300) {
-			if (getGameObject().isServer()){
+		if (count == 300) {
+			if (getGameObject().isServer()) {
 				centex.setText("Establising Network...");
 				MessageQueue serverInput = new MessageQueue();
 				Server server = new Server(getGameObject(), serverInput, getGameObject().getP1Name());
@@ -155,8 +148,8 @@ public class NetworkSelect extends Screen {
 				centex.setText("Network Check Fail.");
 			}
 		}
-		
-		if(count >= 410 && getGameObject().isReady()){
+
+		if (count >= 410 && getGameObject().isReady()) {
 			moveScreen();
 		}
 		count++;

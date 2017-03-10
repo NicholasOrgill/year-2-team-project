@@ -14,6 +14,7 @@ import songmanager.Note;
 import songmanager.SongFileProcessor;
 import songmanager.SongObject;
 import sprites.BarSprite;
+import sprites.NoteHitSprite;
 import sprites.NoteSprite;
 import sprites.PlaySprite;
 import sprites.SystemTextCenter;
@@ -46,6 +47,8 @@ public class PlayScreenDebug extends Screen {
 	private BarSprite[] barSprite;
 	private NoteSprite[] noteSprite;
 	private NoteSprite[] noteSprite2;
+	
+	private ArrayList<NoteHitSprite> hits = new ArrayList<NoteHitSprite>();
 	
 	private double speedScale = 0.4;
 	
@@ -105,9 +108,10 @@ public class PlayScreenDebug extends Screen {
 			noteSprite[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSprite[i].update();
 			noteSprite[i].setY((int)(lineY - (notes[i].getTime() - count) * speedScale));
-
+			
 			if(noteSprite[i].getY() >= lineY + 2 * noteSprite[i].getLength() && noteSprite[i].isRemoved() == false) {
-				
+				hits.add(new NoteHitSprite((playSprite.getX() - playSprite.getWidth() / 2) + (playSprite.getBlockSizeAndGap() / 2), (getScreenHeight() / 2), playSprite.getBlockSize(), playSprite.getBlockSize()));
+				//hits.add(new NoteHitSprite(getScreenWidth() / 2, getScreenHeight() / 2, 40, 40));
 				textSprite.setText("HOLD: " + audio.getPlayingTimer().getTimeInMill());
 				noteSprite[i].remove();
 			}
@@ -123,6 +127,10 @@ public class PlayScreenDebug extends Screen {
 		
 		playSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		playSprite.update();
+		
+		for(NoteHitSprite hit : hits) {
+			hit.update();
+		}
 		
 		//System.out.println(audio.getPlayingTimer().getTimeInMill());
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
@@ -162,5 +170,9 @@ public class PlayScreenDebug extends Screen {
 		context.fillRect(10 + getScreenWidth() / 2 - 10, 10, getScreenWidth() / 2 - 20, 70);
 		context.setColor(ColorPack.FADEDWHITE);
 		context.drawRect(10 + getScreenWidth() / 2 - 10, 10, getScreenWidth() / 2 - 20, 70);
+		
+		for(NoteHitSprite hit : hits) {
+			hit.draw(context);
+		}
 	}
 }
