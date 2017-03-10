@@ -61,7 +61,7 @@ public class NetworkSelect extends Screen {
 
 		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 90, "Waiting for Network");
 
-		setNextScreen(new SelectScreen(gameObject));
+		setNextScreen(new NetworkPlayScreen(gameObject));
 
 		box = new SystemBox();
 		box.setScreenSize(getScreenWidth(), getScreenHeight());
