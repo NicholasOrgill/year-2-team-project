@@ -36,6 +36,10 @@ public class InputHandler implements KeyListener {
 	public void setScreen(Screen screen) {
 		this.screen = screen;
 	}
+	
+	public Screen getScreen() {
+		return this.screen;
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -53,7 +57,7 @@ public class InputHandler implements KeyListener {
 		}
 		if(!powerKey.isEmpty()){
 			if (e.getKeyCode() == powerKey.get(0)) {
-				screen.keyPressed(POWERKEY0);
+				screen.powerKeyPressed(POWERKEY0);
 			}
 		}
 	}

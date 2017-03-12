@@ -24,7 +24,7 @@ public class GameObject {
 	private InputHandler inputHandler;
 	private int p1Score;
 	private int p2Score;
-	private boolean isServer = true;
+	private boolean isServer = false;
 	private boolean isConnected = false;
 	private boolean isReady = false;
 	private String p1Name = "E2";
@@ -166,4 +166,9 @@ public class GameObject {
 	public String getNetworkError(){
 		return networkError;
 	}
+	
+	public void receivedPower(int _key){
+		this.inputHandler.getScreen().receivedPowerKey(_key);
+	}
+	
 }

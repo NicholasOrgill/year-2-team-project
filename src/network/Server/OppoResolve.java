@@ -24,6 +24,8 @@ public class OppoResolve {
 				action.updateScore(_readline.substring(5));
 			}else if (keyword.equals("OVER:")){
 				action.gameOver();
+			}else if (keyword.equals("POWE:")){
+				action.setPower(_readline.substring(5));
 			}
 			
 			else {
