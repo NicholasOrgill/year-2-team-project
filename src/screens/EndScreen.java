@@ -102,7 +102,7 @@ public class EndScreen extends Screen {
 		} else {
 			if(played == false) {
 				played = true;
-				fx.playEffect("titlesongquiet.wav");
+				//fx.playEffect("titlesongquiet.wav");
 			}
 		}
 		
