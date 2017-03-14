@@ -61,7 +61,7 @@ public class EndScreen extends Screen {
 			resultText = new SystemTextCenterShine((getScreenWidth() / 2) - 129, 170, "YOU WIN!");
 			resultText.shine();
 		} else {
-			resultText = new SystemTextCenterShine((getScreenWidth() / 2) - 129, 170, "YOU LOOSE!");
+			resultText = new SystemTextCenterShine((getScreenWidth() / 2) - 129, 170, "YOU LOSE!");
 		}
 
 		resultText.setFontSize(0.08);
@@ -75,10 +75,10 @@ public class EndScreen extends Screen {
 		title = new FancyCenterTextSprite((int) (getScreenWidth() * 0.94), (int) (getScreenHeight() * 0.85), "RESULTS");
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
 
-		textSprite = new SystemTextKern(20, 30, "ACHIVEMENT");
+		textSprite = new SystemTextKern(20, 30, "ACHIEVEMENT");
 
 		textSpritePoor = new SystemTextKern(99, 410, "POOR");
-		textSpriteExcelent = new SystemTextKern(307, 410, "EXCELENT");
+		textSpriteExcelent = new SystemTextKern(307, 410, "EXCELLENT");
 
 		howWell = new int[7];
 		howWellBefore = new int[7];
