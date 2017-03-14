@@ -49,7 +49,7 @@ public class SelectScreen extends Screen {
 
 		fx.fillEffects(fxlist);
 
-		setNextScreen(new PlayScreen(getGameObject()));
+		setNextScreen(new PlayScreenDebug(getGameObject()));
 
 		nameText = new SystemTextShine(78, 430, "Tetris Theme Tune");
 		nameText.setFontSize(0.032);
