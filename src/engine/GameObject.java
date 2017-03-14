@@ -36,6 +36,7 @@ public class GameObject {
 	private SongFile[] songFiles;
 
 	private int[] scoreQuality;
+	private double speed;
 
 	public GameObject(int width, int height) {
 		this.width = width;
@@ -168,7 +169,12 @@ public class GameObject {
 		this.scoreQuality = scoreQuality;
 	}
 
-	public SongFile[] getSongFiles() {
-		return this.songFiles;
+	public double getSpeed() {
+		return speed;
 	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+
 }

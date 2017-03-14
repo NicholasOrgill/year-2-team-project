@@ -172,7 +172,7 @@ public class PlayScreen extends Screen {
 			}
 			
 			for(int i = 0 ; i < notes.length ; i++) {
-				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - notes[i].getTime(), 0, 0, notes[i].getButtons(), notes[i].getSustain(), 0.5);
+				noteSprite[i] = new NoteSprite((int)(getScreenWidth() / 2), lineY - notes[i].getTime(), 0, 0, notes[i].getButtons(), notes[i].getSustain(), 0.5, 0.4);
 				notes[i].addNoteSprite(noteSprite[i]);
 			}
 			

@@ -51,15 +51,14 @@ public class PlayScreenDebug extends Screen {
 	private BarSprite[] barSprite;
 	private NoteSprite[] noteSprite;
 	private NoteSprite[] noteSprite2;
-	
+
 	private int[] scoreQuality = new int[5];
 
 	private ArrayList<NoteHitSprite> hits = new ArrayList<NoteHitSprite>();
-
-	private double speedScale = 0.4;
+	private double speedScale;
 
 	SongArray[] songArray;
-	
+
 	int n = 0;
 
 	public PlayScreenDebug(GameObject gameObject) {
@@ -82,9 +81,9 @@ public class PlayScreenDebug extends Screen {
 		System.out.println("off" + key);
 		playSprite.unpush(key);
 	}
-	
+
 	public void scoreHelper(int difference) {
-		if(difference <= getGameObject().PERFECT) {
+		if (difference <= getGameObject().PERFECT) {
 			textSprite.setText("Perfect!");
 			score+=100;
 			scoreQuality[0]++;
@@ -109,7 +108,8 @@ public class PlayScreenDebug extends Screen {
 
 	@Override
 	public void update() {
-
+		getGameObject().setSpeed(0.4);
+		speedScale = getGameObject().getSpeed();
 		if (audio.getAudioPlayer().playCompleted) {
 			getGameObject().setP1Score(score);
 			getGameObject().setScoreQuality(scoreQuality);
@@ -138,7 +138,7 @@ public class PlayScreenDebug extends Screen {
 
 			for (int i = 0; i < notes.length; i++) {
 				noteSprite[i] = new NoteSprite((int) (getScreenWidth() / 2), lineY - notes[i].getTime(), 0, 0,
-						notes[i].getButtons(), notes[i].getSustain(), 0.5);
+						notes[i].getButtons(), notes[i].getSustain(), 0.5, speedScale);
 				notes[i].addNoteSprite(noteSprite[i]);
 			}
 		}
@@ -147,13 +147,13 @@ public class PlayScreenDebug extends Screen {
 			barSprite[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScale));
 			barSprite[i].update();
 		}
-		
-		
+
 		for (int i = n; i < notes.length; i++) {
 			noteSprite[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSprite[i].update();
-			
-			noteSprite[i].setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSprite[i].getLength() / 3));
+
+			noteSprite[i]
+					.setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSprite[i].getLength() / 3));
 
 			// If the note is in the playing area
 			if (noteSprite[i].isRemoved() == false) {
@@ -176,13 +176,13 @@ public class PlayScreenDebug extends Screen {
 					if (notesHit) {
 						int difference = Math.abs(noteSprite[i].getY() - 60 - lineY);
 						scoreHelper(difference);
-						noteSprite[i].remove();						
+						noteSprite[i].remove();
 					}
-					
+
 				}
-				
+
 				// When the note is finished, increment the start of the array
-				if(noteSprite[i].isRemoved() && noteSprite[i].getY() > getScreenHeight()) {
+				if (noteSprite[i].isRemoved() && noteSprite[i].getY() > getScreenHeight()) {
 					n++;
 				}
 			}
@@ -201,8 +201,6 @@ public class PlayScreenDebug extends Screen {
 		for (NoteHitSprite hit : hits) {
 			hit.update();
 		}
-		
-		
 
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
 	}
@@ -247,8 +245,8 @@ public class PlayScreenDebug extends Screen {
 
 		context.setColor(Color.RED);
 		context.drawLine(0, lineY, getScreenWidth(), lineY);
-		
+
 		context.setColor(Color.BLUE);
-		context.drawLine(0, lineY+30, getScreenWidth(), lineY+30);
+		context.drawLine(0, lineY + 30, getScreenWidth(), lineY + 30);
 	}
 }
