@@ -176,5 +176,9 @@ public class GameObject {
 	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
+	
+	public SongFile[] getSongFiles() {
+		return this.songFiles;
+	}
 
 }

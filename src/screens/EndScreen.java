@@ -33,9 +33,10 @@ public class EndScreen extends Screen {
 	private int player2Score;
 	private int[] howWell;
 	private int[] howWellBefore;
-	private int scoreOut = 0;
+	private int scoreOut1 = 0;
+	private int scoreOut2 = 0;
 	private boolean played = false;
-	private boolean won = true;
+	int count = 0;
 
 	private SystemTextCenterShine resultText;
 
@@ -48,6 +49,7 @@ public class EndScreen extends Screen {
 
 		fx.fillEffects(fxlist);
 		// get the player's scores from the game object
+
 		player1Score = gameObject.getP1Score();
 		player2Score = gameObject.getP2Score();
 
@@ -57,11 +59,13 @@ public class EndScreen extends Screen {
 		player1Text.shine();
 		player2Text = new SystemTextScore(getScreenWidth() - 200, 270, "" + player2Score);
 
-		if (won) {
+		if (player1Score > player2Score) {
 			resultText = new SystemTextCenterShine((getScreenWidth() / 2) - 129, 170, "YOU WIN!");
 			resultText.shine();
-		} else {
+		} else if (player2Score > player1Score) {
 			resultText = new SystemTextCenterShine((getScreenWidth() / 2) - 129, 170, "YOU LOSE!");
+		} else {
+			resultText = new SystemTextCenterShine((getScreenWidth() / 2) - 129, 170, "TIE!");
 		}
 
 		resultText.setFontSize(0.08);
@@ -97,16 +101,23 @@ public class EndScreen extends Screen {
 
 	@Override
 	public void update() {
-		if (scoreOut < player1Score) {
-			scoreOut += 1 + (int)(player1Score / (int)(player1Score * 0.01));
-		} else {
-			if(played == false) {
-				played = true;
-				//fx.playEffect("titlesongquiet.wav");
+		if (count > 100) {
+			if (scoreOut1 < player1Score) {
+				scoreOut1 += 1 + (int) (player1Score / (int) (player1Score * 0.01));
+			} else {
+				if (played == false) {
+					played = true;
+					// fx.playEffect("titlesongquiet.wav");
+				}
+			}
+
+			if (scoreOut2 < player2Score) {
+				scoreOut2 += 1 + (int) (player2Score / (int) (player2Score * 0.01));
 			}
 		}
-		
-		player1Text.setText("" + scoreOut);
+
+		player1Text.setText("" + scoreOut1);
+		player2Text.setText("" + scoreOut2);
 		playerText.setScreenSize(getScreenWidth(), getScreenHeight());
 		playerText2.setScreenSize(getScreenWidth(), getScreenHeight());
 		player1Text.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -133,6 +144,7 @@ public class EndScreen extends Screen {
 				howWellBefore[i] += 1;
 			}
 		}
+		count++;
 	}
 
 	@Override
