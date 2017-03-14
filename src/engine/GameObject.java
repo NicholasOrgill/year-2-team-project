@@ -35,6 +35,7 @@ public class GameObject {
 	private Server server;
 
 	private int[] scoreQuality;
+	private double speed;
 
 	public GameObject(int width, int height) {
 		this.width = width;
@@ -164,6 +165,14 @@ public class GameObject {
 
 	public void setScoreQuality(int[] scoreQuality) {
 		this.scoreQuality = scoreQuality;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 
 }

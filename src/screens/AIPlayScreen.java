@@ -202,14 +202,14 @@ public class AIPlayScreen extends Screen {
 
 			for (int i = 0; i < notes.length; i++) {
 				noteSpriteLeft[i] = new NoteSprite((int) (getScreenWidth() * 0.25), lineY - notes[i].getTime(), 0, 0,
-						notes[i].getButtons(), notes[i].getSustain(), 0.25);
+						notes[i].getButtons(), notes[i].getSustain(), 0.25, getGameObject().getSpeed());
 				noteSpriteRight[i] = new NoteSprite((int) (getScreenWidth() * 0.75), lineY - notes[i].getTime(), 0, 0,
-						notes[i].getButtons(), notes[i].getSustain(), 0.75);
+						notes[i].getButtons(), notes[i].getSustain(), 0.75, getGameObject().getSpeed());
 			}
 
 			for (int i = 0; i < AINotes.length; i++) {
 				noteSpriteAI[i] = new NoteSprite((int) (getScreenWidth() * 0.75), lineY - AINotes[i].getTime(), 0, 0,
-						AINotes[i].getButtons(), AINotes[i].getSustain(), 0.75);
+						AINotes[i].getButtons(), AINotes[i].getSustain(), 0.75, getGameObject().getSpeed());
 			}
 		}
 
