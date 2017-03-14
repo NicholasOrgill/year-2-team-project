@@ -42,6 +42,8 @@ public class AIPlayScreen extends Screen {
 	private SystemTextCenter leftScore;
 	private SystemTextCenter rightText;
 	private SystemTextCenter rightScore;
+	private SystemTextCenter player1Text;
+	private SystemTextCenter player2Text;
 
 	private Player audio = new Player();
 
@@ -136,6 +138,9 @@ public class AIPlayScreen extends Screen {
 
 		playSpriteLeft = new PlaySprite(0, 0, 0, 0, 0.25);
 		playSpriteRight = new PlaySprite(0, 0, 0, 0, 0.75);
+		
+		player1Text = new SystemTextCenter((int) (getScreenWidth() * 0.25), 45, "Player");
+		player2Text = new SystemTextCenter((int) (getScreenWidth() * 0.75), 45, "AI");
 	}
 
 	@Override
@@ -237,6 +242,12 @@ public class AIPlayScreen extends Screen {
 
 		playSpriteRight.setScreenSize(getScreenWidth(), getScreenHeight());
 		playSpriteRight.update();
+		
+		player1Text.setScreenSize(getScreenWidth(), getScreenHeight());
+		player1Text.update();
+		
+		player2Text.setScreenSize(getScreenWidth(), getScreenHeight());
+		player2Text.update();
 
 		for (NoteHitSprite hit : hits) {
 			hit.update();
@@ -340,6 +351,9 @@ public class AIPlayScreen extends Screen {
 		context.fillRect(10 + getScreenWidth() / 2 - 10, 10, getScreenWidth() / 2 - 20, 70);
 		context.setColor(ColorPack.FADEDWHITE);
 		context.drawRect(10 + getScreenWidth() / 2 - 10, 10, getScreenWidth() / 2 - 20, 70);
+		
+		player1Text.draw(context);
+		player2Text.draw(context);
 
 		for (NoteHitSprite hit : hits) {
 			hit.draw(context);
