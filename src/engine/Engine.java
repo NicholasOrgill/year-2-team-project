@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 
 import input.InputHandler;
 import screens.Overlay;
+import screens.PlayScreenDebug;
 import screens.StartScreen;
 
 /**
@@ -33,7 +34,7 @@ public class Engine extends Canvas implements Runnable {
 	private boolean running = false;
 	private int tickCount = 0;
 	private GameObject gameObject = new GameObject(width, height);
-	private Screen screen = new StartScreen(gameObject);
+	private Screen screen = new PlayScreenDebug(gameObject);
 	private int opac = 255;
 	private boolean changing = false;
 	private Overlay overlay = new Overlay(gameObject);

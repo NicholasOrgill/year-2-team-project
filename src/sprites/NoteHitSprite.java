@@ -18,15 +18,21 @@ public class NoteHitSprite extends Sprite {
 
 	@Override
 	public void update() {
-		setWidth(getWidth() + 1 + Math.abs(getWidth() - maxWidth) / 3);
-		setHeight(getHeight() + 1 + Math.abs(getHeight() - maxHeight) / 3);
-		opac -= 1 + Math.abs(opac - opacTarget) / 3;
-		opac = Math.max(0, opac); // making sure opacity is not negative
+		if(opac > 5) {
+			setWidth(getWidth() + 1 + Math.abs(getWidth() - maxWidth) / 3);
+			setHeight(getHeight() + 1 + Math.abs(getHeight() - maxHeight) / 3);
+			opac -= 1 + Math.abs(opac - opacTarget) / 3;
+			opac = Math.max(0, opac); // making sure opacity is not negative
+		}
+		
 	}
 
 	@Override
 	public void draw(Graphics context) {
-		context.setColor(new Color(255, 255, 255, opac));
-		context.fillRect(getX() - (getWidth()/2), getY() - (getHeight()/2), getWidth(), getHeight());
+		if(opac > 5) {
+			context.setColor(new Color(255, 255, 255, opac));
+			context.fillRect(getX() - (getWidth()/2), getY() - (getHeight()/2), getWidth(), getHeight());
+		}
+	
 	}
 }

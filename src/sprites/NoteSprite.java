@@ -26,7 +26,7 @@ public class NoteSprite extends Sprite {
 	public NoteSprite(int x, int y, int width, int height, boolean[] buttons, int length, double position) {
 		super(x, y, width, height);
 		this.buttons = buttons;
-		if(length != 0) {
+		if(length != 0 && 1 == 2) {
 			this.length = length;
 		} else {
 			this.length = 60;
@@ -80,8 +80,13 @@ public class NoteSprite extends Sprite {
 		} else {
 			context.setColor(new Color(ColorPack.WHITE.getRed(), ColorPack.WHITE.getGreen(), ColorPack.WHITE.getBlue(), opac));
 		}
-		for(int i = 0 ; i < buttons.length ; i++) {
-			if (buttons[i]) context.fillRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), getY() - length - 5, size, length);
+		if(isRemoved() && this.length == 60) {
+			
+		} else {
+			for(int i = 0 ; i < buttons.length ; i++) {
+				if (buttons[i]) context.fillRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), getY() - length, size, length);
+			}
 		}
+		
 	}
 }

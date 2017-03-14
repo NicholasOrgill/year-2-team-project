@@ -1,10 +1,10 @@
 package engine;
 
 import input.InputHandler;
-import network.MessageQueue;
 import network.Client.Network;
 import network.Server.Server;
 import screens.Overlay;
+import songmanager.SongFile;
 
 /**
  * The game object is given around to all the different scenes
@@ -13,10 +13,10 @@ import screens.Overlay;
  */
 public class GameObject {
 	
-	public final int PERFECT = 50;
-	public final int EXCELLENT = 100;
-	public final int GOOD = 150;
-	public final int OKAY = 200;
+	public final int PERFECT = 5;
+	public final int EXCELLENT = 15;
+	public final int GOOD = 30;
+	public final int OKAY = 50;
 	
 	private int width;
 	private int height;
@@ -34,12 +34,14 @@ public class GameObject {
 	private Screen mode;
 	private Server server;
 	private String networkError = "";
+	private SongFile[] songFiles;
 
-	
+	private int[] scoreQuality;
 
 	public GameObject(int width, int height) {
 		this.width = width;
 		this.height = height;
+		songFiles = songmanager.SongFileProcessor.readAllSongFiles();
 	}
 	
 	public boolean isServer() {
@@ -171,4 +173,16 @@ public class GameObject {
 		this.inputHandler.getScreen().receivedPowerKey(_key);
 	}
 	
+
+	public int[] getScoreQuality() {
+		return scoreQuality;
+	}
+
+	public void setScoreQuality(int[] scoreQuality) {
+		this.scoreQuality = scoreQuality;
+	}
+
+	public SongFile[] getSongFiles() {
+		return this.songFiles;
+	}
 }

@@ -236,16 +236,6 @@ public class SongFileProcessor {
 			byte[] notesSizeBytes = ByteBuffer.allocate(4).putInt(notesFileBytes.length).array();
 			byte[] audioSizeBytes = ByteBuffer.allocate(4).putInt(audioFileBytes.length).array();
 			byte[] imageSizeBytes = ByteBuffer.allocate(4).putInt(imageFileBytes.length).array();
-			/*
-			outStream.write(notesSizeBytes, 0, 4);
-			outStream.write(audioSizeBytes, 4, 8);
-			outStream.write(imageSizeBytes, 8, 12);
-			outStream.write(notesFileBytes, 12, notesFileBytes.length);
-			int filePos = 12 + notesFileBytes.length;
-			outStream.write(audioFileBytes, filePos, audioFileBytes.length);
-			filePos += audioFileBytes.length;
-			outStream.write(imageFileBytes, filePos, imageFileBytes.length);
-			*/
 			outStream.write(notesSizeBytes);
 			outStream.write(audioSizeBytes);
 			outStream.write(imageSizeBytes);
@@ -271,11 +261,6 @@ public class SongFileProcessor {
 			byte[] notesSizeBytes = new byte[4];
 			byte[] audioSizeBytes = new byte[4];
 			byte[] imageSizeBytes = new byte[4];
-			/*
-			inStream.read(notesSizeBytes, 0, 4);
-			inStream.read(audioSizeBytes, 4, 8);
-			inStream.read(imageSizeBytes, 8, 12);
-			*/
 			inStream.read(notesSizeBytes);
 			inStream.read(audioSizeBytes);
 			inStream.read(imageSizeBytes);
@@ -286,13 +271,6 @@ public class SongFileProcessor {
 			byte[] notesFileBytes = new byte[notesSize];
 			byte[] audioFileBytes = new byte[audioSize];
 			byte[] imageFileBytes = new byte[imageSize];
-			/*
-			inStream.read(notesFileBytes, 12, notesSize);
-			int filePos = 12 + notesSize;
-			inStream.read(audioFileBytes, filePos, audioSize);
-			filePos += audioSize;
-			inStream.read(imageFileBytes, filePos, imageSize);
-			*/
 			inStream.read(notesFileBytes);
 			inStream.read(audioFileBytes);
 			inStream.read(imageFileBytes);
@@ -327,6 +305,24 @@ public class SongFileProcessor {
 			System.exit(1);
 		}
 		return null;
+	}
+	
+	public static SongFile[] readAllSongFiles() {
+		// Get names of all song files in data
+		File dataFolder = new File("data");
+		File[] dataFiles = dataFolder.listFiles();
+		String[] filePaths = new String[dataFiles.length];
+		for (int i = 0; i < dataFiles.length; i++) {
+			filePaths[i] = dataFiles[i].getPath();
+		}
+		
+		// Read all song files into array
+		SongFile[] songFiles = new SongFile[dataFiles.length];
+		SongFileProcessor processor = new SongFileProcessor();
+		for (int i = 0; i < dataFiles.length; i++) {
+			songFiles[i] = processor.readSongFile(filePaths[i]);
+		}
+		return songFiles;
 	}
 	
 	/**
@@ -382,6 +378,11 @@ public class SongFileProcessor {
 		SongFile songFileObj = new SongFile(image, audioPath, songObj);
 		processor.writeSongFile(songFileObj, "data/tetris.song");
 		SongFile readFile = processor.readSongFile("src/songmanager/tetris.song");
+		*/
+		
+		/* Test readAllSongFiles()
+		SongFile[] songFiles = SongFileProcessor.readAllSongFiles();
+		System.out.println(songFiles.length);
 		*/
 	}
 }
