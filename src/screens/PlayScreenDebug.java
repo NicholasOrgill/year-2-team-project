@@ -51,6 +51,8 @@ public class PlayScreenDebug extends Screen {
 	private BarSprite[] barSprite;
 	private NoteSprite[] noteSprite;
 	private NoteSprite[] noteSprite2;
+	
+	private int[] scoreQuality = new int[5];
 
 	private ArrayList<NoteHitSprite> hits = new ArrayList<NoteHitSprite>();
 
@@ -80,12 +82,37 @@ public class PlayScreenDebug extends Screen {
 		System.out.println("off" + key);
 		playSprite.unpush(key);
 	}
+	
+	public void scoreHelper(int difference) {
+		if(difference <= getGameObject().PERFECT) {
+			textSprite.setText("Perfect!");
+			score+=100;
+			scoreQuality[0]++;
+		} else if (difference <= getGameObject().EXCELLENT) {
+			textSprite.setText("Excellent!");
+			score+=75;
+			scoreQuality[1]++;
+		} else if (difference <= getGameObject().GOOD) {
+			textSprite.setText("Good!");
+			score+=50;
+			scoreQuality[2]++;
+		} else if (difference <= getGameObject().OKAY) {
+			textSprite.setText("Okay!");
+			score+=25;
+			scoreQuality[3]++;
+		} else {
+			textSprite.setText("Bad!");
+			scoreQuality[4]++;
+		}
+		textScore.setText(""+score);
+	}
 
 	@Override
 	public void update() {
 
 		if (audio.getAudioPlayer().playCompleted) {
 			getGameObject().setP1Score(score);
+			getGameObject().setScoreQuality(scoreQuality);
 			setNextScreen(new EndScreen(getGameObject()));
 			moveScreen();
 		}
@@ -147,9 +174,9 @@ public class PlayScreenDebug extends Screen {
 						}
 					}
 					if (notesHit) {
-						textSprite.setText("HOLD: " + audio.getPlayingTimer().getTimeInMill());
-						noteSprite[i].remove();
-						
+						int difference = Math.abs(noteSprite[i].getY() - 60 - lineY);
+						scoreHelper(difference);
+						noteSprite[i].remove();						
 					}
 					
 				}
@@ -199,6 +226,7 @@ public class PlayScreenDebug extends Screen {
 
 		for (int i = n; i < notes.length; i++) {
 			noteSprite[i].draw(context);
+			context.drawLine(0, noteSprite[i].getY() - 30, getScreenWidth(), noteSprite[i].getY() - 30);
 		}
 
 		// Initial box for things to go in
@@ -219,5 +247,8 @@ public class PlayScreenDebug extends Screen {
 
 		context.setColor(Color.RED);
 		context.drawLine(0, lineY, getScreenWidth(), lineY);
+		
+		context.setColor(Color.BLUE);
+		context.drawLine(0, lineY+30, getScreenWidth(), lineY+30);
 	}
 }

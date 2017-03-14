@@ -84,7 +84,7 @@ public class NoteSprite extends Sprite {
 			
 		} else {
 			for(int i = 0 ; i < buttons.length ; i++) {
-				if (buttons[i]) context.fillRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), getY() - length - 5, size, length);
+				if (buttons[i]) context.fillRect(x + (gap / 2) + (i * (size + gap)) - (int)(this_width / 2), getY() - length, size, length);
 			}
 		}
 		
