@@ -308,6 +308,7 @@ public class SongFileProcessor {
 	}
 	
 	public static SongFile[] readAllSongFiles() {
+		/*
 		// Get names of all song files in data
 		File dataFolder = new File("data");
 		File[] dataFiles = dataFolder.listFiles();
@@ -321,6 +322,22 @@ public class SongFileProcessor {
 		SongFileProcessor processor = new SongFileProcessor();
 		for (int i = 0; i < dataFiles.length; i++) {
 			songFiles[i] = processor.readSongFile(filePaths[i]);
+		}
+		return songFiles;
+		*/
+		
+		// Read all data into SongFile objects and return
+		File[] xmlFiles = (new File("data/xml")).listFiles();
+		File[] audioFiles = (new File("data/audio")).listFiles();
+		File[] imageFiles = (new File("data/image")).listFiles();
+		SongFileProcessor processor = new SongFileProcessor();
+		SongFile[] songFiles = new SongFile[xmlFiles.length];
+		String xmlPath, audioPath, imagePath;
+		for (int i = 0; i < xmlFiles.length; i++) {
+			xmlPath = xmlFiles[i].getPath();
+			audioPath = audioFiles[i].getPath();
+			imagePath = imageFiles[i].getPath();
+			songFiles[i] = processor.createSongFile(xmlPath, audioPath, imagePath);
 		}
 		return songFiles;
 	}
@@ -380,10 +397,9 @@ public class SongFileProcessor {
 		SongFile readFile = processor.readSongFile("src/songmanager/tetris.song");
 		*/
 		
-		/* Test readAllSongFiles()
+		/* Test readAllSongFiles() */
 		SongFile[] songFiles = SongFileProcessor.readAllSongFiles();
 		System.out.println(songFiles.length);
-		*/
 	}
 }
 
