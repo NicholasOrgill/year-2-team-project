@@ -162,7 +162,6 @@ public class AudioPlayer implements LineListener {
 	public void update(LineEvent event) {
 		LineEvent.Type type = event.getType();
 		if (type == LineEvent.Type.STOP) {
-			System.out.println("STOP EVENT");
 			if (isStopped || !isPaused) {
 				playCompleted = true;
 			}

@@ -1,10 +1,10 @@
 package engine;
 
 import input.InputHandler;
-import network.MessageQueue;
 import network.Client.Network;
 import network.Server.Server;
 import screens.Overlay;
+import songmanager.SongFile;
 
 /**
  * The game object is given around to all the different scenes
@@ -33,12 +33,15 @@ public class GameObject {
 	private Network network;
 	private Screen mode;
 	private Server server;
+	private SongFile[] songFiles;
 
 	private int[] scoreQuality;
+	private double speed;
 
 	public GameObject(int width, int height) {
 		this.width = width;
 		this.height = height;
+		songFiles = songmanager.SongFileProcessor.readAllSongFiles();
 	}
 	
 	public boolean isServer() {
@@ -164,6 +167,18 @@ public class GameObject {
 
 	public void setScoreQuality(int[] scoreQuality) {
 		this.scoreQuality = scoreQuality;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+	
+	public SongFile[] getSongFiles() {
+		return this.songFiles;
 	}
 
 }

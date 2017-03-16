@@ -1,5 +1,6 @@
 package screens;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +15,7 @@ import songmanager.Note;
 import songmanager.SongFileProcessor;
 import songmanager.SongObject;
 import sprites.BarSprite;
+import sprites.NoteHitSprite;
 import sprites.NoteSprite;
 import sprites.PlaySprite;
 import sprites.SystemTextCenter;
@@ -25,13 +27,13 @@ public class AIPlayScreen extends Screen {
 	private Beat[] beat;
 	private Note[] notes;
 	private Note[] AINotes;
-	private ArrayList<Note> Pnotes;
 	int score = 0;
 	int aiScore = 0;
 	boolean[] keys = { false, false, false, false };
 	final int MAX_NOTE_SCORE = 200;
 	final int MAX_NOTE_RANGE = 100;
-	private ArrayList<Note> ANotes;
+
+	int lineY = (int) Math.round(getScreenHeight() * 0.8);
 
 	private SystemTextCenter textAILevel; // An example text sprite
 	private SystemTextCenter textGameMode; // An example text sprite
@@ -54,7 +56,16 @@ public class AIPlayScreen extends Screen {
 
 	private int aiLevel = 0;
 
+	private int[] scoreQuality = new int[5];
+
+	private ArrayList<NoteHitSprite> hits = new ArrayList<NoteHitSprite>();
+	private ArrayList<NoteHitSprite> aiHits = new ArrayList<NoteHitSprite>();
+
+	private double speedScale = 0.4;
+
 	SongArray[] songArray;
+
+	int n = 0;
 
 	@Override
 	public void keyPressed(int key) {
@@ -70,74 +81,46 @@ public class AIPlayScreen extends Screen {
 		playSpriteLeft.unpush(key);
 	}
 
-	/**
-	 * Checks if one array is contained within another
-	 * 
-	 * @param userKeys
-	 *            The current keys pressed
-	 * @param noteKeys
-	 *            The note's keys
-	 * @return if userKeys is contained within noteKeys
-	 */
-	public boolean noteArrayContained(boolean[] userKeys, boolean[] noteKeys) {
-		for (int i = 0; i < 4; i++) {
-			if (!userKeys[i] && noteKeys[i])
-				return false;
+	public void scoreHelper(int difference, boolean ai) {
+		SystemTextCenter text = leftText;
+		SystemTextCenter scoreText = leftScore;
+		int playerScore = score;
+		if (ai) {
+			text = rightText;
+			scoreText = rightScore;
+			playerScore = aiScore;
 		}
-		return true;
-	}
-
-	public void addScoreHelper(Note note, boolean status, SystemTextCenter text, SystemTextCenter scoreText, boolean player, ArrayList<Note> notes) {
-		if (noteArrayContained(keys, note.getButtons()) || player == false) {
-			int time = note.getTime();
-			int diff = Math.abs(time - count);
-			if (diff <= getGameObject().PERFECT) {
-				System.out.println("Perfect!");
-				text.setText("Perfect!");
-				if(player) score += 100; else aiScore += 100;
-				note.setHeld(true);
-			} else if (diff <= getGameObject().EXCELLENT) {
-				System.out.println("Excellent!");
-				text.setText("Excellent!");
-				if(player) score += 75; else aiScore += 75;
-				note.setHeld(true);
-			} else if (diff <= getGameObject().GOOD) {
-				System.out.println("Good!");
-				text.setText("Good!");
-				if(player) score += 50; else aiScore += 50;
-				note.setHeld(true);
-			} else if (diff <= getGameObject().OKAY) {
-				System.out.println("Okay!");
-				text.setText("Okay!");
-				if(player) score += 25; else aiScore += 25;
-				note.setHeld(true);
-			} else {
-				System.out.println("Bad!");
-				text.setText("Bad!");
-			}
-			if(player) scoreText.setText("Score: " + score); else scoreText.setText("Score: " + aiScore); 
-			if (status) {
-				for (NoteSprite sprite : notes.get(0).getGraphicalNotes()) {
-					sprite.remove();
-				}
-				notes.remove(0);
-			}
-			
-		}
-	}
-
-	public void addScore(ArrayList<Note> p, SystemTextCenter text, SystemTextCenter scoreText, boolean player) {
-		Note note = p.get(0);
-		if (note.getSustain() > 0) {
-			if (note.isHeld()) {
-				if(player) score += 5; else aiScore += 5;
-				System.out.println("Still held down!");
-			} else {
-				addScoreHelper(note, false, text, scoreText, player, p);
-			}
+		if (difference <= getGameObject().PERFECT) {
+			text.setText("Perfect!");
+			playerScore += 100;
+			if (!ai)
+				scoreQuality[0]++;
+		} else if (difference <= getGameObject().EXCELLENT) {
+			text.setText("Excellent!");
+			playerScore += 75;
+			if (!ai)
+				scoreQuality[1]++;
+		} else if (difference <= getGameObject().GOOD) {
+			text.setText("Good!");
+			playerScore += 50;
+			if (!ai)
+				scoreQuality[2]++;
+		} else if (difference <= getGameObject().OKAY) {
+			text.setText("Okay!");
+			playerScore += 25;
+			if (!ai)
+				scoreQuality[3]++;
 		} else {
-			addScoreHelper(note, true, text, scoreText, player, p);
+			text.setText("Bad!");
+			if (!ai)
+				scoreQuality[4]++;
 		}
+		if (ai) {
+			aiScore = playerScore;
+		} else {
+			score = playerScore;
+		}
+		scoreText.setText("" + playerScore);
 	}
 
 	public AIPlayScreen(GameObject gameObject) {
@@ -163,15 +146,17 @@ public class AIPlayScreen extends Screen {
 		if (audio.getAudioPlayer().playCompleted) {
 			getGameObject().setP1Score(score);
 			getGameObject().setP2Score(aiScore);
+			getGameObject().setScoreQuality(scoreQuality);
 			setNextScreen(new EndScreen(getGameObject()));
 			moveScreen();
-		} else if (count == 0) {
+		}
+		
+		if (count == 0) {
 			audio.playBack("src/songmanager/Tetris.wav");
 			reader = new SongFileProcessor();
 			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
 			beat = song.getBeats();
 			notes = song.getNotes();
-			Pnotes = new ArrayList<Note>(Arrays.asList(notes));
 
 			SimpleAI ai = new SimpleAI();
 			songArray = ai.recreateArray(song, 10);
@@ -182,18 +167,6 @@ public class AIPlayScreen extends Screen {
 			noteSpriteLeft = new NoteSprite[notes.length];
 			noteSpriteRight = new NoteSprite[notes.length];
 			noteSpriteAI = new NoteSprite[AINotes.length];
-			ANotes = new ArrayList<Note>(Arrays.asList(notes));
-
-			/*
-			 * for(int i = 0 ; i < beat.length ; i++) { barSprite[i] = new
-			 * BarSprite((int)(getScreenWidth() / 2), (count -
-			 * song.getSongLength()) + beat[i].getTime(), 0, 0); }
-			 * 
-			 * for(int i = 0 ; i < note.length ; i++) { noteSprite[i] = new
-			 * NoteSprite((int)(getScreenWidth() / 2), (count -
-			 * song.getSongLength()) + note[i].getTime(), 0, 0,
-			 * note[i].getButtons(), note[i].getSustain()); }
-			 */
 
 			for (int i = 0; i < beat.length; i++) {
 				barSpriteLeft[i] = new BarSprite((int) (getScreenWidth() * 0.25), lineY - beat[i].getTime(), 0, 0);
@@ -202,77 +175,39 @@ public class AIPlayScreen extends Screen {
 
 			for (int i = 0; i < notes.length; i++) {
 				noteSpriteLeft[i] = new NoteSprite((int) (getScreenWidth() * 0.25), lineY - notes[i].getTime(), 0, 0,
-						notes[i].getButtons(), notes[i].getSustain(), 0.25);
+						notes[i].getButtons(), notes[i].getSustain(), 0.25, getGameObject().getSpeed());
 				noteSpriteRight[i] = new NoteSprite((int) (getScreenWidth() * 0.75), lineY - notes[i].getTime(), 0, 0,
-						notes[i].getButtons(), notes[i].getSustain(), 0.75);
+						notes[i].getButtons(), notes[i].getSustain(), 0.75, getGameObject().getSpeed());
 			}
 
 			for (int i = 0; i < AINotes.length; i++) {
 				noteSpriteAI[i] = new NoteSprite((int) (getScreenWidth() * 0.75), lineY - AINotes[i].getTime(), 0, 0,
-						AINotes[i].getButtons(), AINotes[i].getSustain(), 0.75);
+						AINotes[i].getButtons(), AINotes[i].getSustain(), 0.75, getGameObject().getSpeed());
 			}
 		}
-
-		if (!Pnotes.isEmpty())
-
-		{
-			Note tempNote = Pnotes.get(0);
-			int yPos = lineY - (tempNote.getTime() - count);
-			if (yPos > 600) {
-				for (NoteSprite sprite : Pnotes.get(0).getGraphicalNotes()) {
-					sprite.remove();
-				}
-				Pnotes.remove(0);
-			}
-		}
-
-		if (!ANotes.isEmpty())
-
-		{
-			Note tempNote = ANotes.get(0);
-			int yPos = lineY - (tempNote.getTime() - count);
-			if (yPos > 600) {
-				for (NoteSprite sprite : ANotes.get(0).getGraphicalNotes()) {
-					sprite.remove();
-				}
-				ANotes.remove(0);
-			}
-		}
-
-		/*
-		 * for(int i = 0 ; i < beat.length ; i++) { barSprite[i].setY((count -
-		 * song.getSongLength()) + beat[i].getTime()); barSprite[i].update(); }
-		 * 
-		 * for(int i = 0 ; i < note.length ; i++) {
-		 * noteSprite[i].setScreenSize(getScreenWidth(), getScreenHeight());
-		 * noteSprite[i].update(); noteSprite[i].setY((count -
-		 * song.getSongLength()) + note[i].getTime()); }
-		 */
 
 		for (int i = 0; i < beat.length; i++) {
-			barSpriteLeft[i].setY(lineY - (beat[i].getTime() - count));
+			barSpriteLeft[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScale));
 			barSpriteLeft[i].update();
-			barSpriteRight[i].setY(lineY - (beat[i].getTime() - count));
+			barSpriteRight[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScale));
 			barSpriteRight[i].update();
 		}
 
 		for (int i = 0; i < notes.length; i++) {
 			noteSpriteLeft[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSpriteLeft[i].update();
-			noteSpriteLeft[i].setY(lineY - (notes[i].getTime() - count));
+			noteSpriteLeft[i].setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSpriteLeft[i].getLength() / 3));
 
 			noteSpriteRight[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSpriteRight[i].update();
-			noteSpriteRight[i].setY(lineY - (notes[i].getTime() - count));
-
+			noteSpriteRight[i].setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSpriteRight[i].getLength() / 3));
 			noteSpriteAI[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSpriteAI[i].update();
-			noteSpriteAI[i].setY(lineY - (AINotes[i].getTime() - count));
+			noteSpriteAI[i].setY((int) (lineY - (AINotes[i].getTime() - count) * speedScale) + (noteSpriteAI[i].getLength() / 3));
 
-			if (noteSpriteLeft[i].getY() == lineY) {
-				// textSprite.setText("HOLD: " +
-				// audio.getPlayingTimer().getTimeInMill());
-			}
+			// Checks if the notes are in the playing area whether they should be removed
+			removeSprites(i, noteSpriteLeft, playSpriteLeft, hits, false);
+			removeSprites(i, noteSpriteRight, playSpriteRight, aiHits, true);
 		}
 
 		textAILevel.setScreenSize(
@@ -303,83 +238,60 @@ public class AIPlayScreen extends Screen {
 		playSpriteRight.setScreenSize(getScreenWidth(), getScreenHeight());
 		playSpriteRight.update();
 
-		System.out.println(audio.getPlayingTimer().getTimeInMill());
-		count = (int) (audio.getPlayingTimer().getTimeInMill());
+		for (NoteHitSprite hit : hits) {
+			hit.update();
+		}
 
-		if (!Pnotes.isEmpty()) {
-			addScore(Pnotes, leftText, leftScore, true);
+		for (NoteHitSprite hit : aiHits) {
+			hit.update();
 		}
-		
-		if (!ANotes.isEmpty()) {
-			if (count > ANotes.get(0).getTime()) {
-				addScore(ANotes, rightText, rightScore, false);
-			}
-		}
+
+		count = (int) (audio.getPlayingTimer().getTimeInMill());
 
 	}
 
-/*	private void addAIScore(int count, Note[] notes, Note[] aiNotes) {
-		int time = getNoteNumber(ANotes.get(0), notes);
-		if (notes[time].getSustain() > 0) {
-			addAIScoreHelper(notes, aiNotes, time, false);
-			int heldTime = aiNotes[time].getTime() + aiNotes[time].getSustain();
-			int trueHeldTime = notes[time].getTime() + notes[time].getSustain();
+	private void removeSprites(int i, NoteSprite[] noteSprite, PlaySprite playSprite, ArrayList<NoteHitSprite> hits,
+			boolean ai) {
+		if (noteSprite[i].isRemoved() == false) {
+			if (noteSprite[i].getY() >= lineY && noteSprite[i].getY() <= lineY + (3 * noteSprite[i].getHeight())) {
+				boolean notesHit = true;
+				for (int p = 0; p < notes[p].getButtons().length; p++) {
+					if (notes[i].getButtons()[p]) {
+						if (keys[p] || ai) {
+							hits.add(new NoteHitSprite((playSprite.getX() - playSprite.getWidth() / 2)
+									+ (playSprite.getBlockSizeAndGap() / 2) + (p * playSprite.getBlockSizeAndGap()),
+									playSprite.getY() + (playSprite.getBlockSize() / 2), playSprite.getBlockSize(),
+									playSprite.getBlockSize()));
+							if (!ai)
+							keys[p] = false;
+						} else {
+							notesHit = false;
+						}
 
-			if (heldTime > trueHeldTime) {
-				aiScore += (0.12 * (trueHeldTime - aiNotes[time].getTime()));
-			} else {
-				aiScore += (0.12 * (heldTime - notes[time].getTime()));
+					}
+				}
+				if (notesHit) {
+					int difference;
+					if (ai) {
+						difference = Math.abs(notes[i].getTime() - AINotes[i].getTime());
+					} else {
+						 difference = Math.abs(noteSprite[i].getY() - 60 - lineY);
+					}
+					scoreHelper(difference, ai);
+					noteSprite[i].remove();
+					if (ai) {
+						noteSpriteAI[i].remove();
+					}
+				}
+
 			}
 
-		} else {
-			addAIScoreHelper(notes, aiNotes, time, true);
-		}
-		ANotes.remove(0);
-	}*/
-
-/*	private int getNoteNumber(Note note, Note[] notes) {
-		for (int i = 0; i < notes.length; i++) {
-			if (note == notes[i]) {
-				return i;
-			} else {
+			// When the note is finished, increment the start of the array
+			if (noteSprite[i].isRemoved() && noteSprite[i].getY() > getScreenHeight()) {
+				n++;
 			}
 		}
-		return -1;
-	}*/
-
-/*	private void addAIScoreHelper(Note[] notes, Note[] aiNotes, int i, boolean status) {
-		int noteTime = notes[i].getTime();
-		int aiTime = aiNotes[i].getTime();
-
-		int diff = Math.abs(noteTime - aiTime);
-
-		if (diff <= getGameObject().PERFECT) {
-			System.out.println("Perfect!");
-			rightText.setText("Perfect!");
-			aiScore += 100;
-		} else if (diff <= getGameObject().EXCELLENT) {
-			System.out.println("Excellent!");
-			rightText.setText("Excellent!");
-			aiScore += 75;
-		} else if (diff <= getGameObject().GOOD) {
-			System.out.println("Good!");
-			rightText.setText("Good!");
-			aiScore += 50;
-		} else if (diff <= getGameObject().OKAY) {
-			System.out.println("Okay!");
-			rightText.setText("Okay!");
-			aiScore += 25;
-		} else {
-			System.out.println("Bad!");
-			rightText.setText("Bad!");
-		}
-		rightScore.setText("Score: " + aiScore);
-		if (status) {
-			for (NoteSprite sprite : Pnotes.get(0).getGraphicalNotes()) {
-				sprite.remove();
-			}
-		}
-	}*/
+	}
 
 	@Override
 	public void draw(Graphics context) {
@@ -411,9 +323,36 @@ public class AIPlayScreen extends Screen {
 				noteSpriteLeft[i].draw(context);
 			if (!noteSpriteRight[i].isRemoved())
 				noteSpriteRight[i].draw(context);
-			noteSpriteAI[i].setAI();
-			noteSpriteAI[i].draw(context);
+			if (!noteSpriteAI[i].isRemoved()) {
+				noteSpriteAI[i].setAI();
+				noteSpriteAI[i].draw(context);
+			}
 		}
 
+		// Initial box for things to go in
+		context.setColor(ColorPack.DARK);
+		context.fillRect(10, 10, getScreenWidth() / 2 - 20, 70);
+		context.setColor(ColorPack.FADEDWHITE);
+		context.drawRect(10, 10, getScreenWidth() / 2 - 20, 70);
+
+		// Secondary box
+		context.setColor(ColorPack.DARK);
+		context.fillRect(10 + getScreenWidth() / 2 - 10, 10, getScreenWidth() / 2 - 20, 70);
+		context.setColor(ColorPack.FADEDWHITE);
+		context.drawRect(10 + getScreenWidth() / 2 - 10, 10, getScreenWidth() / 2 - 20, 70);
+
+		for (NoteHitSprite hit : hits) {
+			hit.draw(context);
+		}
+
+		for (NoteHitSprite hit : aiHits) {
+			hit.draw(context);
+		}
+
+		context.setColor(Color.RED);
+		context.drawLine(0, lineY, getScreenWidth(), lineY);
+
+		context.setColor(Color.BLUE);
+		context.drawLine(0, lineY + 30, getScreenWidth(), lineY + 30);
 	}
 }

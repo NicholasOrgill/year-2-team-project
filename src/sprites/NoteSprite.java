@@ -23,11 +23,11 @@ public class NoteSprite extends Sprite {
 	private boolean isRemoved = false;
 	private int opac = 255;
 	
-	public NoteSprite(int x, int y, int width, int height, boolean[] buttons, int length, double position) {
+	public NoteSprite(int x, int y, int width, int height, boolean[] buttons, int length, double position, double speed) {
 		super(x, y, width, height);
 		this.buttons = buttons;
-		if(length != 0 && 1 == 2) {
-			this.length = length;
+		if(length != 0 && ((length * speed) > 60)) {
+			this.length = (int) (length * speed);
 		} else {
 			this.length = 60;
 		}
