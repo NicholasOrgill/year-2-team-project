@@ -172,7 +172,6 @@ public class GameObject {
 	public void receivedPower(int _key){
 		this.inputHandler.getScreen().receivedPowerKey(_key);
 	}
-	
 
 	public int[] getScoreQuality() {
 		return scoreQuality;

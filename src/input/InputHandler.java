@@ -21,9 +21,7 @@ public class InputHandler implements KeyListener {
 	public static int PLAYKEY2 = 2;
 	public static int PLAYKEY3 = 3;
 
-	public static int POWERKEY0 = 0;
-	public static int POWERKEY1 = 1;
-	public static int POWERKEY2 = 2;
+	public static int POWERKEY = 100;
 
 	/**
 	 * Initialise InputHandler
@@ -57,7 +55,7 @@ public class InputHandler implements KeyListener {
 		}
 		if(!powerKey.isEmpty()){
 			if (e.getKeyCode() == powerKey.get(0)) {
-				screen.powerKeyPressed(POWERKEY0);
+				screen.powerKeyPressed(POWERKEY);
 			}
 		}
 	}
@@ -78,7 +76,7 @@ public class InputHandler implements KeyListener {
 		}
 		if(!powerKey.isEmpty()){
 			if (e.getKeyCode() == powerKey.get(0)) {
-				screen.keyReleased(POWERKEY0);
+				screen.keyReleased(POWERKEY);
 			}
 		}
 	}
@@ -120,7 +118,7 @@ public class InputHandler implements KeyListener {
 		}
 		if (i != 58 && i != 60 && i != 62 && i != 63 && i != 64) {
 			if (i >= 48 && i <= 93) {
-				if (powerKey.size() < 3 && !powerKey.contains(i) && !playKey.contains(i)) {
+				if (powerKey.size() < 1 && !powerKey.contains(i) && !playKey.contains(i)) {
 					powerKey.add(i);
 				} else
 					System.out.println("Invalid key");
@@ -148,7 +146,7 @@ public class InputHandler implements KeyListener {
 	 * @return is all the keys are stored and ready to start a game
 	 */
 	public boolean containAllKey() {
-		return (playKey.size() == 4 && powerKey.size() == 3);
+		return (playKey.size() == 4 && powerKey.size() == 1);
 	}
 
 	/**
