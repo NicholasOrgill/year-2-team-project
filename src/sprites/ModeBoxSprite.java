@@ -90,7 +90,10 @@ public class ModeBoxSprite extends Sprite {
 		context.setColor(new Color(ColorPack.FADEDWHITE.getRed(), ColorPack.FADEDWHITE.getRed(), ColorPack.FADEDWHITE.getRed(), Math.max(0, (int)(trans*scale) - 160)));
 		
 		context.fillRect(getX() - (int)(sizex*scale / 2), getY() - (int)(sizey*scale / 2), (int)(sizex*scale), (int)(sizey*scale));
-		title.draw(context);
+		if(count == max) {
+			title.draw(context);
+		}
+		
 	}
 
 }

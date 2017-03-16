@@ -228,8 +228,10 @@ public class ModeSelect extends Screen {
 
 		context.setColor(ColorPack.WHITE);
 
-		context.drawRect(bx - (currentBox.getWidth() / 2), by - (currentBox.getHeight() / 2), currentBox.getWidth(),
-				currentBox.getHeight());
+		if (count > 180) {
+			context.drawRect(bx - (currentBox.getWidth() / 2), by - (currentBox.getHeight() / 2), currentBox.getWidth(),
+					currentBox.getHeight());
+		}
 
 	}
 

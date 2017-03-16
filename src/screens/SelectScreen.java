@@ -1,22 +1,27 @@
 package screens;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import audio.Player;
 import audio.SoundHandler;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
+import songmanager.SongFileProcessor;
 import sprites.DotSpriteBackground;
 import sprites.FancyCenterTextSprite;
 import sprites.ImageGrad;
+import sprites.ImageSprite;
 import sprites.SystemTextCenterShine;
 import sprites.SystemTextKern;
 import sprites.SystemTextShine;
 import utils.ColorPack;
+import utils.ImageLoader;
 
 public class SelectScreen extends Screen {
 
+	private ImageSprite image;
 	private SystemTextKern textSprite;
 	private DotSpriteBackground dotBackground;
 	private ImageGrad imageGrad;
@@ -32,6 +37,11 @@ public class SelectScreen extends Screen {
 	private int count = 0;
 
 	private Player audio = new Player();
+	
+	private SongFileProcessor reader = new SongFileProcessor();
+	
+	private BufferedImage backImage;
+	
 
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
@@ -75,6 +85,15 @@ public class SelectScreen extends Screen {
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
 
 		textSprite = new SystemTextKern(20, 30, "FIRST SONG");
+		
+		backImage = reader.readSongFile("data/tetris.song").getCoverArt();
+		
+		
+		
+		image = new ImageSprite(getScreenWidth() / 2, (int)(getScreenHeight() * 0.4), ImageLoader.loadImageFromResource("src/res/images/konami_logo.png"));
+		image.setScreenSize(getScreenWidth(), getScreenHeight());
+		image.setSize(0.5f);
+		
 
 	}
 
@@ -104,6 +123,10 @@ public class SelectScreen extends Screen {
 			audio.playBack("src/songmanager/Tetris.wav");
 
 		}
+		
+		image.setScreenSize(getScreenWidth(), getScreenHeight());
+		image.update();
+		
 		count++;
 	}
 
@@ -126,6 +149,11 @@ public class SelectScreen extends Screen {
 		pheight = (int) (pheight * scale);
 		context.fillRect(getScreenWidth() / 2 - pwidth / 2 - 100, getScreenHeight() / 2 - pheight / 2 - 50, pwidth,
 				pheight);
+		
+		image.setX(getScreenWidth() / 2  - 100);
+		image.setY(getScreenHeight() / 2  - 50);
+		
+		
 
 		typeText.draw(context);
 		levelText.draw(context);
@@ -136,6 +164,9 @@ public class SelectScreen extends Screen {
 		textSprite.draw(context);
 
 		title.draw(context);
+		
+		
+		image.draw(context);
 	}
 
 }

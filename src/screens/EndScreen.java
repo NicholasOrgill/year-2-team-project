@@ -85,27 +85,33 @@ public class EndScreen extends Screen {
 		for (int i = 0; i < howWellBefore.length; i++)
 			howWellBefore[i] = 0;
 
-		howWell[0] = 40;
-		howWell[1] = 60;
-		howWell[2] = 70;
-		howWell[3] = 90;
-		howWell[4] = 80;
-		howWell[5] = 30;
-		howWell[6] = 20;
+		howWell[0] = getGameObject().getScoreQuality()[4];
+		howWell[1] = getGameObject().getScoreQuality()[3];
+		howWell[2] = getGameObject().getScoreQuality()[2];
+		howWell[3] = (getGameObject().getScoreQuality()[2] + getGameObject().getScoreQuality()[1]) / 2;
+		howWell[4] = getGameObject().getScoreQuality()[1];
+		howWell[5] = (getGameObject().getScoreQuality()[1] + getGameObject().getScoreQuality()[0]) / 2;
+		howWell[6] = getGameObject().getScoreQuality()[0];
+		
+		System.out.println(getGameObject().getScoreQuality()[4]);
+		System.out.println(getGameObject().getScoreQuality()[3]);
+		System.out.println(getGameObject().getScoreQuality()[2]);
+		System.out.println(getGameObject().getScoreQuality()[1]);
+		System.out.println(getGameObject().getScoreQuality()[0]);
 
 	}
 
 	@Override
 	public void update() {
 		if (scoreOut < player1Score) {
-			scoreOut += 1 + (int)(player1Score / (int)(player1Score * 0.01));
+			scoreOut += 1 + (int) (player1Score / (int) (player1Score * 0.01));
 		} else {
-			if(played == false) {
+			if (played == false) {
 				played = true;
-				//fx.playEffect("titlesongquiet.wav");
+				// fx.playEffect("titlesongquiet.wav");
 			}
 		}
-		
+
 		player1Text.setText("" + scoreOut);
 		playerText.setScreenSize(getScreenWidth(), getScreenHeight());
 		playerText2.setScreenSize(getScreenWidth(), getScreenHeight());
