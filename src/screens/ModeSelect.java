@@ -131,7 +131,7 @@ public class ModeSelect extends Screen {
 		}
 
 		if (count == 80) {
-			fx.playEffect("titlesongquiet.wav");
+			fx.playEffect("titlesongquiet.wav", true);
 		}
 
 		imageGrad.setScreenSize(getScreenWidth(), getScreenHeight());
