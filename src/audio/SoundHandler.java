@@ -14,19 +14,19 @@ public class SoundHandler {
 
 	HashMap<String, AudioInputStream> effects;
 	HashMap<String, AudioFormat> formats;
-	
+
 	static ArrayList<Clip> clips = new ArrayList<Clip>();
-	
+
 	public SoundHandler() {
 		effects = new HashMap<String, AudioInputStream>();
 		formats = new HashMap<String, AudioFormat>();
-		//clips = new ArrayList<Clip>();
-		
+		// clips = new ArrayList<Clip>();
+
 	}
 
 	public void fillEffects(String[] list) {
 		try {
-			//System.out.println("HI");
+			// System.out.println("HI");
 			for (String elem : list) {
 				AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/res/audio/" + elem));
 				AudioFormat format = ais.getFormat();
@@ -37,25 +37,32 @@ public class SoundHandler {
 			System.err.println("Terminal Exception");
 			e.printStackTrace();
 		}
-		
+
+	}
+	
+	public void playEffect(String effect) {
+		playEffect(effect, false);
 	}
 
-	public void playEffect(String effect) {
+	public void playEffect(String effect, boolean loop) {
 		try {
 			DataLine.Info info = new DataLine.Info(Clip.class, formats.get(effect));
-			Clip clip = (Clip)AudioSystem.getLine(info);
-			//Clip clip = AudioSystem.getClip();
+			Clip clip = (Clip) AudioSystem.getLine(info);
+			// Clip clip = AudioSystem.getClip();
 			clip.open(effects.get(effect));
-			clip.start();
+			if (loop)
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
+			else
+				clip.start();
 			clips.add(clip);
 			effects.put(effect, AudioSystem.getAudioInputStream(new File("src/res/audio/" + effect)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void stopAll() {
-		for(Clip clip : clips) {
+		for (Clip clip : clips) {
 			clip.stop();
 		}
 	}
