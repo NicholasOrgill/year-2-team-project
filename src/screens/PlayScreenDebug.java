@@ -229,15 +229,16 @@ public class PlayScreenDebug extends Screen {
 			floatText.update();
 		}
 		
-		for(SystemTextCenterFloat floatText : floatTexts) {
-			if(floatText.shouldRemove()) {
-				floatTexts.remove(floatText);
+				
+		for(int i = floatTexts.size() - 1; i > 0 ;i--) {
+			if(floatTexts.get(i).shouldRemove()) {
+				floatTexts.remove(i);
 			}
 		}
 		
-		for (NoteHitSprite hit : hits) {
-			if(hit.shouldRemove()) {
-				hits.remove(hit);
+		for(int i = hits.size() - 1; i > 0 ;i--) {
+			if(hits.get(i).shouldRemove()) {
+				hits.remove(i);
 			}
 		}
 		
