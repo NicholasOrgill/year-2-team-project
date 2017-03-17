@@ -133,6 +133,7 @@ public class PlayScreenDebug extends Screen {
 			score += 25;
 			scoreQuality[3]++;
 		} else {
+			scoreQuality[4]++;
 			bad();
 		}
 		textScore.setText("" + score);
@@ -145,10 +146,10 @@ public class PlayScreenDebug extends Screen {
 	public void bad() {
 		power--;
 		combo = 0;
-		scoreQuality[4]++;
 		SystemTextCenterShake floatText = new SystemTextCenterShake(getScreenWidth() / 2, 280, "BAD");
 		floatText.shine();
 		floatTexts.add(floatText);
+		textSprite.setText("COMBO: " + combo + "POWER: " + power + "%");
 	}
 	
 	@Override
@@ -198,7 +199,7 @@ public class PlayScreenDebug extends Screen {
 			noteSprite[i].update();
 
 			noteSprite[i]
-					.setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSprite[i].getLength() / 3));// + getGameObject().getOffset());
+					.setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSprite[i].getLength() / 3) + getGameObject().getOffset());
 
 			// If the note is in the playing area
 			if (noteSprite[i].isRemoved() == false) {
