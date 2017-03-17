@@ -150,7 +150,7 @@ public class PlayScreenDebug extends Screen {
 		}
 
 		if (count == 0) {
-			audio.playBack("src/songmanager/Tetris.wav");
+			audio.playBack("data/audio/tetris.wav");
 			reader = new SongFileProcessor();
 			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
 			beat = song.getBeats();
