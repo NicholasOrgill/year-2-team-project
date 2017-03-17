@@ -149,6 +149,7 @@ public class PlayScreenDebug extends Screen {
 		SystemTextCenterShake floatText = new SystemTextCenterShake(getScreenWidth() / 2, 280, "BAD");
 		floatText.shine();
 		floatTexts.add(floatText);
+		textSprite.setText("COMBO: " + combo + "POWER: " + power + "%");
 	}
 	
 	@Override
