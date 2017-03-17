@@ -40,6 +40,8 @@ public class StartScreen extends Screen {
 		image.setScreenSize(getScreenWidth(), getScreenHeight());
 		image.setSize(0.7f);
 		image.setOpacity(0);
+		
+		System.out.println("Songs Installed: " + getGameObject().getSongFiles().length);
 	}
 
 	@Override

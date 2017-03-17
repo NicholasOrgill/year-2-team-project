@@ -26,11 +26,11 @@ public class NoteSprite extends Sprite {
 	public NoteSprite(int x, int y, int width, int height, boolean[] buttons, int length, double position, double speed) {
 		super(x, y, width, height);
 		this.buttons = buttons;
-		if(length != 0 && ((length * speed) > 60)) {
-			this.length = (int) (length * speed);
-		} else {
+		//if(length != 0 && ((length * speed) > 60)) {
+		//	this.length = (int) (length * speed);
+		//} else {
 			this.length = 60;
-		}
+		//}
 		this.position = position;
 	}
 	
