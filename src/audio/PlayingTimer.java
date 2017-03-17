@@ -44,7 +44,6 @@ public class PlayingTimer extends Thread {
 					pauseTime += 100;
 				}
 			} catch (InterruptedException ex) {
-				ex.printStackTrace();
 				startTime = System.currentTimeMillis();
 				isRunning = false;
 				break;

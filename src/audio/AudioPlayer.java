@@ -116,7 +116,6 @@ public class AudioPlayer implements LineListener {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException ex) {
-				ex.printStackTrace();
 				if (isStopped) {
 					audioClip.stop();
 					break;
@@ -124,7 +123,6 @@ public class AudioPlayer implements LineListener {
 				if (isPaused) {
 					audioClip.stop();
 				} else {
-					System.out.println("!!!!");
 					audioClip.start();
 				}
 			}
