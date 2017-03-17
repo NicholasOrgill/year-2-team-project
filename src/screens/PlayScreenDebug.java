@@ -198,7 +198,7 @@ public class PlayScreenDebug extends Screen {
 			noteSprite[i].update();
 
 			noteSprite[i]
-					.setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSprite[i].getLength() / 3) + getGameObject().getOffset());
+					.setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSprite[i].getLength() / 3));// + getGameObject().getOffset());
 
 			// If the note is in the playing area
 			if (noteSprite[i].isRemoved() == false) {
