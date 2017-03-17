@@ -9,6 +9,7 @@ import ai.SongArray;
 import audio.Player;
 import engine.GameObject;
 import engine.Screen;
+import input.InputHandler;
 import songmanager.Beat;
 import songmanager.Note;
 import songmanager.SongFileProcessor;
@@ -86,36 +87,45 @@ public class PlayScreenDebug extends Screen {
 
 	@Override
 	public void keyReleased(int key) {
-		keys[key] = false;
-		System.out.println("off" + key);
-		playSprite.unpush(key);
+		if (key == InputHandler.POWERKEY) {
+			System.out.println("off p");
+		} else {
+			keys[key] = false;
+			System.out.println("off" + key);
+			playSprite.unpush(key);
+		}
+	}
+
+	@Override
+	public void powerKeyPressed(int key) {
+		System.out.println("on p");
 	}
 
 	public void scoreHelper(int difference) {
 		if (difference <= getGameObject().PERFECT) {
 			textSprite.setText("Perfect!");
-			score+=100;
+			score += 100;
 			scoreQuality[0]++;
 			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "PERFECT");
 			floatText.shine();
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().EXCELLENT) {
 			textSprite.setText("Excellent!");
-			score+=75;
+			score += 75;
 			scoreQuality[1]++;
 			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "EXCELLENT");
 			floatText.shine();
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().GOOD) {
 			textSprite.setText("Good!");
-			score+=50;
+			score += 50;
 			scoreQuality[2]++;
 			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "GOOD");
 			floatText.shine();
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().OKAY) {
 			textSprite.setText("Okay!");
-			score+=25;
+			score += 25;
 			scoreQuality[3]++;
 		} else {
 			textSprite.setText("Bad!");
@@ -124,7 +134,7 @@ public class PlayScreenDebug extends Screen {
 			floatText.shine();
 			floatTexts.add(floatText);
 		}
-		textScore.setText(""+score);
+		textScore.setText("" + score);
 	}
 
 	@Override
@@ -222,6 +232,7 @@ public class PlayScreenDebug extends Screen {
 		for (NoteHitSprite hit : hits) {
 			hit.update();
 		}
+<<<<<<< HEAD
 		
 		// Move the texts
 		for(SystemTextCenterFloat floatText : floatTexts) {
@@ -242,6 +253,8 @@ public class PlayScreenDebug extends Screen {
 			}
 		}
 		
+=======
+>>>>>>> network
 
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
 	}
@@ -282,11 +295,20 @@ public class PlayScreenDebug extends Screen {
 		for (NoteHitSprite hit : hits) {
 			hit.draw(context);
 		}
+<<<<<<< HEAD
 		
 		for(SystemTextCenterFloat floatText : floatTexts) {
 			floatText.draw(context);
 		}
 		
 
+=======
+
+		context.setColor(Color.RED);
+		context.drawLine(0, lineY, getScreenWidth(), lineY);
+
+		context.setColor(Color.BLUE);
+		context.drawLine(0, lineY + 30, getScreenWidth(), lineY + 30);
+>>>>>>> network
 	}
 }

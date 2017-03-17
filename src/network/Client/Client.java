@@ -38,9 +38,9 @@ public class Client {
 		    fromServer = new BufferedReader(new InputStreamReader(server.getInputStream()));
 		    gameObject.setConnect(true);
 		} catch (UnknownHostException e) {
-			System.err.println("Unkown host: ");
+			gameObject.setNetworkError("Unkown host: ");
 		}catch (IOException e) {
-			System.err.println("Could not get IO for the connection " + e.getMessage());
+			gameObject.setNetworkError("Could not get IO for the connection " + e.getMessage());
 			return;
 		}
 		

@@ -62,6 +62,15 @@ public class NetworkPlayScreen extends Screen {
 		System.out.println("off" + key);
 		playSprite.unpush(key);
 	}
+	
+	@Override
+	public void powerKeyPressed(int key) {
+		sendPowerKey(key);
+	}
+	
+	public void receivedPowerKey(int key){
+
+	}
 	/**
 	 * Checks if one array is contained within another
 	 * @param a1 The current keys pressed
@@ -125,6 +134,7 @@ public class NetworkPlayScreen extends Screen {
 		if(note.getSustain() > 0) {
 			if(note.isHeld()){
 				score+=5;
+				sendScore(5);
 			} else {
 				addScoreHelper(note, false);
 			}
@@ -288,6 +298,15 @@ public class NetworkPlayScreen extends Screen {
 			getGameObject().getServer().inputMessage("SCOR:"+_score);
 		}else{
 			getGameObject().getNetwork().send("SCOR:"+_score);
+		}
+	}
+	
+	public void sendPowerKey(int _key){
+		
+		if (getGameObject().isServer()){
+			getGameObject().getServer().inputMessage("POWE:"+_key);
+		}else{
+			getGameObject().getNetwork().send("POWE:"+_key);
 		}
 	}
 }

@@ -80,6 +80,8 @@ public class Engine extends Canvas implements Runnable {
 		inputHandler.storePlayKey('e');
 		inputHandler.storePlayKey('r');
 		
+		inputHandler.storePowerKey('t');
+		
 		this.addKeyListener(inputHandler);
 				
 		inputHandler.setScreen(screen);		
