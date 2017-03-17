@@ -174,8 +174,12 @@ public class GameObject {
 		return networkError;
 	}
 	
-	public void receivedPower(int _key){
-		this.inputHandler.getScreen().receivedPowerKey(_key);
+	public void receivedKeyPressed(int _key){
+		this.inputHandler.getScreen().oppoKeyPressed(_key);
+	}
+	
+	public void receivedKeyReleased(int _key){
+		this.inputHandler.getScreen().oppoKeyReleased(_key);
 	}
 
 	public int[] getScoreQuality() {

@@ -93,10 +93,11 @@ public class PlayScreenDebug extends Screen {
 		}
 	}
 
+	/*
 	@Override
 	public void powerKeyPressed(int key) {
 		System.out.println("on p");
-	}
+	}*/
 
 	public void scoreHelper(int difference) {
 		if (difference <= getGameObject().PERFECT) {
