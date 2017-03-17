@@ -29,7 +29,6 @@ public class NetworkPlayScreen extends Screen {
 	private SongObject song;
 	private Beat[] beat;
 	private Note[] notes;
-	private Note[] oppoNotes;
 	int score = 0;
 	int oppoScore = 0;
 	boolean[] keys = {false, false, false, false};
@@ -67,15 +66,12 @@ public class NetworkPlayScreen extends Screen {
 	private int[] scoreQuality = new int[5];
 
 	private ArrayList<NoteHitSprite> hits = new ArrayList<NoteHitSprite>();
-	private ArrayList<NoteHitSprite> oppoHits = new ArrayList<NoteHitSprite>();
 	
 	private double speedScale = 0.4;
 	
 	SongArray[] songArray;
 	
 	int n = 0;
-	private int oppoCombo;
-	private int oppoPower;
 	
 	private ArrayList<SystemTextCenterFloat> floatTexts = new ArrayList<SystemTextCenterFloat>();
 	
@@ -192,11 +188,21 @@ public class NetworkPlayScreen extends Screen {
 		} else {
 			bad(oppo);
 		}
-		player1Text.setText("" + score);
+		
+		if(oppo){
+			rightScore.setText("" + getGameObject().getP2Score());
+		}else{
+			leftScore.setText("" + score);
+		}
 		
 		power = Math.min(100, Math.max(0, power));
 		
-		player1Text.setText("COMBO: " + combo + "POWER: " + power + "%");
+		if(oppo){
+			player1Text.setText("COMBO: " + combo + "POWER: " + power + "%");
+		}else{
+			player2Text.setText("COMBO: " + combo + "POWER: " + power + "%");
+		}
+
 	}
 	
 	
