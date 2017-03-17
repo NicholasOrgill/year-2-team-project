@@ -4,7 +4,11 @@ import java.awt.Graphics;
 import java.util.Random;
 
 import engine.Sprite;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class DotSpriteBackground extends Sprite {
 	private DotSprite[] dotSprite;
 	int amount = 100;

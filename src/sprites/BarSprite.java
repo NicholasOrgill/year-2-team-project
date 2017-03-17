@@ -4,7 +4,11 @@ import java.awt.Graphics;
 
 import engine.Sprite;
 import utils.ColorPack;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class BarSprite extends Sprite {
 	int count = 0;
 

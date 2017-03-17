@@ -5,7 +5,11 @@ import java.awt.Graphics;
 import java.util.Random;
 
 import engine.Sprite;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class DotSprite extends Sprite {
 	
 	private Color color;

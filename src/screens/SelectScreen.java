@@ -18,7 +18,11 @@ import sprites.SystemTextKern;
 import sprites.SystemTextShine;
 import utils.ColorPack;
 import utils.ImageLoader;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class SelectScreen extends Screen {
 
 	private ImageSprite image;

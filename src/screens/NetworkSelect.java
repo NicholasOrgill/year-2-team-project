@@ -17,7 +17,11 @@ import sprites.SystemBox;
 import sprites.SystemTextCenterFade;
 import utils.ColorPack;
 import utils.ImageLoader;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class NetworkSelect extends Screen {
 
 	private DotSpriteBackground dotBackground;

@@ -9,7 +9,11 @@ import sprites.ImageSprite;
 import sprites.ImageSprite2;
 import sprites.SystemText;
 import utils.ImageLoader;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class PlayScreen2 extends Screen {
 	SystemText text = new SystemText(40, 30, "Hello");
 	ImageSprite2 outline = new ImageSprite2(getScreenWidth() / 2, 40, ImageLoader.loadImageFromResource("src/res/images/outline.png"));

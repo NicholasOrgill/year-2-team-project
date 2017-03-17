@@ -9,7 +9,11 @@ import sprites.ImageSprite;
 import sprites.MessageSprite;
 import utils.ColorPack;
 import utils.ImageLoader;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class StartScreen extends Screen {
 	int counter = 0;
 	private ImageSprite image;
