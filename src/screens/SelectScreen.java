@@ -86,7 +86,7 @@ public class SelectScreen extends Screen {
 
 		textSprite = new SystemTextKern(20, 30, "FIRST SONG");
 		
-		backImage = reader.readSongFile("data/tetris.song").getCoverArt();
+		backImage = gameObject.getSongFiles()[0].getCoverArt();
 		
 		
 		
