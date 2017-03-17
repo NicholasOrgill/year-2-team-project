@@ -40,23 +40,19 @@ public class NetworkPlayScreen extends Screen {
 
 	int lineY = (int) Math.round(getScreenHeight() * 0.8);
 	
-	//private SystemTextCenter textSprite; // An example text sprite
-	//private SystemTextCenter textScore; // An example text sprite
 	private int count = 0; // A variable to count on the screen
 	private SystemTextCenterFloat leftScore;
 	private SystemTextCenterFloat rightScore;
 	private SystemTextCenter player1Text;
 	private SystemTextCenter player2Text;
+	private SystemTextCenterFloat attackTest;
+	private boolean attacked = false;
+	private int attackCount = 0;
 	
 	private Player audio = new Player();
 	
-	//private PlaySprite playSprite; 
 	private PlaySprite playSpriteLeft;
 	private PlaySprite playSpriteRight;
-	
-	//private BarSprite[] barSprite;
-	//private NoteSprite[] noteSprite;
-	//private NoteSprite[] noteSprite2;
 	private BarSprite[] barSpriteLeft;
 	private BarSprite[] barSpriteRight;
 	private NoteSprite[] noteSpriteLeft;
@@ -84,14 +80,21 @@ public class NetworkPlayScreen extends Screen {
 		playSpriteRight = new PlaySprite(0, 0, 0, 0, 0.75);
 
 		player1Text = new SystemTextCenter((int) (getScreenWidth() * 0.25), 25, "Player");
-		player2Text = new SystemTextCenter((int) (getScreenWidth() * 0.75), 25, "Opponent");		
+		player2Text = new SystemTextCenter((int) (getScreenWidth() * 0.75), 25, "Opponent");	
+		
+		attackTest= new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 500, " ");
+
 	}
 	
 	@Override
 	public void keyPressed(int key) {
-		keys[key] = true;
-		System.out.println("on" + key);
-		playSpriteLeft.push(key);
+		if (key == InputHandler.POWERKEY) {
+			System.out.println("off p");
+		} else {
+			keys[key] = true;
+			System.out.println("on" + key);
+			playSpriteLeft.push(key);
+		}
 		sendPressedKey(key);
 	}
 	
@@ -111,6 +114,9 @@ public class NetworkPlayScreen extends Screen {
 	public void oppoKeyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("on p");
+			if(!attacked && attackCount < 20){
+				attacked = true;
+			}
 		} else {
 			oppoKeys[key] = true;
 			System.out.println("on" + key);
@@ -349,12 +355,19 @@ public class NetworkPlayScreen extends Screen {
 				}
 			}
 			
-			
-
-
-			
+				
 		}
 
+		if(attacked && attackCount < 500){
+			attackTest.setText("Attack!");
+			attackCount++;
+		}
+		
+		if(attackCount >= 500){
+			attacked = false;
+			attackCount = 0;
+			attackTest.setText(" ");
+		}
 
 		leftScore.setScreenSize(getScreenWidth(), getScreenHeight());
 		leftScore.update();
@@ -373,6 +386,10 @@ public class NetworkPlayScreen extends Screen {
 
 		player2Text.setScreenSize(getScreenWidth(), getScreenHeight());
 		player2Text.update();
+		
+		attackTest.setScreenSize(getScreenWidth(), getScreenHeight());
+		attackTest.update();
+		
 
 		for (NoteHitSprite hit : hits) {
 			hit.update();
@@ -440,6 +457,8 @@ public class NetworkPlayScreen extends Screen {
 
 		leftScore.draw(context);
 		rightScore.draw(context);
+		
+		attackTest.draw(context);
 
 		for (NoteHitSprite hit : hits) {
 			hit.draw(context);
