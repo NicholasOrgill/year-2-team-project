@@ -102,7 +102,7 @@ public class PlayScreenDebug extends Screen {
 		if (difference <= getGameObject().PERFECT) {
 			combo++;
 			if(combo > 5) {
-				power++;
+				power+=combo;
 			}
 			score += 100;
 			scoreQuality[0]++;
@@ -112,7 +112,7 @@ public class PlayScreenDebug extends Screen {
 		} else if (difference <= getGameObject().EXCELLENT) {
 			combo++;
 			if(combo > 5) {
-				power++;
+				power+=combo;
 			}
 			score += 75;
 			scoreQuality[1]++;
@@ -121,14 +121,14 @@ public class PlayScreenDebug extends Screen {
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().GOOD) {
 			combo = 0;
-			power--;
+			power-=10;
 			score += 50;
 			scoreQuality[2]++;
 			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "GOOD");
 			floatText.shine();
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().OKAY) {
-			power--;
+			power-=10;
 			combo = 0;
 			score += 25;
 			scoreQuality[3]++;
@@ -137,7 +137,7 @@ public class PlayScreenDebug extends Screen {
 		}
 		textScore.setText("" + score);
 		
-		power = Math.min(100, power);
+		power = Math.min(100, Math.max(0, power));
 		
 		textSprite.setText("COMBO: " + combo + "POWER: " + power + "%");
 	}
@@ -222,8 +222,6 @@ public class PlayScreenDebug extends Screen {
 						int difference = Math.abs(noteSprite[i].getY() - 60 - lineY);
 						scoreHelper(difference);
 						noteSprite[i].remove();
-					} else {
-						bad();
 					}
 
 				}
