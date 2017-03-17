@@ -10,6 +10,7 @@ import ai.SongArray;
 import audio.Player;
 import engine.GameObject;
 import engine.Screen;
+import input.InputHandler;
 import songmanager.Beat;
 import songmanager.Note;
 import songmanager.SongFileProcessor;
@@ -56,6 +57,7 @@ public class AIPlayScreen extends Screen {
 	private NoteSprite[] noteSpriteAI;
 
 	private int aiLevel = 0;
+	private int origAiLevel = 0;
 
 	private int[] scoreQuality = new int[5];
 
@@ -72,6 +74,8 @@ public class AIPlayScreen extends Screen {
 	private ArrayList<SystemTextCenterFloat> floatTexts = new ArrayList<SystemTextCenterFloat>();
 	private int aiCombo;
 	private int aiPower;
+	private int endPower = 0;
+	private SystemTextCenterFloat powerText;
 
 	@Override
 	public void keyPressed(int key) {
@@ -82,9 +86,25 @@ public class AIPlayScreen extends Screen {
 
 	@Override
 	public void keyReleased(int key) {
-		keys[key] = false;
-		System.out.println("off" + key);
-		playSpriteLeft.unpush(key);
+		if (key == InputHandler.POWERKEY) {
+			System.out.println("off p");
+		} else {
+			keys[key] = false;
+			System.out.println("off" + key);
+			playSpriteLeft.unpush(key);
+		}
+	}
+
+	@Override
+	public void powerKeyPressed(int key) {
+		System.out.println("on p");
+		displayPower();
+	}
+
+	private void displayPower() {
+		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
+		aiLevel = 4;
+		endPower = count + 5000;
 	}
 
 	public void scoreHelper(int difference, boolean ai) {
@@ -93,6 +113,7 @@ public class AIPlayScreen extends Screen {
 		int playerScore;
 		int playerCombo;
 		int playerPower;
+		boolean badBool = false;
 		if (ai) {
 			text = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 280, "");
 			scoreText = rightScore;
@@ -138,7 +159,7 @@ public class AIPlayScreen extends Screen {
 				scoreQuality[2]++;
 		} else if (difference <= getGameObject().OKAY) {
 			playerCombo++;
-			playerPower-=5;
+			playerPower -= 5;
 			text.setText("OKAY!");
 			text.shine();
 			floatTexts.add(text);
@@ -146,32 +167,44 @@ public class AIPlayScreen extends Screen {
 			if (!ai)
 				scoreQuality[3]++;
 		} else {
-			SystemTextCenterShake shakeText;
-			scoreQuality[4]++;
-			if (ai) {
-				shakeText = new SystemTextCenterShake((int) (getScreenWidth() * 0.75), 280, "BAD");
-			} else {
-				shakeText = new SystemTextCenterShake((int) (getScreenWidth() * 0.25), 280, "BAD");
-			}
-			shakeText.shine();
-			floatTexts.add(shakeText);
-			playerPower = 0;
-			playerCombo  = 0;
+			bad(ai);
+			badBool = true;
 		}
 		if (ai) {
-			aiScore = playerScore;
-			aiCombo = playerCombo;
-			aiPower = playerPower;
-			aiPower = Math.min(100, Math.max(0, aiPower));
+			if (!badBool) {
+				aiScore = playerScore;
+				aiCombo = playerCombo;
+				aiPower = playerPower;
+				aiPower = Math.min(100, Math.max(0, aiPower));
+			}
 			player2Text.setText("AI COMBO: " + aiCombo + " POWER: " + aiPower + "%");
 		} else {
-			score = playerScore;
-			combo = playerCombo;
-			power = playerPower;
-			power = Math.min(100, Math.max(0, power));
+			if (!badBool) {
+				score = playerScore;
+				combo = playerCombo;
+				power = playerPower;
+				power = Math.min(100, Math.max(0, power));
+			}
 			player1Text.setText("Player COMBO: " + combo + " POWER: " + power + "%");
 		}
 		scoreText.setText("" + playerScore);
+	}
+
+	public void bad(boolean ai) {
+		SystemTextCenterShake shakeText;
+		if (ai) {
+			shakeText = new SystemTextCenterShake((int) (getScreenWidth() * 0.75), 280, "BAD");
+			aiPower = 0;
+			aiCombo = 0;
+			player2Text.setText("AI COMBO: " + aiCombo + " POWER: " + aiPower + "%");
+		} else {
+			shakeText = new SystemTextCenterShake((int) (getScreenWidth() * 0.25), 280, "BAD");
+			power = 0;
+			combo = 0;
+			player1Text.setText("Player COMBO: " + combo + " POWER: " + power + "%");
+		}
+		shakeText.shine();
+		floatTexts.add(shakeText);
 	}
 
 	public AIPlayScreen(GameObject gameObject) {
@@ -186,6 +219,8 @@ public class AIPlayScreen extends Screen {
 
 		player1Text = new SystemTextCenter((int) (getScreenWidth() * 0.25), 25, "Player");
 		player2Text = new SystemTextCenter((int) (getScreenWidth() * 0.75), 25, "AI");
+
+		powerText = new SystemTextCenterFloat(0, 0, " ");
 	}
 
 	@Override
@@ -236,6 +271,12 @@ public class AIPlayScreen extends Screen {
 			}
 		}
 
+		AINotes = songArray[aiLevel].getNotes();
+
+		if (count > endPower) {
+			AINotes = songArray[origAiLevel].getNotes();
+		}
+
 		for (int i = 0; i < beat.length; i++) {
 			barSpriteLeft[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScale));
 			barSpriteLeft[i].update();
@@ -284,6 +325,12 @@ public class AIPlayScreen extends Screen {
 
 		player2Text.setScreenSize(getScreenWidth(), getScreenHeight());
 		player2Text.update();
+
+		powerText.setScreenSize(getScreenWidth(), getScreenHeight());
+		powerText.update();
+		if (powerText.shouldRemove()) {
+			powerText.setText(" ");
+		}
 
 		for (NoteHitSprite hit : hits) {
 			hit.update();
@@ -345,9 +392,15 @@ public class AIPlayScreen extends Screen {
 
 			}
 
-			// When the note is finished, increment the start of the array
-			if (noteSprite[i].isRemoved() && noteSprite[i].getY() > getScreenHeight()) {
-				n++;
+			if (noteSprite[i].getY() > getScreenHeight()) {
+				if (noteSprite[i].isRemoved()) {
+					n++;
+				} else {
+					n++;
+					bad(ai);
+					noteSprite[i].remove();
+				}
+
 			}
 		}
 	}
@@ -397,6 +450,8 @@ public class AIPlayScreen extends Screen {
 		rightScore.draw(context);
 
 		textAILevel.draw(context);
+
+		powerText.draw(context);
 
 		for (NoteHitSprite hit : hits) {
 			hit.draw(context);
