@@ -133,17 +133,18 @@ public class NetworkSelect extends Screen {
 			}
 
 		}
-
-		if (count == 410) {
-			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()) {
+		
+		if(count == 410) {
+			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()){
+				setNextScreen(new NetworkPlayScreen(getGameObject()));
 				centex.setText("Network Established");
 				getGameObject().getServer().inputMessage("READ:");
 			}
-
-			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()) {
-				centex.setText("Connected");
+			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()){
 				getGameObject().getNetwork().sendReadyMsg();
-			} else {
+				setNextScreen(new NetworkPlayScreen(getGameObject()));
+				centex.setText("Connected");
+			}else {
 				centex.setText("Network Check Fail.");
 			}
 		}

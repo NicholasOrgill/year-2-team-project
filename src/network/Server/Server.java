@@ -31,8 +31,8 @@ public class Server extends Thread{
 		try {
 			serverSocket = new ServerSocket(4444);
 		} catch (IOException e) {
-			System.err.println("Could not listen on port 4444");
-			System.exit(-1);
+			gameObject.setNetworkError("Could not listen on port 4444");
+			//System.exit(-1);
 		}
 		
 		try {
@@ -51,7 +51,7 @@ public class Server extends Thread{
 			}	
 								
 		} catch (Exception e) {
-			System.err.println("IO error " + e.getMessage());
+			gameObject.setNetworkError("IO error " + e.getMessage());
 		}
 	}
 	

@@ -33,6 +33,7 @@ public class GameObject {
 	private Network network;
 	private Screen mode;
 	private Server server;
+	private String networkError = "";
 	private SongFile[] songFiles;
 
 	private int[] scoreQuality;
@@ -159,6 +160,18 @@ public class GameObject {
 	
 	public boolean isReady(){
 		return this.isReady;
+	}
+	
+	public void setNetworkError(String error){
+		this.networkError = error;
+	}
+	
+	public String getNetworkError(){
+		return networkError;
+	}
+	
+	public void receivedPower(int _key){
+		this.inputHandler.getScreen().receivedPowerKey(_key);
 	}
 
 	public int[] getScoreQuality() {

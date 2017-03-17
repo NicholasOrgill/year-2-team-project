@@ -64,4 +64,12 @@ public class Screen {
 	public void keyReleased(int key) {
 		
 	}
+	
+	public void powerKeyPressed(int key){
+		
+	}
+	
+	public void receivedPowerKey(int key){
+		
+	}
 }

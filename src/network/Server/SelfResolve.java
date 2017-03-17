@@ -34,6 +34,8 @@ public class SelfResolve extends Thread{
 				sact.updateScore(_readline.substring(5));
 			}else if (keyword.equals("OVER:")){
 				sact.gameOver();
+			}else if (keyword.equals("POWE:")){
+				sact.setPower(_readline.substring(5));
 			}
 			
 			else {

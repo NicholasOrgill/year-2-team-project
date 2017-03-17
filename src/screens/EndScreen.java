@@ -37,6 +37,7 @@ public class EndScreen extends Screen {
 	private int scoreOut2 = 0;
 	private boolean played = false;
 	int count = 0;
+	private boolean won;
 
 	private SystemTextCenterShine resultText;
 
@@ -59,7 +60,8 @@ public class EndScreen extends Screen {
 		player1Text.shine();
 		player2Text = new SystemTextScore(getScreenWidth() - 200, 270, "" + player2Score);
 
-		if (player1Score > player2Score) {
+		whoWon();
+		if (won) {
 			resultText = new SystemTextCenterShine((getScreenWidth() / 2) - 129, 170, "YOU WIN!");
 			resultText.shine();
 		} else if (player2Score > player1Score) {
@@ -105,6 +107,13 @@ public class EndScreen extends Screen {
 
 	}
 
+	public void whoWon(){
+		if (player1Score < player2Score)
+			this.won = false;
+		else 
+			this.won = true;
+	}
+	
 	@Override
 	public void update() {
 
