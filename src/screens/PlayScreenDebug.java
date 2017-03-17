@@ -1,5 +1,6 @@
 package screens;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -232,7 +233,6 @@ public class PlayScreenDebug extends Screen {
 		for (NoteHitSprite hit : hits) {
 			hit.update();
 		}
-<<<<<<< HEAD
 		
 		// Move the texts
 		for(SystemTextCenterFloat floatText : floatTexts) {
@@ -252,9 +252,6 @@ public class PlayScreenDebug extends Screen {
 				hits.remove(i);
 			}
 		}
-		
-=======
->>>>>>> network
 
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
 	}
@@ -295,20 +292,16 @@ public class PlayScreenDebug extends Screen {
 		for (NoteHitSprite hit : hits) {
 			hit.draw(context);
 		}
-<<<<<<< HEAD
 		
 		for(SystemTextCenterFloat floatText : floatTexts) {
 			floatText.draw(context);
 		}
-		
 
-=======
 
 		context.setColor(Color.RED);
 		context.drawLine(0, lineY, getScreenWidth(), lineY);
 
 		context.setColor(Color.BLUE);
 		context.drawLine(0, lineY + 30, getScreenWidth(), lineY + 30);
->>>>>>> network
 	}
 }
