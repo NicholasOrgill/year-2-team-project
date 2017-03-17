@@ -120,7 +120,7 @@ public class SelectScreen extends Screen {
 		if (count == 50) {
 			fx.stopAll();
 			// fx.playEffect("move.wav");
-			audio.playBack("src/songmanager/Tetris.wav");
+			audio.playBack("data/audio/tetris.wav");
 
 		}
 		
