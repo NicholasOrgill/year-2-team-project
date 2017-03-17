@@ -67,10 +67,16 @@ public class Player {
 
 	public void stopPlaying() {
 		isPause = false;
-		timer.reset();
-		timer.interrupt();
+		if(timer != null) {
+			timer.reset();
+			timer.interrupt();
+		}
+		
 		player.stop();
-		playbackThread.interrupt();
+		if(playbackThread != null) {
+			playbackThread.interrupt();
+		}
+		
 	}
 
 	public void pausePlaying() {
