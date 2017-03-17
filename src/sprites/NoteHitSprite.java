@@ -8,7 +8,7 @@ import engine.Sprite;
 public class NoteHitSprite extends Sprite {
 	int opac = 255;
 	int opacTarget = 0;
-
+	boolean rem = false;
 	int maxWidth = (int) (getWidth() * 1.75);
 	int maxHeight = (int) (getHeight() * 1.75);
 
@@ -23,8 +23,14 @@ public class NoteHitSprite extends Sprite {
 			setHeight(getHeight() + 1 + Math.abs(getHeight() - maxHeight) / 3);
 			opac -= 1 + Math.abs(opac - opacTarget) / 3;
 			opac = Math.max(0, opac); // making sure opacity is not negative
+		} else {
+			rem = true;
 		}
 		
+	}
+	
+	public boolean shouldRemove() {
+		return rem;
 	}
 
 	@Override

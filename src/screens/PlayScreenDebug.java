@@ -1,6 +1,5 @@
 package screens;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,11 +18,13 @@ import sprites.NoteHitSprite;
 import sprites.NoteSprite;
 import sprites.PlaySprite;
 import sprites.SystemTextCenter;
+import sprites.SystemTextCenterFloat;
+import sprites.SystemTextCenterShine;
 import utils.ColorPack;
 
 /**
  * 
- * @author Nicholas Orgill
+ * @author Bobby Dilley
  *
  */
 public class PlayScreenDebug extends Screen {
@@ -60,12 +61,20 @@ public class PlayScreenDebug extends Screen {
 	SongArray[] songArray;
 
 	int n = 0;
+	
+	private ArrayList<SystemTextCenterFloat> floatTexts = new ArrayList<SystemTextCenterFloat>();
+	
 
 	public PlayScreenDebug(GameObject gameObject) {
 		super(gameObject);
 		textSprite = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 100, "Game AI: Easy");
 		textScore = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 80, "SinglePlayer");
 		playSprite = new PlaySprite(0, 0, 0, 0, 0.5);
+		
+		
+		
+		
+		
 	}
 
 	@Override
@@ -87,14 +96,23 @@ public class PlayScreenDebug extends Screen {
 			textSprite.setText("Perfect!");
 			score+=100;
 			scoreQuality[0]++;
+			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "PERFECT");
+			floatText.shine();
+			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().EXCELLENT) {
 			textSprite.setText("Excellent!");
 			score+=75;
 			scoreQuality[1]++;
+			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "EXCELLENT");
+			floatText.shine();
+			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().GOOD) {
 			textSprite.setText("Good!");
 			score+=50;
 			scoreQuality[2]++;
+			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "GOOD");
+			floatText.shine();
+			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().OKAY) {
 			textSprite.setText("Okay!");
 			score+=25;
@@ -102,6 +120,9 @@ public class PlayScreenDebug extends Screen {
 		} else {
 			textSprite.setText("Bad!");
 			scoreQuality[4]++;
+			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "BAD");
+			floatText.shine();
+			floatTexts.add(floatText);
 		}
 		textScore.setText(""+score);
 	}
@@ -201,6 +222,25 @@ public class PlayScreenDebug extends Screen {
 		for (NoteHitSprite hit : hits) {
 			hit.update();
 		}
+		
+		// Move the texts
+		for(SystemTextCenterFloat floatText : floatTexts) {
+			floatText.setScreenSize(getScreenWidth(), getScreenHeight());
+			floatText.update();
+		}
+		
+		for(SystemTextCenterFloat floatText : floatTexts) {
+			if(floatText.shouldRemove()) {
+				floatTexts.remove(floatText);
+			}
+		}
+		
+		for (NoteHitSprite hit : hits) {
+			if(hit.shouldRemove()) {
+				hits.remove(hit);
+			}
+		}
+		
 
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
 	}
@@ -224,7 +264,6 @@ public class PlayScreenDebug extends Screen {
 
 		for (int i = n; i < notes.length; i++) {
 			noteSprite[i].draw(context);
-			context.drawLine(0, noteSprite[i].getY() - 30, getScreenWidth(), noteSprite[i].getY() - 30);
 		}
 
 		// Initial box for things to go in
@@ -242,11 +281,11 @@ public class PlayScreenDebug extends Screen {
 		for (NoteHitSprite hit : hits) {
 			hit.draw(context);
 		}
+		
+		for(SystemTextCenterFloat floatText : floatTexts) {
+			floatText.draw(context);
+		}
+		
 
-		context.setColor(Color.RED);
-		context.drawLine(0, lineY, getScreenWidth(), lineY);
-
-		context.setColor(Color.BLUE);
-		context.drawLine(0, lineY + 30, getScreenWidth(), lineY + 30);
 	}
 }
