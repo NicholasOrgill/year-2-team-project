@@ -75,9 +75,14 @@ public class OppoAction {
 		toOppo.println("OVER:");//send key word to client to end game
 	}
 	
-	public void setPower(String _key){
+	public void receivedPressedKey(String _key){
 		int key = Integer.parseInt(_key);
-		gameObject.receivedPower(key);
+		gameObject.receivedKeyPressed(key);
+	}
+	
+	public void receivedReleasedKey(String _key){
+		int key = Integer.parseInt(_key);
+		gameObject.receivedKeyPressed(key);
 	}
 	
 	public void invalidMsg(){

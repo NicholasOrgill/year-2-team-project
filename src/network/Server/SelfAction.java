@@ -76,8 +76,12 @@ public class SelfAction {
 		toOppo.println("OVER:");//send key word to client to end game
 	}
 	
-	public void setPower(String _key){
-		toOppo.println("POWE:"+_key);
+	public void sendPressedKey(String _key){
+		toOppo.println("PREE:"+_key);
+	}
+	
+	public void sendReleasedKey(String _key){
+		toOppo.println("RELE:"+_key);
 	}
 	
 	public void invalidMsg(){
