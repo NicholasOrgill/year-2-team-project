@@ -84,10 +84,24 @@ public class SelfAction {
 		toOppo.println("RELE:"+_key);
 	}
 	
+	public void sendPower(String _power) {
+		toOppo.println("POWE:"+_power);
+	}
+
+	public void sendCombo(String _combo) {
+		toOppo.println("COMB:"+_combo);
+	}
+
+	public void sendText(String _text) {
+		toOppo.println("TEXT:"+_text);
+	}
+	
 	public void invalidMsg(){
 		String msg = "Invalid Message";
 		System.out.println(msg);
 	}
+
+	
 	
 	
 }

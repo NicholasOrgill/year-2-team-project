@@ -82,13 +82,29 @@ public class OppoAction {
 	
 	public void receivedReleasedKey(String _key){
 		int key = Integer.parseInt(_key);
-		gameObject.receivedKeyPressed(key);
+		gameObject.receivedKeyReleased(key);
+	}
+	
+	public void receivedPower(String _power) {
+		int power = Integer.parseInt(_power);
+		gameObject.setP2Power(power);
+	}
+
+	public void receivedCombo(String _combo) {
+		int combo = Integer.parseInt(_combo);
+		gameObject.setP2Combo(combo);
+	}
+
+	public void receivedText(String _text) {
+		gameObject.setP2Text(_text);
 	}
 	
 	public void invalidMsg(){
 		String msg = "Invalid Message";
 		toOppo.println(msg);
 	}
+
+
 	
 	
 }

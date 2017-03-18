@@ -28,6 +28,12 @@ public class OppoResolve {
 				action.receivedPressedKey(_readline.substring(5));
 			}else if (keyword.equals("RELE:")){
 				action.receivedReleasedKey(_readline.substring(5));
+			}else if (keyword.equals("POWE:")){
+				action.receivedPower(_readline.substring(5));
+			}else if (keyword.equals("COMB:")){
+				action.receivedCombo(_readline.substring(5));
+			}else if (keyword.equals("TEXT:")){
+				action.receivedText(_readline.substring(5));
 			}
 			
 			else {

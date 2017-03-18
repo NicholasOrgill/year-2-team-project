@@ -38,6 +38,12 @@ public class SelfResolve extends Thread{
 				sact.sendPressedKey(_readline.substring(5));
 			}else if (keyword.equals("RELE:")){
 				sact.sendReleasedKey(_readline.substring(5));
+			}else if (keyword.equals("POWE:")){
+				sact.sendPower(_readline.substring(5));
+			}else if (keyword.equals("COMB:")){
+				sact.sendCombo(_readline.substring(5));
+			}else if (keyword.equals("TEXT:")){
+				sact.sendText(_readline.substring(5));
 			}
 			
 			else {
