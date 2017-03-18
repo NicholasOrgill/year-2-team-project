@@ -18,7 +18,11 @@ import sprites.SystemTextKern;
 import sprites.SystemTextShine;
 import utils.ColorPack;
 import utils.ImageLoader;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class SelectScreen extends Screen {
 
 	private ImageSprite image;
@@ -42,6 +46,7 @@ public class SelectScreen extends Screen {
 	
 	private BufferedImage backImage;
 	
+	private int currentSelector = 0;
 
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
@@ -50,6 +55,25 @@ public class SelectScreen extends Screen {
 			audio.stopPlaying();
 			setNextScreen(getGameObject().getMode());
 			moveScreen();
+		}
+		
+		if (key == InputHandler.PLAYKEY2) {
+			if(currentSelector == 0) {
+				currentSelector = getGameObject().getSongFiles().length - 1;
+			} else {
+				currentSelector--;
+			}
+			pageUpdate();
+			
+		}
+		
+		if (key == InputHandler.PLAYKEY3) {
+			if(currentSelector == getGameObject().getSongFiles().length - 1) {
+				currentSelector = 0;
+			} else {
+				currentSelector++;
+			}
+			pageUpdate();
 		}
 	}
 
@@ -86,15 +110,27 @@ public class SelectScreen extends Screen {
 
 		textSprite = new SystemTextKern(20, 30, "FIRST SONG");
 		
-		backImage = gameObject.getSongFiles()[0].getCoverArt();
+		backImage = gameObject.getSongFiles()[currentSelector].getCoverArt();
 		
 		
 		
-		image = new ImageSprite(getScreenWidth() / 2, (int)(getScreenHeight() * 0.4), ImageLoader.loadImageFromResource("src/res/images/konami_logo.png"));
+		image = new ImageSprite(getScreenWidth() / 2, (int)(getScreenHeight() * 0.4), backImage);
 		image.setScreenSize(getScreenWidth(), getScreenHeight());
 		image.setSize(0.5f);
 		
 
+	}
+	
+	public void pageUpdate() {
+		backImage = getGameObject().getSongFiles()[currentSelector].getCoverArt();
+		image.setImage(backImage);
+		System.out.println("UPDATE CALLED");
+		
+		fx.stopAll();
+		
+		audio.stopPlaying();
+		audio.playBack(getGameObject().getSongFiles()[currentSelector].getAudioInputPath());
+		
 	}
 
 	@Override
@@ -118,9 +154,7 @@ public class SelectScreen extends Screen {
 		dotBackground.update();
 
 		if (count == 50) {
-			fx.stopAll();
-			// fx.playEffect("move.wav");
-			audio.playBack("data/audio/tetris.wav");
+			pageUpdate();
 
 		}
 		

@@ -65,11 +65,11 @@ public class Screen {
 		
 	}
 	
-	public void powerKeyPressed(int key){
+	public void oppoKeyPressed(int key){
 		
 	}
 	
-	public void receivedPowerKey(int key){
+	public void oppoKeyReleased(int key){
 		
 	}
 }

@@ -9,7 +9,11 @@ import sprites.ImageSprite;
 import sprites.MessageSprite;
 import utils.ColorPack;
 import utils.ImageLoader;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class StartScreen extends Screen {
 	int counter = 0;
 	private ImageSprite image;
@@ -40,6 +44,8 @@ public class StartScreen extends Screen {
 		image.setScreenSize(getScreenWidth(), getScreenHeight());
 		image.setSize(0.7f);
 		image.setOpacity(0);
+		
+		System.out.println("Songs Installed: " + getGameObject().getSongFiles().length);
 	}
 
 	@Override

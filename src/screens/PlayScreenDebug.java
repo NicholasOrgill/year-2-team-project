@@ -1,6 +1,5 @@
 package screens;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +20,7 @@ import sprites.NoteSprite;
 import sprites.PlaySprite;
 import sprites.SystemTextCenter;
 import sprites.SystemTextCenterFloat;
-import sprites.SystemTextCenterShine;
+import sprites.SystemTextCenterShake;
 import utils.ColorPack;
 
 /**
@@ -40,6 +39,8 @@ public class PlayScreenDebug extends Screen {
 	boolean[] keys = { false, false, false, false };
 	final int MAX_NOTE_SCORE = 200;
 	final int MAX_NOTE_RANGE = 200;
+	int combo = 0;
+	int power = 0;
 
 	int lineY = (int) Math.round(getScreenHeight() * 0.8);
 
@@ -63,20 +64,15 @@ public class PlayScreenDebug extends Screen {
 	SongArray[] songArray;
 
 	int n = 0;
-	
+
 	private ArrayList<SystemTextCenterFloat> floatTexts = new ArrayList<SystemTextCenterFloat>();
-	
 
 	public PlayScreenDebug(GameObject gameObject) {
 		super(gameObject);
-		textSprite = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 100, "Game AI: Easy");
-		textScore = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 80, "SinglePlayer");
+		textSprite = new SystemTextCenter(getScreenWidth() / 2 - 200, 100, "Game AI: Easy");
+		textScore = new SystemTextCenter(getScreenWidth() / 2 + 200, 100, "SinglePlayer");
 		playSprite = new PlaySprite(0, 0, 0, 0, 0.5);
-		
-		
-		
-		
-		
+
 	}
 
 	@Override
@@ -97,47 +93,66 @@ public class PlayScreenDebug extends Screen {
 		}
 	}
 
+	/*
 	@Override
 	public void powerKeyPressed(int key) {
 		System.out.println("on p");
-	}
+	}*/
 
 	public void scoreHelper(int difference) {
 		if (difference <= getGameObject().PERFECT) {
-			textSprite.setText("Perfect!");
+			combo++;
+			if(combo > 5) {
+				power+=combo;
+			}
 			score += 100;
 			scoreQuality[0]++;
 			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "PERFECT");
 			floatText.shine();
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().EXCELLENT) {
-			textSprite.setText("Excellent!");
+			combo++;
+			if(combo > 5) {
+				power+=combo;
+			}
 			score += 75;
 			scoreQuality[1]++;
 			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "EXCELLENT");
 			floatText.shine();
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().GOOD) {
-			textSprite.setText("Good!");
+			combo = 0;
+			power-=10;
 			score += 50;
 			scoreQuality[2]++;
 			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "GOOD");
 			floatText.shine();
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().OKAY) {
-			textSprite.setText("Okay!");
+			power-=10;
+			combo = 0;
 			score += 25;
 			scoreQuality[3]++;
 		} else {
-			textSprite.setText("Bad!");
 			scoreQuality[4]++;
-			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "BAD");
-			floatText.shine();
-			floatTexts.add(floatText);
+			bad();
 		}
 		textScore.setText("" + score);
+		
+		power = Math.min(100, Math.max(0, power));
+		
+		textSprite.setText("COMBO: " + combo + "POWER: " + power + "%");
 	}
 
+	public void bad() {
+		power--;
+		combo = 0;
+		SystemTextCenterShake floatText = new SystemTextCenterShake(getScreenWidth() / 2, 280, "BAD");
+		floatText.shine();
+		floatTexts.add(floatText);
+		textSprite.setText("COMBO: " + combo + "POWER: " + power + "%");
+	}
+	
 	@Override
 	public void update() {
 		getGameObject().setSpeed(0.4);
@@ -149,8 +164,8 @@ public class PlayScreenDebug extends Screen {
 			moveScreen();
 		}
 
-		if (count == 0) {
-			audio.playBack("src/songmanager/Tetris.wav");
+		else if (count == 0) {
+			audio.playBack("data/audio/tetris.wav");
 			reader = new SongFileProcessor();
 			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
 			beat = song.getBeats();
@@ -185,7 +200,7 @@ public class PlayScreenDebug extends Screen {
 			noteSprite[i].update();
 
 			noteSprite[i]
-					.setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSprite[i].getLength() / 3));
+					.setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSprite[i].getLength() / 3) + getGameObject().getOffset());
 
 			// If the note is in the playing area
 			if (noteSprite[i].isRemoved() == false) {
@@ -214,8 +229,14 @@ public class PlayScreenDebug extends Screen {
 				}
 
 				// When the note is finished, increment the start of the array
-				if (noteSprite[i].isRemoved() && noteSprite[i].getY() > getScreenHeight()) {
-					n++;
+				if (noteSprite[i].getY() > getScreenHeight()) {
+					if(noteSprite[i].isRemoved()) {
+						n++;
+					} else {
+						n++;
+						bad();
+					}
+					
 				}
 			}
 
@@ -233,22 +254,21 @@ public class PlayScreenDebug extends Screen {
 		for (NoteHitSprite hit : hits) {
 			hit.update();
 		}
-		
+
 		// Move the texts
-		for(SystemTextCenterFloat floatText : floatTexts) {
+		for (SystemTextCenterFloat floatText : floatTexts) {
 			floatText.setScreenSize(getScreenWidth(), getScreenHeight());
 			floatText.update();
 		}
-		
-				
-		for(int i = floatTexts.size() - 1; i > 0 ;i--) {
-			if(floatTexts.get(i).shouldRemove()) {
+
+		for (int i = floatTexts.size() - 1; i > 0; i--) {
+			if (floatTexts.get(i).shouldRemove()) {
 				floatTexts.remove(i);
 			}
 		}
-		
-		for(int i = hits.size() - 1; i > 0 ;i--) {
-			if(hits.get(i).shouldRemove()) {
+
+		for (int i = hits.size() - 1; i > 0; i--) {
+			if (hits.get(i).shouldRemove()) {
 				hits.remove(i);
 			}
 		}
@@ -292,16 +312,11 @@ public class PlayScreenDebug extends Screen {
 		for (NoteHitSprite hit : hits) {
 			hit.draw(context);
 		}
-		
-		for(SystemTextCenterFloat floatText : floatTexts) {
+
+		for (SystemTextCenterFloat floatText : floatTexts) {
 			floatText.draw(context);
 		}
 
 
-		context.setColor(Color.RED);
-		context.drawLine(0, lineY, getScreenWidth(), lineY);
-
-		context.setColor(Color.BLUE);
-		context.drawLine(0, lineY + 30, getScreenWidth(), lineY + 30);
 	}
 }

@@ -13,8 +13,8 @@ import songmanager.SongFile;
  */
 public class GameObject {
 	
-	public final int PERFECT = 5;
-	public final int EXCELLENT = 15;
+	public final int PERFECT = 10;
+	public final int EXCELLENT = 20;
 	public final int GOOD = 30;
 	public final int OKAY = 50;
 	
@@ -38,11 +38,15 @@ public class GameObject {
 
 	private int[] scoreQuality;
 	private double speed;
-
+	
 	public GameObject(int width, int height) {
 		this.width = width;
 		this.height = height;
 		songFiles = songmanager.SongFileProcessor.readAllSongFiles();
+	}
+	
+	public int getOffset() {
+		return 25;
 	}
 	
 	public boolean isServer() {
@@ -170,8 +174,12 @@ public class GameObject {
 		return networkError;
 	}
 	
-	public void receivedPower(int _key){
-		this.inputHandler.getScreen().receivedPowerKey(_key);
+	public void receivedKeyPressed(int _key){
+		this.inputHandler.getScreen().oppoKeyPressed(_key);
+	}
+	
+	public void receivedKeyReleased(int _key){
+		this.inputHandler.getScreen().oppoKeyReleased(_key);
 	}
 
 	public int[] getScoreQuality() {

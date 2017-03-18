@@ -5,7 +5,11 @@ import java.awt.Graphics;
 import engine.GameObject;
 import engine.Screen;
 import sprites.SystemTextCenterFade;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class Overlay extends Screen {
 	private SystemTextCenterFade middleBottom;
 

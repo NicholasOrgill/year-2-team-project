@@ -55,7 +55,7 @@ public class InputHandler implements KeyListener {
 		}
 		if(!powerKey.isEmpty()){
 			if (e.getKeyCode() == powerKey.get(0)) {
-				screen.powerKeyPressed(POWERKEY);
+				screen.keyPressed(POWERKEY);
 			}
 		}
 	}

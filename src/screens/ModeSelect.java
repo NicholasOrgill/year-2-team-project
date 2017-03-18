@@ -16,7 +16,11 @@ import sprites.SystemBox;
 import sprites.SystemText;
 import sprites.SystemTextCenterShine;
 import utils.ColorPack;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class ModeSelect extends Screen {
 
 	private SystemText textSprite;

@@ -14,7 +14,11 @@ import sprites.SystemTextCenterShine;
 import sprites.SystemTextKern;
 import sprites.SystemTextScore;
 import utils.ColorPack;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class EndScreen extends Screen {
 
 	private SystemTextKern textSprite;
@@ -98,13 +102,13 @@ public class EndScreen extends Screen {
 		howWell[4] = getGameObject().getScoreQuality()[1];
 		howWell[5] = (getGameObject().getScoreQuality()[1] + getGameObject().getScoreQuality()[0]) / 2;
 		howWell[6] = getGameObject().getScoreQuality()[0];
-		
+		/*
 		System.out.println(getGameObject().getScoreQuality()[4]);
 		System.out.println(getGameObject().getScoreQuality()[3]);
 		System.out.println(getGameObject().getScoreQuality()[2]);
 		System.out.println(getGameObject().getScoreQuality()[1]);
 		System.out.println(getGameObject().getScoreQuality()[0]);
-
+		*/
 	}
 
 	public void whoWon(){

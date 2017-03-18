@@ -6,7 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class CenterTextSprite extends TextSprite {
 
 	public CenterTextSprite(int x, int y, String text) {

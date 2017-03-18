@@ -19,7 +19,11 @@ import sprites.SystemBox;
 import sprites.SystemText;
 import utils.ColorPack;
 import utils.ImageLoader;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class TitleScreen extends Screen {
 
 	private SystemText textSprite;

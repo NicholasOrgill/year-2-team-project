@@ -7,7 +7,11 @@ import engine.Screen;
 import input.InputHandler;
 import sprites.SystemText;
 import utils.ColorPack;
-
+/**
+ * 
+ * @author Bobby Dilley
+ *
+ */
 public class ExampleScreen extends Screen {
 
 	private SystemText textSprite; // An example text sprite

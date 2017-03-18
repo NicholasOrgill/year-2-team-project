@@ -34,9 +34,12 @@ public class ClientResolve extends Thread {
 			} else if (keyword.equals("SCOR:")) {
 				int score = Integer.parseInt(_readline.substring(5));
 				gameObject.setP2Score(score);
-			} else if (keyword.equals("POWE:")) {
+			} else if (keyword.equals("PREE:")) {
 				int key = Integer.parseInt(_readline.substring(5));
-				gameObject.receivedPower(key);
+				gameObject.receivedKeyPressed(key);
+			} else if (keyword.equals("RELE:")) {
+				int key = Integer.parseInt(_readline.substring(5));
+				gameObject.receivedKeyReleased(key);
 			}else{
 				System.out.println(_readline);
 			}
