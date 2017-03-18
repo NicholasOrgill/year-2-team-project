@@ -370,7 +370,7 @@ public class SongFileProcessor {
 		EofRepacker repacker = new EofRepacker();
 		SongObject obj = repacker.getSongObjectFromBassFile("data/PART REAL_BASS_RS2.xml");
 		SongFileProcessor processor = new SongFileProcessor();
-		processor.writeSongObjectToXML(obj, "data/xml/secrets.xml");
+		processor.writeSongObjectToXML(obj, "data/xml/laser.xml");
 		*/
 		
 		/* Create a song object from the SongFile XML
