@@ -94,6 +94,8 @@ public class EofRepacker {
 				Note chord = new Note(startTime, sustain, buttons);
 				notes[singleNoteCount + i] = chord;
 			}
+			SongFileProcessor processor = new SongFileProcessor();
+			notes = processor.sortNotes(notes);
 			
 			// Create and return a SongObject
 			SongObject obj = new SongObject(title, artist, songLength, averageTempo, startBeat, notes, beats);

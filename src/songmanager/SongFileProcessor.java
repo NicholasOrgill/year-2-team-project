@@ -347,7 +347,7 @@ public class SongFileProcessor {
 	 * @param notes Unsorted Note array
 	 * @return Sorted Note array
 	 */
-	private Note[] sortNotes(Note[] notes) {
+	public Note[] sortNotes(Note[] notes) {
 		// Add each element of array to a TreeMap
 		TreeMap<Integer, Note> notesMap = new TreeMap<Integer, Note>();
 		int noteArrayLength = notes.length;
@@ -368,9 +368,9 @@ public class SongFileProcessor {
 	public static void main(String[] args) {
 		/* Convert RS2 Bass to SongFile XML
 		EofRepacker repacker = new EofRepacker();
-		SongObject obj = repacker.getSongObjectFromBassFile("src/songmanager/PART REAL_BASS_RS2.xml");
+		SongObject obj = repacker.getSongObjectFromBassFile("data/PART REAL_BASS_RS2.xml");
 		SongFileProcessor processor = new SongFileProcessor();
-		processor.writeSongObjectToXML(obj, "src/songmanager/songfile.xml");
+		processor.writeSongObjectToXML(obj, "data/xml/secrets.xml");
 		*/
 		
 		/* Create a song object from the SongFile XML
@@ -397,9 +397,10 @@ public class SongFileProcessor {
 		SongFile readFile = processor.readSongFile("src/songmanager/tetris.song");
 		*/
 		
-		/* Test readAllSongFiles() */
+		/* Test readAllSongFiles()
 		SongFile[] songFiles = SongFileProcessor.readAllSongFiles();
 		System.out.println(songFiles.length);
+		*/
 	}
 }
 
