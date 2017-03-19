@@ -209,7 +209,7 @@ public class SongFileProcessor {
 	public void writeSongFile(SongFile songFileObj, String filePath) {
 		try {
 			// Read in xml file
-			String noteFilePath = "src/songmanager/tempnotefile.xml";
+			String noteFilePath = "data/test/tempnotefile.xml";
 			writeSongObjectToXML(songFileObj.getSong(), noteFilePath);
 			File notesFile = new File(noteFilePath);
 			byte[] notesFileBytes = new byte[(int)notesFile.length()];
