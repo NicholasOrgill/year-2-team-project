@@ -13,6 +13,7 @@ import engine.Screen;
 import input.InputHandler;
 import songmanager.Beat;
 import songmanager.Note;
+import songmanager.SongFile;
 import songmanager.SongFileProcessor;
 import songmanager.SongObject;
 import sprites.BarSprite;
@@ -56,8 +57,8 @@ public class AIPlayScreen extends Screen {
 	private NoteSprite[] noteSpriteRight;
 	private NoteSprite[] noteSpriteAI;
 
-	private int aiLevel = 0;
-	private int origAiLevel = 0;
+	private int aiLevel;
+	private int origAiLevel;
 
 	private int[] scoreQuality = new int[5];
 
@@ -76,6 +77,7 @@ public class AIPlayScreen extends Screen {
 	private int aiPower;
 	private int endPower = 0;
 	private SystemTextCenterFloat powerText;
+	private SongFile songFile;
 
 	@Override
 	public void keyPressed(int key) {
@@ -148,7 +150,8 @@ public class AIPlayScreen extends Screen {
 			if (!ai)
 				scoreQuality[1]++;
 		} else if (difference <= getGameObject().GOOD) {
-			playerCombo++;
+			playerCombo = 0;
+			playerPower -=10;
 			text.setText("GOOD!");
 			text.shine();
 			floatTexts.add(text);
@@ -156,8 +159,8 @@ public class AIPlayScreen extends Screen {
 			if (!ai)
 				scoreQuality[2]++;
 		} else if (difference <= getGameObject().OKAY) {
-			playerCombo++;
-			playerPower -= 5;
+			playerCombo = 0;
+			playerPower -= 10;
 			text.setText("OKAY!");
 			text.shine();
 			floatTexts.add(text);
@@ -189,6 +192,7 @@ public class AIPlayScreen extends Screen {
 	}
 
 	public void bad(boolean ai) {
+		scoreQuality[4]++;
 		SystemTextCenterShake shakeText;
 		if (ai) {
 			shakeText = new SystemTextCenterShake((int) (getScreenWidth() * 0.75), 280, "BAD");
@@ -207,7 +211,7 @@ public class AIPlayScreen extends Screen {
 
 	public AIPlayScreen(GameObject gameObject) {
 		super(gameObject);
-		textAILevel = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 30, "Game AI: Expert");
+		textAILevel = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 30, "Difficulty: " + getGameObject().getAiLevelText());
 
 		leftScore = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 105, "0");
 		rightScore = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 105, "0");
@@ -235,16 +239,18 @@ public class AIPlayScreen extends Screen {
 		}
 
 		if (count == 0) {
-			audio.playBack("data/audio/tetris.wav");
-			reader = new SongFileProcessor();
-			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
+			songFile = getGameObject().getSongFile();
+			song = songFile.getSong();
 			beat = song.getBeats();
 			notes = song.getNotes();
-
 			SimpleAI ai = new SimpleAI();
 			songArray = ai.recreateArray(song, 10);
-
-			AINotes = songArray[aiLevel].getNotes();
+			
+			audio.playBack(songFile.getAudioInputPath());
+			
+			origAiLevel = getGameObject().getAiLevel();
+			textAILevel.setText("Difficulty: " + getGameObject().getAiLevelText());
+			AINotes = songArray[origAiLevel].getNotes();
 			barSpriteLeft = new BarSprite[beat.length];
 			barSpriteRight = new BarSprite[beat.length];
 			noteSpriteLeft = new NoteSprite[notes.length];

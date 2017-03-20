@@ -53,7 +53,7 @@ public class ModeSelect extends Screen {
 			if (select == 0) {
 				getGameObject().setMode(new PlayScreenDebug(getGameObject()));
 			} else if (select == 1) {
-				getGameObject().setMode(new AIPlayScreen(getGameObject()));
+				getGameObject().setMode(new AISelectScreen(getGameObject()));
 			} else if (select == 2) {
 				getGameObject().setMode(new NetworkSelect(getGameObject()));
 			}
