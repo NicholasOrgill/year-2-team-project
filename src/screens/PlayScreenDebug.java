@@ -67,6 +67,8 @@ public class PlayScreenDebug extends Screen {
 	int n = 0;
 	
 	private SongFile songFile;
+	
+	private boolean complete = false;
 
 	private ArrayList<SystemTextCenterFloat> floatTexts = new ArrayList<SystemTextCenterFloat>();
 
@@ -163,16 +165,18 @@ public class PlayScreenDebug extends Screen {
 		getGameObject().setSpeed(0.4);
 		speedScale = getGameObject().getSpeed();
 		if (audio.getAudioPlayer().playCompleted) {
-			getGameObject().setP1Score(score);
-			getGameObject().setScoreQuality(scoreQuality);
-			setNextScreen(new EndScreen(getGameObject()));
-			moveScreen();
+			if(!complete) {
+				getGameObject().setP1Score(score);
+				getGameObject().setScoreQuality(scoreQuality);
+				setNextScreen(new EndScreen(getGameObject()));
+				moveScreen();
+				complete = true;
+			}
+			
 		}
 
 		else if (count == 0) {
 			songFile = getGameObject().getSongFile();
-			//reader = new SongFileProcessor();
-			//song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
 			song = songFile.getSong();
 			beat = song.getBeats();
 			notes = song.getNotes();
