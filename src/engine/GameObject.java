@@ -36,6 +36,8 @@ public class GameObject {
 	private String networkError = "";
 	private SongFile[] songFiles;
 
+	private SongFile songFile;
+	
 	private int[] scoreQuality;
 	private double speed;
 	
@@ -200,6 +202,14 @@ public class GameObject {
 	
 	public SongFile[] getSongFiles() {
 		return this.songFiles;
+	}
+	
+	public void setSongFile(SongFile songFile) {
+		this.songFile = songFile;
+	}
+	
+	public SongFile getSongFile() {
+		return songFile;
 	}
 
 }

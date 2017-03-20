@@ -12,6 +12,7 @@ import engine.Screen;
 import input.InputHandler;
 import songmanager.Beat;
 import songmanager.Note;
+import songmanager.SongFile;
 import songmanager.SongFileProcessor;
 import songmanager.SongObject;
 import sprites.BarSprite;
@@ -64,6 +65,8 @@ public class PlayScreenDebug extends Screen {
 	SongArray[] songArray;
 
 	int n = 0;
+	
+	private SongFile songFile;
 
 	private ArrayList<SystemTextCenterFloat> floatTexts = new ArrayList<SystemTextCenterFloat>();
 
@@ -72,6 +75,8 @@ public class PlayScreenDebug extends Screen {
 		textSprite = new SystemTextCenter(getScreenWidth() / 2 - 200, 100, "Game AI: Easy");
 		textScore = new SystemTextCenter(getScreenWidth() / 2 + 200, 100, "SinglePlayer");
 		playSprite = new PlaySprite(0, 0, 0, 0, 0.5);
+		
+		this.songFile = getGameObject().getSongFile();
 
 	}
 
@@ -165,14 +170,17 @@ public class PlayScreenDebug extends Screen {
 		}
 
 		else if (count == 0) {
-			audio.playBack("data/audio/tetris.wav");
-			reader = new SongFileProcessor();
-			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
+			songFile = getGameObject().getSongFile();
+			//reader = new SongFileProcessor();
+			//song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
+			song = songFile.getSong();
 			beat = song.getBeats();
 			notes = song.getNotes();
 			Pnotes = new ArrayList<Note>(Arrays.asList(notes));
 			SimpleAI ai = new SimpleAI();
 			songArray = ai.recreateArray(song, 10);
+			
+			audio.playBack(songFile.getAudioInputPath());
 
 			note2 = songArray[6].getNotes();
 			barSprite = new BarSprite[beat.length];

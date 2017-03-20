@@ -8,6 +8,7 @@ import audio.SoundHandler;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
+import songmanager.SongFile;
 import songmanager.SongFileProcessor;
 import sprites.DotSpriteBackground;
 import sprites.FancyCenterTextSprite;
@@ -47,10 +48,13 @@ public class SelectScreen extends Screen {
 	private BufferedImage backImage;
 	
 	private int currentSelector = 0;
+	
+	private SongFile songFile;
 
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
 		if (key == InputHandler.PLAYKEY0) {
+			getGameObject().setSongFile(songFile);
 			fx.playEffect("bang.wav");
 			audio.stopPlaying();
 			setNextScreen(getGameObject().getMode());
@@ -88,7 +92,7 @@ public class SelectScreen extends Screen {
 		nameText = new SystemTextShine(78, 430, "Tetris Theme Tune");
 		nameText.setFontSize(0.032);
 
-		byText = new SystemTextShine(78, 450, "Robert Dilley");
+		byText = new SystemTextShine(78, 454, "Robert Dilley");
 		byText.setFontSize(0.022);
 
 		typeText = new SystemTextCenterShine(getScreenWidth() - 142, 280, "EXTREME");
@@ -122,14 +126,20 @@ public class SelectScreen extends Screen {
 	}
 	
 	public void pageUpdate() {
-		backImage = getGameObject().getSongFiles()[currentSelector].getCoverArt();
+		songFile = getGameObject().getSongFiles()[currentSelector];
+		backImage = songFile.getCoverArt();
 		image.setImage(backImage);
 		System.out.println("UPDATE CALLED");
 		
 		fx.stopAll();
 		
+		
 		audio.stopPlaying();
-		audio.playBack(getGameObject().getSongFiles()[currentSelector].getAudioInputPath());
+		
+		nameText.setText(songFile.getSong().getTitle());
+		byText.setText(songFile.getSong().getArtist());
+		
+		audio.playBack(songFile.getAudioInputPath());
 		
 	}
 
