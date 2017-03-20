@@ -50,10 +50,10 @@ public class SimpleAI {
 		Note[] newNotes = new Note[notes.length];
 		Random rand = new Random();
 		for (int i = 0; i < notes.length; i++) {
-			// Generates new beat timing with +/- 25 ms on the original timing
+			// Generates new beat timing with +/- 15 ms on the original timing
 			// (multiplied by the current level)
-			int newTime = notes[i].getTime() + rand.nextInt(50 * currentLevel + 1)
-					- rand.nextInt(50 * currentLevel + 1);
+			int newTime = notes[i].getTime() + rand.nextInt(20 * currentLevel + 1)
+					- rand.nextInt(20 * currentLevel + 1);
 			// Creates a new note with the new timing, same sustain and same
 			// buttons
 			newNotes[i] = new Note(newTime, notes[i].getSustain(), notes[i].getButtons());
@@ -74,10 +74,10 @@ public class SimpleAI {
 		Beat[] newBeats = new Beat[beats.length];
 		Random rand = new Random();
 		for (int i = 0; i < beats.length; i++) {
-			// Generates new beat timing with +/- 25 ms on the original timing
+			// Generates new beat timing with +/- 15 ms on the original timing
 			// (multiplied by the current level)
-			int newTime = beats[i].getTime() + rand.nextInt(50 * currentLevel + 1)
-					- rand.nextInt(50 * currentLevel + 1);
+			int newTime = beats[i].getTime() + rand.nextInt(20 * currentLevel + 1)
+					- rand.nextInt(20 * currentLevel + 1);
 			// Creates a new note with the new timing and same measure
 			newBeats[i] = new Beat(newTime, beats[i].getMeasure());
 		}

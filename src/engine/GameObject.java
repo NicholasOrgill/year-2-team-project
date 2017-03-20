@@ -41,6 +41,9 @@ public class GameObject {
 	private int[] scoreQuality;
 	private double speed;
 	
+	private int aiLevel;
+	private String aiLevelText;
+	
 	public GameObject(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -210,6 +213,22 @@ public class GameObject {
 	
 	public SongFile getSongFile() {
 		return songFile;
+	}
+
+	public int getAiLevel() {
+		return aiLevel;
+	}
+
+	public void setAiLevel(int aiLevel) {
+		this.aiLevel = aiLevel;
+	}
+
+	public String getAiLevelText() {
+		return aiLevelText;
+	}
+
+	public void setAiLevelText(String aiLevelText) {
+		this.aiLevelText = aiLevelText;
 	}
 
 }
