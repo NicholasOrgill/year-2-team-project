@@ -202,6 +202,7 @@ public class NetworkPlayScreen extends Screen {
 				sendPower(power);
 				scoreQuality[3]++;
 		} else {
+			scoreQuality[4]++;
 			bad();
 		}
 		
@@ -219,7 +220,6 @@ public class NetworkPlayScreen extends Screen {
 	public void bad() {
 			power--;
 			combo = 0;
-			scoreQuality[4]++;
 			sendCombo(combo);
 			sendPower(power);
 			SystemTextCenterShake floatText = new SystemTextCenterShake((int) (getScreenWidth() * 0.25), 280, "BAD");
@@ -241,7 +241,8 @@ public class NetworkPlayScreen extends Screen {
 			setNextScreen(new EndScreen(getGameObject()));
 			moveScreen();
 		}
-		else if (count == 0) {
+		
+		if (count == 0) {
 			audio.playBack("data/audio/tetris.wav");
 			reader = new SongFileProcessor();
 			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
@@ -357,10 +358,6 @@ public class NetworkPlayScreen extends Screen {
 				}
 			}
 			
-			
-			
-			
-				
 		}
 
 		if(attacked && attackCount < 500){
@@ -415,19 +412,6 @@ public class NetworkPlayScreen extends Screen {
 				floatTexts.remove(i);
 			}
 		}
-		
-		/*
-		for (SystemTextCenterFloat floatText : oppofloatTexts) {
-			floatText.setScreenSize(getScreenWidth(), getScreenHeight());
-			floatText.update();
-		}
-
-		for (int i = oppofloatTexts.size() - 1; i > 0; i--) {
-			if (oppofloatTexts.get(i).shouldRemove()) {
-				oppofloatTexts.remove(i);
-			}
-		}
-		*/
 
 		for (int i = hits.size() - 1; i > 0; i--) {
 			if (hits.get(i).shouldRemove()) {
@@ -499,13 +483,6 @@ public class NetworkPlayScreen extends Screen {
 		for (SystemTextCenterFloat floatText : floatTexts) {
 			floatText.draw(context);
 		}
-		
-		/*
-		for (SystemTextCenterFloat floatText : oppofloatTexts) {
-			floatText.draw(context);
-		}
-		*/
-
 
 	}
 	

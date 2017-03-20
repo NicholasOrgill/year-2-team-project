@@ -27,7 +27,7 @@ public class GameObject {
 	private int p2Power;
 	private int p2Combo;
 	private String p2Text;
-	private boolean isServer = true;
+	private boolean isServer = false;
 	private boolean isConnected = false;
 	private boolean isReady = false;
 	private String p1Name = "E2";
