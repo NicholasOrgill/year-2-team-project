@@ -30,10 +30,8 @@ public class SongFileProcessorTest {
 		assertFalse(readFile == null);
 		
 		// Test readAllSongFiles
-		/* Broken until 'test' files in main folders are removed
 		SongFile[] files = SongFileProcessor.readAllSongFiles();
-		assertTrue(files.length == 4);
-		*/
+		assertTrue(files.length == 3);
 	}
 
 }
