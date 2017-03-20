@@ -79,6 +79,10 @@ public class AIPlayScreen extends Screen {
 
 	@Override
 	public void keyPressed(int key) {
+		if(key == InputHandler.POWERKEY) {
+			System.out.println("on p");
+			displayPower();
+		}
 		keys[key] = true;
 		System.out.println("on" + key);
 		playSpriteLeft.push(key);
@@ -93,12 +97,6 @@ public class AIPlayScreen extends Screen {
 			System.out.println("off" + key);
 			playSpriteLeft.unpush(key);
 		}
-	}
-
-	@Override
-	public void powerKeyPressed(int key) {
-		System.out.println("on p");
-		displayPower();
 	}
 
 	private void displayPower() {
