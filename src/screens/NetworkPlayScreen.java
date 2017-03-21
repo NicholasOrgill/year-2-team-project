@@ -9,6 +9,7 @@ import engine.Screen;
 import input.InputHandler;
 import songmanager.Beat;
 import songmanager.Note;
+import songmanager.SongFile;
 import songmanager.SongFileProcessor;
 import songmanager.SongObject;
 import sprites.BarSprite;
@@ -50,6 +51,7 @@ public class NetworkPlayScreen extends Screen {
 	private int attackCount = 0;
 	
 	private Player audio = new Player();
+	private SongFile songFile;
 	
 	private PlaySprite playSpriteLeft;
 	private PlaySprite playSpriteRight;
@@ -243,9 +245,14 @@ public class NetworkPlayScreen extends Screen {
 		}
 		
 		if (count == 0) {
-			audio.playBack("data/audio/tetris.wav");
+/*			audio.playBack("data/audio/tetris.wav");
 			reader = new SongFileProcessor();
 			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
+*/
+			songFile = getGameObject().getSongFile();
+			song = songFile.getSong();
+			audio.playBack(songFile.getAudioInputPath());
+			
 			beat = song.getBeats();
 			notes = song.getNotes();	
 			
