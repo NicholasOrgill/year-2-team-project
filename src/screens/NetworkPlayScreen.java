@@ -29,7 +29,6 @@ public class NetworkPlayScreen extends Screen {
 	private SongObject song;
 	private Beat[] beat;
 	private Note[] notes;
-	private Note[] oppoNotes;
 	int score = 0;
 	int oppoScore = 0;
 	boolean[] keys = {false, false, false, false};
@@ -41,23 +40,19 @@ public class NetworkPlayScreen extends Screen {
 
 	int lineY = (int) Math.round(getScreenHeight() * 0.8);
 	
-	//private SystemTextCenter textSprite; // An example text sprite
-	//private SystemTextCenter textScore; // An example text sprite
 	private int count = 0; // A variable to count on the screen
 	private SystemTextCenterFloat leftScore;
 	private SystemTextCenterFloat rightScore;
 	private SystemTextCenter player1Text;
 	private SystemTextCenter player2Text;
+	private SystemTextCenterFloat attackTest;
+	private boolean attacked = false;
+	private int attackCount = 0;
 	
 	private Player audio = new Player();
 	
-	//private PlaySprite playSprite; 
 	private PlaySprite playSpriteLeft;
 	private PlaySprite playSpriteRight;
-	
-	//private BarSprite[] barSprite;
-	//private NoteSprite[] noteSprite;
-	//private NoteSprite[] noteSprite2;
 	private BarSprite[] barSpriteLeft;
 	private BarSprite[] barSpriteRight;
 	private NoteSprite[] noteSpriteLeft;
@@ -74,8 +69,7 @@ public class NetworkPlayScreen extends Screen {
 	SongArray[] songArray;
 	
 	int n = 0;
-	private int oppoCombo;
-	private int oppoPower;
+	int oppoN = 0;
 	
 	private ArrayList<SystemTextCenterFloat> floatTexts = new ArrayList<SystemTextCenterFloat>();
 	
@@ -88,14 +82,21 @@ public class NetworkPlayScreen extends Screen {
 		playSpriteRight = new PlaySprite(0, 0, 0, 0, 0.75);
 
 		player1Text = new SystemTextCenter((int) (getScreenWidth() * 0.25), 25, "Player");
-		player2Text = new SystemTextCenter((int) (getScreenWidth() * 0.75), 25, "Opponent");		
+		player2Text = new SystemTextCenter((int) (getScreenWidth() * 0.75), 25, "Opponent");	
+		
+		attackTest= new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 500, " ");
+
 	}
 	
 	@Override
 	public void keyPressed(int key) {
-		keys[key] = true;
-		System.out.println("on" + key);
-		playSpriteLeft.push(key);
+		if (key == InputHandler.POWERKEY) {
+			System.out.println("off p");
+		} else {
+			keys[key] = true;
+			System.out.println("on" + key);
+			playSpriteLeft.push(key);
+		}
 		sendPressedKey(key);
 	}
 	
@@ -115,6 +116,9 @@ public class NetworkPlayScreen extends Screen {
 	public void oppoKeyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("on p");
+			if(!attacked && attackCount < 20){
+				attacked = true;
+			}
 		} else {
 			oppoKeys[key] = true;
 			System.out.println("on" + key);
@@ -133,89 +137,96 @@ public class NetworkPlayScreen extends Screen {
 	}
 	
 	public void scoreHelper(int difference, boolean oppo) {
-		if (difference <= getGameObject().PERFECT) {
-			combo++;
-			if(combo > 5) {
-				power+=combo;
+		if(oppo){
+			if(getGameObject().getP2Text() != null){
+				if(getGameObject().getP2Text().equals("BAD")){
+					SystemTextCenterShake floatText = new SystemTextCenterShake((int) (getScreenWidth() * 0.75), 280, "BAD");
+					floatText.shine();
+					floatTexts.add(floatText);
+				}else{
+					SystemTextCenterFloat floatText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 280, getGameObject().getP2Text());
+					floatText.shine();
+					floatTexts.add(floatText);
+				}
 			}
-			score += 100;
-			sendScore(100);
-			scoreQuality[0]++;
-			if(oppo){
-				SystemTextCenterFloat floatText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 280, "PERFECT");
-				floatText.shine();
-				floatTexts.add(floatText);
-			}else{
+			
+			
+		}else{
+			if (difference <= getGameObject().PERFECT) {
+				combo++;
+				if(combo > 5) {
+					power+=combo;
+				}
+				score += 100;
+				sendScore(100);
+				sendCombo(combo);
+				sendPower(power);
+				scoreQuality[0]++;
 				SystemTextCenterFloat floatText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 280, "PERFECT");
+				sendText("PERFECT");
 				floatText.shine();
 				floatTexts.add(floatText);
-			}
 				
 		} else if (difference <= getGameObject().EXCELLENT) {
-			combo++;
-			if(combo > 5) {
-				power+=combo;
-			}
-			score += 75;
-			sendScore(75);
-			scoreQuality[1]++;
-			if(oppo){
-				SystemTextCenterFloat floatText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 280, "EXCELLENT");
-				floatText.shine();
-				floatTexts.add(floatText);
-			}else{
+				combo++;
+				if(combo > 5) {
+					power+=combo;
+				}
+				score += 75;
+				sendScore(75);
+				sendCombo(combo);
+				sendPower(power);
+				scoreQuality[1]++;
 				SystemTextCenterFloat floatText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 280, "EXCELLENT");
+				sendText("EXCELLENT");
 				floatText.shine();
 				floatTexts.add(floatText);
-			}
 		} else if (difference <= getGameObject().GOOD) {
-			combo = 0;
-			power-=10;
-			score += 50;
-			sendScore(50);
-			scoreQuality[2]++;
-			if(oppo){
-				SystemTextCenterFloat floatText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 280, "GOOD");
-				floatText.shine();
-				floatTexts.add(floatText);
-			}else{
+				combo = 0;
+				power-=10;
+				score += 50;
+				sendScore(50);
+				sendCombo(combo);
+				sendPower(power);
+				scoreQuality[2]++;
 				SystemTextCenterFloat floatText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 280, "GOOD");
+				sendText("GOOD");
 				floatText.shine();
 				floatTexts.add(floatText);
-			}
 		} else if (difference <= getGameObject().OKAY) {
-			power-=10;
-			combo = 0;
-			score += 25;
-			sendScore(25);
-			scoreQuality[3]++;
+				power-=10;
+				combo = 0;
+				score += 25;
+				sendScore(25);
+				sendCombo(combo);
+				sendPower(power);
+				scoreQuality[3]++;
 		} else {
-			bad(oppo);
+			scoreQuality[4]++;
+			bad();
 		}
-		player1Text.setText("" + score);
 		
+		
+		leftScore.setText("" + score);
 		power = Math.min(100, Math.max(0, power));
-		
 		player1Text.setText("COMBO: " + combo + "POWER: " + power + "%");
+		}
+		
+		rightScore.setText("" + getGameObject().getP2Score());
+		player2Text.setText("COMBO: " + getGameObject().getP2Combo() + "POWER: " + getGameObject().getP2Power() + "%");
 	}
 	
 	
-	public void bad(boolean oppo) {
-		power--;
-		combo = 0;
-		scoreQuality[4]++;
-		if(oppo){
-			SystemTextCenterShake floatText = new SystemTextCenterShake((int) (getScreenWidth() * 0.75), 280, "BAD");
+	public void bad() {
+			power--;
+			combo = 0;
+			sendCombo(combo);
+			sendPower(power);
+			SystemTextCenterShake floatText = new SystemTextCenterShake((int) (getScreenWidth() * 0.25), 280, "BAD");
+			sendText("BAD");
 			floatText.shine();
 			floatTexts.add(floatText);
 			player1Text.setText("COMBO: " + combo + "POWER: " + power + "%");
-		}else{
-			SystemTextCenterShake floatText = new SystemTextCenterShake((int) (getScreenWidth() * 0.25), 280, "BAD");
-			floatText.shine();
-			floatTexts.add(floatText);
-			player2Text.setText("COMBO: " + combo + "POWER: " + power + "%");
-		}
-		
 	}
 	
 	@Override
@@ -230,7 +241,8 @@ public class NetworkPlayScreen extends Screen {
 			setNextScreen(new EndScreen(getGameObject()));
 			moveScreen();
 		}
-		else if (count == 0) {
+		
+		if (count == 0) {
 			audio.playBack("data/audio/tetris.wav");
 			reader = new SongFileProcessor();
 			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
@@ -302,12 +314,16 @@ public class NetworkPlayScreen extends Screen {
 						n++;
 					} else {
 						n++;
-						bad(false);
+						bad();
 					}
 					
 				}
 			}
 			
+		}
+		
+		
+		for (int i = oppoN; i < notes.length; i++) {	
 			// If the note is in the playing area
 			if (noteSpriteRight[i].isRemoved() == false) {
 				if (noteSpriteRight[i].getY() >= lineY && noteSpriteRight[i].getY() <= lineY + (3 * noteSpriteRight[i].getHeight())) {
@@ -315,7 +331,7 @@ public class NetworkPlayScreen extends Screen {
 					for (int p = 0; p < notes[p].getButtons().length; p++) {
 						if (notes[i].getButtons()[p]) {
 							if (oppoKeys[p]) {
-								hits.add(new NoteHitSprite((playSpriteRight.getX() - playSpriteRight.getWidth() / 2)
+								oppoHits.add(new NoteHitSprite((playSpriteRight.getX() - playSpriteRight.getWidth() / 2)
 										+ (playSpriteRight.getBlockSizeAndGap() / 2) + (p * playSpriteRight.getBlockSizeAndGap()),
 										playSpriteRight.getY() + (playSpriteRight.getBlockSize() / 2), playSpriteRight.getBlockSize(),
 										playSpriteRight.getBlockSize()));
@@ -334,21 +350,26 @@ public class NetworkPlayScreen extends Screen {
 				// When the note is finished, increment the start of the array
 				if (noteSpriteRight[i].getY() > getScreenHeight()) {
 					if(noteSpriteRight[i].isRemoved()) {
-						n++;
+						oppoN++;
 					} else {
-						n++;
-						bad(true);
+						oppoN++;
 					}
 					
 				}
 			}
 			
-			
-
-
-			
 		}
 
+		if(attacked && attackCount < 500){
+			attackTest.setText("Attack!");
+			attackCount++;
+		}
+		
+		if(attackCount >= 500){
+			attacked = false;
+			attackCount = 0;
+			attackTest.setText(" ");
+		}
 
 		leftScore.setScreenSize(getScreenWidth(), getScreenHeight());
 		leftScore.update();
@@ -367,8 +388,16 @@ public class NetworkPlayScreen extends Screen {
 
 		player2Text.setScreenSize(getScreenWidth(), getScreenHeight());
 		player2Text.update();
+		
+		attackTest.setScreenSize(getScreenWidth(), getScreenHeight());
+		attackTest.update();
+		
 
 		for (NoteHitSprite hit : hits) {
+			hit.update();
+		}
+		
+		for (NoteHitSprite hit : oppoHits) {
 			hit.update();
 		}
 
@@ -387,6 +416,12 @@ public class NetworkPlayScreen extends Screen {
 		for (int i = hits.size() - 1; i > 0; i--) {
 			if (hits.get(i).shouldRemove()) {
 				hits.remove(i);
+			}
+		}
+		
+		for (int i = oppoHits.size() - 1; i > 0; i--) {
+			if (oppoHits.get(i).shouldRemove()) {
+				oppoHits.remove(i);
 			}
 		}
 
@@ -434,15 +469,20 @@ public class NetworkPlayScreen extends Screen {
 
 		leftScore.draw(context);
 		rightScore.draw(context);
+		
+		attackTest.draw(context);
 
 		for (NoteHitSprite hit : hits) {
+			hit.draw(context);
+		}
+		
+		for (NoteHitSprite hit : oppoHits) {
 			hit.draw(context);
 		}
 
 		for (SystemTextCenterFloat floatText : floatTexts) {
 			floatText.draw(context);
 		}
-
 
 	}
 	
@@ -470,6 +510,33 @@ public class NetworkPlayScreen extends Screen {
 			getGameObject().getServer().inputMessage("RELE:"+_key);
 		}else{
 			getGameObject().getNetwork().send("RELE:"+_key);
+		}
+	}
+	
+	public void sendPower(int _power){
+		
+		if (getGameObject().isServer()){
+			getGameObject().getServer().inputMessage("POWE:"+_power);
+		}else{
+			getGameObject().getNetwork().send("POWE:"+_power);
+		}
+	}
+	
+	public void sendCombo(int _combo){
+		
+		if (getGameObject().isServer()){
+			getGameObject().getServer().inputMessage("COMB:"+_combo);
+		}else{
+			getGameObject().getNetwork().send("COMB:"+_combo);
+		}
+	}
+	
+	public void sendText(String _text){
+		
+		if (getGameObject().isServer()){
+			getGameObject().getServer().inputMessage("TEXT:"+_text);
+		}else{
+			getGameObject().getNetwork().send("TEXT:"+_text);
 		}
 	}
 }

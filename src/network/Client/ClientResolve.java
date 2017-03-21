@@ -27,22 +27,34 @@ public class ClientResolve extends Thread {
 	private void resolve(String _readline) {
 
 		if (_readline.length() >= 5) {
-			String keyword = _readline.substring(0,5);
 			
-			if (keyword.equals("LOAD:")) {
-				gameObject.setReady(true);
-			} else if (keyword.equals("SCOR:")) {
-				int score = Integer.parseInt(_readline.substring(5));
-				gameObject.setP2Score(score);
-			} else if (keyword.equals("PREE:")) {
-				int key = Integer.parseInt(_readline.substring(5));
-				gameObject.receivedKeyPressed(key);
-			} else if (keyword.equals("RELE:")) {
-				int key = Integer.parseInt(_readline.substring(5));
-				gameObject.receivedKeyReleased(key);
-			}else{
-				System.out.println(_readline);
+			if(_readline.substring(5).length() < 10){
+				String keyword = _readline.substring(0,5);
+				
+				if (keyword.equals("LOAD:")) {
+					gameObject.setReady(true);
+				} else if (keyword.equals("SCOR:")) {
+					int score = Integer.parseInt(_readline.substring(5));
+					gameObject.setP2Score(score);
+				} else if (keyword.equals("PREE:")) {
+					int key = Integer.parseInt(_readline.substring(5));
+					gameObject.receivedKeyPressed(key);
+				} else if (keyword.equals("RELE:")) {
+					int key = Integer.parseInt(_readline.substring(5));
+					gameObject.receivedKeyReleased(key);
+				} else if (keyword.equals("POWE:")) {
+					int power = Integer.parseInt(_readline.substring(5));
+					gameObject.setP2Power(power);
+				} else if (keyword.equals("COMB:")) {
+					int combo = Integer.parseInt(_readline.substring(5));
+					gameObject.setP2Combo(combo);
+				} else if (keyword.equals("TEXT:")) {
+					gameObject.setP2Text(_readline.substring(5));
+				}else{
+					System.out.println(_readline);
+				}
 			}
+			
 		} else {
 			System.out.println(_readline);
 		}

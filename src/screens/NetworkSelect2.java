@@ -5,9 +5,6 @@ import java.awt.Graphics;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
-import network.MessageQueue;
-import network.Client.Network;
-import network.Server.Server;
 import sprites.BannerSprite;
 import sprites.DotSpriteBackground;
 import sprites.FancyCenterTextSprite;
@@ -17,31 +14,36 @@ import sprites.SystemBox;
 import sprites.SystemTextCenterFade;
 import utils.ColorPack;
 import utils.ImageLoader;
+
+
 /**
- * 
- * @author Bobby Dilley
+ * A Screen to select as Server or Client
  *
  */
-public class NetworkSelect extends Screen {
+public class NetworkSelect2 extends Screen {
 
 	private DotSpriteBackground dotBackground;
 	private ImageGrad imageGrad;
 	private FancyCenterTextSprite title;
 	private SystemTextCenterFade centex;
+	private SystemTextCenterFade centex2;
 	private SystemBox box;
-	private boolean networkrun = true;
 
 	int count = 0;
 
 	private ImageSprite networkImage;
 	private ImageSprite networkImage2;
 	private BannerSprite bannerSprite;
+	
 
 	@Override
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
 		if (key == InputHandler.PLAYKEY0) {
 			moveScreen();
+		}
+		if(key == InputHandler.PLAYKEY2) {
+			select();
 		}
 	}
 
@@ -50,7 +52,7 @@ public class NetworkSelect extends Screen {
 		System.out.println("off" + key);
 	}
 
-	public NetworkSelect(GameObject gameObject) {
+	public NetworkSelect2(GameObject gameObject) {
 		super(gameObject);
 
 		bannerSprite = new BannerSprite(getScreenWidth() / 2, getScreenHeight() / 2 + 80);
@@ -63,9 +65,11 @@ public class NetworkSelect extends Screen {
 		networkImage.setOpacity(0);
 		networkImage2.setOpacity(0);
 
-		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 90, "Waiting for Network");
+		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 90, " ");
+		centex2 = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 110, " ");
 
-		setNextScreen(new ModeSelect(getGameObject()));
+
+		setNextScreen(new NetworkSelect(getGameObject()));
 
 		box = new SystemBox();
 		box.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -78,8 +82,6 @@ public class NetworkSelect extends Screen {
 
 		title = new FancyCenterTextSprite((int) (getScreenWidth() * 0.94), (int) (getScreenHeight() * 0.85), "NETWORK");
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
-
-		networkrun = false;
 
 	}
 
@@ -105,6 +107,9 @@ public class NetworkSelect extends Screen {
 
 		centex.setScreenSize(getScreenWidth(), getScreenHeight());
 		centex.update();
+		
+		centex2.setScreenSize(getScreenWidth(), getScreenHeight());
+		centex2.update();
 
 		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
 		dotBackground.update();
@@ -121,42 +126,9 @@ public class NetworkSelect extends Screen {
 		
 		if (count == 190) {
 			networkImage2.fadeIn();
+			centex.setText("Press [E] to select as Server or Client. Press [Q] to confirm.");
 		}
 
-		if (count == 300) {
-			if (getGameObject().isServer()) {
-				centex.setText("Establising Network...");
-				MessageQueue serverInput = new MessageQueue();
-				Server server = new Server(getGameObject(), serverInput, getGameObject().getP1Name());
-				getGameObject().setServer(server);
-				server.start();
-			} else {
-				centex.setText("Connecting Server...");
-				Network n = new Network(getGameObject(), getGameObject().getHostname(), getGameObject().getP1Name());
-				getGameObject().setNetwork(n);
-			}
-
-		}
-		
-		if(count == 410) {
-			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()){
-				setNextScreen(new NetworkPlayScreen(getGameObject()));
-				centex.setText("Network Established");
-				getGameObject().getServer().inputMessage("READ:");
-			}
-			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()){
-				getGameObject().getNetwork().sendReadyMsg();
-				setNextScreen(new NetworkPlayScreen(getGameObject()));
-				centex.setText("Connected");
-			}else {
-				centex.setText("Network Check Fail.");
-				setNextScreen(new ModeSelect(getGameObject()));
-			}
-		}
-
-		if (count >= 410 && getGameObject().isReady()) {
-			moveScreen();
-		}
 		count++;
 
 	}
@@ -177,15 +149,23 @@ public class NetworkSelect extends Screen {
 
 		}
 
-		if (count > 210) {
+		if (count > 200) {
 
 			centex.draw(context);
+			centex2.draw(context);
 		}
-
-		// bannerSprite.draw(context);
 
 		networkImage.draw(context);
 		networkImage2.draw(context);
+	}
+	
+	private void select(){
+		getGameObject().setServer(!getGameObject().isServer());
+		if(getGameObject().isServer()){
+			centex2.setText("You are Server.");
+		}else{
+			centex2.setText("You are Client.");
+		}
 	}
 
 }

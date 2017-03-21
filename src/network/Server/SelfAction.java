@@ -6,6 +6,10 @@ import java.io.PrintStream;
 import engine.GameObject;
 
 
+/**
+ * This class is used to handle sending the message to the client
+ * @author Weifeng
+ */
 public class SelfAction {
 	private Player me;
 	private Player opponent;
@@ -24,6 +28,10 @@ public class SelfAction {
 		}
 	}
 	
+	/**
+	 * set the name of the player
+	 * @param _name name of the opponent
+	 */
 	public void setName(String _name){
 		me.setName(_name);
 		gameObject.setP1Name(_name);
@@ -32,6 +40,9 @@ public class SelfAction {
 		toOppo.println("NAME:"+_name);
 	}
 	
+	/**
+	 * to set both the players are ready to start the game
+	 */
 	public void setReady(){
 		me.setReady(true);
 		me.setScore(0);
@@ -48,6 +59,9 @@ public class SelfAction {
 		}
 	}
 	
+	/**
+	 * to start the game
+	 */
 	public void setStart(){
 		me.setStarted(true);
 		System.out.println("Game Start");
@@ -57,6 +71,10 @@ public class SelfAction {
 
 	}
 	
+	/**
+	 * to update score of the players
+	 * @param _score the score
+	 */
 	public void updateScore(String _score){
 		int score = Integer.parseInt(_score);
 		me.addScore(score);
@@ -66,6 +84,9 @@ public class SelfAction {
 	}
 	
 	
+	/**
+	 * to finish the game
+	 */
 	public void gameOver(){
 		me.setStarted(false);
 		me.setReady(false);
@@ -76,18 +97,52 @@ public class SelfAction {
 		toOppo.println("OVER:");//send key word to client to end game
 	}
 	
+	/**
+	 * send the pressed key
+	 * @param _key the key that pressed
+	 */
 	public void sendPressedKey(String _key){
 		toOppo.println("PREE:"+_key);
 	}
 	
+	/**
+	 * send the released key
+	 * @param _key the key that released
+	 */
 	public void sendReleasedKey(String _key){
 		toOppo.println("RELE:"+_key);
+	}
+	
+	/**
+	 * send the power
+	 * @param _power the power to be sent
+	 */
+	public void sendPower(String _power) {
+		toOppo.println("POWE:"+_power);
+	}
+
+	/**
+	 * send the combo
+	 * @param _combo the combo to be sent
+	 */
+	public void sendCombo(String _combo) {
+		toOppo.println("COMB:"+_combo);
+	}
+
+	/**
+	 * send the playing text
+	 * @param _text the playing text to be sent
+	 */
+	public void sendText(String _text) {
+		toOppo.println("TEXT:"+_text);
 	}
 	
 	public void invalidMsg(){
 		String msg = "Invalid Message";
 		System.out.println(msg);
 	}
+
+	
 	
 	
 }

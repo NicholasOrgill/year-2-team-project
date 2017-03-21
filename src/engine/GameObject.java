@@ -24,6 +24,9 @@ public class GameObject {
 	private InputHandler inputHandler;
 	private int p1Score;
 	private int p2Score;
+	private int p2Power;
+	private int p2Combo;
+	private String p2Text;
 	private boolean isServer = false;
 	private boolean isConnected = false;
 	private boolean isReady = false;
@@ -56,6 +59,10 @@ public class GameObject {
 	
 	public boolean isServer() {
 		return isServer;
+	}
+	
+	public void setServer(boolean isServer){
+		this.isServer = isServer;
 	}
 	
 	public InputHandler getInputHandler() {
@@ -104,6 +111,30 @@ public class GameObject {
 
 	public void setP2Score(int p2Score) {
 		this.p2Score = p2Score;
+	}
+	
+	public int getP2Power() {
+		return p2Power;
+	}
+
+	public void setP2Power(int p2Power) {
+		this.p2Power = p2Power;
+	}
+	
+	public int getP2Combo() {
+		return p2Combo;
+	}
+
+	public void setP2Combo(int p2Combo) {
+		this.p2Combo = p2Combo;
+	}
+	
+	public String getP2Text() {
+		return p2Text;
+	}
+
+	public void setP2Text(String p2Text) {
+		this.p2Text = p2Text;
 	}
 	
 	public void setP1Name(String p1Name){

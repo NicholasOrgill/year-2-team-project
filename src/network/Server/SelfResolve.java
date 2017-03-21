@@ -4,6 +4,10 @@ import engine.GameObject;
 import network.Message;
 import network.MessageQueue;
 
+/**
+ * This class is used to determine what action should be done after received the command
+ * @author Weifeng
+ */
 public class SelfResolve extends Thread{
 	private MessageQueue serverInput;
 	private SelfAction sact;
@@ -38,6 +42,12 @@ public class SelfResolve extends Thread{
 				sact.sendPressedKey(_readline.substring(5));
 			}else if (keyword.equals("RELE:")){
 				sact.sendReleasedKey(_readline.substring(5));
+			}else if (keyword.equals("POWE:")){
+				sact.sendPower(_readline.substring(5));
+			}else if (keyword.equals("COMB:")){
+				sact.sendCombo(_readline.substring(5));
+			}else if (keyword.equals("TEXT:")){
+				sact.sendText(_readline.substring(5));
 			}
 			
 			else {
