@@ -127,6 +127,7 @@ public class SelectScreen extends Screen {
 	
 	public void pageUpdate() {
 		songFile = getGameObject().getSongFiles()[currentSelector];
+		getGameObject().setCurrentSelect(currentSelector);
 		backImage = songFile.getCoverArt();
 		image.setImage(backImage);
 		System.out.println("UPDATE CALLED");

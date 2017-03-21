@@ -142,6 +142,7 @@ public class NetworkSelect extends Screen {
 			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()){
 				setNextScreen(new NetworkPlayScreen(getGameObject()));
 				centex.setText("Network Established");
+				getGameObject().getServer().inputMessage("SONG:" + getGameObject().getCurrentSelect());
 				getGameObject().getServer().inputMessage("READ:");
 			}
 			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()){

@@ -55,7 +55,9 @@ public class ModeSelect extends Screen {
 			} else if (select == 1) {
 				getGameObject().setMode(new AISelectScreen(getGameObject()));
 			} else if (select == 2) {
-				getGameObject().setMode(new NetworkSelect2(getGameObject()));
+				setNextScreen(new NetworkSelect2(getGameObject()));
+				moveScreen();
+				//getGameObject().setMode(new NetworkSelect2(getGameObject()));
 			}
 			moveScreen();
 		}

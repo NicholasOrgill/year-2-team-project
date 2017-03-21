@@ -40,6 +40,12 @@ public class NetworkSelect2 extends Screen {
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
 		if (key == InputHandler.PLAYKEY0) {
+			if (getGameObject().isServer()){
+				getGameObject().setMode(new NetworkSelect(getGameObject()));
+				setNextScreen(new SelectScreen(getGameObject()));
+			}else{
+				setNextScreen(new NetworkSelect(getGameObject()));
+			}
 			moveScreen();
 		}
 		if(key == InputHandler.PLAYKEY2) {
@@ -69,7 +75,6 @@ public class NetworkSelect2 extends Screen {
 		centex2 = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 110, " ");
 
 
-		setNextScreen(new NetworkSelect(getGameObject()));
 
 		box = new SystemBox();
 		box.setScreenSize(getScreenWidth(), getScreenHeight());

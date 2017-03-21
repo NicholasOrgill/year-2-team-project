@@ -66,6 +66,7 @@ public class OppoAction {
 		opponent.setStarted(true);
 		System.out.println("Game Start");
 		toOppo.println("Game Start");
+		toOppo.println("SONG:" + me.getSelect());
 		toOppo.println("LOAD:");//send key word to client to start game 
 		gameObject.setReady(true);
 
