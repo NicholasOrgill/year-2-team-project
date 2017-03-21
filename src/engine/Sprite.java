@@ -1,94 +1,191 @@
 package engine;
 
 import java.awt.Graphics;
+
 /**
  * The sprite class representing a sprite
+ * 
  * @author bobbydilley
  *
  */
 public class Sprite {
 
-    private int x = 0;
-    private int y = 0;
-    private int width = 0;
-    private int height = 0;
-    private boolean finished;
+	private int x = 0;
+	private int y = 0;
+	private int width = 0;
+	private int height = 0;
+	private boolean finished;
 
-    private int screenWidth;
-    private int screenHeight;
+	private int screenWidth;
+	private int screenHeight;
 
-    public Sprite(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
-    
-    public Sprite(int x, int y) {
-    	this.x = x;
-    	this.y = y;
-    }
+	/**
+	 * Constructor for giving width and height
+	 * 
+	 * @param x
+	 *            Top left x position of the sprite
+	 * @param y
+	 *            Top left y position of the sprite
+	 * @param width
+	 *            Width of the sprite
+	 * @param height
+	 *            Height of the sprite
+	 */
+	public Sprite(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
 
-    public void setScreenSize(int d, int e) {
-        this.screenWidth = d;
-        this.screenHeight = e;
-    }
+	/**
+	 * Constructor for just x and y positions
+	 * 
+	 * @param x
+	 *            Top left x position of the sprite
+	 * @param y
+	 *            Top left y position of the sprite
+	 */
+	public Sprite(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
-    public int getScreenWidth() {
-        return this.screenWidth;
-    }
+	/**
+	 * Sets the size of the screen
+	 * 
+	 * @param width
+	 *            The width of the screen
+	 * @param height
+	 *            The height of the screen
+	 */
+	public void setScreenSize(int width, int height) {
+		this.screenWidth = width;
+		this.screenHeight = height;
+	}
 
-    public int getScreenHeight() {
-        return this.screenHeight;
-    }
+	/**
+	 * Gets the width of the screen
+	 * 
+	 * @return The width of the screen
+	 */
+	public int getScreenWidth() {
+		return this.screenWidth;
+	}
 
-    public int getX() {
-        return x;
-    }
+	/**
+	 * Gets the height of the screen
+	 * 
+	 * @return The height of the screen
+	 */
+	public int getScreenHeight() {
+		return this.screenHeight;
+	}
 
-    public void setX(int x) {
-        this.x = x;
-    }
+	/**
+	 * Gets the x position of the top left of the sprite
+	 * 
+	 * @return The top left x position
+	 */
+	public int getX() {
+		return x;
+	}
 
-    public int getY() {
-        return y;
-    }
+	/**
+	 * Sets the top left x position of the sprite
+	 * 
+	 * @param x
+	 *            The new top left x position
+	 */
+	public void setX(int x) {
+		this.x = x;
+	}
 
-    public void setY(int y) {
-        this.y = y;
-    }
+	/**
+	 * Gets the y position of the top left of the sprite
+	 * 
+	 * @return The top left y position
+	 */
+	public int getY() {
+		return y;
+	}
 
-    public int getWidth() {
-        return width;
-    }
+	/**
+	 * Sets the top left y position of the sprite
+	 * 
+	 * @param y
+	 *            The new top left y position
+	 */
+	public void setY(int y) {
+		this.y = y;
+	}
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
+	/**
+	 * Gets the width of the sprite
+	 * 
+	 * @return The width of the sprite
+	 */
+	public int getWidth() {
+		return width;
+	}
 
-    public int getHeight() {
-        return height;
-    }
+	/**
+	 * Sets the width of the sprite
+	 * 
+	 * @param width
+	 *            The new width of the sprite
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+	}
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
+	/**
+	 * Gets the height of the sprite
+	 * 
+	 * @return The height of the sprite
+	 */
+	public int getHeight() {
+		return height;
+	}
 
-    public void update() {
+	/**
+	 * Sets the height of the sprite
+	 * 
+	 * @param height
+	 *            The new height of the sprite
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
 
-    }
+	/**
+	 * To be overridden
+	 */
+	public void update() {
 
-    public void draw(Graphics context) {
+	}
 
-    }
+	/**
+	 * To be overridden
+	 */
+	public void draw(Graphics context) {
 
-    public boolean isFinished() {
-        return finished;
-    }
+	}
 
-    public void finish() {
-        this.finished = false;
-    }
+	/**
+	 * Gets the finished status of the sprite's use
+	 * 
+	 * @return Whether the sprite is no longer used
+	 */
+	public boolean isFinished() {
+		return finished;
+	}
 
+	/**
+	 * Retires the sprite
+	 */
+	public void finish() {
+		this.finished = false;
+	}
 
 }
