@@ -40,16 +40,14 @@ public class NetworkSelect2 extends Screen {
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
 		if (key == InputHandler.PLAYKEY0) {
-			if (getGameObject().isServer()){
-				getGameObject().setMode(new NetworkSelect(getGameObject()));
-				setNextScreen(new SelectScreen(getGameObject()));
-			}else{
-				setNextScreen(new NetworkSelect(getGameObject()));
-			}
+			setNextScreen(new NetworkSelect(getGameObject()));
 			moveScreen();
 		}
 		if(key == InputHandler.PLAYKEY2) {
-			select();
+			getGameObject().setServer(true);
+			getGameObject().setMode(new NetworkSelect(getGameObject()));
+			setNextScreen(new SelectScreen(getGameObject()));
+			moveScreen();
 		}
 	}
 
@@ -118,7 +116,7 @@ public class NetworkSelect2 extends Screen {
 
 		
 
-			centex.setText("Press [E] to select as Server or Client. Press [Q] to confirm.");
+			centex.setText("Press [Q] to be Client. Press [E] to be Server.");
 
 
 		count++;
@@ -150,13 +148,5 @@ public class NetworkSelect2 extends Screen {
 
 	}
 	
-	private void select(){
-		getGameObject().setServer(!getGameObject().isServer());
-		if(getGameObject().isServer()){
-			centex2.setText("You are Server.");
-		}else{
-			centex2.setText("You are Client.");
-		}
-	}
 
 }
