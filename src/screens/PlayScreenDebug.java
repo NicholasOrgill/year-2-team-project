@@ -47,6 +47,7 @@ public class PlayScreenDebug extends Screen {
 
 	private SystemTextCenter textSprite; // An example text sprite
 	private SystemTextCenter textScore; // An example text sprite
+	private SystemTextCenter comboSprite;
 	private int count = 0; // A variable to count on the screen
 
 	private Player audio = new Player();
@@ -65,28 +66,41 @@ public class PlayScreenDebug extends Screen {
 	SongArray[] songArray;
 
 	int n = 0;
-	
+
 	private SongFile songFile;
-	
+
 	private boolean complete = false;
 
 	private ArrayList<SystemTextCenterFloat> floatTexts = new ArrayList<SystemTextCenterFloat>();
+	private int cooldown = 0;
 
 	public PlayScreenDebug(GameObject gameObject) {
 		super(gameObject);
 		textSprite = new SystemTextCenter(getScreenWidth() / 2 - 200, 100, "Game AI: Easy");
 		textScore = new SystemTextCenter(getScreenWidth() / 2 + 200, 100, "SinglePlayer");
+		comboSprite = new SystemTextCenter(getScreenWidth() /2 + 250, 300, "No power activated");
 		playSprite = new PlaySprite(0, 0, 0, 0, 0.5);
-		
-		this.songFile = getGameObject().getSongFile();
 
+		this.songFile = getGameObject().getSongFile();
+		getGameObject().setSpeed(0.4);
+		speedScale = getGameObject().getSpeed();
 	}
 
 	@Override
 	public void keyPressed(int key) {
-		keys[key] = true;
-		System.out.println("on" + key);
-		playSprite.push(key);
+		if (key == InputHandler.POWERKEY) {
+			System.out.println("on p");
+			if (power > 50 && cooldown == 0) {
+				cooldown = 600;
+				comboSprite.setText("Power activated! \n Time left: " + (int)(cooldown/60));
+				power-=50;
+				speedScale = 0.3;
+			}
+		} else {
+			keys[key] = true;
+			System.out.println("on" + key);
+			playSprite.push(key);
+		}
 	}
 
 	@Override
@@ -101,16 +115,17 @@ public class PlayScreenDebug extends Screen {
 	}
 
 	/*
-	@Override
-	public void powerKeyPressed(int key) {
-		System.out.println("on p");
-	}*/
+	 * @Override
+	 * public void powerKeyPressed(int key) {
+	 * 		System.out.println("on p");
+	 * }
+	 */
 
 	public void scoreHelper(int difference) {
 		if (difference <= getGameObject().PERFECT) {
 			combo++;
-			if(combo > 5) {
-				power+=combo;
+			if (combo > 5) {
+				power += combo;
 			}
 			score += 100;
 			scoreQuality[0]++;
@@ -119,8 +134,8 @@ public class PlayScreenDebug extends Screen {
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().EXCELLENT) {
 			combo++;
-			if(combo > 5) {
-				power+=combo;
+			if (combo > 5) {
+				power += combo;
 			}
 			score += 75;
 			scoreQuality[1]++;
@@ -129,14 +144,14 @@ public class PlayScreenDebug extends Screen {
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().GOOD) {
 			combo = 0;
-			power-=10;
+			power -= 10;
 			score += 50;
 			scoreQuality[2]++;
 			SystemTextCenterFloat floatText = new SystemTextCenterFloat(getScreenWidth() / 2, 280, "GOOD");
 			floatText.shine();
 			floatTexts.add(floatText);
 		} else if (difference <= getGameObject().OKAY) {
-			power-=10;
+			power -= 10;
 			combo = 0;
 			score += 25;
 			scoreQuality[3]++;
@@ -145,34 +160,39 @@ public class PlayScreenDebug extends Screen {
 			bad();
 		}
 		textScore.setText("" + score);
-		
+
 		power = Math.min(100, Math.max(0, power));
-		
+
 		textSprite.setText("COMBO: " + combo + "POWER: " + power + "%");
 	}
 
 	public void bad() {
-		power--;
+		if(power > 0) power--;
 		combo = 0;
 		SystemTextCenterShake floatText = new SystemTextCenterShake(getScreenWidth() / 2, 280, "BAD");
 		floatText.shine();
 		floatTexts.add(floatText);
 		textSprite.setText("COMBO: " + combo + "POWER: " + power + "%");
 	}
-	
+
 	@Override
 	public void update() {
-		getGameObject().setSpeed(0.4);
-		speedScale = getGameObject().getSpeed();
+		if (cooldown != 0) {
+			cooldown--;
+			comboSprite.setText("Power activated!\nTime left: " + (int)(cooldown/60));
+		} else {
+			speedScale = 0.4;
+			comboSprite.setText((power >= 50) ? "Power can be used!" : "No power activated!");
+		}
 		if (audio.getAudioPlayer().playCompleted) {
-			if(!complete) {
+			if (!complete) {
 				getGameObject().setP1Score(score);
 				getGameObject().setScoreQuality(scoreQuality);
 				setNextScreen(new EndScreen(getGameObject()));
 				moveScreen();
 				complete = true;
 			}
-			
+
 		}
 
 		else if (count == 0) {
@@ -183,7 +203,7 @@ public class PlayScreenDebug extends Screen {
 			Pnotes = new ArrayList<Note>(Arrays.asList(notes));
 			SimpleAI ai = new SimpleAI();
 			songArray = ai.recreateArray(song, 10);
-			
+
 			audio.playBack(songFile.getAudioInputPath());
 
 			note2 = songArray[6].getNotes();
@@ -211,8 +231,8 @@ public class PlayScreenDebug extends Screen {
 			noteSprite[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSprite[i].update();
 
-			noteSprite[i]
-					.setY((int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSprite[i].getLength() / 3) + getGameObject().getOffset());
+			noteSprite[i].setY((int) (lineY - (notes[i].getTime() - count) * speedScale)
+					+ (noteSprite[i].getLength() / 3) + getGameObject().getOffset());
 
 			// If the note is in the playing area
 			if (noteSprite[i].isRemoved() == false) {
@@ -242,13 +262,13 @@ public class PlayScreenDebug extends Screen {
 
 				// When the note is finished, increment the start of the array
 				if (noteSprite[i].getY() > getScreenHeight()) {
-					if(noteSprite[i].isRemoved()) {
+					if (noteSprite[i].isRemoved()) {
 						n++;
 					} else {
 						n++;
 						bad();
 					}
-					
+
 				}
 			}
 
@@ -259,6 +279,9 @@ public class PlayScreenDebug extends Screen {
 
 		textScore.setScreenSize(getScreenWidth(), getScreenHeight());
 		textScore.update();
+		
+		comboSprite.setScreenSize(getScreenWidth(), getScreenHeight());
+		comboSprite.update();
 
 		playSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		playSprite.update();
@@ -298,7 +321,7 @@ public class PlayScreenDebug extends Screen {
 		// This is how you draw the sprites
 		textSprite.draw(context);
 		textScore.draw(context);
-
+		comboSprite.draw(context);
 		playSprite.draw(context);
 
 		for (int i = 0; i < beat.length; i++) {
@@ -328,7 +351,6 @@ public class PlayScreenDebug extends Screen {
 		for (SystemTextCenterFloat floatText : floatTexts) {
 			floatText.draw(context);
 		}
-
 
 	}
 }
