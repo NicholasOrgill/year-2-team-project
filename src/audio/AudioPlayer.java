@@ -61,10 +61,20 @@ public class AudioPlayer implements LineListener {
 		audioClip.open(audioStream);
 	}
 
+	/**
+	 * Returns the length of a clip in seconds
+	 * 
+	 * @return length of clip in seconds
+	 */
 	public long getClipSecondLength() {
 		return audioClip.getMicrosecondLength() / 1000000;
 	}
 
+	/**
+	 * Generates a string length of the song in hh:mm:ss
+	 * 
+	 * @return string of clip length
+	 */
 	public String getClipLengthString() {
 		String length = "";
 		long hour = 0;

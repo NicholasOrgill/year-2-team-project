@@ -18,6 +18,9 @@ public class Player {
 	private boolean isPlaying = false;
 	private boolean isPause = false;
 
+	/**
+	 * Empty constructor
+	 */
 	public Player() {
 	}
 
@@ -56,29 +59,45 @@ public class Player {
 
 		playbackThread.start();
 	}
-	
+
+	/**
+	 * Getter for the audio player
+	 * 
+	 * @return Audio player used in playback
+	 */
 	public AudioPlayer getAudioPlayer() {
 		return player;
 	}
-	
+
+	/**
+	 * Getter for the playing timer
+	 * 
+	 * @return Playing timer used in playback
+	 */
 	public PlayingTimer getPlayingTimer() {
 		return timer;
 	}
 
+	/**
+	 * Stops current clip from playing
+	 */
 	public void stopPlaying() {
 		isPause = false;
-		if(timer != null) {
+		if (timer != null) {
 			timer.reset();
 			timer.interrupt();
 		}
-		
+
 		player.stop();
-		if(playbackThread != null) {
+		if (playbackThread != null) {
 			playbackThread.interrupt();
 		}
-		
+
 	}
 
+	/**
+	 * Pauses current clip
+	 */
 	public void pausePlaying() {
 		isPause = true;
 		player.pause();
@@ -86,6 +105,9 @@ public class Player {
 		playbackThread.interrupt();
 	}
 
+	/**
+	 * Resumes playing current clip
+	 */
 	public void resumePlaying() {
 		isPause = false;
 		player.resume();
@@ -93,6 +115,9 @@ public class Player {
 		playbackThread.interrupt();
 	}
 
+	/**
+	 * Resets player
+	 */
 	public void resetControls() {
 		timer.reset();
 		timer.interrupt();

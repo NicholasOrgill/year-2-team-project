@@ -25,10 +25,9 @@ public class PlayingTimer extends Thread {
 	private long pauseTime;
 	private Clip audioClip;
 
-	public void setAudioClip(Clip audioClip) {
-		this.audioClip = audioClip;
-	}
-
+	/**
+	 * Empty constructor
+	 */
 	public PlayingTimer() {
 	}
 
@@ -54,23 +53,29 @@ public class PlayingTimer extends Thread {
 	/**
 	 * Reset counting to "00:00:00"
 	 */
-	void reset() {
+	public void reset() {
 		isReset = true;
 		isRunning = false;
 	}
 
-	void pauseTimer() {
+	/**
+	 * Pauses timer
+	 */
+	public void pauseTimer() {
 		isPause = true;
 	}
 
-	void resumeTimer() {
+	/**
+	 * Resumes timer
+	 */
+	public void resumeTimer() {
 		isPause = false;
 	}
 
 	/**
 	 * Generate a String for time counter in the format of "HH:mm:ss"
 	 * 
-	 * @return the time counter
+	 * @return The time counter in string form
 	 */
 	public String toTimeString() {
 		if (!isRunning) {
@@ -82,7 +87,12 @@ public class PlayingTimer extends Thread {
 		String timeCounter = dateFormater.format(current);
 		return timeCounter;
 	}
-	
+
+	/**
+	 * Returns length of the timer so far in milliseconds
+	 * 
+	 * @return Length of the timer in milliseconds
+	 */
 	public long getTimeInMill() {
 		if (!isRunning) {
 			return 0;
@@ -91,5 +101,15 @@ public class PlayingTimer extends Thread {
 		Date current = new Date(now - startTime - pauseTime);
 		long time = current.getTime();
 		return time;
+	}
+
+	/**
+	 * Setter for audio clip
+	 * 
+	 * @param audioClip
+	 *            The clip to be played
+	 */
+	public void setAudioClip(Clip audioClip) {
+		this.audioClip = audioClip;
 	}
 }

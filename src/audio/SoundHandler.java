@@ -10,6 +10,12 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 
+/**
+ * Non-blocking class for playing small audio effects
+ * 
+ * @author Nicholas Orgill
+ *
+ */
 public class SoundHandler {
 
 	HashMap<String, AudioInputStream> effects;
@@ -17,6 +23,9 @@ public class SoundHandler {
 
 	static ArrayList<Clip> clips = new ArrayList<Clip>();
 
+	/**
+	 * Constructor for new sound handler
+	 */
 	public SoundHandler() {
 		effects = new HashMap<String, AudioInputStream>();
 		formats = new HashMap<String, AudioFormat>();
@@ -24,6 +33,12 @@ public class SoundHandler {
 
 	}
 
+	/**
+	 * Fills the hash map of sound handler with effects
+	 * 
+	 * @param list
+	 *            The list of sound effects to be used in this instance
+	 */
 	public void fillEffects(String[] list) {
 		try {
 			// System.out.println("HI");
@@ -39,11 +54,25 @@ public class SoundHandler {
 		}
 
 	}
-	
+
+	/**
+	 * Plays effect once
+	 * 
+	 * @param effect
+	 *            The string of the effect to be played
+	 */
 	public void playEffect(String effect) {
 		playEffect(effect, false);
 	}
 
+	/**
+	 * Plays effect
+	 * 
+	 * @param effect
+	 *            The string of the effect to be played
+	 * @param loop
+	 *            Set to true if effect should be looped
+	 */
 	public void playEffect(String effect, boolean loop) {
 		try {
 			DataLine.Info info = new DataLine.Info(Clip.class, formats.get(effect));
@@ -61,6 +90,9 @@ public class SoundHandler {
 		}
 	}
 
+	/**
+	 * Stops all clips from playing
+	 */
 	public void stopAll() {
 		for (Clip clip : clips) {
 			clip.stop();
