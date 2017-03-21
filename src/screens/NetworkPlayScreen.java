@@ -46,12 +46,11 @@ public class NetworkPlayScreen extends Screen {
 	private SystemTextCenterFloat rightScore;
 	private SystemTextCenter player1Text;
 	private SystemTextCenter player2Text;
-	private SystemTextCenterFloat attackTest;
-	private boolean attacked = false;
-	private int attackCount = 0;
+	private SystemTextCenterFloat powerText;
 	
 	private Player audio = new Player();
 	private SongFile songFile;
+	
 	
 	private PlaySprite playSpriteLeft;
 	private PlaySprite playSpriteRight;
@@ -66,7 +65,11 @@ public class NetworkPlayScreen extends Screen {
 	private ArrayList<NoteHitSprite> hits = new ArrayList<NoteHitSprite>();
 	private ArrayList<NoteHitSprite> oppoHits = new ArrayList<NoteHitSprite>();
 	
-	private double speedScale = 0.4;
+	private double origSpeedScale = 0.4;
+	private double speedScaleLeft = 0.4;
+	private double speedScaleRight = 0.4;
+	private int endPowerOppo = 0;
+	private int endPowerPlayer = 0;
 	
 	SongArray[] songArray;
 	
@@ -86,14 +89,15 @@ public class NetworkPlayScreen extends Screen {
 		player1Text = new SystemTextCenter((int) (getScreenWidth() * 0.25), 25, "Player");
 		player2Text = new SystemTextCenter((int) (getScreenWidth() * 0.75), 25, "Opponent");	
 		
-		attackTest= new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 500, " ");
+		powerText = new SystemTextCenterFloat(0, 0, " ");
 
 	}
 	
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
-			System.out.println("off p");
+			System.out.println("on p");
+			displayPowerOppo(5000);
 		} else {
 			keys[key] = true;
 			System.out.println("on" + key);
@@ -118,9 +122,7 @@ public class NetworkPlayScreen extends Screen {
 	public void oppoKeyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("on p");
-			if(!attacked && attackCount < 20){
-				attacked = true;
-			}
+			displayPowerPlayer(5000);
 		} else {
 			oppoKeys[key] = true;
 			System.out.println("on" + key);
@@ -136,6 +138,19 @@ public class NetworkPlayScreen extends Screen {
 			System.out.println("off" + key);
 			playSpriteRight.unpush(key);
 		}
+	}
+	
+	private void displayPowerOppo(int duration) {
+		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
+		speedScaleRight = 2;
+		endPowerOppo = count + duration;
+		power = 0;
+	}
+	
+	private void displayPowerPlayer(int duration) {
+		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
+		speedScaleLeft = 2;
+		endPowerPlayer = count + duration;
 	}
 	
 	public void scoreHelper(int difference, boolean oppo) {
@@ -245,10 +260,7 @@ public class NetworkPlayScreen extends Screen {
 		}
 		
 		if (count == 0) {
-/*			audio.playBack("data/audio/tetris.wav");
-			reader = new SongFileProcessor();
-			song = reader.readSongObjectFromXML("src/songmanager/songfile.xml");
-*/
+			
 			songFile = getGameObject().getSongFile();
 			song = songFile.getSong();
 			audio.playBack(songFile.getAudioInputPath());
@@ -273,11 +285,19 @@ public class NetworkPlayScreen extends Screen {
 						notes[i].getButtons(), notes[i].getSustain(), 0.75, getGameObject().getSpeed());
 			}
 		}
+		
+		if (count > endPowerOppo) {
+			speedScaleRight = origSpeedScale;
+		}
+		
+		if (count > endPowerPlayer) {
+			speedScaleLeft = origSpeedScale;
+		}
 
 		for (int i = 0; i < beat.length; i++) {
-			barSpriteLeft[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScale));
+			barSpriteLeft[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScaleLeft));
 			barSpriteLeft[i].update();
-			barSpriteRight[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScale));
+			barSpriteRight[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScaleRight));
 			barSpriteRight[i].update();
 		}
 
@@ -285,12 +305,12 @@ public class NetworkPlayScreen extends Screen {
 			noteSpriteLeft[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSpriteLeft[i].update();
 			noteSpriteLeft[i].setY(
-					(int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSpriteLeft[i].getLength() / 3));
+					(int) (lineY - (notes[i].getTime() - count) * speedScaleLeft) + (noteSpriteLeft[i].getLength() / 3));
 
 			noteSpriteRight[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSpriteRight[i].update();
 			noteSpriteRight[i].setY(
-					(int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSpriteRight[i].getLength() / 3));
+					(int) (lineY - (notes[i].getTime() - count) * speedScaleRight) + (noteSpriteRight[i].getLength() / 3));
 
 			// If the note is in the playing area
 			if (noteSpriteLeft[i].isRemoved() == false) {
@@ -367,17 +387,6 @@ public class NetworkPlayScreen extends Screen {
 			
 		}
 
-		if(attacked && attackCount < 500){
-			attackTest.setText("Attack!");
-			attackCount++;
-		}
-		
-		if(attackCount >= 500){
-			attacked = false;
-			attackCount = 0;
-			attackTest.setText(" ");
-		}
-
 		leftScore.setScreenSize(getScreenWidth(), getScreenHeight());
 		leftScore.update();
 
@@ -396,8 +405,12 @@ public class NetworkPlayScreen extends Screen {
 		player2Text.setScreenSize(getScreenWidth(), getScreenHeight());
 		player2Text.update();
 		
-		attackTest.setScreenSize(getScreenWidth(), getScreenHeight());
-		attackTest.update();
+		powerText.setScreenSize(getScreenWidth(), getScreenHeight());
+		powerText.update();
+		if(powerText.shouldRemove()) {
+			powerText.setText(" ");
+		}
+
 		
 
 		for (NoteHitSprite hit : hits) {
@@ -477,7 +490,8 @@ public class NetworkPlayScreen extends Screen {
 		leftScore.draw(context);
 		rightScore.draw(context);
 		
-		attackTest.draw(context);
+		powerText.draw(context);
+		
 
 		for (NoteHitSprite hit : hits) {
 			hit.draw(context);
