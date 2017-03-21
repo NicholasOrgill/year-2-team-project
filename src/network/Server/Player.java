@@ -7,6 +7,7 @@ import java.net.Socket;
  */
 public class Player {
 	private int score = 0;
+	private int select;
 	
 	private String name;
 	
@@ -77,4 +78,11 @@ public class Player {
 		return this.isStarted;
 	}
 	
+	public void setSelect(int _select){
+		this.select = _select;
+	}
+	
+	public int getSelect(){
+		return this.select;
+	}
 }

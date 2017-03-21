@@ -1,5 +1,7 @@
 package network.Client;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
+
 import engine.GameObject;
 
 /**
@@ -50,7 +52,11 @@ public class ClientResolve extends Thread {
 					gameObject.setP2Combo(combo);
 				} else if (keyword.equals("TEXT:")) {
 					gameObject.setP2Text(_readline.substring(5));
-				}else{
+				} else if (keyword.equals("SONG:")) {
+					int select = Integer.parseInt(_readline.substring(5));
+					gameObject.setSongFile(gameObject.getSongFiles()[select]);
+				}
+				else{
 					System.out.println(_readline);
 				}
 			}
