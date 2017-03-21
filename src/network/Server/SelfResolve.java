@@ -4,6 +4,10 @@ import engine.GameObject;
 import network.Message;
 import network.MessageQueue;
 
+/**
+ * This class is used to determine what action should be done after received the command
+ * @author Weifeng
+ */
 public class SelfResolve extends Thread{
 	private MessageQueue serverInput;
 	private SelfAction sact;

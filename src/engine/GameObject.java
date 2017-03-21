@@ -56,6 +56,10 @@ public class GameObject {
 		return isServer;
 	}
 	
+	public void setServer(boolean isServer){
+		this.isServer = isServer;
+	}
+	
 	public InputHandler getInputHandler() {
 		return this.inputHandler;
 	}

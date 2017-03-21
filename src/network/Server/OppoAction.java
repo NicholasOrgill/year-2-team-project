@@ -5,6 +5,10 @@ import java.io.*;
 import engine.GameObject;
 
 
+/**
+ * This class is used to handle receiving the message from the client
+ * @author Weifeng
+ */
 public class OppoAction {
 	private Player opponent;
 	private Player me;
@@ -25,6 +29,10 @@ public class OppoAction {
 
 	}
 	
+	/**
+	 * set the name of the player
+	 * @param _name name of the opponent
+	 */
 	public void setName(String _name){
 		opponent.setName(_name);
 		gameObject.setP2Name(_name);
@@ -32,6 +40,9 @@ public class OppoAction {
 		System.out.println("Your name is " + me.getName() + " Your opponent name is " + opponent.getName());
 	}
 		
+	/**
+	 * to set both the players are ready to start the game
+	 */
 	public void setReady(){
 		opponent.setReady(true);
 		opponent.setScore(0);
@@ -48,6 +59,9 @@ public class OppoAction {
 		}
 	}
 	
+	/**
+	 * to start the game
+	 */
 	public void setStart(){
 		opponent.setStarted(true);
 		System.out.println("Game Start");
@@ -57,6 +71,10 @@ public class OppoAction {
 
 	}
 	
+	/**
+	 * to update score of the players
+	 * @param _score the score
+	 */
 	public void updateScore(String _score){
 		int score = Integer.parseInt(_score);
 		opponent.addScore(score);
@@ -65,6 +83,9 @@ public class OppoAction {
 		gameObject.setP2Score(opponent.getScore());
 	}
 	
+	/**
+	 * to finish the game
+	 */
 	public void gameOver(){
 		me.setStarted(false);
 		me.setReady(false);
@@ -75,30 +96,53 @@ public class OppoAction {
 		toOppo.println("OVER:");//send key word to client to end game
 	}
 	
+	/**
+	 * handle the received key
+	 * @param _key the pressed key that received
+	 */
 	public void receivedPressedKey(String _key){
 		int key = Integer.parseInt(_key);
 		gameObject.receivedKeyPressed(key);
 	}
 	
+	/**
+	 * handle the released key
+	 * @param _key the released key that received
+	 */
 	public void receivedReleasedKey(String _key){
 		int key = Integer.parseInt(_key);
 		gameObject.receivedKeyReleased(key);
 	}
 	
+	/**
+	 * handle the received power
+	 * @param _power the power that received
+	 */
 	public void receivedPower(String _power) {
 		int power = Integer.parseInt(_power);
 		gameObject.setP2Power(power);
 	}
 
+	/**
+	 * handle the received combo
+	 * @param _combo the combo that received
+	 */
 	public void receivedCombo(String _combo) {
 		int combo = Integer.parseInt(_combo);
 		gameObject.setP2Combo(combo);
 	}
 
+	/**
+	 * handle the received playing text
+	 * @param _text the playing text that received
+	 */
 	public void receivedText(String _text) {
 		gameObject.setP2Text(_text);
 	}
 	
+	/**
+	 * handle the invalid message command
+	 */
 	public void invalidMsg(){
 		String msg = "Invalid Message";
 		toOppo.println(msg);

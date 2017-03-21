@@ -2,6 +2,10 @@ package network.Server;
 
 import engine.GameObject;
 
+/**
+ * This class is used to determine what action should be done after received the command
+ * @author Weifeng
+ */
 public class OppoResolve {
 	
 	private OppoAction action;
