@@ -64,8 +64,10 @@ public class AIPlayScreen extends Screen {
 
 	private ArrayList<NoteHitSprite> hits = new ArrayList<NoteHitSprite>();
 	private ArrayList<NoteHitSprite> aiHits = new ArrayList<NoteHitSprite>();
-
-	private double speedScale = 0.4;
+	
+	private double origSpeedScale = 0.4;
+	private double speedScaleLeft = 0.4;
+	private double speedScaleRight = 0.4;
 
 	SongArray[] songArray;
 
@@ -75,19 +77,21 @@ public class AIPlayScreen extends Screen {
 	private ArrayList<SystemTextCenterFloat> floatTexts = new ArrayList<SystemTextCenterFloat>();
 	private int aiCombo;
 	private int aiPower;
-	private int endPower = 0;
 	private SystemTextCenterFloat powerText;
 	private SongFile songFile;
+	private int endPowerAI = 0;
+	private int endPowerPlayer = 0;
 
 	@Override
 	public void keyPressed(int key) {
-		if(key == InputHandler.POWERKEY) {
+		if (key == InputHandler.POWERKEY) {
 			System.out.println("on p");
-			displayPower();
+			displayPowerPlayer(8, 5000);
+		} else {
+			keys[key] = true;
+			System.out.println("on" + key);
+			playSpriteLeft.push(key);
 		}
-		keys[key] = true;
-		System.out.println("on" + key);
-		playSpriteLeft.push(key);
 	}
 
 	@Override
@@ -101,10 +105,19 @@ public class AIPlayScreen extends Screen {
 		}
 	}
 
-	private void displayPower() {
+	private void displayPowerPlayer(int newLevel, int duration) {
 		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
-		aiLevel = 4;
-		endPower = count + 5000;
+		speedScaleRight = 1;
+		aiLevel = newLevel;
+		endPowerAI = count + duration;
+		power = 0;
+	}
+
+	private void displayPowerAI(int duration) {
+		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
+		speedScaleLeft = 1;
+		endPowerPlayer = count + duration;
+		aiPower = 0;
 	}
 
 	public void scoreHelper(int difference, boolean ai) {
@@ -151,7 +164,7 @@ public class AIPlayScreen extends Screen {
 				scoreQuality[1]++;
 		} else if (difference <= getGameObject().GOOD) {
 			playerCombo = 0;
-			playerPower -=10;
+			playerPower -= 10;
 			text.setText("GOOD!");
 			text.shine();
 			floatTexts.add(text);
@@ -179,6 +192,9 @@ public class AIPlayScreen extends Screen {
 				aiPower = Math.min(100, Math.max(0, aiPower));
 			}
 			player2Text.setText("AI COMBO: " + aiCombo + " POWER: " + aiPower + "%");
+			if (aiPower == 100) {
+				displayPowerAI(5000);
+			}
 		} else {
 			if (!badBool) {
 				score = playerScore;
@@ -211,7 +227,8 @@ public class AIPlayScreen extends Screen {
 
 	public AIPlayScreen(GameObject gameObject) {
 		super(gameObject);
-		textAILevel = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 30, "Difficulty: " + getGameObject().getAiLevelText());
+		textAILevel = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 30,
+				"Difficulty: " + getGameObject().getAiLevelText());
 
 		leftScore = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 105, "0");
 		rightScore = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 105, "0");
@@ -245,9 +262,9 @@ public class AIPlayScreen extends Screen {
 			notes = song.getNotes();
 			SimpleAI ai = new SimpleAI();
 			songArray = ai.recreateArray(song, 10);
-			
+
 			audio.playBack(songFile.getAudioInputPath());
-			
+
 			origAiLevel = getGameObject().getAiLevel();
 			textAILevel.setText("Difficulty: " + getGameObject().getAiLevelText());
 			AINotes = songArray[origAiLevel].getNotes();
@@ -277,31 +294,36 @@ public class AIPlayScreen extends Screen {
 
 		AINotes = songArray[aiLevel].getNotes();
 
-		if (count > endPower) {
+		if (count > endPowerAI) {
 			AINotes = songArray[origAiLevel].getNotes();
+			speedScaleRight = origSpeedScale;
+		}
+		
+		if (count > endPowerPlayer) {
+			speedScaleLeft = origSpeedScale;
 		}
 
 		for (int i = 0; i < beat.length; i++) {
-			barSpriteLeft[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScale));
+			barSpriteLeft[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScaleLeft));
 			barSpriteLeft[i].update();
-			barSpriteRight[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScale));
+			barSpriteRight[i].setY((int) (lineY - (beat[i].getTime() - count) * speedScaleRight));
 			barSpriteRight[i].update();
 		}
 
 		for (int i = 0; i < notes.length; i++) {
 			noteSpriteLeft[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSpriteLeft[i].update();
-			noteSpriteLeft[i].setY(
-					(int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSpriteLeft[i].getLength() / 3));
+			noteSpriteLeft[i].setY((int) (lineY - (notes[i].getTime() - count) * speedScaleLeft)
+					+ (noteSpriteLeft[i].getLength() / 3));
 
 			noteSpriteRight[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSpriteRight[i].update();
-			noteSpriteRight[i].setY(
-					(int) (lineY - (notes[i].getTime() - count) * speedScale) + (noteSpriteRight[i].getLength() / 3));
+			noteSpriteRight[i].setY((int) (lineY - (notes[i].getTime() - count) * speedScaleRight)
+					+ (noteSpriteRight[i].getLength() / 3));
 			noteSpriteAI[i].setScreenSize(getScreenWidth(), getScreenHeight());
 			noteSpriteAI[i].update();
-			noteSpriteAI[i].setY(
-					(int) (lineY - (AINotes[i].getTime() - count) * speedScale) + (noteSpriteAI[i].getLength() / 3));
+			noteSpriteAI[i].setY((int) (lineY - (AINotes[i].getTime() - count) * speedScaleRight)
+					+ (noteSpriteAI[i].getLength() / 3));
 
 			// Checks if the notes are in the playing area whether they should
 			// be removed
