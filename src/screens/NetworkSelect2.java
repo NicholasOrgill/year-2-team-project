@@ -65,8 +65,8 @@ public class NetworkSelect2 extends Screen {
 
 
 
-		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 90, " ");
-		centex2 = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 110, " ");
+		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2, " ");
+		centex2 = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 20, " ");
 
 
 
