@@ -38,6 +38,7 @@ public class GameObject {
 	private Server server;
 	private String networkError = "";
 	private SongFile[] songFiles;
+	private int currentSelect;
 
 	private SongFile songFile;
 	
@@ -260,6 +261,14 @@ public class GameObject {
 
 	public void setAiLevelText(String aiLevelText) {
 		this.aiLevelText = aiLevelText;
+	}
+	
+	public void setCurrentSelect(int _currentSelect){
+		this.currentSelect = _currentSelect;
+	}
+	
+	public int getCurrentSelect(){
+		return this.currentSelect;
 	}
 
 }

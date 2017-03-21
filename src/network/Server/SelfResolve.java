@@ -48,6 +48,8 @@ public class SelfResolve extends Thread{
 				sact.sendCombo(_readline.substring(5));
 			}else if (keyword.equals("TEXT:")){
 				sact.sendText(_readline.substring(5));
+			}else if (keyword.equals("SONG:")){
+				sact.sendSelect(_readline.substring(5));
 			}
 			
 			else {

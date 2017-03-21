@@ -220,7 +220,7 @@ public class NetworkPlayScreen extends Screen {
 	
 	
 	public void bad() {
-			power--;
+			if (power > 0) power--;
 			combo = 0;
 			sendCombo(combo);
 			sendPower(power);
