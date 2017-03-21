@@ -33,8 +33,8 @@ public class NetworkSelect extends Screen {
 
 	int count = 0;
 
-	private ImageSprite networkImage;
-	private ImageSprite networkImage2;
+//	private ImageSprite networkImage;
+//	private ImageSprite networkImage2;
 	private BannerSprite bannerSprite;
 
 	@Override
@@ -55,13 +55,7 @@ public class NetworkSelect extends Screen {
 
 		bannerSprite = new BannerSprite(getScreenWidth() / 2, getScreenHeight() / 2 + 80);
 
-		networkImage = new ImageSprite(getScreenWidth() / 2 - 100, (int) (getScreenHeight() * 0.4),
-				ImageLoader.loadImageFromResource("src/res/images/networkConnect.png"));
-		networkImage2 = new ImageSprite(getScreenWidth() / 2 + 100, (int) (getScreenHeight() * 0.4),
-				ImageLoader.loadImageFromResource("src/res/images/networkConnect.png"));
 
-		networkImage.setOpacity(0);
-		networkImage2.setOpacity(0);
 
 		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 90, "Waiting for Network");
 
@@ -94,11 +88,7 @@ public class NetworkSelect extends Screen {
 		bannerSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		bannerSprite.update();
 
-		networkImage.setScreenSize(getScreenWidth(), getScreenHeight());
-		networkImage.update();
 
-		networkImage2.setScreenSize(getScreenWidth(), getScreenHeight());
-		networkImage2.update();
 
 		imageGrad.setScreenSize(getScreenWidth(), getScreenHeight());
 		imageGrad.update();
@@ -115,13 +105,7 @@ public class NetworkSelect extends Screen {
 			box.update();
 		}
 
-		if (count == 180) {
-			networkImage.fadeIn();
-		}
-		
-		if (count == 190) {
-			networkImage2.fadeIn();
-		}
+
 
 		if (count == 300) {
 			if (getGameObject().isServer()) {
@@ -185,8 +169,7 @@ public class NetworkSelect extends Screen {
 
 		// bannerSprite.draw(context);
 
-		networkImage.draw(context);
-		networkImage2.draw(context);
+
 	}
 
 }

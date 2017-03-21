@@ -19,6 +19,7 @@ import sprites.SystemTextKern;
 import sprites.SystemTextShine;
 import utils.ColorPack;
 import utils.ImageLoader;
+
 /**
  * 
  * @author Bobby Dilley
@@ -42,13 +43,13 @@ public class SelectScreen extends Screen {
 	private int count = 0;
 
 	private Player audio = new Player();
-	
+
 	private SongFileProcessor reader = new SongFileProcessor();
-	
+
 	private BufferedImage backImage;
-	
+
 	private int currentSelector = 0;
-	
+
 	private SongFile songFile;
 
 	public void keyPressed(int key) {
@@ -60,19 +61,19 @@ public class SelectScreen extends Screen {
 			setNextScreen(getGameObject().getMode());
 			moveScreen();
 		}
-		
+
 		if (key == InputHandler.PLAYKEY2) {
-			if(currentSelector == 0) {
+			if (currentSelector == 0) {
 				currentSelector = getGameObject().getSongFiles().length - 1;
 			} else {
 				currentSelector--;
 			}
 			pageUpdate();
-			
+
 		}
-		
+
 		if (key == InputHandler.PLAYKEY3) {
-			if(currentSelector == getGameObject().getSongFiles().length - 1) {
+			if (currentSelector == getGameObject().getSongFiles().length - 1) {
 				currentSelector = 0;
 			} else {
 				currentSelector++;
@@ -113,35 +114,45 @@ public class SelectScreen extends Screen {
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
 
 		textSprite = new SystemTextKern(20, 30, "FIRST SONG");
-		
+
 		backImage = gameObject.getSongFiles()[currentSelector].getCoverArt();
-		
-		
-		
-		image = new ImageSprite(getScreenWidth() / 2, (int)(getScreenHeight() * 0.4), backImage);
+
+		image = new ImageSprite(getScreenWidth() / 2, (int) (getScreenHeight() * 0.4), backImage);
 		image.setScreenSize(getScreenWidth(), getScreenHeight());
 		image.setSize(0.5f);
-		
 
 	}
-	
+
 	public void pageUpdate() {
 		songFile = getGameObject().getSongFiles()[currentSelector];
 		getGameObject().setCurrentSelect(currentSelector);
 		backImage = songFile.getCoverArt();
 		image.setImage(backImage);
 		System.out.println("UPDATE CALLED");
-		
+
 		fx.stopAll();
-		
-		
+
 		audio.stopPlaying();
-		
+
 		nameText.setText(songFile.getSong().getTitle());
 		byText.setText(songFile.getSong().getArtist());
-		
+		int difficulty = Math.round(songFile.getSong().getNotes().length / 100);
+		if (difficulty == 0) {
+			difficulty = 1;
+		}
+		numberText.setText("" + difficulty);
+		String text;
+		if (difficulty <= 1) {
+			text = "EASY";
+		} else if (difficulty == 2) {
+			text = "MEDIUM";
+		} else if (difficulty == 3) {
+			text = "HARD";
+		} else {
+			text = "EXTREME";
+		}
+		typeText.setText(text);
 		audio.playBack(songFile.getAudioInputPath());
-		
 	}
 
 	@Override
@@ -168,10 +179,10 @@ public class SelectScreen extends Screen {
 			pageUpdate();
 
 		}
-		
+
 		image.setScreenSize(getScreenWidth(), getScreenHeight());
 		image.update();
-		
+
 		count++;
 	}
 
@@ -194,11 +205,9 @@ public class SelectScreen extends Screen {
 		pheight = (int) (pheight * scale);
 		context.fillRect(getScreenWidth() / 2 - pwidth / 2 - 100, getScreenHeight() / 2 - pheight / 2 - 50, pwidth,
 				pheight);
-		
-		image.setX(getScreenWidth() / 2  - 100);
-		image.setY(getScreenHeight() / 2  - 50);
-		
-		
+
+		image.setX(getScreenWidth() / 2 - 100);
+		image.setY(getScreenHeight() / 2 - 50);
 
 		typeText.draw(context);
 		levelText.draw(context);
@@ -209,8 +218,7 @@ public class SelectScreen extends Screen {
 		textSprite.draw(context);
 
 		title.draw(context);
-		
-		
+
 		image.draw(context);
 	}
 
