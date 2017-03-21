@@ -181,6 +181,7 @@ public class AIPlayScreen extends Screen {
 			if (!ai)
 				scoreQuality[3]++;
 		} else {
+			scoreQuality[4]++;
 			bad(ai);
 			badBool = true;
 		}
@@ -208,7 +209,6 @@ public class AIPlayScreen extends Screen {
 	}
 
 	public void bad(boolean ai) {
-		scoreQuality[4]++;
 		SystemTextCenterShake shakeText;
 		if (ai) {
 			shakeText = new SystemTextCenterShake((int) (getScreenWidth() * 0.75), 280, "BAD");
