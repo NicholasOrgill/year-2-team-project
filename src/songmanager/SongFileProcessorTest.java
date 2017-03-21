@@ -31,7 +31,7 @@ public class SongFileProcessorTest {
 		
 		// Test readAllSongFiles
 		SongFile[] files = SongFileProcessor.readAllSongFiles();
-		assertTrue(files.length == 3);
+		assertTrue(files.length == 4);
 	}
 
 }

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<song>
+  <title>BeatNet Theme</title>
+  <artist>Bobby Dilley</artist>
+  <songLength>100698</songLength>
+  <averageTempo>128607</averageTempo>
+  <startBeat>3160</startBeat>
+  <beats>
+    <beat time="3160" measure="1" />
+    <beat time="3629" measure="-1" />
+    <beat time="4098" measure="-1" />
+    <beat time="4566" measure="-1" />
+    <beat time="5035" measure="2" />
+    <beat time="5504" measure="-1" />
+    <beat time="5973" measure="-1" />
+    <beat time="6441" measure="-1" />
+    <beat time="6910" measure="3" />
+    <beat time="7379" measure="-1" />
+    <beat time="7848" measure="-1" />
+    <beat time="8316" measure="-1" />
+    <beat time="8785" measure="4" />
+    <beat time="9254" measure="-1" />
+    <beat time="9723" measure="-1" />
+    <beat time="10191" measure="-1" />
+    <beat time="10660" measure="5" />
+    <beat time="11129" measure="-1" />
+    <beat time="11598" measure="-1" />
+    <beat time="12066" measure="-1" />
+    <beat time="12535" measure="6" />
+    <beat time="13004" measure="-1" />
+    <beat time="13473" measure="-1" />
+    <beat time="13941" measure="-1" />
+    <beat time="14410" measure="7" />
+    <beat time="14879" measure="-1" />
+    <beat time="15348" measure="-1" />
+    <beat time="15816" measure="-1" />
+    <beat time="16285" measure="8" />
+    <beat time="16754" measure="-1" />
+    <beat time="17223" measure="-1" />
+    <beat time="17691" measure="-1" />
+    <beat time="18160" measure="9" />
+    <beat time="18629" measure="-1" />
+    <beat time="19098" measure="-1" />
+    <beat time="19566" measure="-1" />
+    <beat time="20035" measure="10" />
+    <beat time="20504" measure="-1" />
+    <beat time="20973" measure="-1" />
+    <beat time="21441" measure="-1" />
+    <beat time="21910" measure="11" />
+    <beat time="22379" measure="-1" />
+    <beat time="22848" measure="-1" />
+    <beat time="23316" measure="-1" />
+    <beat time="23785" measure="12" />
+    <beat time="24254" measure="-1" />
+    <beat time="24723" measure="-1" />
+    <beat time="25191" measure="-1" />
+    <beat time="25660" measure="13" />
+    <beat time="26129" measure="-1" />
+    <beat time="26598" measure="-1" />
+    <beat time="27066" measure="-1" />
+    <beat time="27535" measure="14" />
+    <beat time="28004" measure="-1" />
+    <beat time="28473" measure="-1" />
+    <beat time="28941" measure="-1" />
+    <beat time="29410" measure="15" />
+    <beat time="29879" measure="-1" />
+    <beat time="30348" measure="-1" />
+    <beat time="30816" measure="-1" />
+    <beat time="31285" measure="16" />
+    <beat time="31754" measure="-1" />
+    <beat time="32223" measure="-1" />
+    <beat time="32691" measure="-1" />
+    <beat time="33160" measure="17" />
+    <beat time="33629" measure="-1" />
+    <beat time="34098" measure="-1" />
+    <beat time="34566" measure="-1" />
+    <beat time="35035" measure="18" />
+    <beat time="35504" measure="-1" />
+    <beat time="35973" measure="-1" />
+    <beat time="36441" measure="-1" />
+    <beat time="36910" measure="19" />
+    <beat time="37379" measure="-1" />
+    <beat time="37848" measure="-1" />
+    <beat time="38316" measure="-1" />
+    <beat time="38785" measure="20" />
+    <beat time="39254" measure="-1" />
+    <beat time="39723" measure="-1" />
+    <beat time="40191" measure="-1" />
+    <beat time="40660" measure="21" />
+    <beat time="41129" measure="-1" />
+    <beat time="41598" measure="-1" />
+    <beat time="42066" measure="-1" />
+    <beat time="42535" measure="22" />
+    <beat time="43004" measure="-1" />
+    <beat time="43473" measure="-1" />
+    <beat time="43941" measure="-1" />
+    <beat time="44410" measure="23" />
+    <beat time="44879" measure="-1" />
+    <beat time="45348" measure="-1" />
+    <beat time="45816" measure="-1" />
+    <beat time="46285" measure="24" />
+    <beat time="46754" measure="-1" />
+    <beat time="47223" measure="-1" />
+    <beat time="47691" measure="-1" />
+    <beat time="48160" measure="25" />
+    <beat time="48629" measure="-1" />
+    <beat time="49098" measure="-1" />
+    <beat time="49566" measure="-1" />
+    <beat time="50035" measure="26" />
+    <beat time="50504" measure="-1" />
+    <beat time="50973" measure="-1" />
+    <beat time="51441" measure="-1" />
+    <beat time="51910" measure="27" />
+    <beat time="52379" measure="-1" />
+    <beat time="52848" measure="-1" />
+    <beat time="53316" measure="-1" />
+    <beat time="53785" measure="28" />
+    <beat time="54254" measure="-1" />
+    <beat time="54723" measure="-1" />
+    <beat time="55191" measure="-1" />
+    <beat time="55660" measure="29" />
+    <beat time="56129" measure="-1" />
+    <beat time="56598" measure="-1" />
+    <beat time="57066" measure="-1" />
+    <beat time="57535" measure="30" />
+    <beat time="58004" measure="-1" />
+    <beat time="58473" measure="-1" />
+    <beat time="58941" measure="-1" />
+    <beat time="59410" measure="31" />
+    <beat time="59879" measure="-1" />
+    <beat time="60348" measure="-1" />
+    <beat time="60816" measure="-1" />
+    <beat time="61285" measure="32" />
+    <beat time="61754" measure="-1" />
+    <beat time="62223" measure="-1" />
+    <beat time="62691" measure="-1" />
+    <beat time="63160" measure="33" />
+    <beat time="63629" measure="-1" />
+    <beat time="64097" measure="-1" />
+    <beat time="64566" measure="-1" />
+    <beat time="65035" measure="34" />
+    <beat time="65504" measure="-1" />
+    <beat time="65972" measure="-1" />
+    <beat time="66441" measure="-1" />
+    <beat time="66910" measure="35" />
+    <beat time="67379" measure="-1" />
+    <beat time="67847" measure="-1" />
+    <beat time="68316" measure="-1" />
+    <beat time="68785" measure="36" />
+    <beat time="69254" measure="-1" />
+    <beat time="69722" measure="-1" />
+    <beat time="70191" measure="-1" />
+    <beat time="70660" measure="37" />
+    <beat time="71129" measure="-1" />
+    <beat time="71597" measure="-1" />
+    <beat time="72066" measure="-1" />
+    <beat time="72535" measure="38" />
+    <beat time="73004" measure="-1" />
+    <beat time="73472" measure="-1" />
+    <beat time="73941" measure="-1" />
+    <beat time="74410" measure="39" />
+    <beat time="74879" measure="-1" />
+    <beat time="75347" measure="-1" />
+    <beat time="75816" measure="-1" />
+    <beat time="76285" measure="40" />
+    <beat time="76754" measure="-1" />
+    <beat time="77222" measure="-1" />
+    <beat time="77691" measure="-1" />
+    <beat time="78160" measure="41" />
+    <beat time="78629" measure="-1" />
+    <beat time="79097" measure="-1" />
+    <beat time="79566" measure="-1" />
+    <beat time="80035" measure="42" />
+    <beat time="80504" measure="-1" />
+    <beat time="80972" measure="-1" />
+    <beat time="81441" measure="-1" />
+    <beat time="81910" measure="43" />
+    <beat time="82379" measure="-1" />
+    <beat time="82847" measure="-1" />
+    <beat time="83316" measure="-1" />
+    <beat time="83785" measure="44" />
+    <beat time="84254" measure="-1" />
+    <beat time="84722" measure="-1" />
+    <beat time="85191" measure="-1" />
+    <beat time="85660" measure="45" />
+    <beat time="86129" measure="-1" />
+    <beat time="86597" measure="-1" />
+    <beat time="87066" measure="-1" />
+    <beat time="87535" measure="46" />
+    <beat time="88004" measure="-1" />
+    <beat time="88472" measure="-1" />
+    <beat time="88941" measure="-1" />
+    <beat time="89410" measure="47" />
+    <beat time="89879" measure="-1" />
+    <beat time="90347" measure="-1" />
+    <beat time="90816" measure="-1" />
+    <beat time="91285" measure="48" />
+    <beat time="91754" measure="-1" />
+    <beat time="92222" measure="-1" />
+    <beat time="92691" measure="-1" />
+    <beat time="93160" measure="49" />
+    <beat time="93629" measure="-1" />
+    <beat time="94097" measure="-1" />
+    <beat time="94566" measure="-1" />
+    <beat time="95035" measure="50" />
+    <beat time="95504" measure="-1" />
+    <beat time="95972" measure="-1" />
+    <beat time="96441" measure="-1" />
+    <beat time="96910" measure="51" />
+    <beat time="97379" measure="-1" />
+    <beat time="97847" measure="-1" />
+    <beat time="98316" measure="-1" />
+    <beat time="98785" measure="52" />
+    <beat time="99254" measure="-1" />
+    <beat time="99722" measure="-1" />
+    <beat time="100191" measure="-1" />
+    <beat time="100660" measure="53" />
+    <beat time="101129" measure="-1" />
+    <beat time="101597" measure="-1" />
+    <beat time="102066" measure="-1" />
+  </beats>
+  <notes>
+    <note time="6910" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="8785" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="10660" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="12535" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="14410" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="16285" sustain="0" button0="0" button1="0" button2="0" button3="1" />
+    <note time="18160" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="19098" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="20035" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="21910" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="22613" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="23316" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="23785" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="24488" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="25660" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="26363" sustain="0" button0="0" button1="0" button2="0" button3="1" />
+    <note time="27066" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="27535" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="29410" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="30113" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="30816" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="31285" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="31988" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="33160" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="33863" sustain="0" button0="0" button1="0" button2="0" button3="1" />
+    <note time="34566" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="35035" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="36910" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="38785" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="40660" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="42535" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="44410" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="46285" sustain="0" button0="0" button1="0" button2="0" button3="1" />
+    <note time="48160" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="49097" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="50035" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="51910" sustain="56" button0="1" button1="1" button2="0" button3="0" />
+    <note time="53786" sustain="56" button0="0" button1="0" button2="1" button3="1" />
+    <note time="55661" sustain="56" button0="1" button1="0" button2="1" button3="0" />
+    <note time="57536" sustain="56" button0="0" button1="1" button2="1" button3="0" />
+    <note time="59410" sustain="56" button0="0" button1="0" button2="1" button3="1" />
+    <note time="61285" sustain="56" button0="1" button1="1" button2="0" button3="0" />
+    <note time="63160" sustain="56" button0="1" button1="0" button2="1" button3="0" />
+    <note time="65035" sustain="56" button0="0" button1="1" button2="0" button3="1" />
+    <note time="66910" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="68785" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="70660" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="72535" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="74410" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="75113" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="75816" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="76285" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="76988" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="78160" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="78863" sustain="0" button0="0" button1="0" button2="0" button3="1" />
+    <note time="79566" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="80035" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="81910" sustain="0" button0="1" button1="0" button2="0" button3="0" />
+    <note time="83785" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="85660" sustain="0" button0="0" button1="1" button2="0" button3="0" />
+    <note time="87535" sustain="0" button0="0" button1="0" button2="1" button3="0" />
+    <note time="89410" sustain="56" button0="0" button1="0" button2="1" button3="1" />
+    <note time="91285" sustain="56" button0="1" button1="1" button2="0" button3="0" />
+    <note time="93160" sustain="56" button0="1" button1="0" button2="1" button3="0" />
+    <note time="95035" sustain="56" button0="0" button1="1" button2="0" button3="1" />
+  </notes>
+</song>
