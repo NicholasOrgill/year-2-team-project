@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import ai.SimpleAI;
+import ai.AI;
 import ai.SongArray;
 import audio.Player;
 import engine.GameObject;
@@ -201,7 +201,7 @@ public class PlayScreen extends Screen {
 			beat = song.getBeats();
 			notes = song.getNotes();
 			Pnotes = new ArrayList<Note>(Arrays.asList(notes));
-			SimpleAI ai = new SimpleAI();
+			AI ai = new AI();
 			songArray = ai.recreateArray(song, 10);
 
 			audio.playBack(songFile.getAudioInputPath());
