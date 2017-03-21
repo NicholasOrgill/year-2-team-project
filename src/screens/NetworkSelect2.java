@@ -31,8 +31,8 @@ public class NetworkSelect2 extends Screen {
 
 	int count = 0;
 
-	private ImageSprite networkImage;
-	private ImageSprite networkImage2;
+//	private ImageSprite networkImage;
+//	private ImageSprite networkImage2;
 	private BannerSprite bannerSprite;
 	
 
@@ -63,13 +63,7 @@ public class NetworkSelect2 extends Screen {
 
 		bannerSprite = new BannerSprite(getScreenWidth() / 2, getScreenHeight() / 2 + 80);
 
-		networkImage = new ImageSprite(getScreenWidth() / 2 - 100, (int) (getScreenHeight() * 0.4),
-				ImageLoader.loadImageFromResource("src/res/images/networkConnect.png"));
-		networkImage2 = new ImageSprite(getScreenWidth() / 2 + 100, (int) (getScreenHeight() * 0.4),
-				ImageLoader.loadImageFromResource("src/res/images/networkConnect.png"));
 
-		networkImage.setOpacity(0);
-		networkImage2.setOpacity(0);
 
 		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 90, " ");
 		centex2 = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 110, " ");
@@ -101,11 +95,7 @@ public class NetworkSelect2 extends Screen {
 		bannerSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		bannerSprite.update();
 
-		networkImage.setScreenSize(getScreenWidth(), getScreenHeight());
-		networkImage.update();
 
-		networkImage2.setScreenSize(getScreenWidth(), getScreenHeight());
-		networkImage2.update();
 
 		imageGrad.setScreenSize(getScreenWidth(), getScreenHeight());
 		imageGrad.update();
@@ -125,14 +115,11 @@ public class NetworkSelect2 extends Screen {
 			box.update();
 		}
 
-		if (count == 180) {
-			networkImage.fadeIn();
-		}
+
 		
-		if (count == 190) {
-			networkImage2.fadeIn();
+
 			centex.setText("Press [E] to select as Server or Client. Press [Q] to confirm.");
-		}
+
 
 		count++;
 
@@ -160,8 +147,7 @@ public class NetworkSelect2 extends Screen {
 			centex2.draw(context);
 		}
 
-		networkImage.draw(context);
-		networkImage2.draw(context);
+
 	}
 	
 	private void select(){
