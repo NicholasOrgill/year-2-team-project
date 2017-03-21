@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import engine.Screen;
+
 /**
  * 
  * @author fannychen, bobbydilley
@@ -31,14 +32,28 @@ public class InputHandler implements KeyListener {
 		powerKey = new ArrayList<Integer>();
 	}
 
+	/**
+	 * Sets the new screen
+	 * 
+	 * @param screen
+	 *            The new screen
+	 */
 	public void setScreen(Screen screen) {
 		this.screen = screen;
 	}
-	
+
+	/**
+	 * Gets the current screen
+	 * 
+	 * @return The current screen
+	 */
 	public Screen getScreen() {
 		return this.screen;
 	}
 
+	/**
+	 * Handles key presses
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == playKey.get(0)) {
@@ -53,13 +68,16 @@ public class InputHandler implements KeyListener {
 		if (e.getKeyCode() == playKey.get(3)) {
 			screen.keyPressed(PLAYKEY3);
 		}
-		if(!powerKey.isEmpty()){
+		if (!powerKey.isEmpty()) {
 			if (e.getKeyCode() == powerKey.get(0)) {
 				screen.keyPressed(POWERKEY);
 			}
 		}
 	}
 
+	/**
+	 * Handles key releases
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == playKey.get(0)) {
@@ -74,13 +92,16 @@ public class InputHandler implements KeyListener {
 		if (e.getKeyCode() == playKey.get(3)) {
 			screen.keyReleased(PLAYKEY3);
 		}
-		if(!powerKey.isEmpty()){
+		if (!powerKey.isEmpty()) {
 			if (e.getKeyCode() == powerKey.get(0)) {
 				screen.keyReleased(POWERKEY);
 			}
 		}
 	}
 
+	/**
+	 * Handles key types
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
