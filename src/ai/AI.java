@@ -7,15 +7,16 @@ import songmanager.Note;
 import songmanager.SongObject;
 
 /**
- * @author Sam Basic AI which recreates the song's array of notes and beats with
- *         differing timings as a basic way to simulate an AI
+ * 			AI which recreates the song's array of notes and beats with
+ *         	differing timings as a way to simulate an AI
+ * @author Sam Fishlock
+ * 			
  */
-public class SimpleAI {
+public class AI {
 
 	private SongArray[] songArray;
-	private int levels;
 
-	public SimpleAI() {
+	public AI() {
 
 	}
 
@@ -50,10 +51,10 @@ public class SimpleAI {
 		Note[] newNotes = new Note[notes.length];
 		Random rand = new Random();
 		for (int i = 0; i < notes.length; i++) {
-			// Generates new beat timing with +/- 15 ms on the original timing
+			// Generates new beat timing with +/- 20 ms on the original timing
 			// (multiplied by the current level)
-			int newTime = notes[i].getTime() + rand.nextInt(20 * currentLevel + 1)
-					- rand.nextInt(20 * currentLevel + 1);
+			int newTime = notes[i].getTime() + rand.nextInt(40 * currentLevel + 1)
+					- (20 * currentLevel + 1);
 			// Creates a new note with the new timing, same sustain and same
 			// buttons
 			newNotes[i] = new Note(newTime, notes[i].getSustain(), notes[i].getButtons());
@@ -74,27 +75,27 @@ public class SimpleAI {
 		Beat[] newBeats = new Beat[beats.length];
 		Random rand = new Random();
 		for (int i = 0; i < beats.length; i++) {
-			// Generates new beat timing with +/- 15 ms on the original timing
+			// Generates new beat timing with +/- 20 ms on the original timing
 			// (multiplied by the current level)
-			int newTime = beats[i].getTime() + rand.nextInt(20 * currentLevel + 1)
-					- rand.nextInt(20 * currentLevel + 1);
+			int newTime = beats[i].getTime() + rand.nextInt(40 * currentLevel + 1)
+					- (20 * currentLevel + 1);
 			// Creates a new note with the new timing and same measure
 			newBeats[i] = new Beat(newTime, beats[i].getMeasure());
 		}
 		return newBeats;
 	}
-
-	/**
-	 * @return The number of levels of AI
-	 */
-	public int getLevels() {
-		return levels;
-	}
-
+	
 	/**
 	 * @return The array of beats and notes at different AI levels
 	 */
 	public SongArray[] getSongArray() {
 		return songArray;
+	}
+	
+	/**
+	 * @param songArray The new SongArray 
+	 */
+	public void setSongArray(SongArray[] _songArray) {
+		this.songArray = _songArray;
 	}
 }

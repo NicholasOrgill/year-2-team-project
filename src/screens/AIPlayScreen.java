@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import ai.SimpleAI;
+import ai.AI;
 import ai.SongArray;
 import audio.Player;
 import engine.GameObject;
@@ -23,6 +23,7 @@ import sprites.PlaySprite;
 import sprites.SystemTextCenter;
 import sprites.SystemTextCenterFloat;
 import sprites.SystemTextCenterShake;
+import sprites.TextSprite;
 import utils.ColorPack;
 
 public class AIPlayScreen extends Screen {
@@ -79,14 +80,16 @@ public class AIPlayScreen extends Screen {
 	private int aiPower;
 	private SystemTextCenterFloat powerText;
 	private SongFile songFile;
-	private int endPowerAI = 0;
-	private int endPowerPlayer = 0;
+	private int playerCooldown;
+	private int aiCooldown;
+	private SystemTextCenter cooldownTextLeft;
+	private SystemTextCenter cooldownTextRight;
 
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("on p");
-			displayPowerPlayer(8, 5000);
+			displayPowerPlayer();
 		} else {
 			keys[key] = true;
 			System.out.println("on" + key);
@@ -105,22 +108,24 @@ public class AIPlayScreen extends Screen {
 		}
 	}
 
-	private void displayPowerPlayer(int newLevel, int duration) {
-		if (power == 100) {
-			powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
-			speedScaleRight = 0.8;
-			aiLevel = newLevel;
-			endPowerAI = count + duration;
+	private void displayPowerPlayer() {
+		if (power >= 50) {
+			powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 340, "POWER USED!");
+			speedScaleRight = Math.min(speedScaleRight + 0.2, 2);
+			aiLevel = (int) speedScaleRight * 10;
+			playerCooldown = 600;
+			cooldownTextRight.setText("Opponent Activated Power! \n Time left: " + (int)(playerCooldown/60));
 			power = 0;
 		} else {
-			powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "NOT ENOUGH POWER!");
+			powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 280, "NOT ENOUGH POWER!");
 		}
 	}
 
-	private void displayPowerAI(int duration) {
-		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
-		speedScaleLeft = 0.8;
-		endPowerPlayer = count + duration;
+	private void displayPowerAI() {
+		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 340, "POWER USED!");
+		aiCooldown = 600;
+		cooldownTextLeft.setText("Opponent Activated Power! \n Time left: " + (int)(aiCooldown/60));
+		speedScaleLeft = Math.min(speedScaleLeft + 0.2, 2);
 		aiPower = 0;
 	}
 
@@ -196,8 +201,8 @@ public class AIPlayScreen extends Screen {
 				aiPower = Math.min(100, Math.max(0, aiPower));
 			}
 			player2Text.setText("AI COMBO: " + aiCombo + " POWER: " + aiPower + "%");
-			if (aiPower == 100) {
-				displayPowerAI(5000);
+			if (aiPower >= 50) {
+				displayPowerAI();
 			}
 		} else {
 			if (!badBool) {
@@ -237,6 +242,9 @@ public class AIPlayScreen extends Screen {
 		leftScore = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 105, "0");
 		rightScore = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 105, "0");
 
+		cooldownTextLeft = new SystemTextCenter((int) (getScreenWidth() * 0.25), 105, " ");
+		cooldownTextRight  = new SystemTextCenter((int) (getScreenWidth() * 0.75), 105, " ");
+		
 		playSpriteLeft = new PlaySprite(0, 0, 0, 0, 0.25);
 		playSpriteRight = new PlaySprite(0, 0, 0, 0, 0.75);
 
@@ -264,8 +272,8 @@ public class AIPlayScreen extends Screen {
 			song = songFile.getSong();
 			beat = song.getBeats();
 			notes = song.getNotes();
-			SimpleAI ai = new SimpleAI();
-			songArray = ai.recreateArray(song, 10);
+			AI ai = new AI();
+			songArray = ai.recreateArray(song, 20);
 
 			audio.playBack(songFile.getAudioInputPath());
 
@@ -294,17 +302,6 @@ public class AIPlayScreen extends Screen {
 				noteSpriteAI[i] = new NoteSprite((int) (getScreenWidth() * 0.75), lineY - AINotes[i].getTime(), 0, 0,
 						AINotes[i].getButtons(), AINotes[i].getSustain(), 0.75, getGameObject().getSpeed());
 			}
-		}
-
-		AINotes = songArray[aiLevel].getNotes();
-
-		if (count > endPowerAI) {
-			AINotes = songArray[origAiLevel].getNotes();
-			speedScaleRight = origSpeedScale;
-		}
-
-		if (count > endPowerPlayer) {
-			speedScaleLeft = origSpeedScale;
 		}
 
 		for (int i = 0; i < beat.length; i++) {
@@ -358,6 +355,30 @@ public class AIPlayScreen extends Screen {
 
 		powerText.setScreenSize(getScreenWidth(), getScreenHeight());
 		powerText.update();
+		
+		cooldownTextLeft.setScreenSize(getScreenWidth(), getScreenHeight());
+		cooldownTextLeft.update();	
+		
+		cooldownTextRight.setScreenSize(getScreenWidth(), getScreenHeight());
+		cooldownTextRight.update();	
+		
+		if (playerCooldown != 0) {
+			playerCooldown--;
+			cooldownTextRight.setText("Opponent Activated Power! \n Time left: " + (int)(playerCooldown/60));
+		} else {
+			cooldownTextRight.setText(" ");
+			speedScaleRight = origSpeedScale;
+			AINotes = songArray[origAiLevel].getNotes();
+		}
+		
+		if (aiCooldown != 0) {
+			aiCooldown--;
+			cooldownTextLeft.setText("Opponent Activated Power! \n Time left: " + (int)(aiCooldown/60));
+		} else {
+			cooldownTextLeft.setText(" ");
+			speedScaleLeft = origSpeedScale;
+		}
+		
 		if (powerText.shouldRemove()) {
 			powerText.setText(" ");
 		}
@@ -478,6 +499,9 @@ public class AIPlayScreen extends Screen {
 
 		leftScore.draw(context);
 		rightScore.draw(context);
+		
+		cooldownTextLeft.draw(context);
+		cooldownTextRight.draw(context);
 
 		textAILevel.draw(context);
 

@@ -41,7 +41,7 @@ public class NetworkSelect extends Screen {
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
 		if (key == InputHandler.PLAYKEY0) {
-			moveScreen();
+			//moveScreen();
 		}
 	}
 
@@ -134,7 +134,7 @@ public class NetworkSelect extends Screen {
 				setNextScreen(new NetworkPlayScreen(getGameObject()));
 				centex.setText("Connected");
 			}else {
-				centex.setText("Network Check Fail.");
+				//centex.setText("Network Check Fail.");
 				setNextScreen(new ModeSelect(getGameObject()));
 			}
 		}
@@ -142,6 +142,13 @@ public class NetworkSelect extends Screen {
 		if (count >= 410 && getGameObject().isReady()) {
 			moveScreen();
 		}
+		
+		if(count >= 410 && getGameObject().getNetwork() != null && getGameObject().isConnected() && !getGameObject().isReady()){
+			getGameObject().getNetwork().sendReadyMsg();
+			setNextScreen(new NetworkPlayScreen(getGameObject()));
+			centex.setText("Connected");
+		}
+		
 		count++;
 
 	}
