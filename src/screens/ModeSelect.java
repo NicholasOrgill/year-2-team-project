@@ -51,7 +51,7 @@ public class ModeSelect extends Screen {
 		if (key == InputHandler.PLAYKEY0) {
 			fx.playEffect("bang.wav");
 			if (select == 0) {
-				getGameObject().setMode(new PlayScreenDebug(getGameObject()));
+				getGameObject().setMode(new PlayScreen(getGameObject()));
 			} else if (select == 1) {
 				getGameObject().setMode(new AISelectScreen(getGameObject()));
 			} else if (select == 2) {
