@@ -64,7 +64,7 @@ public class AIPlayScreen extends Screen {
 
 	private ArrayList<NoteHitSprite> hits = new ArrayList<NoteHitSprite>();
 	private ArrayList<NoteHitSprite> aiHits = new ArrayList<NoteHitSprite>();
-	
+
 	private double origSpeedScale = 0.4;
 	private double speedScaleLeft = 0.4;
 	private double speedScaleRight = 0.4;
@@ -106,16 +106,20 @@ public class AIPlayScreen extends Screen {
 	}
 
 	private void displayPowerPlayer(int newLevel, int duration) {
-		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
-		speedScaleRight = 1;
-		aiLevel = newLevel;
-		endPowerAI = count + duration;
-		power = 0;
+		if (power == 100) {
+			powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
+			speedScaleRight = 0.8;
+			aiLevel = newLevel;
+			endPowerAI = count + duration;
+			power = 0;
+		} else {
+			powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "NOT ENOUGH POWER!");
+		}
 	}
 
 	private void displayPowerAI(int duration) {
 		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
-		speedScaleLeft = 1;
+		speedScaleLeft = 0.8;
 		endPowerPlayer = count + duration;
 		aiPower = 0;
 	}
@@ -181,7 +185,6 @@ public class AIPlayScreen extends Screen {
 			if (!ai)
 				scoreQuality[3]++;
 		} else {
-			scoreQuality[4]++;
 			bad(ai);
 			badBool = true;
 		}
@@ -216,6 +219,7 @@ public class AIPlayScreen extends Screen {
 			aiCombo = 0;
 			player2Text.setText("AI COMBO: " + aiCombo + " POWER: " + aiPower + "%");
 		} else {
+			scoreQuality[4]++;
 			shakeText = new SystemTextCenterShake((int) (getScreenWidth() * 0.25), 280, "BAD");
 			power = 0;
 			combo = 0;
@@ -298,7 +302,7 @@ public class AIPlayScreen extends Screen {
 			AINotes = songArray[origAiLevel].getNotes();
 			speedScaleRight = origSpeedScale;
 		}
-		
+
 		if (count > endPowerPlayer) {
 			speedScaleLeft = origSpeedScale;
 		}
