@@ -94,7 +94,7 @@ public class PlayScreenDebug extends Screen {
 				cooldown = 600;
 				comboSprite.setText("Power activated! \n Time left: " + (int)(cooldown/60));
 				power-=50;
-				speedScale = 0.3;
+				speedScale = getGameObject().getSpeed() - 0.1;
 			}
 		} else {
 			keys[key] = true;
@@ -181,7 +181,7 @@ public class PlayScreenDebug extends Screen {
 			cooldown--;
 			comboSprite.setText("Power activated!\nTime left: " + (int)(cooldown/60));
 		} else {
-			speedScale = 0.4;
+			speedScale = getGameObject().getSpeed();
 			comboSprite.setText((power >= 50) ? "Power can be used!" : "No power activated!");
 		}
 		if (audio.getAudioPlayer().playCompleted) {

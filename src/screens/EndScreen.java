@@ -121,7 +121,7 @@ public class EndScreen extends Screen {
 	@Override
 	public void update() {
 
-		if (count > 100) {
+		if (count >= 100) {
 			if (scoreOut1 < player1Score) {
 				scoreOut1 += 1 + (int) (player1Score / (int) (player1Score * 0.01));
 			} else {
@@ -136,8 +136,8 @@ public class EndScreen extends Screen {
 			}
 		}
 
-		player1Text.setText("" + scoreOut1);
-		player2Text.setText("" + scoreOut2);
+		player1Text.setText("" + player1Score);
+		player2Text.setText("" + player2Score);
 
 		playerText.setScreenSize(getScreenWidth(), getScreenHeight());
 		playerText2.setScreenSize(getScreenWidth(), getScreenHeight());
