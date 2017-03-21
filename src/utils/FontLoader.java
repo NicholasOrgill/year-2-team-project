@@ -4,7 +4,20 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 
+/**
+ * Class for loading fonts
+ * 
+ * @author
+ *
+ */
 public class FontLoader {
+	/**
+	 * Loads a font from a given path
+	 * 
+	 * @param path
+	 *            The path of the font
+	 * @return The font
+	 */
 	public static Font loadFontFromResource(String path) {
 		// Load the font
 		ClassLoader cl = FontLoader.class.getClassLoader();
