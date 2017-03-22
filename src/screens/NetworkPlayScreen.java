@@ -50,6 +50,7 @@ public class NetworkPlayScreen extends Screen {
 	
 	private Player audio = new Player();
 	private SongFile songFile;
+	private boolean complete = false;
 	
 	private int playerCooldown;
 	private int oppoCooldown;
@@ -263,13 +264,17 @@ public class NetworkPlayScreen extends Screen {
 		
 
 		if (audio.getAudioPlayer().playCompleted) {
-			getGameObject().setP1Score(score);
-			getGameObject().setScoreQuality(scoreQuality);
-			setNextScreen(new EndScreen(getGameObject()));
-			moveScreen();
+			if (!complete){
+				getGameObject().setP1Score(score);
+				getGameObject().setScoreQuality(scoreQuality);
+				setNextScreen(new EndScreen(getGameObject()));
+				moveScreen();
+				complete = true;
+			}
+			
 		}
 		
-		if (count == 0) {
+		else if (count == 0) {
 			
 			songFile = getGameObject().getSongFile();
 			song = songFile.getSong();
