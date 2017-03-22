@@ -267,7 +267,7 @@ public class AIPlayScreen extends Screen {
 			moveScreen();
 		}
 
-		if (count == 0) {
+		else if (count == 0) {
 			songFile = getGameObject().getSongFile();
 			song = songFile.getSong();
 			beat = song.getBeats();
