@@ -26,12 +26,17 @@ public class StartScreen extends Screen {
 			setNextScreen(new ModeSelect(getGameObject()));
 			getGameObject().getOverlay().getMiddleBottom().setText(" ");
 			moveScreen();
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute pressed");
 		}
 	}
 	
 	@Override
 	public void keyReleased(int key) {
 		System.out.println("off" + key);
+		if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute unpressed");
+		}
 	}
 	
 	public StartScreen(GameObject gameObject) {

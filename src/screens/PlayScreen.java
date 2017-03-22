@@ -96,6 +96,8 @@ public class PlayScreen extends Screen {
 				power-=50;
 				speedScale = getGameObject().getSpeed() - 0.1;
 			}
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute pressed");
 		} else {
 			keys[key] = true;
 			System.out.println("on" + key);
@@ -107,6 +109,8 @@ public class PlayScreen extends Screen {
 	public void keyReleased(int key) {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("off p");
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute unpressed");
 		} else {
 			keys[key] = false;
 			System.out.println("off" + key);

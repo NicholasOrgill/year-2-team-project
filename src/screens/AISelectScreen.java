@@ -51,6 +51,8 @@ public class AISelectScreen extends Screen {
 				level--;
 			}
 			fx.playEffect("move.wav");
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute unpressed");
 		}
 	}
 

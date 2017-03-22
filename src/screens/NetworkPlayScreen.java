@@ -103,6 +103,8 @@ public class NetworkPlayScreen extends Screen {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("on p");
 			displayPowerOppo(key);
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute pressed");
 		} else {
 			keys[key] = true;
 			System.out.println("on" + key);
@@ -116,6 +118,8 @@ public class NetworkPlayScreen extends Screen {
 	public void keyReleased(int key) {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("off p");
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute unpressed");
 		} else {
 			keys[key] = false;
 			System.out.println("off" + key);

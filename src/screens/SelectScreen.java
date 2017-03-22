@@ -79,6 +79,15 @@ public class SelectScreen extends Screen {
 				currentSelector++;
 			}
 			pageUpdate();
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute pressed");
+		}
+	}
+	
+	@Override
+	public void keyReleased(int key) {
+		if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute unpressed");
 		}
 	}
 

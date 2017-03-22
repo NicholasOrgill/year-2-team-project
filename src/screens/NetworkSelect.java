@@ -17,6 +17,7 @@ import sprites.SystemBox;
 import sprites.SystemTextCenterFade;
 import utils.ColorPack;
 import utils.ImageLoader;
+
 /**
  * 
  * @author Bobby Dilley
@@ -33,20 +34,25 @@ public class NetworkSelect extends Screen {
 
 	int count = 0;
 
-//	private ImageSprite networkImage;
-//	private ImageSprite networkImage2;
+	// private ImageSprite networkImage;
+	// private ImageSprite networkImage2;
 	private BannerSprite bannerSprite;
 
 	@Override
 	public void keyPressed(int key) {
 		System.out.println("on" + key);
 		if (key == InputHandler.PLAYKEY0) {
-			//moveScreen();
+			// moveScreen();
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute pressed");
 		}
 	}
 
 	@Override
 	public void keyReleased(int key) {
+		if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute");
+		}
 		System.out.println("off" + key);
 	}
 
@@ -54,8 +60,6 @@ public class NetworkSelect extends Screen {
 		super(gameObject);
 
 		bannerSprite = new BannerSprite(getScreenWidth() / 2, getScreenHeight() / 2 + 80);
-
-
 
 		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2, "Waiting for Network");
 
@@ -88,8 +92,6 @@ public class NetworkSelect extends Screen {
 		bannerSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		bannerSprite.update();
 
-
-
 		imageGrad.setScreenSize(getScreenWidth(), getScreenHeight());
 		imageGrad.update();
 
@@ -105,8 +107,6 @@ public class NetworkSelect extends Screen {
 			box.update();
 		}
 
-
-
 		if (count == 300) {
 			if (getGameObject().isServer()) {
 				centex.setText("Establising Network...");
@@ -121,20 +121,19 @@ public class NetworkSelect extends Screen {
 			}
 
 		}
-		
-		if(count == 410) {
-			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()){
+
+		if (count == 410) {
+			if (getGameObject().getServer() != null && getGameObject().getServer().isAlive()) {
 				setNextScreen(new NetworkPlayScreen(getGameObject()));
 				centex.setText("Network Established");
 				getGameObject().getServer().inputMessage("SONG:" + getGameObject().getCurrentSelect());
 				getGameObject().getServer().inputMessage("READ:");
-			}
-			else if (getGameObject().getNetwork() != null && getGameObject().isConnected()){
+			} else if (getGameObject().getNetwork() != null && getGameObject().isConnected()) {
 				getGameObject().getNetwork().sendReadyMsg();
 				setNextScreen(new NetworkPlayScreen(getGameObject()));
 				centex.setText("Connected");
-			}else {
-				//centex.setText("Network Check Fail.");
+			} else {
+				// centex.setText("Network Check Fail.");
 				setNextScreen(new ModeSelect(getGameObject()));
 			}
 		}
@@ -142,13 +141,14 @@ public class NetworkSelect extends Screen {
 		if (count >= 410 && getGameObject().isReady()) {
 			moveScreen();
 		}
-		
-		if(count >= 410 && getGameObject().getNetwork() != null && getGameObject().isConnected() && !getGameObject().isReady()){
+
+		if (count >= 410 && getGameObject().getNetwork() != null && getGameObject().isConnected()
+				&& !getGameObject().isReady()) {
 			getGameObject().getNetwork().sendReadyMsg();
 			setNextScreen(new NetworkPlayScreen(getGameObject()));
 			centex.setText("Connected");
 		}
-		
+
 		count++;
 
 	}
@@ -175,7 +175,6 @@ public class NetworkSelect extends Screen {
 		}
 
 		// bannerSprite.draw(context);
-
 
 	}
 

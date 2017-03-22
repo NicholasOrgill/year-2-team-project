@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import audio.SoundHandler;
 import engine.GameObject;
 import engine.Screen;
+import input.InputHandler;
 import sprites.DotSpriteBackground;
 import sprites.FancyCenterTextSprite;
 import sprites.ImageGrad;
@@ -109,6 +110,20 @@ public class EndScreen extends Screen {
 		System.out.println(getGameObject().getScoreQuality()[1]);
 		System.out.println(getGameObject().getScoreQuality()[0]);
 		*/
+	}
+	
+	@Override
+	public void keyPressed(int key) {
+		if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute pressed");
+		}
+	}
+	
+	@Override
+	public void keyReleased(int key) {
+		if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute unpressed");
+		}
 	}
 
 	public void whoWon(){
