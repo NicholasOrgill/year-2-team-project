@@ -50,8 +50,12 @@ public class NetworkPlayScreen extends Screen {
 	
 	private Player audio = new Player();
 	private SongFile songFile;
+	private boolean complete = false;
 	
-	
+	private int playerCooldown;
+	private int oppoCooldown;
+	private SystemTextCenter cooldownTextLeft;
+	private SystemTextCenter cooldownTextRight;
 	private PlaySprite playSpriteLeft;
 	private PlaySprite playSpriteRight;
 	private BarSprite[] barSpriteLeft;
@@ -68,8 +72,6 @@ public class NetworkPlayScreen extends Screen {
 	private double origSpeedScale = 0.4;
 	private double speedScaleLeft = 0.4;
 	private double speedScaleRight = 0.4;
-	private int endPowerOppo = 0;
-	private int endPowerPlayer = 0;
 	
 	SongArray[] songArray;
 	
@@ -89,6 +91,9 @@ public class NetworkPlayScreen extends Screen {
 		player1Text = new SystemTextCenter((int) (getScreenWidth() * 0.25), 25, "Player");
 		player2Text = new SystemTextCenter((int) (getScreenWidth() * 0.75), 25, "Opponent");	
 		
+		cooldownTextLeft = new SystemTextCenter((int) (getScreenWidth() * 0.25), 105, " ");
+		cooldownTextRight  = new SystemTextCenter((int) (getScreenWidth() * 0.75), 105, " ");
+		
 		powerText = new SystemTextCenterFloat(0, 0, " ");
 
 	}
@@ -97,19 +102,24 @@ public class NetworkPlayScreen extends Screen {
 	public void keyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("on p");
-			displayPowerOppo(5000);
+			displayPowerOppo(key);
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute pressed");
 		} else {
 			keys[key] = true;
 			System.out.println("on" + key);
 			playSpriteLeft.push(key);
+			sendPressedKey(key);
 		}
-		sendPressedKey(key);
+		
 	}
 	
 	@Override
 	public void keyReleased(int key) {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("off p");
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute unpressed");
 		} else {
 			keys[key] = false;
 			System.out.println("off" + key);
@@ -122,7 +132,7 @@ public class NetworkPlayScreen extends Screen {
 	public void oppoKeyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("on p");
-			displayPowerPlayer(5000);
+			displayPowerPlayer();
 		} else {
 			oppoKeys[key] = true;
 			System.out.println("on" + key);
@@ -140,17 +150,25 @@ public class NetworkPlayScreen extends Screen {
 		}
 	}
 	
-	private void displayPowerOppo(int duration) {
-		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
-		speedScaleRight = 2;
-		endPowerOppo = count + duration;
-		power = 0;
+	private void displayPowerOppo(int key) {
+		if (power >= 50){
+			sendPressedKey(key);
+			powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 340, "POWER USED!");
+			speedScaleRight = Math.min(speedScaleRight + 0.2, 2);
+			oppoCooldown = 600;
+			cooldownTextRight.setText("Opponent Activated Power! \n Time left: " + (int)(oppoCooldown/60));
+			power = 0;
+		} else {
+			powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 280, "NOT ENOUGH POWER!");
+		}
+
 	}
 	
-	private void displayPowerPlayer(int duration) {
-		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 280, "POWER USED!");
-		speedScaleLeft = 2;
-		endPowerPlayer = count + duration;
+	private void displayPowerPlayer() {
+		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.5), 340, "POWER USED!");
+		playerCooldown = 600; 
+		cooldownTextLeft.setText("Opponent Activated Power! \n Time left: " + (int)(playerCooldown/60));
+		speedScaleLeft = Math.min(speedScaleLeft + 0.2, 2);
 	}
 	
 	public void scoreHelper(int difference, boolean oppo) {
@@ -177,7 +195,6 @@ public class NetworkPlayScreen extends Screen {
 				score += 100;
 				sendScore(100);
 				sendCombo(combo);
-				sendPower(power);
 				scoreQuality[0]++;
 				SystemTextCenterFloat floatText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 280, "PERFECT");
 				sendText("PERFECT");
@@ -192,19 +209,17 @@ public class NetworkPlayScreen extends Screen {
 				score += 75;
 				sendScore(75);
 				sendCombo(combo);
-				sendPower(power);
 				scoreQuality[1]++;
 				SystemTextCenterFloat floatText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 280, "EXCELLENT");
 				sendText("EXCELLENT");
 				floatText.shine();
 				floatTexts.add(floatText);
 		} else if (difference <= getGameObject().GOOD) {
-				combo = 0;
+				combo++;
 				power-=10;
 				score += 50;
 				sendScore(50);
 				sendCombo(combo);
-				sendPower(power);
 				scoreQuality[2]++;
 				SystemTextCenterFloat floatText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 280, "GOOD");
 				sendText("GOOD");
@@ -216,7 +231,6 @@ public class NetworkPlayScreen extends Screen {
 				score += 25;
 				sendScore(25);
 				sendCombo(combo);
-				sendPower(power);
 				scoreQuality[3]++;
 		} else {
 			scoreQuality[4]++;
@@ -226,6 +240,7 @@ public class NetworkPlayScreen extends Screen {
 		
 		leftScore.setText("" + score);
 		power = Math.min(100, Math.max(0, power));
+		sendPower(power);
 		player1Text.setText("COMBO: " + combo + "POWER: " + power + "%");
 		}
 		
@@ -253,13 +268,17 @@ public class NetworkPlayScreen extends Screen {
 		
 
 		if (audio.getAudioPlayer().playCompleted) {
-			getGameObject().setP1Score(score);
-			getGameObject().setScoreQuality(scoreQuality);
-			setNextScreen(new EndScreen(getGameObject()));
-			moveScreen();
+			if (!complete){
+				getGameObject().setP1Score(score);
+				getGameObject().setScoreQuality(scoreQuality);
+				setNextScreen(new EndScreen(getGameObject()));
+				moveScreen();
+				complete = true;
+			}
+			
 		}
 		
-		if (count == 0) {
+		else if (count == 0) {
 			
 			songFile = getGameObject().getSongFile();
 			song = songFile.getSong();
@@ -284,14 +303,6 @@ public class NetworkPlayScreen extends Screen {
 				noteSpriteRight[i] = new NoteSprite((int) (getScreenWidth() * 0.75), lineY - notes[i].getTime(), 0, 0,
 						notes[i].getButtons(), notes[i].getSustain(), 0.75, getGameObject().getSpeed());
 			}
-		}
-		
-		if (count > endPowerOppo) {
-			speedScaleRight = origSpeedScale;
-		}
-		
-		if (count > endPowerPlayer) {
-			speedScaleLeft = origSpeedScale;
 		}
 
 		for (int i = 0; i < beat.length; i++) {
@@ -407,6 +418,30 @@ public class NetworkPlayScreen extends Screen {
 		
 		powerText.setScreenSize(getScreenWidth(), getScreenHeight());
 		powerText.update();
+		
+		cooldownTextLeft.setScreenSize(getScreenWidth(), getScreenHeight());
+		cooldownTextLeft.update();	
+		
+		cooldownTextRight.setScreenSize(getScreenWidth(), getScreenHeight());
+		cooldownTextRight.update();	
+		
+		if (playerCooldown != 0){
+			playerCooldown--;
+			cooldownTextLeft.setText("Opponent Activated Power! \n Time left: " + (int)(playerCooldown/60));
+		} else {
+			cooldownTextLeft.setText(" ");
+			speedScaleLeft = origSpeedScale;
+		}
+		
+		if (oppoCooldown != 0){
+			oppoCooldown--;
+			cooldownTextRight.setText("Opponent Activated Power! \n Time left: " + (int)(oppoCooldown/60));
+		} else {
+			cooldownTextRight.setText(" ");
+			speedScaleRight = origSpeedScale;
+		}
+		
+		
 		if(powerText.shouldRemove()) {
 			powerText.setText(" ");
 		}
@@ -489,6 +524,9 @@ public class NetworkPlayScreen extends Screen {
 
 		leftScore.draw(context);
 		rightScore.draw(context);
+		
+		cooldownTextLeft.draw(context);
+		cooldownTextRight.draw(context);
 		
 		powerText.draw(context);
 		

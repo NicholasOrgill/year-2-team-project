@@ -63,12 +63,17 @@ public class TitleScreen extends Screen {
 			fx.stopAll();
 			fx.playEffect("bang.wav");
 			moveScreen();
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute pressed");
 		}
 	}
 	
 	@Override
 	public void keyReleased(int key) {
 		System.out.println("off" + key);
+		if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute unpressed");
+		}
 	} 
 	
 	

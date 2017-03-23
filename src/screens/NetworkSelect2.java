@@ -48,11 +48,16 @@ public class NetworkSelect2 extends Screen {
 			getGameObject().setMode(new NetworkSelect(getGameObject()));
 			setNextScreen(new SelectScreen(getGameObject()));
 			moveScreen();
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute pressed");
 		}
 	}
 
 	@Override
 	public void keyReleased(int key) {
+		if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute");
+		}
 		System.out.println("off" + key);
 	}
 

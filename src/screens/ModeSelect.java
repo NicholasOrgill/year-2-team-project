@@ -78,12 +78,16 @@ public class ModeSelect extends Screen {
 				select--;
 			}
 			fx.playEffect("move.wav");
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute pressed");
 		}
-
 	}
 
 	@Override
 	public void keyReleased(int key) {
+		if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute unpressed");
+		}
 		System.out.println("off" + key);
 	}
 

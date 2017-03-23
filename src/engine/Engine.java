@@ -79,8 +79,8 @@ public class Engine extends Canvas implements Runnable {
 		inputHandler.storePlayKey('w');
 		inputHandler.storePlayKey('e');
 		inputHandler.storePlayKey('r');
-		
 		inputHandler.storePowerKey('l');
+		inputHandler.storeMuteKey('m');
 		
 		this.addKeyListener(inputHandler);
 				

@@ -21,8 +21,10 @@ public class InputHandler implements KeyListener {
 	public static int PLAYKEY1 = 1;
 	public static int PLAYKEY2 = 2;
 	public static int PLAYKEY3 = 3;
-
 	public static int POWERKEY = 100;
+
+	private static int MUTEKEYCODE;
+	public static int MUTEKEY = 200;
 
 	/**
 	 * Initialise InputHandler
@@ -73,6 +75,9 @@ public class InputHandler implements KeyListener {
 				screen.keyPressed(POWERKEY);
 			}
 		}
+		if (e.getKeyCode() == MUTEKEYCODE) {
+			screen.keyPressed(MUTEKEY);
+		}
 	}
 
 	/**
@@ -96,6 +101,9 @@ public class InputHandler implements KeyListener {
 			if (e.getKeyCode() == powerKey.get(0)) {
 				screen.keyReleased(POWERKEY);
 			}
+		}
+		if (e.getKeyCode() == MUTEKEYCODE) {
+			screen.keyReleased(MUTEKEY);
 		}
 	}
 
@@ -143,6 +151,26 @@ public class InputHandler implements KeyListener {
 					powerKey.add(i);
 				} else
 					System.out.println("Invalid key");
+			} else
+				System.out.println("Invalid key");
+		} else
+			System.out.println("Invalid key");
+	}
+
+	/**
+	 * Allows the storage of a mute key
+	 * 
+	 * @param key
+	 *            The new mute key
+	 */
+	public void storeMuteKey(char key) {
+		int i = (int) key;
+		if (i >= 97 && i <= 122) {
+			i = i - 32;
+		}
+		if (i != 58 && i != 60 && i != 62 && i != 63 && i != 64) {
+			if (i >= 48 && i <= 93) {
+				MUTEKEYCODE = i;
 			} else
 				System.out.println("Invalid key");
 		} else

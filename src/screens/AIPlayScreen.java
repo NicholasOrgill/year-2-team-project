@@ -90,6 +90,8 @@ public class AIPlayScreen extends Screen {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("on p");
 			displayPowerPlayer();
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute");
 		} else {
 			keys[key] = true;
 			System.out.println("on" + key);
@@ -101,6 +103,8 @@ public class AIPlayScreen extends Screen {
 	public void keyReleased(int key) {
 		if (key == InputHandler.POWERKEY) {
 			System.out.println("off p");
+		} else if (key == InputHandler.MUTEKEY) {
+			System.out.println("Mute unpressed");
 		} else {
 			keys[key] = false;
 			System.out.println("off" + key);
@@ -114,7 +118,7 @@ public class AIPlayScreen extends Screen {
 			speedScaleRight = Math.min(speedScaleRight + 0.2, 2);
 			aiLevel = (int) speedScaleRight * 10;
 			playerCooldown = 600;
-			cooldownTextRight.setText("Opponent Activated Power! \n Time left: " + (int)(playerCooldown/60));
+			cooldownTextRight.setText("Opponent Activated Power! \n Time left: " + (int) (playerCooldown / 60));
 			power = 0;
 		} else {
 			powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 280, "NOT ENOUGH POWER!");
@@ -124,7 +128,7 @@ public class AIPlayScreen extends Screen {
 	private void displayPowerAI() {
 		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 340, "POWER USED!");
 		aiCooldown = 600;
-		cooldownTextLeft.setText("Opponent Activated Power! \n Time left: " + (int)(aiCooldown/60));
+		cooldownTextLeft.setText("Opponent Activated Power! \n Time left: " + (int) (aiCooldown / 60));
 		speedScaleLeft = Math.min(speedScaleLeft + 0.2, 2);
 		aiPower = 0;
 	}
@@ -243,8 +247,8 @@ public class AIPlayScreen extends Screen {
 		rightScore = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 105, "0");
 
 		cooldownTextLeft = new SystemTextCenter((int) (getScreenWidth() * 0.25), 105, " ");
-		cooldownTextRight  = new SystemTextCenter((int) (getScreenWidth() * 0.75), 105, " ");
-		
+		cooldownTextRight = new SystemTextCenter((int) (getScreenWidth() * 0.75), 105, " ");
+
 		playSpriteLeft = new PlaySprite(0, 0, 0, 0, 0.25);
 		playSpriteRight = new PlaySprite(0, 0, 0, 0, 0.75);
 
@@ -267,7 +271,7 @@ public class AIPlayScreen extends Screen {
 			moveScreen();
 		}
 
-		if (count == 0) {
+		else if (count == 0) {
 			songFile = getGameObject().getSongFile();
 			song = songFile.getSong();
 			beat = song.getBeats();
@@ -355,30 +359,30 @@ public class AIPlayScreen extends Screen {
 
 		powerText.setScreenSize(getScreenWidth(), getScreenHeight());
 		powerText.update();
-		
+
 		cooldownTextLeft.setScreenSize(getScreenWidth(), getScreenHeight());
-		cooldownTextLeft.update();	
-		
+		cooldownTextLeft.update();
+
 		cooldownTextRight.setScreenSize(getScreenWidth(), getScreenHeight());
-		cooldownTextRight.update();	
-		
+		cooldownTextRight.update();
+
 		if (playerCooldown != 0) {
 			playerCooldown--;
-			cooldownTextRight.setText("Opponent Activated Power! \n Time left: " + (int)(playerCooldown/60));
+			cooldownTextRight.setText("Opponent Activated Power! \n Time left: " + (int) (playerCooldown / 60));
 		} else {
 			cooldownTextRight.setText(" ");
 			speedScaleRight = origSpeedScale;
 			AINotes = songArray[origAiLevel].getNotes();
 		}
-		
+
 		if (aiCooldown != 0) {
 			aiCooldown--;
-			cooldownTextLeft.setText("Opponent Activated Power! \n Time left: " + (int)(aiCooldown/60));
+			cooldownTextLeft.setText("Opponent Activated Power! \n Time left: " + (int) (aiCooldown / 60));
 		} else {
 			cooldownTextLeft.setText(" ");
 			speedScaleLeft = origSpeedScale;
 		}
-		
+
 		if (powerText.shouldRemove()) {
 			powerText.setText(" ");
 		}
@@ -499,7 +503,7 @@ public class AIPlayScreen extends Screen {
 
 		leftScore.draw(context);
 		rightScore.draw(context);
-		
+
 		cooldownTextLeft.draw(context);
 		cooldownTextRight.draw(context);
 
