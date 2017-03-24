@@ -17,7 +17,7 @@ public class ServerMain {
 		
 		Server server = new Server(gameObject,serverInput,name);
 		server.start();
-		System.out.println("start");
+		//System.out.println("start");
 		
 		try{
 			BufferedReader fromUser = new BufferedReader(new InputStreamReader(System.in));

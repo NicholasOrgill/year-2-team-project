@@ -45,7 +45,6 @@ public class SoundHandler {
 	 */
 	public void fillEffects(String[] list) {
 		try {
-			// System.out.println("HI");
 			for (String elem : list) {
 				AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/res/audio/" + elem));
 				AudioFormat format = ais.getFormat();

@@ -23,10 +23,7 @@ public class ModeBoxSprite extends Sprite {
 	
 	public ModeBoxSprite(int x, int y, int version) {
 		super(x, y, sizex, sizey);
-		this.version = version;
-		
-		System.out.println(version);
-		
+		this.version = version;		
 		
 		if(version == 0) {
 			title = new SystemTextShine((int)(getX() - sizex/2 + 105 - 20), (int)(getY() + sizey/2 - 30 - 30), "SINGLE");

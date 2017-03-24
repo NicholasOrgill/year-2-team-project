@@ -203,7 +203,6 @@ public class Engine extends Canvas implements Runnable {
 			
 			// For effect have a little fake load time
 			changing = false;
-			//System.out.println("Screen Moved");
 		}
 		
 		overlay.update();
