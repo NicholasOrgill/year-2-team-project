@@ -78,8 +78,9 @@ public class PlayScreen extends Screen {
 
 	public PlayScreen(GameObject gameObject) {
 		super(gameObject);
-		textSprite = new SystemTextCenter(getScreenWidth() / 2 - 200, 50, "Game AI: Easy");
-		textScore = new SystemTextCenter(getScreenWidth() / 2 + 200, 50, "SinglePlayer");
+		textSprite = new SystemTextCenter(getScreenWidth() / 2 - 200, 50, " ");
+		textScore = new SystemTextCenter(getScreenWidth() / 2 + 200, 50, "Single Player");
+		textScore.setFontSize(0.4);
 		cooldownText = new SystemTextCenter(getScreenWidth() / 2, 105, " ");
 		playSprite = new PlaySprite(0, 0, 0, 0, 0.5);
 		powerText = new SystemTextCenterFloat(0, 0, " ");

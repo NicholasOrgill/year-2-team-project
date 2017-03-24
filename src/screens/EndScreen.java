@@ -49,6 +49,8 @@ public class EndScreen extends Screen {
 	private SoundHandler fx;
 	String[] fxlist = { "move.wav", "titlesongquiet.wav" };
 
+	boolean displaytwo = true;
+	
 	public EndScreen(GameObject gameObject) {
 		super(gameObject);
 		fx = new SoundHandler(gameObject);
@@ -135,7 +137,9 @@ public class EndScreen extends Screen {
 	
 	@Override
 	public void update() {
-
+		if(count == 0) {
+			displaytwo = !(getGameObject().getMode() instanceof PlayScreen); 
+		}
 		if (count >= 100) {
 			if (scoreOut1 < player1Score) {
 				scoreOut1 += 1 + (int) (player1Score / (int) (player1Score * 0.01));
@@ -196,10 +200,13 @@ public class EndScreen extends Screen {
 		context.drawLine(800 - 220, 148, 800, 148);
 		context.fillOval(800 - 220 - 4, 148 - 4, 8, 8);
 
-		// Draw the player2 score line
-		context.setColor(ColorPack.WHITE);
-		context.drawLine(800 - 220, 298, 800, 298);
-		context.fillOval(800 - 220 - 4, 298 - 4, 8, 8);
+		if(displaytwo) {
+			// Draw the player2 score line
+			context.setColor(ColorPack.WHITE);
+			context.drawLine(800 - 220, 298, 800, 298);
+			context.fillOval(800 - 220 - 4, 298 - 4, 8, 8);
+		}
+		
 
 		// Draw the graph
 
@@ -215,9 +222,13 @@ public class EndScreen extends Screen {
 		}
 
 		playerText.draw(context);
-		playerText2.draw(context);
+		if(displaytwo) {
+			playerText2.draw(context);
+			player2Text.draw(context);
+		}
+		
 		player1Text.draw(context);
-		player2Text.draw(context);
+		
 
 		imageGrad.draw(context);
 
