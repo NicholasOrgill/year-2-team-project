@@ -15,7 +15,7 @@ import engine.GameObject;
  */
 public class Player {
 	private AudioPlayer player = new AudioPlayer();
-	private PlayingTimer timer = new PlayingTimer();
+	private PlayingTimer timer;
 	private Thread playbackThread;
 
 	private boolean isPlaying = false;
@@ -33,6 +33,7 @@ public class Player {
 	 * Start playing back the sound.
 	 */
 	public void playBack(final String audioFilePath) {
+		timer = new PlayingTimer();
 		timer.start();
 		isPlaying = true;
 		playbackThread = new Thread(new Runnable() {
