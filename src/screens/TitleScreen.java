@@ -57,7 +57,6 @@ public class TitleScreen extends Screen {
 	
 	@Override
 	public void keyPressed(int key) {
-		System.out.println("on" + key);
 		if(key == InputHandler.PLAYKEY0) {
 			getGameObject().getOverlay().getMiddleBottom().setText(" ");
 			fx.stopAll();
@@ -65,16 +64,11 @@ public class TitleScreen extends Screen {
 			moveScreen();
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
-			System.out.println(getGameObject().isMute());
 		}
 	}
 	
 	@Override
 	public void keyReleased(int key) {
-		System.out.println("off" + key);
-		if (key == InputHandler.MUTEKEY) {
-			System.out.println("Mute unpressed");
-		}
 	} 
 	
 	

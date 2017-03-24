@@ -40,20 +40,10 @@ public class NetworkSelect extends Screen {
 
 	@Override
 	public void keyPressed(int key) {
-		System.out.println("on" + key);
-		if (key == InputHandler.PLAYKEY0) {
-			// moveScreen();
-		} else if (key == InputHandler.MUTEKEY) {
-			System.out.println("Mute pressed");
-		}
 	}
 
 	@Override
 	public void keyReleased(int key) {
-		if (key == InputHandler.MUTEKEY) {
-			System.out.println("Mute");
-		}
-		System.out.println("off" + key);
 	}
 
 	public NetworkSelect(GameObject gameObject) {

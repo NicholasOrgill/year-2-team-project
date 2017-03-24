@@ -94,10 +94,8 @@ public class PlayScreen extends Screen {
 			displayPower();
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
-			System.out.println(getGameObject().isMute());
 		} else {
 			keys[key] = true;
-			System.out.println("on" + key);
 			playSprite.push(key);
 		}
 	}
@@ -105,12 +103,9 @@ public class PlayScreen extends Screen {
 	@Override
 	public void keyReleased(int key) {
 		if (key == InputHandler.POWERKEY) {
-			System.out.println("off p");
 		} else if (key == InputHandler.MUTEKEY) {
-			System.out.println("Mute unpressed");
 		} else {
 			keys[key] = false;
-			System.out.println("off" + key);
 			playSprite.unpush(key);
 		}
 	}
