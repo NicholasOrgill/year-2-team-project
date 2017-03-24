@@ -178,7 +178,7 @@ public class Engine extends Canvas implements Runnable {
 			
 			if(System.currentTimeMillis() - lastTimer >= 1000) {
 				lastTimer += 1000;
-				System.out.println("Ticks: " + ticks + ", Frames: " + frames);
+				//System.out.println("Ticks: " + ticks + ", Frames: " + frames);
 				frames = 0;
 				ticks = 0;
 			}
@@ -203,7 +203,7 @@ public class Engine extends Canvas implements Runnable {
 			
 			// For effect have a little fake load time
 			changing = false;
-			System.out.println("Screen Moved");
+			//System.out.println("Screen Moved");
 		}
 		
 		overlay.update();
