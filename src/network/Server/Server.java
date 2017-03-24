@@ -40,10 +40,9 @@ public class Server extends Thread{
 				Socket ClientSocket = serverSocket.accept();
 				
 				// when a player connected add this player to array list
-				// the user ID will simply be determined by how many player already connected
 				Player opponent = new Player(ClientSocket);
 				Player me = new Player(name);
-				System.out.println("Your opponent connected");
+				//System.out.println("Your opponent connected");
 				
 				//start a new Thread to solve messages from player
 				new ServerThread(gameObject, serverInput,opponent,me).start();

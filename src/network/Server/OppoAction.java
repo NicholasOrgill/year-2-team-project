@@ -36,8 +36,8 @@ public class OppoAction {
 	public void setName(String _name){
 		opponent.setName(_name);
 		gameObject.setP2Name(_name);
-		toOppo.println("Your name is " + opponent.getName() + " Your opponent name is " + me.getName());
-		System.out.println("Your name is " + me.getName() + " Your opponent name is " + opponent.getName());
+		//toOppo.println("Your name is " + opponent.getName() + " Your opponent name is " + me.getName());
+		//System.out.println("Your name is " + me.getName() + " Your opponent name is " + opponent.getName());
 	}
 		
 	/**
@@ -47,15 +47,15 @@ public class OppoAction {
 		opponent.setReady(true);
 		opponent.setScore(0);
 		if (me.isReady() && opponent.isReady()){
-			toOppo.println("All players are ready, Loding Game...");
-			System.out.println("All players are ready, Loding Game...");
+			//toOppo.println("All players are ready, Loding Game...");
+			//System.out.println("All players are ready, Loding Game...");
 			setStart();
 		}else if (me.isReady() && !opponent.isReady()){
-			System.out.println("You are ready now, wait your oppoent...");
-			toOppo.println("Your opponent is ready, wait you...");
+			//System.out.println("You are ready now, wait your oppoent...");
+			//toOppo.println("Your opponent is ready, wait you...");
 		}else if (!me.isReady() && opponent.isReady()){
-			System.out.println("Your opponent is ready, wait you...");
-			toOppo.println("You are ready now, wait your oppoent...");
+			//System.out.println("Your opponent is ready, wait you...");
+			//toOppo.println("You are ready now, wait your oppoent...");
 		}
 	}
 	
@@ -64,8 +64,8 @@ public class OppoAction {
 	 */
 	public void setStart(){
 		opponent.setStarted(true);
-		System.out.println("Game Start");
-		toOppo.println("Game Start");
+		//System.out.println("Game Start");
+		//toOppo.println("Game Start");
 		toOppo.println("SONG:" + me.getSelect());
 		toOppo.println("LOAD:");//send key word to client to start game 
 		gameObject.setReady(true);
@@ -79,8 +79,8 @@ public class OppoAction {
 	public void updateScore(String _score){
 		int score = Integer.parseInt(_score);
 		opponent.addScore(score);
-		System.out.println("Your score is " +me.getScore() + " Your oppo score is " + opponent.getScore());
-		toOppo.println("Your score is " +opponent.getScore() + " Your oppo score is " + me.getScore());
+		//System.out.println("Your score is " +me.getScore() + " Your oppo score is " + opponent.getScore());
+		//toOppo.println("Your score is " +opponent.getScore() + " Your oppo score is " + me.getScore());
 		gameObject.setP2Score(opponent.getScore());
 	}
 	
@@ -92,8 +92,8 @@ public class OppoAction {
 		me.setReady(false);
 		opponent.setReady(false);
 		opponent.setStarted(false);
-		toOppo.println("Game Over, your opponent win");
-		System.out.println("Your opponent game over, you win");
+		//toOppo.println("Game Over, your opponent win");
+		//System.out.println("Your opponent game over, you win");
 		toOppo.println("OVER:");//send key word to client to end game
 	}
 	

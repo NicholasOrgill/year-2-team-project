@@ -57,12 +57,12 @@ public class ClientResolve extends Thread {
 					gameObject.setSongFile(gameObject.getSongFiles()[select]);
 				}
 				else{
-					System.out.println(_readline);
+					//System.out.println(_readline);
 				}
 			}
 			
 		} else {
-			System.out.println(_readline);
+			//System.out.println(_readline);
 		}
 	}
 }

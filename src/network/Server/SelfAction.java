@@ -35,8 +35,8 @@ public class SelfAction {
 	public void setName(String _name){
 		me.setName(_name);
 		gameObject.setP1Name(_name);
-		System.out.println("your name is " + me.getName() + " Your opponent name is " + opponent.getName());
-		toOppo.println("Your name is " + opponent.getName() + " Your opponent name is " + me.getName());
+		//System.out.println("your name is " + me.getName() + " Your opponent name is " + opponent.getName());
+		//toOppo.println("Your name is " + opponent.getName() + " Your opponent name is " + me.getName());
 		toOppo.println("NAME:"+_name);
 	}
 	
@@ -47,15 +47,15 @@ public class SelfAction {
 		me.setReady(true);
 		me.setScore(0);
 		if (me.isReady() && opponent.isReady()){
-			System.out.println("All players are ready, Loding Game...");
-			toOppo.println("All players are ready, Loding Game...");
+			//System.out.println("All players are ready, Loding Game...");
+			//toOppo.println("All players are ready, Loding Game...");
 			setStart();
 		}else if (me.isReady() && !opponent.isReady()){
-			System.out.println("You are ready now, wait your oppoent...");
-			toOppo.println("Your opponent is ready, wait you...");
+			//System.out.println("You are ready now, wait your oppoent...");
+			//toOppo.println("Your opponent is ready, wait you...");
 		}else if (!me.isReady() && opponent.isReady()){
-			System.out.println("Your opponent is ready, wait you...");
-			toOppo.println("You are ready now, wait your oppoent...");
+			//System.out.println("Your opponent is ready, wait you...");
+			//toOppo.println("You are ready now, wait your oppoent...");
 		}
 	}
 	
@@ -64,8 +64,8 @@ public class SelfAction {
 	 */
 	public void setStart(){
 		me.setStarted(true);
-		System.out.println("Game Start");
-		toOppo.println("Game Start");
+		//System.out.println("Game Start");
+		//toOppo.println("Game Start");
 		toOppo.println("SONG:" + me.getSelect());
 		toOppo.println("LOAD:");//send key word to client to start game
 		gameObject.setReady(true);
@@ -79,8 +79,8 @@ public class SelfAction {
 	public void updateScore(String _score){
 		int score = Integer.parseInt(_score);
 		me.addScore(score);
-		System.out.println("Your score is " +me.getScore() + " Your oppo score is " + opponent.getScore());
-		toOppo.println("Your score is " +opponent.getScore() + " Your oppo score is " + me.getScore());
+		//System.out.println("Your score is " +me.getScore() + " Your oppo score is " + opponent.getScore());
+		//toOppo.println("Your score is " +opponent.getScore() + " Your oppo score is " + me.getScore());
 		toOppo.println("SCOR:"+me.getScore());
 	}
 	
@@ -93,8 +93,8 @@ public class SelfAction {
 		me.setReady(false);
 		opponent.setReady(false);
 		opponent.setStarted(false);
-		System.out.println("Game Over, your opponent win");
-		toOppo.println("Your opponent game over, you win");
+		//System.out.println("Game Over, your opponent win");
+		//toOppo.println("Your opponent game over, you win");
 		toOppo.println("OVER:");//send key word to client to end game
 	}
 	
@@ -140,7 +140,7 @@ public class SelfAction {
 	
 	public void invalidMsg(){
 		String msg = "Invalid Message";
-		System.out.println(msg);
+		//System.out.println(msg);
 	}
 
 	public void sendSelect(String _select){
