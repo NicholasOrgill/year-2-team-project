@@ -114,7 +114,10 @@ public class EndScreen extends Screen {
 	
 	@Override
 	public void keyPressed(int key) {
-		if (key == InputHandler.MUTEKEY) {
+		if (key == InputHandler.PLAYKEY0) {
+			setNextScreen(new ModeSelect(getGameObject()));
+			moveScreen();
+		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
 			System.out.println(getGameObject().isMute());
 		}

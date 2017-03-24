@@ -78,8 +78,8 @@ public class PlayScreen extends Screen {
 
 	public PlayScreen(GameObject gameObject) {
 		super(gameObject);
-		textSprite = new SystemTextCenter(getScreenWidth() / 2 - 200, 105, "Game AI: Easy");
-		textScore = new SystemTextCenter(getScreenWidth() / 2 + 200, 105, "SinglePlayer");
+		textSprite = new SystemTextCenter(getScreenWidth() / 2 - 200, 50, "Game AI: Easy");
+		textScore = new SystemTextCenter(getScreenWidth() / 2 + 200, 50, "SinglePlayer");
 		cooldownText = new SystemTextCenter(getScreenWidth() / 2, 105, " ");
 		playSprite = new PlaySprite(0, 0, 0, 0, 0.5);
 		powerText = new SystemTextCenterFloat(0, 0, " ");
@@ -91,7 +91,6 @@ public class PlayScreen extends Screen {
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
-			System.out.println("on p");
 			displayPower();
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
@@ -172,7 +171,7 @@ public class PlayScreen extends Screen {
 
 		power = Math.min(100, Math.max(0, power));
 
-		textSprite.setText("COMBO: " + combo + "POWER: " + power + "%");
+		textSprite.setText("COMBO: " + combo + " POWER: " + power + "%");
 	}
 
 	public void bad() {
@@ -334,13 +333,8 @@ public class PlayScreen extends Screen {
 		// We use this to draw a dark background
 		context.setColor(ColorPack.DARK);
 		context.fillRect(0, 0, getScreenWidth(), getScreenHeight());
-
-		// This is how you draw the sprites
-		textSprite.draw(context);
-		textScore.draw(context);
+	
 		playSprite.draw(context);
-		cooldownText.draw(context);
-		powerText.draw(context);
 
 		for (int i = 0; i < beat.length; i++) {
 			barSprite[i].draw(context);
@@ -369,6 +363,13 @@ public class PlayScreen extends Screen {
 		for (SystemTextCenterFloat floatText : floatTexts) {
 			floatText.draw(context);
 		}
+		
+		// This is how you draw the sprites
+		textSprite.draw(context);
+		textScore.draw(context);
+		
+		cooldownText.draw(context);
+		powerText.draw(context);
 
 	}
 }
