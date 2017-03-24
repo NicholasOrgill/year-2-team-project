@@ -125,8 +125,9 @@ public class NetworkPlayScreen extends Screen {
 			keys[key] = false;
 			System.out.println("off" + key);
 			playSpriteLeft.unpush(key);
+			sendReleasedKey(key);
 		}
-		sendReleasedKey(key);
+		
 	}
 	
 	@Override
