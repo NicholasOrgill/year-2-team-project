@@ -96,7 +96,7 @@ public class TitleScreen extends Screen {
 		setNextScreen(new ModeSelect(gameObject));
 		
 		message = new MessageSprite(0, (int)(getScreenHeight() * 0.71), "PRESS 'Q' TO START THE GAME!");
-		message2 = new MessageSprite(0, (int)(getScreenHeight() * 0.79), "NETWORK PLAY AVAILABLE!");
+		message2 = new MessageSprite(0, (int)(getScreenHeight() * 0.79), "USE 'E' AND 'R' TO NAVIGATE!");
 		message2.white();
 		
 		
