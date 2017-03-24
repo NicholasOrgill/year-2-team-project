@@ -91,7 +91,6 @@ public class AIPlayScreen extends Screen {
 			displayPowerPlayer();
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
-			System.out.println(getGameObject().isMute());
 		} else {
 			keys[key] = true;
 			playSpriteLeft.push(key);
@@ -103,10 +102,8 @@ public class AIPlayScreen extends Screen {
 		if (key == InputHandler.POWERKEY) {
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
-			System.out.println(getGameObject().isMute());
 		} else {
 			keys[key] = false;
-			System.out.println("off" + key);
 		}
 	}
 

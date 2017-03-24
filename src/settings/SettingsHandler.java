@@ -128,20 +128,4 @@ public class SettingsHandler {
 			return null;
 		}
 	}
-
-	/**
-	 * Main method for debugging
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		/*
-		 * Test the SettingsHandler SettingsHandler h = new SettingsHandler();
-		 * System.out.println(h.readSetting("testSetting"));
-		 * h.changeSetting("testSetting", "32");
-		 * System.out.println(h.readSetting("testSetting"));
-		 * h.changeSetting("testSetting", "68");
-		 * System.out.println(h.readSetting("testSetting"));
-		 */
-	}
 }

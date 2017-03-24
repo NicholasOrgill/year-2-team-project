@@ -378,44 +378,4 @@ public class SongFileProcessor {
 		}
 		return newNotes;
 	}
-
-	/**
-	 * Main method used for debugging
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		/*
-		 * Convert RS2 Bass to SongFile XML EofRepacker repacker = new
-		 * EofRepacker(); SongObject obj =
-		 * repacker.getSongObjectFromBassFile("data/PART REAL_BASS_RS2.xml");
-		 * SongFileProcessor processor = new SongFileProcessor();
-		 * processor.writeSongObjectToXML(obj, "data/xml/laser.xml");
-		 */
-
-		/*
-		 * Create a song object from the SongFile XML SongFileProcessor
-		 * processor = new SongFileProcessor(); SongObject obj =
-		 * processor.readSongObjectFromXML("src/songmanager/songfile.xml");
-		 */
-
-		/*
-		 * Create Song File String imagePath = "src/songmanager/tetris.png";
-		 * String audioPath = "src/songmanager/Tetris.wav"; String notesPath =
-		 * "src/songmanager/songfile.xml"; BufferedImage image; try { image =
-		 * ImageIO.read(new File(imagePath)); } catch (IOException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); image = null; }
-		 * SongFileProcessor processor = new SongFileProcessor(); SongObject
-		 * songObj = processor.readSongObjectFromXML(notesPath); SongFile
-		 * songFileObj = new SongFile(image, audioPath, songObj);
-		 * processor.writeSongFile(songFileObj, "data/tetris.song"); SongFile
-		 * readFile = processor.readSongFile("src/songmanager/tetris.song");
-		 */
-
-		/*
-		 * Test readAllSongFiles() SongFile[] songFiles =
-		 * SongFileProcessor.readAllSongFiles();
-		 * System.out.println(songFiles.length);
-		 */
-	}
 }

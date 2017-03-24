@@ -133,7 +133,6 @@ public class SelectScreen extends Screen {
 		getGameObject().setCurrentSelect(currentSelector);
 		backImage = songFile.getCoverArt();
 		image.setImage(backImage);
-		System.out.println("UPDATE CALLED");
 
 		fx.stopAll();
 

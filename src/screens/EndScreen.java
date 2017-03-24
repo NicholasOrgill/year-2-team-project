@@ -105,19 +105,12 @@ public class EndScreen extends Screen {
 		howWell[4] = getGameObject().getScoreQuality()[1];
 		howWell[5] = (getGameObject().getScoreQuality()[1] + getGameObject().getScoreQuality()[0]) / 2;
 		howWell[6] = getGameObject().getScoreQuality()[0];
-		/*
-		System.out.println(getGameObject().getScoreQuality()[4]);
-		System.out.println(getGameObject().getScoreQuality()[3]);
-		System.out.println(getGameObject().getScoreQuality()[2]);
-		System.out.println(getGameObject().getScoreQuality()[1]);
-		System.out.println(getGameObject().getScoreQuality()[0]);
-		*/
 	}
 	
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.PLAYKEY0) {
-			setNextScreen(new ModeSelect(getGameObject()));
+			setNextScreen(new StartScreen(getGameObject()));
 			moveScreen();
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();

@@ -115,12 +115,9 @@ public class NetworkPlayScreen extends Screen {
 	@Override
 	public void keyReleased(int key) {
 		if (key == InputHandler.POWERKEY) {
-			System.out.println("off p");
 		} else if (key == InputHandler.MUTEKEY) {
-			System.out.println("Mute unpressed");
 		} else {
 			keys[key] = false;
-			System.out.println("off" + key);
 			playSpriteLeft.unpush(key);
 			sendReleasedKey(key);
 		}
@@ -130,21 +127,17 @@ public class NetworkPlayScreen extends Screen {
 	@Override
 	public void oppoKeyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
-			System.out.println("on p");
 			displayPowerPlayer();
 		} else {
 			oppoKeys[key] = true;
-			System.out.println("on" + key);
 			playSpriteRight.push(key);
 		}
 	}
 	
 	public void oppoKeyReleased(int key){
 		if (key == InputHandler.POWERKEY) {
-			System.out.println("off p");
 		} else {
 			oppoKeys[key] = false;
-			System.out.println("off" + key);
 			playSpriteRight.unpush(key);
 		}
 	}

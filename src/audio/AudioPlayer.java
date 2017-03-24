@@ -80,9 +80,6 @@ public class AudioPlayer implements LineListener {
 		long hour = 0;
 		long minute = 0;
 		long seconds = audioClip.getMicrosecondLength() / 1000000;
-
-		System.out.println(seconds);
-
 		if (seconds >= SECONDS_IN_HOUR) {
 			hour = seconds / SECONDS_IN_HOUR;
 			length = String.format("%02d:", hour);
