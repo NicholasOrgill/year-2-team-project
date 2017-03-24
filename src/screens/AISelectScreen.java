@@ -25,9 +25,7 @@ public class AISelectScreen extends Screen {
 	private ImageGrad imageGrad;
 
 	@Override
-	public void keyPressed(int key) {
-		System.out.println("on" + key);
-	
+	public void keyPressed(int key) {	
 		if (key == InputHandler.PLAYKEY0) {
 			fx.playEffect("bang.wav");
 			getGameObject().setAiLevelText(diffText);
@@ -53,13 +51,11 @@ public class AISelectScreen extends Screen {
 			fx.playEffect("move.wav");
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
-			System.out.println(getGameObject().isMute());
 		}
 	}
 
 	@Override
 	public void keyReleased(int key) {
-		System.out.println("off" + key);
 	}
 
 	public AISelectScreen(GameObject gameObject) {

@@ -88,14 +88,12 @@ public class AIPlayScreen extends Screen {
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
-			System.out.println("on p");
 			displayPowerPlayer();
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
 			System.out.println(getGameObject().isMute());
 		} else {
 			keys[key] = true;
-			System.out.println("on" + key);
 			playSpriteLeft.push(key);
 		}
 	}
@@ -103,14 +101,12 @@ public class AIPlayScreen extends Screen {
 	@Override
 	public void keyReleased(int key) {
 		if (key == InputHandler.POWERKEY) {
-			System.out.println("off p");
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
 			System.out.println(getGameObject().isMute());
 		} else {
 			keys[key] = false;
 			System.out.println("off" + key);
-			playSpriteLeft.unpush(key);
 		}
 	}
 

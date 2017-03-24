@@ -19,7 +19,6 @@ public class ExampleScreen extends Screen {
 
 	@Override
 	public void keyPressed(int key) {
-		System.out.println("on" + key);
 		// Default keys are being set in the engine class currently
 		// There are representations of all the keys, PLAYER0 is set to Q
 		if (key == InputHandler.PLAYKEY0) {
@@ -33,7 +32,6 @@ public class ExampleScreen extends Screen {
 
 	@Override
 	public void keyReleased(int key) {
-		System.out.println("off" + key);
 	}
 
 	public ExampleScreen(GameObject gameObject) {

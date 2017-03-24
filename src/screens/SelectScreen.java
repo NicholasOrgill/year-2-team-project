@@ -53,7 +53,6 @@ public class SelectScreen extends Screen {
 	private SongFile songFile;
 
 	public void keyPressed(int key) {
-		System.out.println("on" + key);
 		if (key == InputHandler.PLAYKEY0) {
 			getGameObject().setSongFile(songFile);
 			fx.playEffect("bang.wav");
@@ -81,15 +80,11 @@ public class SelectScreen extends Screen {
 			pageUpdate();
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
-			System.out.println(getGameObject().isMute());
 		}
 	}
 	
 	@Override
 	public void keyReleased(int key) {
-		if (key == InputHandler.MUTEKEY) {
-			System.out.println("Mute unpressed");
-		}
 	}
 
 	public SelectScreen(GameObject gameObject) {

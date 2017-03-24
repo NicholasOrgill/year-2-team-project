@@ -119,15 +119,11 @@ public class EndScreen extends Screen {
 			moveScreen();
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
-			System.out.println(getGameObject().isMute());
 		}
 	}
 	
 	@Override
 	public void keyReleased(int key) {
-		if (key == InputHandler.MUTEKEY) {
-			System.out.println("Mute unpressed");
-		}
 	}
 
 	public void whoWon(){

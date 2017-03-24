@@ -47,7 +47,6 @@ public class ModeSelect extends Screen {
 
 	@Override
 	public void keyPressed(int key) {
-		System.out.println("on" + key);
 		if (key == InputHandler.PLAYKEY0) {
 			fx.playEffect("bang.wav");
 			if (select == 0) {
@@ -80,16 +79,11 @@ public class ModeSelect extends Screen {
 			fx.playEffect("move.wav");
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
-			System.out.println(getGameObject().isMute());
 		}
 	}
 
 	@Override
 	public void keyReleased(int key) {
-		if (key == InputHandler.MUTEKEY) {
-			System.out.println("Mute unpressed");
-		}
-		System.out.println("off" + key);
 	}
 
 	public ModeSelect(GameObject gameObject) {

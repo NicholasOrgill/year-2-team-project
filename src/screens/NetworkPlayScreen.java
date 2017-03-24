@@ -101,14 +101,11 @@ public class NetworkPlayScreen extends Screen {
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
-			System.out.println("on p");
 			displayPowerOppo(key);
 		} else if (key == InputHandler.MUTEKEY) {
 			getGameObject().setMute();
-			System.out.println(getGameObject().isMute());
 		} else {
 			keys[key] = true;
-			System.out.println("on" + key);
 			playSpriteLeft.push(key);
 			sendPressedKey(key);
 		}
