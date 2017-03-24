@@ -2,6 +2,8 @@ package screens;
 
 import java.awt.Graphics;
 
+import audio.Player;
+import audio.SoundHandler;
 import engine.GameObject;
 import engine.Screen;
 import input.InputHandler;
@@ -83,6 +85,12 @@ public class NetworkSelect2 extends Screen {
 
 	@Override
 	public void update() {
+		if (count == 0) {
+			SoundHandler fx = new SoundHandler(getGameObject());
+			fx.stopAll();
+			Player audio = new Player(getGameObject());
+			audio.stopPlaying();
+		}
 
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
 		if (count > 40) {
