@@ -204,7 +204,7 @@ public class TitleScreen extends Screen {
 		message2.update();
 		
 		count++;
-		if(count == 800) {
+		if(count == 1100) {
 			setNextScreen(new StartScreen(getGameObject()));
 			moveScreen();
 		}
