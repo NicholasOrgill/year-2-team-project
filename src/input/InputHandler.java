@@ -123,17 +123,12 @@ public class InputHandler implements KeyListener {
 		if (i >= 97 && i <= 122) {
 			i = i - 32;
 		}
-		if (i != 58 && i != 60 && i != 62 && i != 63 && i != 64) {
-			if (i >= 48 && i <= 93) {
-				if (playKey.size() < 4 && !playKey.contains(i) && !powerKey.contains(i)) {
-					playKey.add(i);
-				} else
-					System.out.println("Invalid key");
-			} else
-				System.out.println("Invalid key");
-		} else
+		if ((i != 58 && i != 60 && i != 62 && i != 63 && i != 64) && (i >= 48 && i <= 93)
+				&& (playKey.size() < 4 && !playKey.contains(i) && !powerKey.contains(i))) {
+			playKey.add(i);
+		} else {
 			System.out.println("Invalid key");
-
+		}
 	}
 
 	/**
@@ -145,16 +140,12 @@ public class InputHandler implements KeyListener {
 		if (i >= 97 && i <= 122) {
 			i = i - 32;
 		}
-		if (i != 58 && i != 60 && i != 62 && i != 63 && i != 64) {
-			if (i >= 48 && i <= 93) {
-				if (powerKey.size() < 1 && !powerKey.contains(i) && !playKey.contains(i)) {
-					powerKey.add(i);
-				} else
-					System.out.println("Invalid key");
-			} else
-				System.out.println("Invalid key");
-		} else
+		if ((i != 58 && i != 60 && i != 62 && i != 63 && i != 64) && (i >= 48 && i <= 93)
+				&& (powerKey.size() < 1 && !powerKey.contains(i) && !playKey.contains(i))) {
+			powerKey.add(i);
+		} else {
 			System.out.println("Invalid key");
+		}
 	}
 
 	/**
@@ -168,13 +159,11 @@ public class InputHandler implements KeyListener {
 		if (i >= 97 && i <= 122) {
 			i = i - 32;
 		}
-		if (i != 58 && i != 60 && i != 62 && i != 63 && i != 64) {
-			if (i >= 48 && i <= 93) {
-				MUTEKEYCODE = i;
-			} else
-				System.out.println("Invalid key");
-		} else
+		if (i != 58 && i != 60 && i != 62 && i != 63 && i != 64 && (i >= 48 && i <= 93)) {
+			MUTEKEYCODE = i;
+		} else {
 			System.out.println("Invalid key");
+		}
 	}
 
 	/**
