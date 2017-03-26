@@ -49,7 +49,6 @@ public class AudioTest {
 
 		assertEquals(new HashMap<String, AudioInputStream>(), fx.effects);
 		assertEquals(new HashMap<String, AudioFormat>(), fx.formats);
-		assertEquals(new ArrayList<Clip>(), fx.clips);
 		assertNotNull(player.getAudioPlayer());
 
 		fx.fillEffects(effects);
