@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import engine.GameObject;
 import engine.Screen;
+import input.InputHandler;
+import songmanager.SongFile;
 
 /**
  * The Screen Test to test the screen drawing ability
@@ -49,11 +51,33 @@ public class ScreenTest {
 		screens.add(new StartScreen(gameObject));
 		screens.add(new TitleScreen(gameObject));
 
-		// The screen below require too much of the game to be resonably tested
-		// screens.add(new AIPlayScreen(gameObject));
-		// screens.add(new EndScreen(gameObject));
-		// screens.add(new NetworkPlayScreen(gameObject));
-		// screens.add(new PlayScreen(gameObject));
+		// Fill up the game object
+		gameObject.setAiLevel(5);
+		assertTrue(gameObject.getAiLevel() == 5);
+		gameObject.setAiLevelText("Example");
+		assertTrue(gameObject.getAiLevelText() == "Example");
+		gameObject.setConnect(true);
+		gameObject.setCurrentSelect(0);
+		gameObject.setHeight(600);
+		gameObject.setWidth(800);
+		gameObject.setHostname("localhost");
+		gameObject.setInputHandler(new InputHandler());
+		gameObject.setOverlay(new Overlay(gameObject));
+		gameObject.setP1Name("bobby");
+		gameObject.setP2Name("victoria");
+		gameObject.setP1Score(0);
+		gameObject.setP2Score(0);
+		int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+		gameObject.setScoreQuality(array);
+		gameObject.setSongFile(gameObject.getSongFiles()[0]);
+		
+		
+		screens.add(new AIPlayScreen(gameObject));
+		screens.add(new EndScreen(gameObject));
+		screens.add(new NetworkPlayScreen(gameObject));
+		screens.add(new PlayScreen(gameObject));
+		
+		
 
 		// Draw over in black
 		graphics.setColor(new Color(0, 0, 0));
