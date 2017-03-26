@@ -16,7 +16,7 @@ import sprites.SystemTextKern;
 import sprites.SystemTextScore;
 import utils.ColorPack;
 /**
- * 
+ * The end screen for the game
  * @author Bobby Dilley
  *
  */

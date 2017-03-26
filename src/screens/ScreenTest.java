@@ -55,7 +55,7 @@ public class ScreenTest {
 		gameObject.setAiLevel(5);
 		assertTrue(gameObject.getAiLevel() == 5);
 		gameObject.setAiLevelText("Example");
-		assertTrue(gameObject.getAiLevelText() == "Example");
+		assertTrue(gameObject.getAiLevelText().equals("Example"));
 		gameObject.setConnect(true);
 		gameObject.setCurrentSelect(0);
 		gameObject.setHeight(600);
@@ -72,13 +72,18 @@ public class ScreenTest {
 		gameObject.setSongFile(gameObject.getSongFiles()[0]);
 		
 		
-		screens.add(new AIPlayScreen(gameObject));
+		AIPlayScreen aiPlayScreen = new AIPlayScreen(gameObject);
+		aiPlayScreen.bad(true);
+		aiPlayScreen.scoreHelper(50, true);
+		aiPlayScreen.oppoKeyPressed(0);
+		aiPlayScreen.oppoKeyReleased(0);
+		
+		screens.add(aiPlayScreen);
 		screens.add(new EndScreen(gameObject));
 		screens.add(new NetworkPlayScreen(gameObject));
 		screens.add(new PlayScreen(gameObject));
 		
 		
-
 		// Draw over in black
 		graphics.setColor(new Color(0, 0, 0));
 		graphics.fillRect(0, 0, 800, 600);
