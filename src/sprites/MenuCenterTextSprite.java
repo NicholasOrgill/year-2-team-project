@@ -19,12 +19,18 @@ public class MenuCenterTextSprite extends TextSprite {
 	private int min = 100;
 	private double change = 4;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public MenuCenterTextSprite(int x, int y, String text) {
 		super(x, y, text);
 		setFontSize(0.04);
 		setFont(FontLoader.loadFontFromResource("Roboto-Bold.ttf"));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		if (selected) {
@@ -38,14 +44,23 @@ public class MenuCenterTextSprite extends TextSprite {
 		}
 	}
 
+	/**
+	 * Sets the sprite to not be selected
+	 */
 	public void deselect() {
 		selected = true;
 	}
 
+	/**
+	 * Sets the sprite to be selected
+	 */
 	public void select() {
 		selected = false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		// Create the fontSize from the size of the screen
@@ -57,7 +72,6 @@ public class MenuCenterTextSprite extends TextSprite {
 		// Set the anti aliasing
 		textGraphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-		
 
 		// Make the final font object with the correct font size
 		Font finalFont = getFont().deriveFont(dynamicFontSize);
@@ -68,33 +82,34 @@ public class MenuCenterTextSprite extends TextSprite {
 		// Work out the bounds of the text
 		TextLayout optTL = new TextLayout(getText(), finalFont, textGraphics.getFontRenderContext());
 		Rectangle2D bounds = optTL.getBounds();
-	
+
 		setWidth((int) bounds.getWidth());
 		setHeight((int) bounds.getHeight());
-		
+
 		// Set the colour of the text
 		double amount = Math.sin(Math.toRadians(opac));
-				
+
 		// Draw outline
-		textGraphics.setColor(new Color((int) (ColorPack.GREY.getRed() * amount), (int) (ColorPack.GREY.getGreen() * amount), (int) (ColorPack.GREY.getBlue() * amount), ColorPack.GREY.getAlpha()));
-		
-		
+		textGraphics.setColor(
+				new Color((int) (ColorPack.GREY.getRed() * amount), (int) (ColorPack.GREY.getGreen() * amount),
+						(int) (ColorPack.GREY.getBlue() * amount), ColorPack.GREY.getAlpha()));
+
 		int out = 1;
-		for(int i = -out ; i <= out ; i++) {
-			for(int j = -out ; j <= out ; j++) {
-				textGraphics.drawString(getText(), getX() + i - (getWidth() / 2), (int) (getY()  + j + bounds.getHeight()) - (getHeight() / 2));
+		for (int i = -out; i <= out; i++) {
+			for (int j = -out; j <= out; j++) {
+				textGraphics.drawString(getText(), getX() + i - (getWidth() / 2),
+						(int) (getY() + j + bounds.getHeight()) - (getHeight() / 2));
 			}
 		}
-			
-		
 
-		textGraphics.setColor(new Color((int) (ColorPack.WHITE.getRed() * amount), (int) (ColorPack.WHITE.getGreen() * amount), (int) (ColorPack.WHITE.getBlue() * amount),ColorPack.WHITE.getAlpha()));
-		
-				
+		textGraphics.setColor(
+				new Color((int) (ColorPack.WHITE.getRed() * amount), (int) (ColorPack.WHITE.getGreen() * amount),
+						(int) (ColorPack.WHITE.getBlue() * amount), ColorPack.WHITE.getAlpha()));
+
 		// Draw the text out
-		textGraphics.drawString(getText(), getX() - (getWidth() / 2), (int) (getY() + bounds.getHeight()) - (getHeight() / 2));
-		
-		
+		textGraphics.drawString(getText(), getX() - (getWidth() / 2),
+				(int) (getY() + bounds.getHeight()) - (getHeight() / 2));
+
 	}
 
 }

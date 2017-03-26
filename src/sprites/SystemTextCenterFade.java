@@ -17,6 +17,9 @@ public class SystemTextCenterFade extends TextSprite {
 	double opac = 0;
 	String actualText = "";
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public SystemTextCenterFade(int x, int y, String text) {
 		super(x, y, text);
 		setFontSize(0.027);
@@ -24,6 +27,9 @@ public class SystemTextCenterFade extends TextSprite {
 		actualText = text;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		if (counter == 180) {
@@ -33,9 +39,12 @@ public class SystemTextCenterFade extends TextSprite {
 		counter++;
 
 		opac = Math.sin(Math.toRadians(counter));
-		//opac = 1;
+		// opac = 1;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		// Create the fontSize from the size of the screen
@@ -43,7 +52,7 @@ public class SystemTextCenterFade extends TextSprite {
 
 		// Create a Graphics2D Object which allows us to set anti aliasing
 		Graphics2D textGraphics = (Graphics2D) context.create();
-				
+
 		// Set the anti aliasing
 		textGraphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);

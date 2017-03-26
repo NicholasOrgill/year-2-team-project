@@ -20,77 +20,100 @@ public class ModeBoxSprite extends Sprite {
 	public static final int NETWORK = 2;
 	private boolean selected = false;
 	private SystemTextShine title;
-	
+
+	/**
+	 * Constructor
+	 * 
+	 * @param x
+	 *            Top left x position of sprite
+	 * @param y
+	 *            Top left y position of sprite
+	 * @param version
+	 *            Type of mode box
+	 */
 	public ModeBoxSprite(int x, int y, int version) {
 		super(x, y, sizex, sizey);
-		this.version = version;		
-		
-		if(version == 0) {
-			title = new SystemTextShine((int)(getX() - sizex/2 + 105 - 20), (int)(getY() + sizey/2 - 30 - 30), "SINGLE");
+		this.version = version;
+
+		if (version == 0) {
+			title = new SystemTextShine((int) (getX() - sizex / 2 + 105 - 20), (int) (getY() + sizey / 2 - 30 - 30),
+					"SINGLE");
 			title.setFontSize(0.03);
 			setY(getY() - 30);
 			setX(getX() - 20);
 		}
-		
-		if(version == 1) {
-			title = new SystemTextShine((int)(getX() - sizex/2 + 53), (int)(getY() + sizey/2 - 30), "COMPUTER");
+
+		if (version == 1) {
+			title = new SystemTextShine((int) (getX() - sizex / 2 + 53), (int) (getY() + sizey / 2 - 30), "COMPUTER");
 			title.setFontSize(0.03);
 		}
-		
-		if(version == 2) {
-			title = new SystemTextShine((int)(getX() - sizex/2 + 73 + 20), (int)(getY() + sizey/2 - 30 + 30), "NETWORK");
+
+		if (version == 2) {
+			title = new SystemTextShine((int) (getX() - sizex / 2 + 73 + 20), (int) (getY() + sizey / 2 - 30 + 30),
+					"NETWORK");
 			title.setFontSize(0.03);
 			setY(getY() + 30);
 			setX(getX() + 20);
 		}
-		
+
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
 	}
 
+	/**
+	 * Sets box to be selected
+	 */
 	public void select() {
 		selected = true;
 		targetScale = 1.2;
 	}
-	
+
+	/**
+	 * Sets box to be unselected
+	 */
 	public void unselect() {
 		selected = false;
 		targetScale = 0.8;
 	}
 
-	
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
-		//title.setX((int)(getScreenWidth() / 2));
-		//title.setY((int)(getScreenHeight() / 2));
+		// title.setX((int)(getScreenWidth() / 2));
+		// title.setY((int)(getScreenHeight() / 2));
 		title.setScreenSize(getScreenWidth(), getScreenHeight());
 		title.update();
-		
-		if(count != max) {
+
+		if (count != max) {
 			count++;
 		}
 		trans = (int) (255 * Math.sin(Math.toRadians(count)));
-		
-		if(scale != targetScale) {
-			if(scale < targetScale) {
+
+		if (scale != targetScale) {
+			if (scale < targetScale) {
 				scale += Math.abs(scale - targetScale) / 4;
 			} else {
 				scale -= Math.abs(scale - targetScale) / 4;
 			}
 		}
-		
+
 	}
 
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
-		context.setColor(new Color(ColorPack.FADEDWHITE.getRed(), ColorPack.FADEDWHITE.getRed(), ColorPack.FADEDWHITE.getRed(), Math.max(0, (int)(trans*scale) - 160)));
-		
-		context.fillRect(getX() - (int)(sizex*scale / 2), getY() - (int)(sizey*scale / 2), (int)(sizex*scale), (int)(sizey*scale));
-		if(count == max) {
+		context.setColor(new Color(ColorPack.FADEDWHITE.getRed(), ColorPack.FADEDWHITE.getRed(),
+				ColorPack.FADEDWHITE.getRed(), Math.max(0, (int) (trans * scale) - 160)));
+
+		context.fillRect(getX() - (int) (sizex * scale / 2), getY() - (int) (sizey * scale / 2), (int) (sizex * scale),
+				(int) (sizey * scale));
+		if (count == max) {
 			title.draw(context);
 		}
-		
+
 	}
 
 }

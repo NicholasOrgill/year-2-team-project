@@ -17,14 +17,18 @@ public class FancyCenterTextSprite extends TextSprite {
 	int count = 127;
 	boolean run = true;
 	
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	public FancyCenterTextSprite(int x, int y, String text) {
 		super(x, y, text);
 		setFont(FontLoader.loadFontFromResource("Roboto-Thin.ttf"));
 		setFontSize(0.1);
 		
 	}
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override 
 	public void update() {
 		if(run) {
@@ -34,7 +38,9 @@ public class FancyCenterTextSprite extends TextSprite {
 			}
 		}
 	}
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		// Create the fontSize from the size of the screen

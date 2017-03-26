@@ -12,13 +12,19 @@ public class NoteHitSprite extends Sprite {
 	int maxWidth = (int) (getWidth() * 1.75);
 	int maxHeight = (int) (getHeight() * 1.75);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public NoteHitSprite(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
-		if(opac > 5) {
+		if (opac > 5) {
 			setWidth(getWidth() + 1 + Math.abs(getWidth() - maxWidth) / 3);
 			setHeight(getHeight() + 1 + Math.abs(getHeight() - maxHeight) / 3);
 			opac -= 1 + Math.abs(opac - opacTarget) / 3;
@@ -26,19 +32,27 @@ public class NoteHitSprite extends Sprite {
 		} else {
 			rem = true;
 		}
-		
+
 	}
-	
+
+	/**
+	 * Gets whether sprite should be removed
+	 * 
+	 * @return Whether the sprite should be removed
+	 */
 	public boolean shouldRemove() {
 		return rem;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
-		if(opac > 5) {
+		if (opac > 5) {
 			context.setColor(new Color(255, 255, 255, opac));
-			context.fillRect(getX() - (getWidth()/2), getY() - (getHeight()/2), getWidth(), getHeight());
+			context.fillRect(getX() - (getWidth() / 2), getY() - (getHeight() / 2), getWidth(), getHeight());
 		}
-	
+
 	}
 }

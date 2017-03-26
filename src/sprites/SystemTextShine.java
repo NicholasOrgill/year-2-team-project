@@ -18,6 +18,9 @@ import utils.FontLoader;
 public class SystemTextShine extends TextSprite {
 	boolean shine = false;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public SystemTextShine(int x, int y, String text) {
 		super(x, y, text);
 		setFontSize(0.047);
@@ -29,15 +32,24 @@ public class SystemTextShine extends TextSprite {
 
 	}
 
+	/**
+	 * Makes the text shine
+	 */
 	public void shine() {
 		shine = true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		// Create the fontSize from the size of the screen

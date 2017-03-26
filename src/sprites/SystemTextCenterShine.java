@@ -17,31 +17,45 @@ import utils.FontLoader;
 public class SystemTextCenterShine extends TextSprite {
 	boolean shine = false;
 	boolean removeBorder = false;
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public SystemTextCenterShine(int x, int y, String text) {
 		super(x, y, text);
 		setFontSize(0.047);
 		setFont(FontLoader.loadFontFromResource("OpenSans-Regular.ttf"));
-		
+
 		Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 		attributes.put(TextAttribute.TRACKING, 0.2);
 		setFont(getFont().deriveFont(attributes));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 
 	}
 
+	/**
+	 * Makes the text shine
+	 */
 	public void shine() {
 		shine = true;
 	}
-	
+
+	/**
+	 * Removes the border
+	 */
 	public void removeBorder() {
 		removeBorder = true;
 	}
 
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		// Create the fontSize from the size of the screen
@@ -53,7 +67,6 @@ public class SystemTextCenterShine extends TextSprite {
 		// Set the anti aliasing
 		textGraphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-		
 
 		// Make the final font object with the correct font size
 		Font finalFont = getFont().deriveFont(dynamicFontSize);
@@ -64,36 +77,35 @@ public class SystemTextCenterShine extends TextSprite {
 		// Work out the bounds of the text
 		TextLayout optTL = new TextLayout(getText(), finalFont, textGraphics.getFontRenderContext());
 		Rectangle2D bounds = optTL.getBounds();
-	
+
 		setWidth((int) bounds.getWidth());
 		setHeight((int) bounds.getHeight());
-		
-		if(!removeBorder) {
+
+		if (!removeBorder) {
 			// Draw outline
 			textGraphics.setColor(ColorPack.BLACK);
-			
-			
+
 			int out = 1;
-			for(int i = -out ; i <= out ; i++) {
-				for(int j = -out ; j <= out ; j++) {
-					textGraphics.drawString(getText(), getX() + i - (getWidth() / 2), (int) (getY()  + j + bounds.getHeight()) - (getHeight() / 2));
+			for (int i = -out; i <= out; i++) {
+				for (int j = -out; j <= out; j++) {
+					textGraphics.drawString(getText(), getX() + i - (getWidth() / 2),
+							(int) (getY() + j + bounds.getHeight()) - (getHeight() / 2));
 				}
 			}
 		}
-		
-	
+
 		textGraphics.setColor(ColorPack.WHITE);
-		
+
 		if (shine) {
 			GradientPaint gp = new GradientPaint(getX(), getY(), ColorPack.PRIMARY, getX() + getWidth(),
 					getY() + getHeight(), ColorPack.SECONDARY);
 			textGraphics.setPaint(gp);
 		}
-				
+
 		// Draw the text out
-		textGraphics.drawString(getText(), getX() - (getWidth() / 2), (int) (getY() + bounds.getHeight()) - (getHeight() / 2));
-		
-		
+		textGraphics.drawString(getText(), getX() - (getWidth() / 2),
+				(int) (getY() + bounds.getHeight()) - (getHeight() / 2));
+
 	}
 
 }

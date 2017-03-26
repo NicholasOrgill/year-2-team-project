@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import engine.Sprite;
 import utils.ColorPack;
+
 /**
  * 
  * @author Bobby Dilley
@@ -16,6 +17,9 @@ public class BannerSprite extends Sprite {
 	private GradientPaint second;
 	private SystemTextCenterShine resultText;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public BannerSprite(int x, int y) {
 		super(x, y, 600, 80);
 
@@ -32,11 +36,17 @@ public class BannerSprite extends Sprite {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		resultText.setScreenSize(getScreenWidth(), getScreenHeight());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		Graphics2D graphics = (Graphics2D) context;

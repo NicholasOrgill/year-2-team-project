@@ -14,21 +14,27 @@ import utils.ColorPack;
 import utils.FontLoader;
 
 public class SystemText extends TextSprite {
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	public SystemText(int x, int y, String text) {
 		super(x, y, text);
 		setFontSize(0.027);
 		setFont(FontLoader.loadFontFromResource("OpenSans-Regular.ttf"));
-		
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 
 	}
 
-
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		// Create the fontSize from the size of the screen
@@ -40,7 +46,6 @@ public class SystemText extends TextSprite {
 		// Set the anti aliasing
 		textGraphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-		
 
 		// Make the final font object with the correct font size
 		Font finalFont = getFont().deriveFont(dynamicFontSize);
@@ -51,30 +56,25 @@ public class SystemText extends TextSprite {
 		// Work out the bounds of the text
 		TextLayout optTL = new TextLayout(getText(), finalFont, textGraphics.getFontRenderContext());
 		Rectangle2D bounds = optTL.getBounds();
-	
+
 		setWidth((int) bounds.getWidth());
 		setHeight((int) bounds.getHeight());
-		
-			
+
 		// Draw outline
 		textGraphics.setColor(ColorPack.BLACK);
-		
-		
+
 		int out = 1;
-		for(int i = -out ; i <= out ; i++) {
-			for(int j = -out ; j <= out ; j++) {
-				textGraphics.drawString(getText(), getX() + i, getY()  + j + (int) bounds.getHeight());
+		for (int i = -out; i <= out; i++) {
+			for (int j = -out; j <= out; j++) {
+				textGraphics.drawString(getText(), getX() + i, getY() + j + (int) bounds.getHeight());
 			}
 		}
-	
+
 		textGraphics.setColor(ColorPack.WHITE);
-				
+
 		// Draw the text out
 		textGraphics.drawString(getText(), getX(), getY() + (int) bounds.getHeight());
-		
-		
+
 	}
 
 }
-
-
