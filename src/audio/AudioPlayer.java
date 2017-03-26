@@ -162,6 +162,9 @@ public class AudioPlayer implements LineListener {
 
 	/**
 	 * Listens to the audio line events to know when the playback completes.
+	 * 
+	 * @param event
+	 *            The received event
 	 */
 	@Override
 	public void update(LineEvent event) {
@@ -174,7 +177,7 @@ public class AudioPlayer implements LineListener {
 	}
 
 	/**
-	 * Simple getter method
+	 * Gets the audio clip
 	 * 
 	 * @return audio clip
 	 */

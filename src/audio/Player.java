@@ -49,11 +49,7 @@ public class Player {
 					}
 					player.play();
 					stopPlaying();
-				} catch (UnsupportedAudioFileException ex) {
-					ex.printStackTrace();
-				} catch (LineUnavailableException ex) {
-					ex.printStackTrace();
-				} catch (IOException ex) {
+				} catch (Exception ex) {
 					ex.printStackTrace();
 				} finally {
 					resetControls();
