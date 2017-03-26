@@ -42,7 +42,7 @@ public class AudioTest {
 
 	@Test
 	public void test() {
-		GameObject gameObject = new GameObject(0, 0);
+		GameObject gameObject = new GameObject(800, 600);
 		SoundHandler fx = new SoundHandler(gameObject);
 		Player player = new Player(gameObject);
 		String[] effects = { "titleshort.wav" };
