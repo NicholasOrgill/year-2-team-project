@@ -50,22 +50,16 @@ public class Player {
 					player.play();
 					stopPlaying();
 				} catch (UnsupportedAudioFileException ex) {
-					System.out.println("The audio format is unsupported!");
-					resetControls();
 					ex.printStackTrace();
 				} catch (LineUnavailableException ex) {
-					System.out.println("Could not play the audio file because line is unavailable!");
-					resetControls();
 					ex.printStackTrace();
 				} catch (IOException ex) {
-					System.out.println("I/O error while playing the audio file!");
-					resetControls();
 					ex.printStackTrace();
+				} finally {
+					resetControls();
 				}
-
 			}
 		});
-
 		playbackThread.start();
 	}
 

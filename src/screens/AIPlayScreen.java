@@ -171,7 +171,7 @@ public class AIPlayScreen extends Screen {
 			if (!ai)
 				scoreQuality[1]++;
 		} else if (difference <= getGameObject().GOOD) {
-			playerCombo = 0;
+			playerCombo++;
 			playerPower -= 10;
 			text.setText("GOOD!");
 			text.shine();
