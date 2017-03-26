@@ -80,7 +80,6 @@ public class PlayScreen extends Screen {
 		super(gameObject);
 		textSprite = new SystemTextCenter(getScreenWidth() / 2 - 200, 50, " ");
 		textScore = new SystemTextCenter(getScreenWidth() / 2 + 200, 50, "Single Player");
-		textScore.setFontSize(0.4);
 		cooldownText = new SystemTextCenter(getScreenWidth() / 2, 105, " ");
 		playSprite = new PlaySprite(0, 0, 0, 0, 0.5);
 		powerText = new SystemTextCenterFloat(0, 0, " ");
