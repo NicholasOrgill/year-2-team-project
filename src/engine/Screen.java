@@ -88,49 +88,64 @@ public class Screen {
 	}
 
 	/**
-	 * To be overridden
+	 * Updates the screen - this is called ~60 times per second, or every 16ms
 	 */
 	public void update() {
 
 	}
 
 	/**
-	 * To be overridden
+	 * Draws the screen using the provided graphics object
+	 * 
+	 * @param context
+	 *            The graphics object used to draw the screen
 	 */
 	public void draw(Graphics context) {
 
 	}
 
 	/**
-	 * To be overridden
+	 * Deletes the screen
 	 */
 	public void dispose() {
 
 	}
 
 	/**
-	 * To be overridden
+	 * Records a key press on the keyboard
+	 * 
+	 * @param key
+	 *            The integer value of the key pressed
 	 */
 	public void keyPressed(int key) {
 
 	}
 
 	/**
-	 * To be overridden
+	 * Records a key release from the keyboard
+	 * 
+	 * @param key
+	 *            The integer value of the key released
 	 */
 	public void keyReleased(int key) {
 
 	}
 
 	/**
-	 * To be overridden
+	 * Records a key being pressed by the opponent
+	 * 
+	 * @param key
+	 *            The integer value of the key pressed
 	 */
 	public void oppoKeyPressed(int key) {
 
 	}
 
 	/**
-	 * To be overridden
+	 * Records a key being released by the opponent
+	 * 
+	 * @param key
+	 *            The integer value of the key released
 	 */
 	public void oppoKeyReleased(int key) {
 

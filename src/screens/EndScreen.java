@@ -15,8 +15,10 @@ import sprites.SystemTextCenterShine;
 import sprites.SystemTextKern;
 import sprites.SystemTextScore;
 import utils.ColorPack;
+
 /**
  * The end screen for the game
+ * 
  * @author Bobby Dilley
  *
  */
@@ -50,7 +52,10 @@ public class EndScreen extends Screen {
 	String[] fxlist = { "move.wav", "titlesongquiet.wav" };
 
 	boolean displaytwo = true;
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public EndScreen(GameObject gameObject) {
 		super(gameObject);
 		fx = new SoundHandler(gameObject);
@@ -106,7 +111,10 @@ public class EndScreen extends Screen {
 		howWell[5] = (getGameObject().getScoreQuality()[1] + getGameObject().getScoreQuality()[0]) / 2;
 		howWell[6] = getGameObject().getScoreQuality()[0];
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.PLAYKEY0) {
@@ -116,22 +124,31 @@ public class EndScreen extends Screen {
 			getGameObject().setMute();
 		}
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyReleased(int key) {
 	}
 
-	public void whoWon(){
+	/**
+	 * Sets whether player 1 or 2 won the game
+	 */
+	public void whoWon() {
 		if (player1Score < player2Score)
 			this.won = false;
-		else 
+		else
 			this.won = true;
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
-		if(count == 0) {
-			displaytwo = !(getGameObject().getMode() instanceof PlayScreen); 
+		if (count == 0) {
+			displaytwo = !(getGameObject().getMode() instanceof PlayScreen);
 		}
 		if (count >= 100) {
 			if (scoreOut1 < player1Score) {
@@ -180,6 +197,9 @@ public class EndScreen extends Screen {
 		count++;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		context.setColor(ColorPack.DARK);
@@ -193,13 +213,12 @@ public class EndScreen extends Screen {
 		context.drawLine(800 - 220, 148, 800, 148);
 		context.fillOval(800 - 220 - 4, 148 - 4, 8, 8);
 
-		if(displaytwo) {
+		if (displaytwo) {
 			// Draw the player2 score line
 			context.setColor(ColorPack.WHITE);
 			context.drawLine(800 - 220, 298, 800, 298);
 			context.fillOval(800 - 220 - 4, 298 - 4, 8, 8);
 		}
-		
 
 		// Draw the graph
 
@@ -215,13 +234,12 @@ public class EndScreen extends Screen {
 		}
 
 		playerText.draw(context);
-		if(displaytwo) {
+		if (displaytwo) {
 			playerText2.draw(context);
 			player2Text.draw(context);
 		}
-		
+
 		player1Text.draw(context);
-		
 
 		imageGrad.draw(context);
 

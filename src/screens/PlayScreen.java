@@ -76,6 +76,9 @@ public class PlayScreen extends Screen {
 	private ArrayList<SystemTextCenterFloat> floatTexts = new ArrayList<SystemTextCenterFloat>();
 	private int cooldown = 0;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public PlayScreen(GameObject gameObject) {
 		super(gameObject);
 		textSprite = new SystemTextCenter(getScreenWidth() / 2 - 200, 50, " ");
@@ -88,6 +91,9 @@ public class PlayScreen extends Screen {
 		speedScale = getGameObject().getSpeed();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
@@ -100,6 +106,9 @@ public class PlayScreen extends Screen {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyReleased(int key) {
 		if (key == InputHandler.POWERKEY) {
@@ -109,7 +118,10 @@ public class PlayScreen extends Screen {
 			playSprite.unpush(key);
 		}
 	}
-	
+
+	/**
+	 * Activates a power
+	 */
 	private void displayPower() {
 		if (power >= 50) {
 			powerText = new SystemTextCenterFloat(getScreenWidth() / 2, 340, "POWER USED!");
@@ -124,6 +136,13 @@ public class PlayScreen extends Screen {
 		}
 	}
 
+	/**
+	 * Used to calculate the score when the player hits a note
+	 * 
+	 * @param difference
+	 *            The difference between the centre of the note and the centre
+	 *            of the note hit area
+	 */
 	public void scoreHelper(int difference) {
 		if (difference <= getGameObject().PERFECT) {
 			combo++;
@@ -169,8 +188,12 @@ public class PlayScreen extends Screen {
 		textSprite.setText("COMBO: " + combo + " POWER: " + power + "%");
 	}
 
+	/**
+	 * Handles when a bad note has been hit
+	 */
 	public void bad() {
-		if(power > 0) power--;
+		if (power > 0)
+			power--;
 		combo = 0;
 		SystemTextCenterShake floatText = new SystemTextCenterShake(getScreenWidth() / 2, 280, "BAD");
 		floatText.shine();
@@ -178,13 +201,16 @@ public class PlayScreen extends Screen {
 		textSprite.setText("COMBO: " + combo + " POWER: " + power + "%");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
-		
-		if(getGameObject().isMute()) {
+
+		if (getGameObject().isMute()) {
 			audio.getAudioPlayer().stop();
 		}
-		
+
 		if (cooldown != 0) {
 			cooldown--;
 			cooldownText.setText("Activated Power! \n Time left: " + (int) (cooldown / 60));
@@ -287,7 +313,7 @@ public class PlayScreen extends Screen {
 
 		textScore.setScreenSize(getScreenWidth(), getScreenHeight());
 		textScore.update();
-		
+
 		powerText.setScreenSize(getScreenWidth(), getScreenHeight());
 		powerText.update();
 
@@ -322,13 +348,16 @@ public class PlayScreen extends Screen {
 		count = (int) (audio.getPlayingTimer().getTimeInMill());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 
 		// We use this to draw a dark background
 		context.setColor(ColorPack.DARK);
 		context.fillRect(0, 0, getScreenWidth(), getScreenHeight());
-	
+
 		playSprite.draw(context);
 
 		for (int i = 0; i < beat.length; i++) {
@@ -358,11 +387,11 @@ public class PlayScreen extends Screen {
 		for (SystemTextCenterFloat floatText : floatTexts) {
 			floatText.draw(context);
 		}
-		
+
 		// This is how you draw the sprites
 		textSprite.draw(context);
 		textScore.draw(context);
-		
+
 		cooldownText.draw(context);
 		powerText.draw(context);
 

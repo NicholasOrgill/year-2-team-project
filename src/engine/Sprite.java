@@ -159,14 +159,17 @@ public class Sprite {
 	}
 
 	/**
-	 * To be overridden
+	 * Updates the sprite - this is called ~60 times per second, or every 16ms
 	 */
 	public void update() {
 
 	}
 
 	/**
-	 * To be overridden
+	 * Draws the sprite using the given graphics object
+	 * 
+	 * @param context
+	 *            The graphics object used to draw the sprite
 	 */
 	public void draw(Graphics context) {
 

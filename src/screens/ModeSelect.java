@@ -16,6 +16,7 @@ import sprites.SystemBox;
 import sprites.SystemText;
 import sprites.SystemTextCenterShine;
 import utils.ColorPack;
+
 /**
  * 
  * @author Bobby Dilley
@@ -45,6 +46,9 @@ public class ModeSelect extends Screen {
 
 	int select = 0;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.PLAYKEY0) {
@@ -56,7 +60,7 @@ public class ModeSelect extends Screen {
 			} else if (select == 2) {
 				setNextScreen(new NetworkSelect2(getGameObject()));
 				moveScreen();
-				//getGameObject().setMode(new NetworkSelect2(getGameObject()));
+				// getGameObject().setMode(new NetworkSelect2(getGameObject()));
 			}
 			moveScreen();
 		}
@@ -82,10 +86,16 @@ public class ModeSelect extends Screen {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyReleased(int key) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ModeSelect(GameObject gameObject) {
 		super(gameObject);
 		fx = new SoundHandler(gameObject);
@@ -127,6 +137,9 @@ public class ModeSelect extends Screen {
 		nextBox = currentBox;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 
@@ -209,6 +222,9 @@ public class ModeSelect extends Screen {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 

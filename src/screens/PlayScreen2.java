@@ -24,18 +24,24 @@ public class PlayScreen2 extends Screen {
 	ImageSprite2 keysOver[] = new ImageSprite2[4];
 	
 	int count = 0;
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyPressed(int key) {
 		
 
 	}
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyReleased(int key) {
 		
 	}
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	public PlayScreen2(GameObject gameObject) {
 		super(gameObject);
 		keys[0] = new ImageSprite2((int)(getScreenWidth() * 0.2), getScreenHeight() - 120, ImageLoader.loadImageFromResource("src/res/images/q.png"));
@@ -48,7 +54,9 @@ public class PlayScreen2 extends Screen {
 			
 		}
 	}
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 			count++;
@@ -83,7 +91,9 @@ public class PlayScreen2 extends Screen {
 				keysOver[3].impress();
 			}
 	}
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		context.setColor(new Color(56, 60, 63));

@@ -38,14 +38,23 @@ public class NetworkSelect extends Screen {
 	// private ImageSprite networkImage2;
 	private BannerSprite bannerSprite;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyPressed(int key) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyReleased(int key) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public NetworkSelect(GameObject gameObject) {
 		super(gameObject);
 
@@ -71,6 +80,9 @@ public class NetworkSelect extends Screen {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 
@@ -143,6 +155,9 @@ public class NetworkSelect extends Screen {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 

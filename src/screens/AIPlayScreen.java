@@ -85,6 +85,9 @@ public class AIPlayScreen extends Screen {
 	private SystemTextCenter cooldownTextLeft;
 	private SystemTextCenter cooldownTextRight;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.POWERKEY) {
@@ -97,6 +100,9 @@ public class AIPlayScreen extends Screen {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyReleased(int key) {
 		if (key == InputHandler.POWERKEY) {
@@ -107,6 +113,9 @@ public class AIPlayScreen extends Screen {
 		}
 	}
 
+	/**
+	 * Displays the power for the player
+	 */
 	private void displayPowerPlayer() {
 		if (power >= 50) {
 			powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.25), 340, "POWER USED!");
@@ -120,6 +129,9 @@ public class AIPlayScreen extends Screen {
 		}
 	}
 
+	/**
+	 * Displays the power for the AI
+	 */
 	private void displayPowerAI() {
 		powerText = new SystemTextCenterFloat((int) (getScreenWidth() * 0.75), 340, "POWER USED!");
 		aiCooldown = 600;
@@ -128,6 +140,15 @@ public class AIPlayScreen extends Screen {
 		aiPower = 0;
 	}
 
+	/**
+	 * Used to calculate the score when a note has been hit
+	 * 
+	 * @param difference
+	 *            The difference between the centre of the note and the centre
+	 *            of the note hit area
+	 * @param ai
+	 *            Flag as to whether this is an AI or player note hit
+	 */
 	public void scoreHelper(int difference, boolean ai) {
 		SystemTextCenterFloat text;
 		SystemTextCenterFloat scoreText;
@@ -215,6 +236,12 @@ public class AIPlayScreen extends Screen {
 		scoreText.setText("" + playerScore);
 	}
 
+	/**
+	 * Called when a bad note is hit
+	 * 
+	 * @param ai
+	 *            Flag as to whether this is an AI or player note hit
+	 */
 	public void bad(boolean ai) {
 		SystemTextCenterShake shakeText;
 		if (ai) {
@@ -233,6 +260,9 @@ public class AIPlayScreen extends Screen {
 		floatTexts.add(shakeText);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public AIPlayScreen(GameObject gameObject) {
 		super(gameObject);
 		textAILevel = new SystemTextCenter(getScreenWidth() / 2, getScreenHeight() - 30,
@@ -253,10 +283,13 @@ public class AIPlayScreen extends Screen {
 		powerText = new SystemTextCenterFloat(0, 0, " ");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
-		
-		if(getGameObject().isMute()) {
+
+		if (getGameObject().isMute()) {
 			audio.getAudioPlayer().stop();
 		}
 
@@ -410,6 +443,20 @@ public class AIPlayScreen extends Screen {
 
 	}
 
+	/**
+	 * Removes all sprites on the screen that are in the note area
+	 * 
+	 * @param i
+	 *            The index of the note in the note list
+	 * @param noteSprite
+	 *            The array of all note sprites
+	 * @param playSprite
+	 *            The array of all play sprites
+	 * @param hits
+	 *            The arraylist of all note hit sprites
+	 * @param ai
+	 *            Flag as to whether this is an AI or player highway
+	 */
 	private void removeSprites(int i, NoteSprite[] noteSprite, PlaySprite playSprite, ArrayList<NoteHitSprite> hits,
 			boolean ai) {
 		if (noteSprite[i].isRemoved() == false) {
@@ -459,6 +506,9 @@ public class AIPlayScreen extends Screen {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 

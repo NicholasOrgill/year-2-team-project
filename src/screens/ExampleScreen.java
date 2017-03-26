@@ -7,6 +7,7 @@ import engine.Screen;
 import input.InputHandler;
 import sprites.SystemText;
 import utils.ColorPack;
+
 /**
  * 
  * @author Bobby Dilley
@@ -17,6 +18,9 @@ public class ExampleScreen extends Screen {
 	private SystemText textSprite; // An example text sprite
 	private int count = 0; // A variable to count on the screen
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyPressed(int key) {
 		// Default keys are being set in the engine class currently
@@ -30,10 +34,16 @@ public class ExampleScreen extends Screen {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyReleased(int key) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ExampleScreen(GameObject gameObject) {
 		super(gameObject);
 		// Constructor for the SystemText object
@@ -44,6 +54,9 @@ public class ExampleScreen extends Screen {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		// You should call setScreenSize and update on all sprites
@@ -65,6 +78,9 @@ public class ExampleScreen extends Screen {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 

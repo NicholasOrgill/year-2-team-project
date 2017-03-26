@@ -23,7 +23,9 @@ public class AISelectScreen extends Screen {
 	private String diffText;
 	private DotSpriteBackground dotBackground;
 	private ImageGrad imageGrad;
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyPressed(int key) {	
 		if (key == InputHandler.PLAYKEY0) {
@@ -53,11 +55,15 @@ public class AISelectScreen extends Screen {
 			getGameObject().setMute();
 		}
 	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyReleased(int key) {
 	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	public AISelectScreen(GameObject gameObject) {
 		super(gameObject);
 		setNextScreen(new AIPlayScreen(gameObject));
@@ -75,7 +81,9 @@ public class AISelectScreen extends Screen {
 		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
 		
 	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		if(getGameObject().isMute()) {
@@ -108,7 +116,9 @@ public class AISelectScreen extends Screen {
 		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
 		dotBackground.update();
 	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		context.setColor(ColorPack.DARK);

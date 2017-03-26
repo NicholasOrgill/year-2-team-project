@@ -52,6 +52,10 @@ public class SelectScreen extends Screen {
 
 	private SongFile songFile;
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.PLAYKEY0) {
 			getGameObject().setSongFile(songFile);
@@ -82,11 +86,17 @@ public class SelectScreen extends Screen {
 			getGameObject().setMute();
 		}
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyReleased(int key) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public SelectScreen(GameObject gameObject) {
 		super(gameObject);
 		fx = new SoundHandler(getGameObject());
@@ -128,6 +138,9 @@ public class SelectScreen extends Screen {
 
 	}
 
+	/**
+	 * Calls an update on the screen for the song selection
+	 */
 	public void pageUpdate() {
 		songFile = getGameObject().getSongFiles()[currentSelector];
 		getGameObject().setCurrentSelect(currentSelector);
@@ -159,9 +172,12 @@ public class SelectScreen extends Screen {
 		audio.playBack(songFile.getAudioInputPath());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
-		if(getGameObject().isMute()) {
+		if (getGameObject().isMute()) {
 			fx.stopAll();
 		}
 		typeText.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -193,6 +209,9 @@ public class SelectScreen extends Screen {
 		count++;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 		context.setColor(ColorPack.DARK);

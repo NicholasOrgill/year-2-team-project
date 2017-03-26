@@ -17,7 +17,6 @@ import sprites.SystemTextCenterFade;
 import utils.ColorPack;
 import utils.ImageLoader;
 
-
 /**
  * A Screen to select as Server or Client
  *
@@ -33,18 +32,20 @@ public class NetworkSelect2 extends Screen {
 
 	int count = 0;
 
-//	private ImageSprite networkImage;
-//	private ImageSprite networkImage2;
+	// private ImageSprite networkImage;
+	// private ImageSprite networkImage2;
 	private BannerSprite bannerSprite;
-	
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyPressed(int key) {
 		if (key == InputHandler.PLAYKEY0) {
 			setNextScreen(new NetworkSelect(getGameObject()));
 			moveScreen();
 		}
-		if(key == InputHandler.PLAYKEY2) {
+		if (key == InputHandler.PLAYKEY2) {
 			getGameObject().setServer(true);
 			getGameObject().setMode(new NetworkSelect(getGameObject()));
 			setNextScreen(new SelectScreen(getGameObject()));
@@ -53,21 +54,23 @@ public class NetworkSelect2 extends Screen {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void keyReleased(int key) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public NetworkSelect2(GameObject gameObject) {
 		super(gameObject);
 
 		bannerSprite = new BannerSprite(getScreenWidth() / 2, getScreenHeight() / 2 + 80);
 
-
-
 		centex = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2, " ");
 		centex2 = new SystemTextCenterFade(getScreenWidth() / 2, getScreenHeight() / 2 + 20, " ");
-
-
 
 		box = new SystemBox();
 		box.setScreenSize(getScreenWidth(), getScreenHeight());
@@ -83,6 +86,9 @@ public class NetworkSelect2 extends Screen {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		if (count == 0) {
@@ -100,14 +106,12 @@ public class NetworkSelect2 extends Screen {
 		bannerSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		bannerSprite.update();
 
-
-
 		imageGrad.setScreenSize(getScreenWidth(), getScreenHeight());
 		imageGrad.update();
 
 		centex.setScreenSize(getScreenWidth(), getScreenHeight());
 		centex.update();
-		
+
 		centex2.setScreenSize(getScreenWidth(), getScreenHeight());
 		centex2.update();
 
@@ -120,16 +124,15 @@ public class NetworkSelect2 extends Screen {
 			box.update();
 		}
 
-
-		
-
-			centex.setText("Press [Q] to be Client. Press [E] to be Server.");
-
+		centex.setText("Press [Q] to be Client. Press [E] to be Server.");
 
 		count++;
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void draw(Graphics context) {
 
@@ -152,8 +155,6 @@ public class NetworkSelect2 extends Screen {
 			centex2.draw(context);
 		}
 
-
 	}
-	
 
 }
