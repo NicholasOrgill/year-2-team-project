@@ -15,7 +15,12 @@ public class OppoAction {
 	private PrintStream toOppo;
 	private GameObject gameObject;
 	
-	
+	/**
+	 * Constructor
+	 * @param _gameObject 
+	 * @param _opponent is the data of your opponent 
+	 * @param _me is the data of yourself
+	 */
 	public OppoAction(GameObject _gameObject, Player _opponent,Player _me){
 		this.gameObject = _gameObject;
 		this.opponent = _opponent;//opponent is client player

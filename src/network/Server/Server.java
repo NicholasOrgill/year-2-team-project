@@ -17,6 +17,12 @@ public class Server extends Thread{
 	private String name;
 	private GameObject gameObject;
 	
+	/**
+	 * Constructor 
+	 * @param _gameobject
+	 * @param _serverInput the Input Message from Server
+	 * @param _name the name of Server player
+	 */
 	public Server(GameObject _gameobject, MessageQueue _serverInput, String _name){
 		this.gameObject = _gameobject;
 		this.serverInput = _serverInput;
@@ -54,6 +60,10 @@ public class Server extends Thread{
 		}
 	}
 	
+	/**
+	 * send Message to client
+	 * @param _msg
+	 */
 	public void inputMessage(String _msg){
 		Message msg = new Message(_msg);
 		serverInput.offer(msg);
