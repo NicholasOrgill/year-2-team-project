@@ -74,14 +74,6 @@ public class Engine extends Canvas implements Runnable {
 		inputHandler = new InputHandler();
 		gameObject.setInputHandler(inputHandler);
 		
-		// Put some default keys in
-		inputHandler.storePlayKey('q');
-		inputHandler.storePlayKey('w');
-		inputHandler.storePlayKey('e');
-		inputHandler.storePlayKey('r');
-		inputHandler.storePowerKey('l');
-		inputHandler.storeMuteKey('m');
-		
 		this.addKeyListener(inputHandler);
 				
 		inputHandler.setScreen(screen);		
@@ -109,6 +101,10 @@ public class Engine extends Canvas implements Runnable {
 		
 		// Show the frame
 		frame.setVisible(true);
+	}
+	
+	public InputHandler getInputHandler() {
+		return this.inputHandler;
 	}
 
 	/**
