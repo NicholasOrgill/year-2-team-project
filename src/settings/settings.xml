@@ -9,5 +9,6 @@
   <powerkey1>l</powerkey1>
   <mutekey1>m</mutekey1>
   <quitkey1>c</quitkey1>
-  <fullscreen>true</fullscreen>
+  <fullscreen>false</fullscreen>
+  <serverip>127.0.0.1</serverip>
 </settings>

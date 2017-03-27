@@ -2,6 +2,10 @@ BEATNET INSTRUCTIONS
 -------------------
 
 Settings can be configured in src/settings/settings.xml
+There is a symlink to the settings.xml file in the root of the workspace
+
+  - For network connection
+    - Set <serverip>127.0.0.1</serverip> to the ip address of the computer you will use as the server
 
   - You are able to change the keys for the game
   - The default keys are:

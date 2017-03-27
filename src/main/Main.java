@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import engine.Engine;
+import engine.GameObject;
 import input.InputHandler;
 import settings.SettingsHandler;
 
@@ -42,6 +43,7 @@ public class Main {
 			String key6 = sh.readSetting("mutekey1");
 			String key7 = sh.readSetting("quitkey1");
 			String fullscreen1 = sh.readSetting("fullscreen");
+			String serverip = sh.readSetting("serverip");
 			
 			// Set the fullscreen setting
 			if(fullscreen1.equals("true")) {
@@ -49,6 +51,9 @@ public class Main {
 			}
 			
 			Engine engine = new Engine("BeatNet", fullScreen);
+			
+			GameObject gameObject = engine.getGameObject();
+			gameObject.setHostname(serverip);
 			
 			InputHandler inputHandler = engine.getInputHandler();
 			

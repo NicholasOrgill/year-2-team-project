@@ -103,8 +103,20 @@ public class Engine extends Canvas implements Runnable {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * This will return the input handler
+	 * @return InputHandler
+	 */
 	public InputHandler getInputHandler() {
 		return this.inputHandler;
+	}
+	
+	/**
+	 * This will return the gameObject
+	 * @return gameObject
+	 */
+	public GameObject getGameObject() {
+		return this.gameObject;
 	}
 
 	/**
