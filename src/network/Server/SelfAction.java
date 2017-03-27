@@ -16,6 +16,12 @@ public class SelfAction {
 	private PrintStream toOppo;
 	private GameObject gameObject;
 	
+	/**
+	 * Constructor 
+	 * @param _gameObject
+	 * @param _opponent is the data of your opponent
+	 * @param _me is the data of yourself
+	 */
 	public SelfAction(GameObject _gameObject,Player _opponent, Player _me){
 		this.gameObject = _gameObject;
 		this.opponent = _opponent;//opponent is client player
@@ -137,12 +143,19 @@ public class SelfAction {
 	public void sendText(String _text) {
 		toOppo.println("TEXT:"+_text);
 	}
-	
+
+	/**
+	 * handle the invalid message command
+	 */
 	public void invalidMsg(){
 		String msg = "Invalid Message";
 		//System.out.println(msg);
 	}
 
+	/**
+	 * send the song choice
+	 * @param _select
+	 */
 	public void sendSelect(String _select){
 		me.setSelect(Integer.parseInt(_select));
 	}
