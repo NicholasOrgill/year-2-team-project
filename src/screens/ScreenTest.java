@@ -81,9 +81,9 @@ public class ScreenTest {
 		// AI Screen tests
 		
 		aiPlayScreen.keyPressed(0);
-		assertTrue(aiPlayScreen.keys[0] == true);
+		assertTrue(aiPlayScreen.keys[0]);
 		aiPlayScreen.keyReleased(0);
-		assertTrue(aiPlayScreen.keys[0] == false);
+		assertFalse(aiPlayScreen.keys[0]);
 		aiPlayScreen.keyPressed(100);
 		aiPlayScreen.keyReleased(100);
 		aiPlayScreen.keyPressed(200);
@@ -113,11 +113,28 @@ public class ScreenTest {
 		
 		// end of AI Screen tests
 		
+		// Play Screen tests
+		
+		PlayScreen playScreen = new PlayScreen(gameObject);
+		playScreen.keyPressed(0);
+		assertTrue(playScreen.keys[0]);
+		playScreen.keyReleased(0);
+		assertFalse(playScreen.keys[0]);
+		playScreen.power = 50;
+		playScreen.displayPower();
+		assertTrue(playScreen.power == 0);
+		playScreen.scoreHelper(5); //perfect
+		playScreen.scoreHelper(15); //excellent
+		playScreen.scoreHelper(25); //good
+		playScreen.scoreHelper(35); //okay
+		playScreen.scoreHelper(55); //bad
+		assertEquals(playScreen.score, (100+75+50+25));
+		assertEquals(playScreen.combo, 0);
 		
 		screens.add(aiPlayScreen);
 		screens.add(new EndScreen(gameObject));
 		screens.add(new NetworkPlayScreen(gameObject));
-		screens.add(new PlayScreen(gameObject));
+		screens.add(playScreen);
 		
 		
 		// Draw over in black
