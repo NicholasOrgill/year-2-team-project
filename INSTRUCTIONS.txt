@@ -1,6 +1,11 @@
 BEATNET INSTRUCTIONS
 -------------------
 
+BeatNet can be run using the command line:
+
+- Simply Type: 'java -jar BeatNet.jar' to run the game
+
+
 Settings can be configured in src/settings/settings.xml
 There is a symlink to the settings.xml file in the root of the workspace
 
