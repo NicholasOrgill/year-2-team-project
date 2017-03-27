@@ -90,19 +90,6 @@ public class OppoAction {
 	}
 	
 	/**
-	 * to finish the game
-	 */
-	public void gameOver(){
-		me.setStarted(false);
-		me.setReady(false);
-		opponent.setReady(false);
-		opponent.setStarted(false);
-		toOppo.println("Game Over, your opponent win");
-		//System.out.println("Your opponent game over, you win");
-		toOppo.println("OVER:");//send key word to client to end game
-	}
-	
-	/**
 	 * handle the received key
 	 * @param _key the pressed key that received
 	 */

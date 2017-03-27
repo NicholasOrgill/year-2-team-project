@@ -34,8 +34,6 @@ public class OppoResolve {
 				action.setReady();
 			}else if (keyword.equals("SCOR:")){
 				action.updateScore(_readline.substring(5));
-			}else if (keyword.equals("OVER:")){
-				action.gameOver();
 			}else if (keyword.equals("PREE:")){
 				action.receivedPressedKey(_readline.substring(5));
 			}else if (keyword.equals("RELE:")){

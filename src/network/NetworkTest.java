@@ -60,7 +60,7 @@ public class NetworkTest {
 		
 		client.send("COMB:" + 15);
 		server.inputMessage("COMB:" + 20);
-		Thread.sleep(500);
+		Thread.sleep(1000);
 		assertEquals(15,serverGameObject.getP2Combo());
 		assertEquals(20,clientGameObject.getP2Combo());
 		

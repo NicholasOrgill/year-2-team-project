@@ -89,20 +89,7 @@ public class SelfAction {
 		toOppo.println("Your score is " +opponent.getScore() + " Your oppo score is " + me.getScore());
 		toOppo.println("SCOR:"+me.getScore());
 	}
-	
-	
-	/**
-	 * to finish the game
-	 */
-	public void gameOver(){
-		me.setStarted(false);
-		me.setReady(false);
-		opponent.setReady(false);
-		opponent.setStarted(false);
-		//System.out.println("Game Over, your opponent win");
-		toOppo.println("Your opponent game over, you win");
-		toOppo.println("OVER:");//send key word to client to end game
-	}
+
 	
 	/**
 	 * send the pressed key
