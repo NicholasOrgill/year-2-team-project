@@ -3,7 +3,11 @@ package engine;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+/**
+ * Test the engine code
+ * @author bobbydilley
+ *
+ */
 public class EngineTest {
 
 	@Test
@@ -16,9 +20,6 @@ public class EngineTest {
 		engine.stop();
 		
 		
-		
-		
-	
 		
 	}
 
