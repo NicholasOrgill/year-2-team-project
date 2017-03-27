@@ -86,6 +86,8 @@ public class AIPlayScreen extends Screen {
 	private int aiCooldown;
 	private SystemTextCenter cooldownTextLeft;
 	private SystemTextCenter cooldownTextRight;
+	
+	private Boolean called = false;
 
 	/**
 	 * {@inheritDoc}
@@ -297,7 +299,8 @@ public class AIPlayScreen extends Screen {
 
 		int lineY = (int) Math.round(getScreenHeight() * 0.8);
 
-		if (audio.getAudioPlayer().playCompleted) {
+		if (audio.getAudioPlayer().playCompleted && !called) {
+			called = true;
 			getGameObject().setP1Score(score);
 			getGameObject().setP2Score(aiScore);
 			getGameObject().setScoreQuality(scoreQuality);
