@@ -1,7 +1,10 @@
 BEATNET INSTRUCTIONS
 -------------------
 
-BeatNet can be run using the command line:
+We reccomend that you open up BeatNet in eclipse for running, this allows you to see the code and the JUnit tests!
+- Simply add it to Eclipse as project, and press play running the 'Main' class
+
+If you cannot do this, BeatNet can be run using the command line:
 
 - Simply Type: 'java -jar BeatNet.jar' to run the game
 
