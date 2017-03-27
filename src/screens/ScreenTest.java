@@ -78,6 +78,42 @@ public class ScreenTest {
 		aiPlayScreen.oppoKeyPressed(0);
 		aiPlayScreen.oppoKeyReleased(0);
 		
+		// AI Screen tests
+		
+		aiPlayScreen.keyPressed(0);
+		assertTrue(aiPlayScreen.keys[0] == true);
+		aiPlayScreen.keyReleased(0);
+		assertTrue(aiPlayScreen.keys[0] == false);
+		aiPlayScreen.keyPressed(100);
+		aiPlayScreen.keyReleased(100);
+		aiPlayScreen.keyPressed(200);
+		assertTrue(gameObject.isMute());
+		aiPlayScreen.keyReleased(200);
+		for (int i = 0; i < 15; i++) {
+			aiPlayScreen.scoreHelper(0, false);
+			aiPlayScreen.scoreHelper(0, true);
+		}
+		aiPlayScreen.keyPressed(100);
+		aiPlayScreen.keyReleased(100);
+		aiPlayScreen.scoreHelper(11, false);
+		aiPlayScreen.scoreHelper(21, false);
+		aiPlayScreen.scoreHelper(31, false);
+		aiPlayScreen.scoreHelper(51, false);
+		aiPlayScreen.scoreHelper(11, true);
+		aiPlayScreen.scoreHelper(21, true);
+		aiPlayScreen.scoreHelper(31, true);
+		aiPlayScreen.scoreHelper(51, true);
+		
+		AISelectScreen aiSelectScreen = new AISelectScreen(gameObject);
+		aiSelectScreen.keyPressed(0);
+		assertTrue(gameObject.getAiLevel() == 9);
+		aiSelectScreen.keyPressed(2);
+		aiSelectScreen.keyPressed(3);
+		aiSelectScreen.keyPressed(200);
+		
+		// end of AI Screen tests
+		
+		
 		screens.add(aiPlayScreen);
 		screens.add(new EndScreen(gameObject));
 		screens.add(new NetworkPlayScreen(gameObject));

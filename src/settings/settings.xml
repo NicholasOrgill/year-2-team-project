@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
   <sound>1</sound>
-  <testSetting>68</testSetting>
+  <testSetting>42</testSetting>
+  <playerkey1>q</playerkey1>
+  <playerkey2>w</playerkey2>
+  <playerkey3>e</playerkey3>
+  <playerkey4>r</playerkey4>
+  <powerkey1>l</powerkey1>
+  <mutekey1>m</mutekey1>
+  <quitkey1>c</quitkey1>
+  <fullscreen>true</fullscreen>
 </settings>
