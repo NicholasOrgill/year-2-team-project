@@ -16,6 +16,13 @@ public class Client extends Thread{
 	private String hostname;
 	private GameObject gameObject;
 
+	/**
+	 * @param gameObject
+	 * @param _hostname
+	 * @param _sendQueue
+	 * @param _receiveQueue
+	 * Initialize the Client
+	 */
 	public Client(GameObject gameObject, String _hostname, MessageQueue _sendQueue, MessageQueue _receiveQueue){
 		this.hostname = _hostname;
 		this.sendQueue = _sendQueue;
@@ -24,7 +31,7 @@ public class Client extends Thread{
 	}
 
 	/**
-	 * this method is tring to connect the server
+	 * this method is trying to connect the server
 	 */
 	public void run(){
 		
@@ -42,7 +49,6 @@ public class Client extends Thread{
 				gameObject.setNetworkError("Unkown host: ");
 			}catch (IOException e) {
 				gameObject.setNetworkError("Could not get IO for the connection " + e.getMessage());
-				//return;
 			}
 			
 	    }

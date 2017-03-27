@@ -13,12 +13,20 @@ public class ClientResolve extends Thread {
 	private Network network;
 	private GameObject gameObject;
 
+	
+	/**
+	 * @param gameObject
+	 * @param network
+	 * Initialize ClientResolve
+	 */
 	public ClientResolve(GameObject gameObject, Network network) {
 		this.network = network;
 		this.gameObject = gameObject;
 	}
 
-	// print any messages get from server
+	/**
+	 * pass the receive message to resolve method
+	 */
 	public void run() {
 		while (true) {
 			String receive = network.receive();
@@ -26,6 +34,10 @@ public class ClientResolve extends Thread {
 		}
 	}
 
+	/**
+	 * @param _readline the message to be resolved
+	 * This will resolve the received messages
+	 */
 	private void resolve(String _readline) {
 
 		if (_readline.length() >= 5) {

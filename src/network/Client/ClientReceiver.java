@@ -13,12 +13,20 @@ public class ClientReceiver extends Thread {
 	private BufferedReader fromServer;
 	private MessageQueue receiveQueue;
 	
+	/**
+	 * @param _server
+	 * @param _receiveQueue
+	 * Initialize ClientReceiver
+	 */
 	public ClientReceiver(BufferedReader _server, MessageQueue _receiveQueue){
 		super();
 		this.fromServer = _server;
 		this.receiveQueue = _receiveQueue;
 	}
 	
+	/**
+	 * This will put the message from server into the MessageQueue
+	 */
 	public void run(){
 		try{
 			while(true){

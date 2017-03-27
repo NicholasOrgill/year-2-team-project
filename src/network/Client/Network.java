@@ -28,32 +28,45 @@ public class Network{
 		isConnected = true;
 	}
 	
-	//send message
+	/**
+	 * @param _readline message to be sent
+	 * send message
+	 */
 	public void send(String _readline){
 		Message msg = new Message(_readline);
 		this.sendQueue.offer(msg);
 	}
 	
-	//send a ready message
+	/**
+	 * send a ready message
+	 */
 	public void sendReadyMsg(){
 		Message msg = new Message("READ:");
 		this.sendQueue.offer(msg);
 	}
 	
-	//send a gameover message
+	/**
+	 * send a gameover message
+	 */
 	public void sendGameOverMsg(){
 		Message msg = new Message("OVER:");
 		this.sendQueue.offer(msg);
 	}
 	
 	
-	//check the receive queue is or not empty
+	/**
+	 * @return
+	 * check the receive queue is or not empty
+	 */
 	public boolean receiveMessage(){
 		return this.receiveQueue.isEmpty();
 	}
 	
 	
-	//@return the messages from server
+	/**
+	 * @return
+	 * take the messages from server
+	 */
 	public String receive(){
 		return this.receiveQueue.take().getMessage();
 	}
