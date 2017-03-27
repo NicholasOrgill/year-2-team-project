@@ -6,7 +6,7 @@ import java.util.Random;
 import engine.Sprite;
 
 /**
- * 
+ * The flowing background
  * @author Bobby Dilley
  *
  */

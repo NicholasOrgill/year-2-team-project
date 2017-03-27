@@ -6,7 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 import engine.Sprite;
-
+/**
+ * Simple sprite for displaying images
+ * @author bobbydilley
+ *
+ */
 public class ImageSprite extends Sprite {
 	private Image image;
 	private boolean impress = false;

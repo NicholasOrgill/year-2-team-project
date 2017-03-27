@@ -19,7 +19,7 @@ import utils.ColorPack;
 import utils.ImageLoader;
 
 /**
- * 
+ * A screen used to show the user we are waiting for the network
  * @author Bobby Dilley
  *
  */
@@ -34,8 +34,6 @@ public class NetworkSelect extends Screen {
 
 	int count = 0;
 
-	// private ImageSprite networkImage;
-	// private ImageSprite networkImage2;
 	private BannerSprite bannerSprite;
 
 	/**
@@ -135,7 +133,6 @@ public class NetworkSelect extends Screen {
 				setNextScreen(new NetworkPlayScreen(getGameObject()));
 				centex.setText("Connected");
 			} else {
-				// centex.setText("Network Check Fail.");
 				setNextScreen(new ModeSelect(getGameObject()));
 			}
 		}
@@ -179,7 +176,6 @@ public class NetworkSelect extends Screen {
 			centex.draw(context);
 		}
 
-		// bannerSprite.draw(context);
 
 	}
 

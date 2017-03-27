@@ -22,8 +22,8 @@ import sprites.SystemTextCenterShake;
 import utils.ColorPack;
 
 /**
- * 
- * @author Nicholas Orgill
+ * The Network Play Screen, allowing for network play
+ * @author Bobby Dilley, Nicholas Orgill, Fanny, Weifeng
  *
  */
 public class NetworkPlayScreen extends Screen {

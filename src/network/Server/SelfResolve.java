@@ -13,6 +13,13 @@ public class SelfResolve extends Thread{
 	private SelfAction sact;
 	private GameObject gameObject;
 	
+	/**
+	 * Constructor 
+	 * @param _gameObject
+	 * @param _serverInput the input message from server
+	 * @param _opponent the data of the opponent
+	 * @param me the data of myself 
+	 */
 	public SelfResolve(GameObject _gameObject,MessageQueue _serverInput,Player _opponent,Player me){
 		this.serverInput = _serverInput;
 		this.sact = new SelfAction(_gameObject, _opponent, me);
@@ -26,6 +33,11 @@ public class SelfResolve extends Thread{
 		}
 	}	
 	
+	
+	/**
+	 * Resolve the String from itself
+	 * @param _readline
+	 */
 	private void resolve(String _readline){
 		if(_readline.length() >= 5)	{
 			String keyword = _readline.substring(0,5);

@@ -21,7 +21,7 @@ import utils.ColorPack;
 import utils.ImageLoader;
 
 /**
- * 
+ * Allows the user to select the mode of gameplay
  * @author Bobby Dilley
  *
  */
@@ -65,6 +65,7 @@ public class SelectScreen extends Screen {
 			moveScreen();
 		}
 
+		// Current selector is used to change the screen type
 		if (key == InputHandler.PLAYKEY2) {
 			if (currentSelector == 0) {
 				currentSelector = getGameObject().getSongFiles().length - 1;

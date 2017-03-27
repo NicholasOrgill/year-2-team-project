@@ -15,6 +15,13 @@ public class ServerThread extends Thread{
 	private MessageQueue serverInput;
 	private GameObject gameObject;
 	
+	/**
+	 * Constructor 
+	 * @param _gameObject
+	 * @param _serverInput the input message from server
+	 * @param _opponent the data of the opponent 
+	 * @param _me the data of myself
+	 */
 	public ServerThread(GameObject _gameObject,MessageQueue _serverInput,Player _opponent,Player _me){
 		super("ServerThread");
 		this.gameObject = _gameObject;

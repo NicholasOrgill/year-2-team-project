@@ -10,7 +10,11 @@ import java.awt.geom.Rectangle2D;
 
 import utils.ColorPack;
 import utils.FontLoader;
-
+/**
+ * Used in the Start Screen for sprite menus
+ * @author bobbydilley
+ *
+ */
 public class OutlineTextSprite extends TextSprite {
 	/**
 	 * {@inheritDoc}

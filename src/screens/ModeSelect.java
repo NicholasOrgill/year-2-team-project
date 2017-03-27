@@ -18,7 +18,7 @@ import sprites.SystemTextCenterShine;
 import utils.ColorPack;
 
 /**
- * 
+ * Allows the selection of the game mode
  * @author Bobby Dilley
  *
  */
@@ -101,14 +101,15 @@ public class ModeSelect extends Screen {
 		fx = new SoundHandler(gameObject);
 		fx.fillEffects(fxlist);
 
+		// Create the text sprites
 		textSprite = new SystemText(10, 10, "HELLO");
 		singleModeText = new SystemTextCenterShine((int) (getScreenWidth() * 0.5), getScreenHeight() / 2,
 				"Single Player");
 
+		// Display the IP Address
 		try {
 			textSprite.setText("ID:" + Inet4Address.getLocalHost().getHostAddress().replaceAll("\\.", ":"));
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -149,6 +150,7 @@ public class ModeSelect extends Screen {
 		}
 
 		if (count == 80) {
+			// Play the title song
 			fx.playEffect("titlesongquiet.wav", true);
 		}
 
@@ -179,6 +181,8 @@ public class ModeSelect extends Screen {
 			boxSpriteSingle.update();
 			boxSpriteNetwork.update();
 		}
+		
+		// The Sega Rally Inspires menu, making things bigger and smaller
 
 		if (select == 0) {
 			nextBox = boxSpriteSingle;

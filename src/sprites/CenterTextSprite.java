@@ -8,7 +8,7 @@ import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
 
 /**
- * 
+ * Sprite for center text
  * @author Bobby Dilley
  *
  */

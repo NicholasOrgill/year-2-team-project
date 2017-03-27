@@ -9,7 +9,7 @@ import sprites.SystemText;
 import utils.ColorPack;
 
 /**
- * 
+ * Example screen left in to show how to create the game screens
  * @author Bobby Dilley
  *
  */

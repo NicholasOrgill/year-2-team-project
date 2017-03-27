@@ -9,12 +9,20 @@ import engine.GameObject;
 public class OppoResolve {
 	
 	private OppoAction action;
-	
+	/**
+	 * Constructor 
+	 * @param _gameObject
+	 * @param _opponent the data of the opponent 
+	 * @param _me the data of my self
+	 */
 	public OppoResolve(GameObject _gameObject,Player _opponent,Player _me){
 		this.action = new OppoAction(_gameObject,_opponent,_me);
 	}
 	
-	
+	/**
+	 * Resolve the String from Client
+	 * @param _readline
+	 */
 	public void resolve(String _readline){
 	
 		if(_readline.length() >= 5)	{
