@@ -7,5 +7,7 @@
   <playerkey3>e</playerkey3>
   <playerkey4>r</playerkey4>
   <powerkey1>l</powerkey1>
+  <mutekey1>m</mutekey1>
+  <quitkey1>c</quitkey1>
   <fullscreen>true</fullscreen>
 </settings>
