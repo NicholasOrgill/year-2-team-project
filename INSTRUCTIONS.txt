@@ -1,0 +1,19 @@
+BEATNET INSTRUCTIONS
+-------------------
+
+Settings can be configured in src/settings/settings.xml
+
+  - You are able to change the keys for the game
+  - The default keys are:
+    - Q is used for selecting [PLAYERKEY1]
+    - E is used for navigating left [PLAYERKEY3]
+    - R is used for navigating right [PLAYERKEY4]
+    - Q W E and R are used for playing the game
+    - M is used for muting [MUTEKEY1]
+    - C is used for quitting [QUITKEY1]
+
+  - The fullscreen option changes from windowed to fullscreen mode
+    - <fullscreen>true</fullscreen> will run in fullscreen
+    - To override, add 'window' at the end of the run prompt
+
+  - Muting the game must be done at the start screens

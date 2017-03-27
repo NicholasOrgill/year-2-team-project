@@ -24,6 +24,7 @@ public class InputHandler implements KeyListener {
 	public static int POWERKEY = 100;
 
 	private static int MUTEKEYCODE;
+	private static int QUITKEYCODE;
 	public static int MUTEKEY = 200;
 
 	/**
@@ -77,6 +78,10 @@ public class InputHandler implements KeyListener {
 		}
 		if (e.getKeyCode() == MUTEKEYCODE) {
 			screen.keyPressed(MUTEKEY);
+		}
+		
+		if (e.getKeyCode() == QUITKEYCODE) {
+			System.exit(0);
 		}
 	}
 
@@ -161,6 +166,24 @@ public class InputHandler implements KeyListener {
 		}
 		if (i != 58 && i != 60 && i != 62 && i != 63 && i != 64 && (i >= 48 && i <= 93)) {
 			MUTEKEYCODE = i;
+		} else {
+			System.out.println("Invalid key");
+		}
+	}
+	
+	/**
+	 * Allows the storage of a quit key
+	 * 
+	 * @param key
+	 *            The new mute key
+	 */
+	public void storeQuitKey(char key) {
+		int i = (int) key;
+		if (i >= 97 && i <= 122) {
+			i = i - 32;
+		}
+		if (i != 58 && i != 60 && i != 62 && i != 63 && i != 64 && (i >= 48 && i <= 93)) {
+			QUITKEYCODE = i;
 		} else {
 			System.out.println("Invalid key");
 		}
