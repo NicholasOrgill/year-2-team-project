@@ -10,7 +10,11 @@ import java.awt.geom.Rectangle2D;
 
 import utils.ColorPack;
 import utils.FontLoader;
-
+/**
+ * Center menu text sprite
+ * @author bobbydilley
+ *
+ */
 public class MenuCenterTextSprite extends TextSprite {
 	private boolean selected = true;
 

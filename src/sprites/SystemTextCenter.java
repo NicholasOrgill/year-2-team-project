@@ -9,7 +9,11 @@ import java.awt.geom.Rectangle2D;
 
 import utils.ColorPack;
 import utils.FontLoader;
-
+/**
+ * Center Text
+ * @author bobbydilley
+ *
+ */
 public class SystemTextCenter extends TextSprite {
 	/**
 	 * {@inheritDoc}
