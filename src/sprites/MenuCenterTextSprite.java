@@ -12,7 +12,7 @@ import utils.ColorPack;
 import utils.FontLoader;
 
 public class MenuCenterTextSprite extends TextSprite {
-	private boolean selected = true;
+	boolean selected = true;
 
 	private int max = 140;
 	private int opac = max;
