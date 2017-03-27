@@ -11,7 +11,7 @@ import utils.ColorPack;
 import utils.ImageLoader;
 
 /**
- * 
+ * The initial screen displaying the logo of the game company
  * @author Bobby Dilley
  *
  */
@@ -63,6 +63,7 @@ public class StartScreen extends Screen {
 	 */
 	@Override
 	public void update() {
+		// Controll the keyframe animations
 		counter++;
 		if (counter == 200) {
 			image.fadeIn();

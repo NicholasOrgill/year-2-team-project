@@ -46,7 +46,6 @@ public class ScreenTest {
 		screens.add(new NetworkSelect(gameObject));
 		screens.add(new NetworkSelect2(gameObject));
 		screens.add(new Overlay(gameObject));
-		screens.add(new PlayScreen2(gameObject));
 		screens.add(new SelectScreen(gameObject));
 		screens.add(new StartScreen(gameObject));
 		screens.add(new TitleScreen(gameObject));

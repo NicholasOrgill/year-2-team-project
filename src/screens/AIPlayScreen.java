@@ -1,9 +1,7 @@
 package screens;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import ai.AI;
 import ai.SongArray;
@@ -23,9 +21,12 @@ import sprites.PlaySprite;
 import sprites.SystemTextCenter;
 import sprites.SystemTextCenterFloat;
 import sprites.SystemTextCenterShake;
-import sprites.TextSprite;
 import utils.ColorPack;
-
+/**
+ * The AI Play Screen
+ * @author bobbydilley, Sam Fishlock
+ *
+ */
 public class AIPlayScreen extends Screen {
 	private SongFileProcessor reader;
 	private SongObject song;
@@ -38,6 +39,7 @@ public class AIPlayScreen extends Screen {
 	final int MAX_NOTE_SCORE = 200;
 	final int MAX_NOTE_RANGE = 100;
 
+	// The Line which the notes must match to
 	int lineY = (int) Math.round(getScreenHeight() * 0.8);
 
 	private SystemTextCenter textAILevel;

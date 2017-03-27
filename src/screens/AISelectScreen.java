@@ -10,11 +10,16 @@ import sprites.DotSpriteBackground;
 import sprites.ImageGrad;
 import sprites.SystemTextCenterFloat;
 import utils.ColorPack;
-
+/**
+ * Allows the selection of the AI level
+ * @author Sam Fishlock
+ *
+ */
 public class AISelectScreen extends Screen {
 	
 
 	private SoundHandler fx;
+	// Select the songs that will be used
 	String[] fxlist = { "move.wav", "bang.wav", "titlesongquiet.wav" };
 	int level = 1;
 	private SystemTextCenterFloat levelTextSprite;
@@ -96,6 +101,7 @@ public class AISelectScreen extends Screen {
 		aiTextSprite.setScreenSize(getScreenWidth(), getScreenHeight());
 		aiTextSprite.update();
 		
+		// Write out how hard in text
 		if (level < 4) {
 			diffText = "EASY";
 		} else if (level < 7) {

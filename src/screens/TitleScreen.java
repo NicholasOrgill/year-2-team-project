@@ -21,7 +21,7 @@ import utils.ColorPack;
 import utils.ImageLoader;
 
 /**
- * 
+ * The impress screen to attract the users to play the game
  * @author Bobby Dilley
  *
  */
@@ -93,6 +93,7 @@ public class TitleScreen extends Screen {
 			e.printStackTrace();
 		}
 
+		// Set the next screen
 		setNextScreen(new ModeSelect(gameObject));
 
 		message = new MessageSprite(0, (int) (getScreenHeight() * 0.71), "PRESS 'Q' TO START THE GAME!");
@@ -105,6 +106,8 @@ public class TitleScreen extends Screen {
 		imageGrad = new ImageGrad();
 		imageGrad.setOpacity(0);
 
+		// Setup the animation
+		
 		dotBackground = new DotSpriteBackground(10, 10, 20, 30, true, getScreenWidth(), getScreenHeight());
 		dotBackground.setScreenSize(getScreenWidth(), getScreenHeight());
 
@@ -174,6 +177,8 @@ public class TitleScreen extends Screen {
 			fx.playEffect("titleshort.wav");
 		}
 
+		// Update the animated letters
+		
 		imageGrad.setScreenSize(getScreenWidth(), getScreenHeight());
 		imageGrad.update();
 
@@ -229,6 +234,8 @@ public class TitleScreen extends Screen {
 			lineXPos += (int) (-0.2 * lineXPos);
 		}
 
+		// Controll the keyframes for the animation
+		
 		if (count == 310) {
 			b.fadeIn();
 		}

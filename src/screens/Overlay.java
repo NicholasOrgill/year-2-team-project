@@ -7,7 +7,7 @@ import engine.Screen;
 import sprites.SystemTextCenterFade;
 
 /**
- * 
+ * The Overlay which simply displays the press start over all the screens
  * @author Bobby Dilley
  *
  */
@@ -38,6 +38,7 @@ public class Overlay extends Screen {
 	 */
 	@Override
 	public void draw(Graphics context) {
+		// Draw on top of everything
 		middleBottom.draw(context);
 	}
 
