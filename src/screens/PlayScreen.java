@@ -25,7 +25,7 @@ import sprites.SystemTextCenterShake;
 import utils.ColorPack;
 
 /**
- * 
+ * The PlayScreen which allows users to play the game
  * @author Bobby Dilley
  *
  */
