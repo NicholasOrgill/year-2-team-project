@@ -81,16 +81,21 @@ public class SettingsHandler {
 				doc = saxBuilder.build(file);
 			} catch (IOException e) {
 				System.out.println("Error reading Settings file: " + e);
-				System.exit(1);
+				return null;
 			}
 			Element settingsElement = doc.getRootElement();
 
 			// Retrieve the requested element
 			Element elem = settingsElement.getChild(settingName);
-			return elem.getText();
+			String toReturn = null;
+			try {
+				toReturn = elem.getText();
+			} catch (Exception e) {
+				toReturn = null;
+			}
+			return toReturn;
 		} catch (JDOMException e) {
 			System.out.println("Error parsing Settings file with JDOM: " + e);
-			System.exit(1);
 			return null;
 		}
 	}
