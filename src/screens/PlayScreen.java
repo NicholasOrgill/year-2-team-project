@@ -122,7 +122,7 @@ public class PlayScreen extends Screen {
 	/**
 	 * Activates a power
 	 */
-	private void displayPower() {
+	public void displayPower() {
 		if (power >= 50) {
 			powerText = new SystemTextCenterFloat(getScreenWidth() / 2, 340, "POWER USED!");
 			speedScale = Math.min(speedScale - 0.2, 2);
